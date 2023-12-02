@@ -1,5 +1,5 @@
 import CategoryTab from "../components/ecommerce/categoryTab";
-import FeatchDeals from "../components/ecommerce/fetchDeals";
+import FetchDeals from "../components/ecommerce/fetchDeals";
 import FetchTabSlider from "../components/ecommerce/fetchTabSlider";
 import Bottom from "../components/elements/Bottom";
 import QuickView from "./../components/ecommerce/QuickView";
@@ -92,7 +92,7 @@ export default function Home() {
                                 <i className="fi-rs-angle-right"></i>
                             </Link>
                         </div>
-                        <FeatchDeals />
+                        <FetchDeals />
                     </div>
                 </section>
 

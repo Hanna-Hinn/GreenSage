@@ -1,16 +1,17 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { Provider } from "react-redux";
-import { ToastContainer } from "react-toastify";
+// import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "react-responsive-modal/styles.css";
 import "swiper/css";
 import "swiper/css/navigation";
-import StorageWrapper from "./components/ecommerce/storage-wrapper";
+// import StorageWrapper from "./components/ecommerce/storage-wrapper";
 // import "./public/assets/css/main.css";
 import store from "./redux/store";
-import Preloader from "./components/elements/Preloader";
+// import Preloader from "./components/elements/Preloader";
 import Home from "./pages/Home";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
   // const [loading, setLoading] = useState(false);
@@ -23,9 +24,14 @@ function App() {
   return (
     <>
       <Provider store={store}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </BrowserRouter>
         {/* <StorageWrapper> */}
-          <Home />
-          {/* <ToastContainer /> */}
+
+        {/* <ToastContainer /> */}
         {/* </StorageWrapper> */}
       </Provider>
     </>
