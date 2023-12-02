@@ -1,13 +1,10 @@
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { updateProductCategory } from "../../../redux/action/productFiltersAction";
 
 const CategoryProduct2 = ({ updateProductCategory }) => {
 
-
-
-
-    const router = useHistory();
+    const router = useNavigate();
 
     // const removeSearchTerm = () => {
     //     router.push({

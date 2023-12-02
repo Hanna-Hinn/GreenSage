@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import "react-perfect-scrollbar/dist/css/styles.css";
+import { Provider } from "react-redux";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "react-responsive-modal/styles.css";
+import "swiper/css";
+import "swiper/css/navigation";
+import StorageWrapper from "./components/ecommerce/storage-wrapper";
+// import "./public/assets/css/main.css";
+import store from "./redux/store";
+import Preloader from "./components/elements/Preloader";
+import Home from "./pages/Home";
 
 function App() {
+  // const [loading, setLoading] = useState(false);
+  // useEffect(() => {
+  //   setLoading(true);
+  //   setTimeout(() => {
+  //     setLoading(false);
+  //   }, 2000);
+  // }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Provider store={store}>
+        {/* <StorageWrapper> */}
+          <Home />
+          {/* <ToastContainer /> */}
+        {/* </StorageWrapper> */}
+      </Provider>
+    </>
   );
 }
 

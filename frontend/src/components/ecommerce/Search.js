@@ -1,9 +1,9 @@
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const router = useHistory();
+  const router = useNavigate();
 
   const handleSearch = () => {
     console.log("click");

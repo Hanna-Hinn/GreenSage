@@ -1,4 +1,4 @@
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import SwiperCore, { Autoplay, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -77,7 +77,7 @@ const data = [
   },
 ];
 const CategorySlider = () => {
-  const router = useHistory();
+  const router = useNavigate();
 
   const selectCategory = (e, category) => {
     e.preventDefault();
