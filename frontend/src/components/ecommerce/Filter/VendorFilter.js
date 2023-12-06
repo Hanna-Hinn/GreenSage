@@ -1,4 +1,4 @@
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { updateProductFilters } from "../../../redux/action/productFiltersAction";
@@ -19,7 +19,7 @@ const VendorFilter = ({ updateProductFilters }) => {
         ]
     );
 
-    const Router = useHistory();
+    const Router = useNavigate();
     const searchTerm = Router.query.search;
 
     const [selectedVendor, setVendor] = useState([]);

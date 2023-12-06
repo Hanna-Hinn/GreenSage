@@ -17,8 +17,8 @@
             dots: false,
             focusOnSelect: true,
             
-            prevArrow: '<button type="button" class="slick-prev"><i class="fi-rs-arrow-small-left"></i></button>',
-            nextArrow: '<button type="button" class="slick-next"><i class="fi-rs-arrow-small-right"></i></button>'
+            prevArrow: '<button type="button" className="slick-prev"><i className="fi-rs-arrow-small-left"></i></button>',
+            nextArrow: '<button type="button" className="slick-next"><i className="fi-rs-arrow-small-right"></i></button>'
         });
 
         // Remove active class from all thumbnail slides
@@ -65,24 +65,22 @@
         });
         //Qty Up-Down
         $('.detail-qty').each(function () {
-            var qtyval = parseInt($(this).find(".qty-val").val(), 10);
-
+            var qtyval = parseInt($(this).find('.qty-val').text(), 10);
             $('.qty-up').on('click', function (event) {
                 event.preventDefault();
-                qtyval = qtyval + 1;   
-                $(this).prev().val(qtyval);
+                qtyval = qtyval + 1;
+                $(this).prev().text(qtyval);
             });
-
-             $(".qty-down").on("click", function (event) {
-                 event.preventDefault(); 
-                 qtyval = qtyval - 1;
-                 if (qtyval > 1) {
-                     $(this).next().val(qtyval);
-                 } else {
-                     qtyval = 1;
-                     $(this).next().val(qtyval);
-                 }
-             });
+            $('.qty-down').on('click', function (event) {
+                event.preventDefault();
+                qtyval = qtyval - 1;
+                if (qtyval > 1) {
+                    $(this).next().text(qtyval);
+                } else {
+                    qtyval = 1;
+                    $(this).next().text(qtyval);
+                }
+            });
         });
 
         $('.dropdown-menu .cart_list').on('click', function (event) {

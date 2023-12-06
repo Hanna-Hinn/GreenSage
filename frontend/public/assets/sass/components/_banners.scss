@@ -109,26 +109,6 @@
             transform: none;
         }
     }
-    &.style-4 {
-        .banner-text h4 {
-            font-size: 28px;
-        }
-    }
-    &.style-5 {
-        .banner-text {
-            right: 0;
-            padding: 0 30px;
-        }
-    }
-    &.style-6 {
-        .banner-text {
-            right: 0;
-            padding: 0 20px 0 0;
-            h6 {
-                font-size: 16px;
-            }
-        }
-    }
 }
 .banner-big {
     .btn {
@@ -245,5 +225,20 @@
         line-height: 1;
         border-radius: 4px;
         color: $color-brand;
+    }
+}
+
+.react-responsive-modal-container {
+    .react-responsive-modal-modal {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0;
+        border-radius: 25px;
+        .short-desc {
+            display: none;
+        }
+        h2.title-detail {
+            font-size: 32px;
+        }
     }
 }

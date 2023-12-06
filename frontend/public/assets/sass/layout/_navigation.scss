@@ -410,7 +410,7 @@
 		& > nav {
 			& > ul {
 				& > li {
-					padding: 0 15px;
+					padding: 0 17px;
 					&:first-child {
 						padding-left: 0 !important;
 					}
@@ -823,37 +823,6 @@
 		}
 		
 	}	
-
-	&.style-2 {
-		border: 1px solid $border-color-2;
-		border-radius: 10px;
-		padding: 30px;
-		ul {
-			li {
-				border-radius: 0;
-				border: 0;
-				height: 24px;
-				padding: 0;
-				line-height: 24px;
-				margin-bottom: 16px;
-				&:hover {
-					box-shadow: none;
-				}
-				a {
-					font-weight: 500;
-				}
-				img {
-					max-height: 20px;
-				}
-			}
-		}
-		.more_categories {
-			justify-content: left;
-			.icon {
-				transform: scale(0.7);
-			}
-		}
-	}
 }
 
 
@@ -915,5 +884,8 @@
 			letter-spacing: 2px;
 		}
 	}
-	
+	p {
+		margin: 15px 0 0 15px; 
+		opacity: 0.8;
+	}
 }

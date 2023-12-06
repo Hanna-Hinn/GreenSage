@@ -184,18 +184,6 @@ input[type=number]:focus,
 .bg-14 {background-color: $color-14 !important;}
 .bg-15 {background-color: $color-15 !important;}
 .bg-grey-9 {background-color: $color-grey-9 !important;}
-
-.font-xs {
-	font-size: $font-xs; 
-}
-.div-center {
-	position: absolute;
-	left: 50%;
-	transform: translateX(-50%);
-}
-.bg-grey-1 {
-	background: #fafbfc;
-}
 .box-shadow-none {
 	box-shadow: none !important;
 }
@@ -249,9 +237,4 @@ input[type=number]:focus,
 
 .border-color-1 {
 	border-color: #e0dede;
-}
-.list-insider {
-	li {
-		list-style: inside;
-	}
 }

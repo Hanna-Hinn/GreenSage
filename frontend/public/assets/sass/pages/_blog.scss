@@ -30,7 +30,7 @@
 			}
 		}
 	}
-	
+
 }
 .post-list {
     article:not(:last-child) {
@@ -50,7 +50,7 @@
         }
     }
 }
-.single-content {    
+.single-content {
     text-rendering: optimizeLegibility;
 	color: $color-heading;
 	font-size: $font-lg;
@@ -104,7 +104,7 @@
 }
 .single-header {
     margin-bottom: 30px;
-    
+
 	.entry-meta.meta-1 {
 		display: flex;
 		align-content: center;
@@ -151,7 +151,7 @@
 	border: 1px solid $border-color;
 	.author-image {
 		display: flex;
-		justify-content: start;
+		justify-content: flex-start;
 		align-content: center;
 		align-items: center;
 		img {
@@ -193,7 +193,7 @@
 	}
 	&.meta-1 {
 		span {
-			margin-right: 10px;			
+			margin-right: 10px;
 		}
 		a.text-brand {
 			display: flex;
@@ -322,13 +322,13 @@ h6.post-title {
 				min-width: 438px;
 				background-repeat: no-repeat;
 				background-size: cover;
-				background-position: center center;				
+				background-position: center center;
 				overflow: hidden;
 				-o-transition: all 0.4s ease;
 				transition: all 0.4s ease;
 				-webkit-transition: all 0.4s ease;
 				-moz-transition: all 0.4s ease;
-				-ms-transition: all 0.4s ease;				
+				-ms-transition: all 0.4s ease;
 			}
 		}
 	}
@@ -382,7 +382,7 @@ h6.post-title {
 		display: flex;
 		justify-content: space-between;
 		&.meta-3 {
-			justify-content: start;
+			justify-content: flex-start;
 		}
 	}
 	a.read-more {
@@ -394,5 +394,5 @@ h6.post-title {
 		font-weight: 600;
 		display: inline-block;
 	}
-	
+
 }

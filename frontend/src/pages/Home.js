@@ -4,7 +4,6 @@ import FetchTabSlider from "../components/ecommerce/fetchTabSlider";
 import Bottom from "../components/elements/Bottom";
 import QuickView from "./../components/ecommerce/QuickView";
 import Banner5 from "./../components/elements/Banner5";
-import IntroPopup from "./../components/elements/IntroPopup";
 import Layout from "./../components/layout/Layout";
 import CategorySlider from "./../components/sliders/Category";
 import Intro1 from "./../components/sliders/Intro1";
@@ -13,8 +12,6 @@ import {Link} from "react-router-dom";
 export default function Home() {
     return (
         <>
-            <IntroPopup />
-
             <Layout noBreadcrumb="d-none">
                 <section className="home-slider position-relative mb-30">
                     <div className="container">

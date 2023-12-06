@@ -3,35 +3,7 @@
 	padding: 160px 0 100px;
 	min-height: 640px;
 }
-.hero-3 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-basis: content;
-    flex-direction: column;
-    background:url(../imgs/page/home-6-bg.jpg) no-repeat center center;
-    background-size: cover;
-    height: 330px;
-     form {
-        background-color: #fff;
-        max-width: 520px;
-        border-radius: 50px;
-        box-shadow: $box-shadown-1;
-        input {
-            border: 0;
-            border-radius: 50px 0 0 50px;
-            padding-left: 58px;
-            background: url(../imgs/theme/icons/icon-search.png) no-repeat 25px center;
-        }
-        button {
-            border: 0;
-            border-radius: 50px;
-        }
-    }
-    .nav-link {
-        font-size: 14px !important;
-    }
-}
+
 
 .parallax-wrapper {
 	position: absolute;
@@ -167,10 +139,10 @@
 	transition: all 0.3s ease;
 	&.icon-left {
 		width: 165px;
-		-webkit-box-align: start;
-		-webkit-align-items: start;
-		-ms-flex-align: start;
-		align-items: start;
+		-webkit-box-align: flex-start;
+		-webkit-align-items: flex-start;
+		-ms-flex-align: flex-start;
+		align-items: flex-start;
 	}
 }
 

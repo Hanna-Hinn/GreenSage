@@ -2,8 +2,8 @@
     position: relative;
     background-color: #fff;
 	border: 1px solid $border-color;
-	border-radius: 15px;	
-	overflow: hidden;	
+	border-radius: 15px;
+	overflow: hidden;
 	@include transistion-duration-2s;
 
 	&:hover {
@@ -41,8 +41,8 @@
     }
     .product-badges.product-badges-position {
         position: absolute;
-        right: 0;
-        top: 0px;
+        right: 10px;
+        top: 10px;
         z-index: 9;
         span {
             display: inline-block;

@@ -13,7 +13,7 @@
         background: #fff;
         border: 1px solid $border-color-2;
         box-shadow: $box-shadown-2;
-        transition: 0.2s; 
+        transition: 0.2s;
     }
     figure {
         text-align: center;
@@ -28,7 +28,7 @@
     h6 {
         margin:0;
         a {
-            color: $color-heading;            
+            color: $color-heading;
         }
     }
     &:hover {
@@ -50,7 +50,7 @@
         background: #fff;
         border: 1px solid $border-color-2;
         box-shadow: $box-shadown-2;
-        transition: 0.2s; 
+        transition: 0.2s;
     }
     figure {
         text-align: center;
@@ -65,7 +65,7 @@
     h6 {
         margin:0;
         a {
-            color: $color-heading;            
+            color: $color-heading;
         }
     }
     &:hover {
@@ -110,17 +110,17 @@
         transition: all 0.3s ease;
         &.icon-left {
             width: 135px;
-            -webkit-box-align: start;
-            -webkit-align-items: start;
-            -ms-flex-align: start;
-            align-items: start;
+            -webkit-box-align: flex-start;
+            -webkit-align-items: flex-start;
+            -ms-flex-align: flex-start;
+            align-items: flex-start;
         }
         &.icon-left-2 {
             width: 265px;
-            -webkit-box-align: start;
-            -webkit-align-items: start;
-            -ms-flex-align: start;
-            align-items: start;
+            -webkit-box-align: flex-start;
+            -webkit-align-items: flex-start;
+            -ms-flex-align: flex-start;
+            align-items: flex-start;
         }
         i {
             font-size: 25px;

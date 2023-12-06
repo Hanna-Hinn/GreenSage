@@ -1,10 +1,10 @@
-import { useRouter } from "next/router";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { updateProductFilters } from "../../../redux/action/productFiltersAction";
 
 const SortSelect = ({ updateProductFilters }) => {
-    const Router = useRouter();
+    const Router = useNavigate();
     const searchTerm = Router.query.search;
 
     const [featured, setFeatured] = useState("");

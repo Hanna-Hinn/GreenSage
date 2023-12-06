@@ -26,7 +26,7 @@
 
     /*------ ScrollUp -------- */
     $.scrollUp({
-        scrollText: '<i class="fi-rs-arrow-small-up"></i>',
+        scrollText: '<i className="fi-rs-arrow-small-up"></i>',
         easingType: "linear",
         scrollSpeed: 900,
         animation: "fade"
@@ -42,33 +42,16 @@
 
     // Slider Range JS
     if ($("#slider-range").length) {
-        $(".noUi-handle").on("click", function () {
-            $(this).width(50);
+        $("#slider-range").slider({
+            range: true,
+            min: 0,
+            max: 500,
+            values: [130, 250],
+            slide: function (event, ui) {
+                $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+            }
         });
-        var rangeSlider = document.getElementById("slider-range");
-        var moneyFormat = wNumb({
-            decimals: 0,
-            thousand: ",",
-            prefix: "$"
-        });
-        noUiSlider.create(rangeSlider, {
-            start: [500, 1000],
-            step: 1,
-            range: {
-                min: [0],
-                max: [2000]
-            },
-            format: moneyFormat,
-            connect: true
-        });
-
-        // Set visual min and max values and also update value hidden form inputs
-        rangeSlider.noUiSlider.on("update", function (values, handle) {
-            document.getElementById("slider-range-value1").innerHTML = values[0];
-            document.getElementById("slider-range-value2").innerHTML = values[1];
-            document.getElementsByName("min-value").value = moneyFormat.from(values[0]);
-            document.getElementsByName("max-value").value = moneyFormat.from(values[1]);
-        });
+        $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
     }
 
     /*------ Hero slider 1 ----*/
@@ -79,8 +62,8 @@
         loop: true,
         dots: true,
         arrows: true,
-        prevArrow: '<span class="slider-btn slider-prev"><i class="fi-rs-angle-left"></i></span>',
-        nextArrow: '<span class="slider-btn slider-next"><i class="fi-rs-angle-right"></i></span>',
+        prevArrow: '<span className="slider-btn slider-prev"><i className="fi-rs-angle-left"></i></span>',
+        nextArrow: '<span className="slider-btn slider-next"><i className="fi-rs-angle-right"></i></span>',
         appendArrows: ".hero-slider-1-arrow",
         autoplay: true
     });
@@ -124,8 +107,8 @@
                     }
                 }
             ],
-            prevArrow: '<span class="slider-btn slider-prev"><i class="fi-rs-arrow-small-left"></i></span>',
-            nextArrow: '<span class="slider-btn slider-next"><i class="fi-rs-arrow-small-right"></i></span>',
+            prevArrow: '<span className="slider-btn slider-prev"><i className="fi-rs-arrow-small-left"></i></span>',
+            nextArrow: '<span className="slider-btn slider-next"><i className="fi-rs-arrow-small-right"></i></span>',
             appendArrows: appendArrowsClassName
         });
     });
@@ -169,8 +152,8 @@
                     }
                 }
             ],
-            prevArrow: '<span class="slider-btn slider-prev"><i class="fi-rs-arrow-small-left"></i></span>',
-            nextArrow: '<span class="slider-btn slider-next"><i class="fi-rs-arrow-small-right"></i></span>',
+            prevArrow: '<span className="slider-btn slider-prev"><i className="fi-rs-arrow-small-left"></i></span>',
+            nextArrow: '<span className="slider-btn slider-next"><i className="fi-rs-arrow-small-right"></i></span>',
             appendArrows: appendArrowsClassName
         });
     });
@@ -207,8 +190,8 @@
                     }
                 }
             ],
-            prevArrow: '<span class="slider-btn slider-prev"><i class="fi-rs-arrow-small-left"></i></span>',
-            nextArrow: '<span class="slider-btn slider-next"><i class="fi-rs-arrow-small-right"></i></span>',
+            prevArrow: '<span className="slider-btn slider-prev"><i className="fi-rs-arrow-small-left"></i></span>',
+            nextArrow: '<span className="slider-btn slider-next"><i className="fi-rs-arrow-small-right"></i></span>',
             appendArrows: appendArrowsClassName
         });
     });
@@ -244,8 +227,8 @@
                     }
                 }
             ],
-            prevArrow: '<span class="slider-btn slider-prev"><i class="fi-rs-arrow-small-left"></i></span>',
-            nextArrow: '<span class="slider-btn slider-next"><i class="fi-rs-arrow-small-right"></i></span>',
+            prevArrow: '<span className="slider-btn slider-prev"><i className="fi-rs-arrow-small-left"></i></span>',
+            nextArrow: '<span className="slider-btn slider-next"><i className="fi-rs-arrow-small-right"></i></span>',
             appendArrows: appendArrowsClassName
         });
     });
@@ -262,7 +245,7 @@
         var $this = $(this),
             finalDate = $(this).data("countdown");
         $this.countdown(finalDate, function (event) {
-            $(this).html(event.strftime("" + '<span class="countdown-section"><span class="countdown-amount hover-up">%D</span><span class="countdown-period"> days </span></span>' + '<span class="countdown-section"><span class="countdown-amount hover-up">%H</span><span class="countdown-period"> hours </span></span>' + '<span class="countdown-section"><span class="countdown-amount hover-up">%M</span><span class="countdown-period"> mins </span></span>' + '<span class="countdown-section"><span class="countdown-amount hover-up">%S</span><span class="countdown-period"> sec </span></span>'));
+            $(this).html(event.strftime("" + '<span className="countdown-section"><span className="countdown-amount hover-up">%D</span><span className="countdown-period"> days </span></span>' + '<span className="countdown-section"><span className="countdown-amount hover-up">%H</span><span className="countdown-period"> hours </span></span>' + '<span className="countdown-section"><span className="countdown-amount hover-up">%M</span><span className="countdown-period"> mins </span></span>' + '<span className="countdown-section"><span className="countdown-amount hover-up">%S</span><span className="countdown-period"> sec </span></span>'));
         });
     });
 
@@ -275,8 +258,8 @@
         loop: true,
         dots: false,
         arrows: true,
-        prevArrow: '<span class="pro-icon-1-prev"><i class="fi-rs-angle-small-left"></i></span>',
-        nextArrow: '<span class="pro-icon-1-next"><i class="fi-rs-angle-small-right"></i></span>',
+        prevArrow: '<span className="pro-icon-1-prev"><i className="fi-rs-angle-small-left"></i></span>',
+        nextArrow: '<span className="pro-icon-1-next"><i className="fi-rs-angle-small-right"></i></span>',
         responsive: [
             {
                 breakpoint: 1199,
@@ -313,8 +296,8 @@
         loop: true,
         dots: false,
         arrows: true,
-        prevArrow: '<span class="pro-icon-1-prev"><i class="fi-rs-angle-small-left"></i></span>',
-        nextArrow: '<span class="pro-icon-1-next"><i class="fi-rs-angle-small-right"></i></span>',
+        prevArrow: '<span className="pro-icon-1-prev"><i className="fi-rs-angle-small-left"></i></span>',
+        nextArrow: '<span className="pro-icon-1-next"><i className="fi-rs-angle-small-right"></i></span>',
         responsive: [
             {
                 breakpoint: 1199,
@@ -433,22 +416,20 @@
     /*---------------------
         Price range
     --------------------- */
-    // if ($("#slider-range").length) {
-    //     var sliderrange = $("#slider-range");
-    //     var amountprice = $("#amount");
-    //     $(function () {
-    //         sliderrange.slider({
-    //             range: true,
-    //             min: 16,
-    //             max: 400,
-    //             values: [0, 300],
-    //             slide: function (event, ui) {
-    //                 amountprice.val("$" + ui.values[0] + " - $" + ui.values[1]);
-    //             }
-    //         });
-    //         amountprice.val("$" + sliderrange.slider("values", 0) + " - $" + sliderrange.slider("values", 1));
-    //     });
-    // }
+    var sliderrange = $("#slider-range");
+    var amountprice = $("#amount");
+    $(function () {
+        sliderrange.slider({
+            range: true,
+            min: 16,
+            max: 400,
+            values: [0, 300],
+            slide: function (event, ui) {
+                amountprice.val("$" + ui.values[0] + " - $" + ui.values[1]);
+            }
+        });
+        amountprice.val("$" + sliderrange.slider("values", 0) + " - $" + sliderrange.slider("values", 1));
+    });
 
     /*-------------------------------
         Sort by active
@@ -629,7 +610,7 @@
             container = $(".mobile-header-active"),
             wrapper4 = $("body");
 
-        wrapper4.prepend('<div class="body-overlay-1"></div>');
+        wrapper4.prepend('<div className="body-overlay-1"></div>');
 
         navbarTrigger.on("click", function (e) {
             e.preventDefault();
@@ -656,7 +637,7 @@
         $offCanvasNavSubMenu = $offCanvasNav.find(".dropdown");
 
     /*Add Toggle Button With Off Canvas Sub Menu*/
-    $offCanvasNavSubMenu.parent().prepend('<span class="menu-expand"><i class="fi-rs-angle-small-down"></i></span>');
+    $offCanvasNavSubMenu.parent().prepend('<span className="menu-expand"><i className="fi-rs-angle-small-down"></i></span>');
 
     /*Close Off Canvas Sub Menu*/
     $offCanvasNavSubMenu.slideUp();

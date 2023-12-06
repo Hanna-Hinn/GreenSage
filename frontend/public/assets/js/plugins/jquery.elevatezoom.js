@@ -127,7 +127,7 @@ if ( typeof Object.create !== 'function' ) {
 
 				//CrossFade Wrappe
 				if(self.options.imageCrossfade){
-					self.zoomWrap = self.$elem.wrap('<div style="height:'+self.nzHeight+'px;width:'+self.nzWidth+'px;" class="zoomWrapper" />');        
+					self.zoomWrap = self.$elem.wrap('<div style="height:'+self.nzHeight+'px;width:'+self.nzWidth+'px;" className="zoomWrapper" />');        
 					self.$elem.css('position', 'absolute'); 
 				}
 
@@ -257,7 +257,7 @@ if ( typeof Object.create !== 'function' ) {
 				//create the div's                                                + ""
 				//self.zoomContainer = $('<div/>').addClass('zoomContainer').css({"position":"relative", "height":self.nzHeight, "width":self.nzWidth});
 
-				self.zoomContainer = $('<div class="zoomContainer" style="-webkit-transform: translateZ(0);position:absolute;left:'+self.nzOffset.left+'px;top:'+self.nzOffset.top+'px;height:'+self.nzHeight+'px;width:'+self.nzWidth+'px;"></div>');
+				self.zoomContainer = $('<div className="zoomContainer" style="-webkit-transform: translateZ(0);position:absolute;left:'+self.nzOffset.left+'px;top:'+self.nzOffset.top+'px;height:'+self.nzHeight+'px;width:'+self.nzWidth+'px;"></div>');
 				$('body').append(self.zoomContainer);	
 
 
@@ -321,7 +321,7 @@ if ( typeof Object.create !== 'function' ) {
 
 
 				//  self.captionStyle = "text-align: left;background-color: black;color: white;font-weight: bold;padding: 10px;font-family: sans-serif;font-size: 11px";                                                                                                                                                                                                                                          
-				// self.zoomCaption = $('<div class="elevatezoom-caption" style="'+self.captionStyle+'display: block; width: 280px;">INSERT ALT TAG</div>').appendTo(self.zoomWindow.parent());
+				// self.zoomCaption = $('<div className="elevatezoom-caption" style="'+self.captionStyle+'display: block; width: 280px;">INSERT ALT TAG</div>').appendTo(self.zoomWindow.parent());
 
 				if(self.options.zoomType == "lens") {
 					self.zoomLens.css({ backgroundImage: "url('" + self.imageSrc + "')" }); 

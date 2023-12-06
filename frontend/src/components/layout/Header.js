@@ -28,12 +28,6 @@ const Header = ({
   return (
     <>
       <header className="header-area header-style-1 header-height-2">
-        <div className="mobile-promotion">
-          <span>
-            Grand opening, <strong>up to 15%</strong> off all items. Only{" "}
-            <strong>3 days</strong> left
-          </span>
-        </div>
         <div className="header-top header-top-ptb-1 d-none d-lg-block">
           <div className="container">
             <div className="row align-items-center">
@@ -41,16 +35,16 @@ const Header = ({
                 <div className="header-info">
                   <ul>
                     <li>
-                      <Link to="/page-about">About Us</Link>
+                      <Link to="/about">About Us</Link>
                     </li>
                     <li>
-                      <Link to="/page-account">My Account</Link>
+                      <Link to="/account">My Account</Link>
                     </li>
                     <li>
                       <Link to="/shop-wishlist">Wishlist</Link>
                     </li>
                     <li>
-                      <Link to="/page-account">Order Tracking</Link>
+                      <Link to="/account">Order Tracking</Link>
                     </li>
                   </ul>
                 </div>
@@ -58,22 +52,13 @@ const Header = ({
               <div className="col-xl-6 col-lg-4">
                 <div className="text-center">
                   <div id="news-flash" className="d-inline-block">
-                    <ul>
-                      <li>
-                        Get great devices up to 50% off
-                        <Link to="/shop-grid-right">View details</Link>
-                      </li>
-                    </ul>
+                  Fresh Picks! Unbeatable Prices. Shop Now! 🌿🛒 #FreshDeals #GoGreen
                   </div>
                 </div>
               </div>
               <div className="col-xl-3 col-lg-4">
                 <div className="header-info header-info-right">
                   <ul>
-                    <li>
-                      Need help? Call Us:{" "}
-                      <strong className="text-brand"> + 1800 900</strong>
-                    </li>
                     <li>
                       <Link to="/#" className="language-dropdown-active">
                         <i className="fi-rs-world"></i>
@@ -84,28 +69,10 @@ const Header = ({
                         <li>
                           <Link to="/#">
                             <img
-                              src="/assets/imgs/theme/flag-fr.png"
+                              src="/assets/imgs/theme/flag-su.png"
                               alt="nest"
                             />
-                            Français
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to="/#">
-                            <img
-                              src="/assets/imgs/theme/flag-dt.png"
-                              alt="nest"
-                            />
-                            Deutsch
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to="/#">
-                            <img
-                              src="/assets/imgs/theme/flag-ru.png"
-                              alt="nest"
-                            />
-                            Pусский
+                            عربي
                           </Link>
                         </li>
                       </ul>
@@ -116,30 +83,21 @@ const Header = ({
                       </a>
                       <ul className="language-dropdown">
                         <li>
-                          <a to="#">
+                          <a to="/">
                             <img
-                              src="/assets/imgs/theme/flag-fr.png"
+                              src="/assets/imgs/theme/flag-jr.png"
                               alt="nest"
                             />
-                            INR
+                            JOD
                           </a>
                         </li>
                         <li>
-                          <a to="#">
+                          <a to="/">
                             <img
-                              src="/assets/imgs/theme/flag-dt.png"
+                              src="/assets/imgs/theme/flag-il.png"
                               alt="nest"
                             />
-                            MBP
-                          </a>
-                        </li>
-                        <li>
-                          <a to="#">
-                            <img
-                              src="/assets/imgs/theme/flag-ru.png"
-                              alt="nest"
-                            />
-                            EU
+                            NIS
                           </a>
                         </li>
                       </ul>
