@@ -144,22 +144,13 @@ const Footer = () => {
                 <h4 className="widget-title">Company</h4>
                 <ul className="footer-list  mb-sm-5 mb-md-0">
                   <li>
-                    <a href="#">About Us</a>
+                    <a href="/page-about">About Us</a>
                   </li>
                   <li>
                     <a href="#">Delivery Information</a>
                   </li>
                   <li>
-                    <a href="#">Privacy Policy</a>
-                  </li>
-                  <li>
-                    <a href="#">Terms &amp; Conditions</a>
-                  </li>
-                  <li>
-                    <a href="#">Contact Us</a>
-                  </li>
-                  <li>
-                    <a href="#">Support Center</a>
+                    <a href="/page-contact">Contact Us</a>
                   </li>
                 </ul>
               </div>
@@ -187,9 +178,6 @@ const Footer = () => {
                   <li>
                     <a href="#">Shipping Details</a>
                   </li>
-                  <li>
-                    <a href="#">Compare products</a>
-                  </li>
                 </ul>
               </div>
               <div
@@ -202,7 +190,7 @@ const Footer = () => {
                     <a href="#">Become a Vendor</a>
                   </li>
                   <li>
-                    <a href="#">Our Vendors</a>
+                    <a href="/vendors-list">Our Vendors</a>
                   </li>
                 </ul>
               </div>
@@ -257,34 +245,34 @@ const Footer = () => {
             <div className="col-xl-4 col-lg-6 col-md-6 text-end d-none d-md-block">
               <div className="mobile-social-icon">
                 <h6>Follow Us</h6>
-                <a href="#">
+                <a href="https://www.facebook.com">
                   <img
                     src="/assets/imgs/theme/icons/icon-facebook-white.svg"
-                    alt="nest"
+                    alt="facebook icon"
                   />
                 </a>
-                <a href="#">
+                <a href="https://www.twitter.com">
                   <img
                     src="/assets/imgs/theme/icons/icon-twitter-white.svg"
-                    alt="nest"
+                    alt="twitter icon"
                   />
                 </a>
-                <a href="#">
+                <a href="https://www.instagram.com">
                   <img
                     src="/assets/imgs/theme/icons/icon-instagram-white.svg"
-                    alt="nest"
+                    alt="instagram icon"
                   />
                 </a>
-                <a href="#">
+                <a href="https://www.pinterest.com/">
                   <img
                     src="/assets/imgs/theme/icons/icon-pinterest-white.svg"
-                    alt="nest"
+                    alt="pinterest icon"
                   />
                 </a>
-                <a href="#">
+                <a href="https://www.youtube.com/">
                   <img
                     src="/assets/imgs/theme/icons/icon-youtube-white.svg"
-                    alt="nest"
+                    alt="youtube icon"
                   />
                 </a>
               </div>

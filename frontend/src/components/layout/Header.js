@@ -7,7 +7,6 @@ import Search from "../ecommerce/Search";
 
 const Header = ({
   totalCartItems,
-  totalCompareItems,
   toggleClick,
   totalWishlistItems,
 }) => {
@@ -35,7 +34,7 @@ const Header = ({
                 <div className="header-info">
                   <ul>
                     <li>
-                      <Link to="/about">About Us</Link>
+                      <Link to="/page-about">About Us</Link>
                     </li>
                     <li>
                       <Link to="/account">My Account</Link>
@@ -123,46 +122,11 @@ const Header = ({
                 </div>
                 <div className="header-action-right">
                   <div className="header-action-2">
-                    {/* <div className="search-location">
-                      <form action="#">
-                        <select className="select-active">
-                          <option>Your Location</option>
-                          <option>Alabama</option>
-                          <option>Alaska</option>
-                          <option>Arizona</option>
-                          <option>Delaware</option>
-                          <option>Florida</option>
-                          <option>Georgia</option>
-                          <option>Hawaii</option>
-                          <option>Indiana</option>
-                          <option>Maryland</option>
-                          <option>Nevada</option>
-                          <option>New Jersey</option>
-                          <option>New Mexico</option>
-                          <option>New York</option>
-                        </select>
-                      </form>
-                    </div> */}
-                    {/* <div className="header-action-icon-2">
-                      <Link to="/shop-compare">
-                        <img
-                          className="svgInject"
-                          alt="Evara"
-                          src="/assets/imgs/theme/icons/icon-compare.svg"
-                        />
-                        <span className="pro-count blue">
-                          {totalCompareItems}
-                        </span>
-                      </Link>
-                      <Link to="/shop-compare">
-                        <span className="lable ml-0">Compare</span>
-                      </Link> */}
-                    {/* </div> */}
                     <div className="header-action-icon-2">
                       <Link to="/shop-wishlist">
                         <img
                           className="svgInject"
-                          alt="Evara"
+                          alt="wishlist"
                           src="/assets/imgs/theme/icons/icon-heart.svg"
                         />
                         <span className="pro-count blue">
@@ -332,13 +296,6 @@ const Header = ({
                 <div className="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block  font-heading">
                   <nav>
                     <ul>
-                      <li className="hot-deals">
-                        <img
-                          src="/assets/imgs/theme/icons/icon-hot.svg"
-                          alt="hot deals"
-                        />
-                        <Link to="/products">Hot Deals</Link>
-                      </li>
                       <li>
                         <Link to="/" className="active">
                           Home
@@ -349,57 +306,9 @@ const Header = ({
                       </li>
 
                       <li>
-                        <a href="#">
-                          Vendors <i className="fi-rs-angle-down"></i>
-                        </a>
-                        <ul className="sub-menu">
-                          <li>
-                            <Link to="/vendors-list">Vendors List</Link>
-                          </li>
-                          <li>
-                            <Link to="/vendor-guide">Vendor Guide</Link>
-                          </li>
-                        </ul>
+                        <Link to="/vendors-list">Vendors</Link>
                       </li>
-                      <li>
-                        <Link to="/#">
-                          Pages
-                          <i className="fi-rs-angle-down"></i>
-                        </Link>
-                        <ul className="sub-menu">
-                          <li>
-                            <Link to="/page-about">About Us</Link>
-                          </li>
-                          <li>
-                            <Link to="/page-contact">Contact</Link>
-                          </li>
-                          <li>
-                            <Link to="/page-account">My Account</Link>
-                          </li>
-                          <li>
-                            <Link to="/page-login">Login</Link>
-                          </li>
-                          <li>
-                            <Link to="/page-register">Register</Link>
-                          </li>
-                          <li>
-                            <Link to="/page-purchase-guide">
-                              Purchase Guide
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="/page-privacy-policy">
-                              Privacy Policy
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="/page-terms">Terms of Service</Link>
-                          </li>
-                          <li>
-                            <Link to="/page-404">404 Page</Link>
-                          </li>
-                        </ul>
-                      </li>
+
                       <li>
                         <Link to="/page-contact">Contact</Link>
                       </li>
@@ -520,7 +429,6 @@ const Header = ({
 
 const mapStateToProps = (state) => ({
   totalCartItems: state.cart.length,
-  totalCompareItems: state.compare.items.length,
   totalWishlistItems: state.wishlist.items.length,
 });
 

@@ -1,39 +1,51 @@
-// import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { Provider } from "react-redux";
-// import { ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "react-responsive-modal/styles.css";
 import "swiper/css";
 import "swiper/css/navigation";
-// import StorageWrapper from "./components/ecommerce/storage-wrapper";
-// import "./public/assets/css/main.css";
-import store from "./redux/store";
-// import Preloader from "./components/elements/Preloader";
-import Home from "./pages/Home";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+import StorageWrapper from "./components/ecommerce/storage-wrapper";
+import store from "./redux/store";
+import Preloader from "./components/elements/Preloader";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import VendorList from "./pages/VendorList";
+import Contact from "./pages/Contact";
+import WishList from "./pages/WishList";
+import Cart from "./pages/Cart";
+
 function App() {
-  // const [loading, setLoading] = useState(false);
-  // useEffect(() => {
-  //   setLoading(true);
-  //   setTimeout(() => {
-  //     setLoading(false);
-  //   }, 2000);
-  // }, []);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  }, []);
   return (
     <>
-      <Provider store={store}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />} />
-          </Routes>
-        </BrowserRouter>
-        {/* <StorageWrapper> */}
-
-        {/* <ToastContainer /> */}
-        {/* </StorageWrapper> */}
-      </Provider>
+      {!loading ? (
+        <Provider store={store}>
+          <StorageWrapper>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/page-about" element={<About />} />
+                <Route path="/vendors-list" element={<VendorList />} />
+                <Route path="/page-contact" element={<Contact />} />
+                <Route path="/shop-wishlist" element={<WishList />} />
+                <Route path="/shop-cart" element={<Cart />} />
+              </Routes>
+            </BrowserRouter>
+          </StorageWrapper>
+        </Provider>
+      ) : (
+        <Preloader />
+      )}
     </>
   );
 }
