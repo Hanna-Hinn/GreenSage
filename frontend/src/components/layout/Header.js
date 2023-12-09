@@ -52,7 +52,8 @@ const Header = ({
               <div className="col-xl-6 col-lg-4">
                 <div className="text-center">
                   <div id="news-flash" className="d-inline-block">
-                  Fresh Picks! Unbeatable Prices. Shop Now! 🌿🛒 #FreshDeals #GoGreen
+                    Fresh Picks! Unbeatable Prices. Shop Now! 🌿🛒 #FreshDeals
+                    #GoGreen
                   </div>
                 </div>
               </div>
@@ -122,7 +123,7 @@ const Header = ({
                 </div>
                 <div className="header-action-right">
                   <div className="header-action-2">
-                    <div className="search-location">
+                    {/* <div className="search-location">
                       <form action="#">
                         <select className="select-active">
                           <option>Your Location</option>
@@ -141,8 +142,8 @@ const Header = ({
                           <option>New York</option>
                         </select>
                       </form>
-                    </div>
-                    <div className="header-action-icon-2">
+                    </div> */}
+                    {/* <div className="header-action-icon-2">
                       <Link to="/shop-compare">
                         <img
                           className="svgInject"
@@ -155,8 +156,8 @@ const Header = ({
                       </Link>
                       <Link to="/shop-compare">
                         <span className="lable ml-0">Compare</span>
-                      </Link>
-                    </div>
+                      </Link> */}
+                    {/* </div> */}
                     <div className="header-action-icon-2">
                       <Link to="/shop-wishlist">
                         <img
@@ -341,69 +342,10 @@ const Header = ({
                       <li>
                         <Link to="/" className="active">
                           Home
-                          <i className="fi-rs-angle-down"></i>
                         </Link>
-                        <ul className="sub-menu">
-                          <li>
-                            <Link to="/">Home 1</Link>
-                          </li>
-                          <li>
-                            <Link to="/index-2">Home 2</Link>
-                          </li>
-                          <li>
-                            <Link to="/index-3">Home 3</Link>
-                          </li>
-                          <li>
-                            <Link to="/index-4">Home 4</Link>
-                          </li>
-                        </ul>
                       </li>
                       <li>
                         <Link to="/page-about">About</Link>
-                      </li>
-                      <li>
-                        <Link to="/shop-grid-right">
-                          Shop
-                          <i className="fi-rs-angle-down"></i>
-                        </Link>
-                        <ul className="sub-menu">
-                          <li>
-                            <Link to="/shop-grid-right">
-                              Shop Grid – Right Sidebar
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="/products">Shop Grid – Left Sidebar</Link>
-                          </li>
-                          <li>
-                            <Link to="/shop-list-right">
-                              Shop List – Right Sidebar
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="/shop-list-left">
-                              Shop List – Left Sidebar
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="/shop-fullwidth">Shop - Wide</Link>
-                          </li>
-                          <li>
-                            <Link to="/shop-filter">Shop - Filter</Link>
-                          </li>
-                          <li>
-                            <Link to="/shop-wishlist">Shop – Wishlist</Link>
-                          </li>
-                          <li>
-                            <Link to="/shop-cart">Shop – Cart</Link>
-                          </li>
-                          <li>
-                            <Link to="/shop-checkout">Shop – Checkout</Link>
-                          </li>
-                          <li>
-                            <Link to="/shop-compare">Shop – Compare</Link>
-                          </li>
-                        </ul>
                       </li>
 
                       <li>
@@ -412,179 +354,10 @@ const Header = ({
                         </a>
                         <ul className="sub-menu">
                           <li>
-                            <Link to="/vendors">Vendors Grid</Link>
-                          </li>
-                          <li>
                             <Link to="/vendors-list">Vendors List</Link>
                           </li>
                           <li>
-                            <Link to="/vendor-dashboard">Vendor Dashboard</Link>
-                          </li>
-                          <li>
                             <Link to="/vendor-guide">Vendor Guide</Link>
-                          </li>
-                        </ul>
-                      </li>
-
-                      <li className="position-static">
-                        <Link to="/#">
-                          Mega menu
-                          <i className="fi-rs-angle-down"></i>
-                        </Link>
-                        <ul className="mega-menu">
-                          <li className="sub-mega-menu sub-mega-menu-width-22">
-                            <a className="menu-title" href="#">
-                              Fruit & Vegetables
-                            </a>
-                            <ul>
-                              <li>
-                                <a href="#">Meat & Poultry</a>
-                              </li>
-                              <li>
-                                <a href="#">Fresh Vegetables</a>
-                              </li>
-                              <li>
-                                <a href="#">Herbs & Seasonings</a>
-                              </li>
-                              <li>
-                                <a href="#">Cuts & Sprouts</a>
-                              </li>
-                              <li>
-                                <a href="#">Exotic Fruits & Veggies</a>
-                              </li>
-                              <li>
-                                <a href="#">Packaged Produce</a>
-                              </li>
-                            </ul>
-                          </li>
-                          <li className="sub-mega-menu sub-mega-menu-width-22">
-                            <a className="menu-title" href="#">
-                              Breakfast & Dairy
-                            </a>
-                            <ul>
-                              <li>
-                                <a href="#">Milk & Flavoured Milk</a>
-                              </li>
-                              <li>
-                                <a href="#">Butter and Margarine</a>
-                              </li>
-                              <li>
-                                <a href="#">Eggs Substitutes</a>
-                              </li>
-                              <li>
-                                <a href="#">Marmalades</a>
-                              </li>
-                              <li>
-                                <a href="#">Sour Cream</a>
-                              </li>
-                              <li>
-                                <a href="#">Cheese</a>
-                              </li>
-                            </ul>
-                          </li>
-                          <li className="sub-mega-menu sub-mega-menu-width-22">
-                            <a className="menu-title" href="#">
-                              Meat & Seafood
-                            </a>
-                            <ul>
-                              <li>
-                                <a href="#">Breakfast Sausage</a>
-                              </li>
-                              <li>
-                                <a href="#">Dinner Sausage</a>
-                              </li>
-                              <li>
-                                <a href="#">Chicken</a>
-                              </li>
-                              <li>
-                                <a href="#">Sliced Deli Meat</a>
-                              </li>
-                              <li>
-                                <a href="#">Wild Caught Fillets</a>
-                              </li>
-                              <li>
-                                <a href="#">Crab and Shellfish</a>
-                              </li>
-                            </ul>
-                          </li>
-                          <li className="sub-mega-menu sub-mega-menu-width-34">
-                            <div className="menu-banner-wrap">
-                              <a href="#">
-                                <img
-                                  src="/assets/imgs/banner/banner-menu.png"
-                                  alt="Nest"
-                                />
-                              </a>
-                              <div className="menu-banner-content">
-                                <h4>Hot deals</h4>
-                                <h3>
-                                  Don't miss
-                                  <br />
-                                  Trending
-                                </h3>
-                                <div className="menu-banner-price">
-                                  <span className="new-price text-success">
-                                    Save to 50%
-                                  </span>
-                                </div>
-                                <div className="menu-banner-btn">
-                                  <a href="#">Shop now</a>
-                                </div>
-                              </div>
-                              <div className="menu-banner-discount">
-                                <h3>
-                                  <span>25%</span>
-                                  off
-                                </h3>
-                              </div>
-                            </div>
-                          </li>
-                        </ul>
-                      </li>
-                      <li>
-                        <Link to="/blog-category-grid">
-                          Blog
-                          <i className="fi-rs-angle-down"></i>
-                        </Link>
-                        <ul className="sub-menu">
-                          <li>
-                            <Link to="/blog-category-grid">
-                              Blog Category Grid
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="/blog-category-list">
-                              Blog Category List
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="/blog-category-big">
-                              Blog Category Big
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="/blog-category-fullwidth">
-                              Blog Category Wide
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="/#">
-                              Single Post
-                              <i className="fi-rs-angle-right"></i>
-                            </Link>
-                            <ul className="level-menu level-menu-modify">
-                              <li>
-                                <Link to="/blog-post-left">Left Sidebar</Link>
-                              </li>
-                              <li>
-                                <Link to="/blog-post-right">Right Sidebar</Link>
-                              </li>
-                              <li>
-                                <Link to="/blog-post-fullwidth">
-                                  No Sidebar
-                                </Link>
-                              </li>
-                            </ul>
                           </li>
                         </ul>
                       </li>
@@ -634,17 +407,6 @@ const Header = ({
                   </nav>
                 </div>
               </div>
-              <div className="hotline d-none d-lg-flex">
-                <img
-                  src="/assets/imgs/theme/icons/icon-headphone.svg"
-                  alt="hotline"
-                />
-
-                <p>
-                  1900 - 888<span>24/7 Support Center</span>
-                </p>
-              </div>
-
               <div className="header-action-icon-2 d-block d-lg-none">
                 <div
                   className="burger-icon burger-icon-white"
