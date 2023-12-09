@@ -9,18 +9,12 @@ import { addToWishlist } from "../../redux/action/wishlistAction";
 const SingleProduct = ({
   product,
   addToCart,
-  addToCompare,
   addToWishlist,
   openQuickView,
 }) => {
   const handleCart = (product) => {
     addToCart(product);
     toast("Product added to Cart !");
-  };
-
-  const handleCompare = (product) => {
-    addToCompare(product);
-    toast("Added to Compare list !");
   };
 
   const handleWishlist = (product) => {
@@ -61,23 +55,6 @@ const SingleProduct = ({
             >
               <i className="fi-rs-heart"></i>
             </a>
-            <a
-              aria-label="Compare"
-              className="action-btn hover-up"
-              onClick={(e) => handleCompare(product)}
-            >
-              <i className="fi-rs-shuffle"></i>
-            </a>
-          </div>
-
-          <div className="product-badges product-badges-position product-badges-mrg">
-            {product.trending && <span className="hot">Hot</span>}
-            {product.created && <span className="new">New</span>}
-            {product.totalSell > 100 && <span className="best">Best Sell</span>}
-            {product.discount.isActive && <span className="sale">Sale</span>}
-            {product.discount.percentage >= 5 && (
-              <span className="hot">{product.discount.percentage}%</span>
-            )}
           </div>
         </div>
         <div className="product-content-wrap">

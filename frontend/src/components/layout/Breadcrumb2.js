@@ -1,11 +1,8 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
-import Tags from "../ecommerce/Filter/Tags";
+import { Link, useParams } from "react-router-dom";
 
 const Breadcrumb2 = ({ parent, sub, subChild, noBreadcrumb }) => {
-  const router = useHistory();
-
-  const titlex = router.query.cat;
+  const { cat: titlex } = useParams();
   return (
     <>
       <div className="page-header mt-30 mb-50">
@@ -22,9 +19,6 @@ const Breadcrumb2 = ({ parent, sub, subChild, noBreadcrumb }) => {
                   </Link>
                   <span></span> Shop <span></span> {titlex}
                 </div>
-              </div>
-              <div className="col-xl-9 text-end d-none d-xl-block">
-                <Tags />
               </div>
             </div>
           </div>

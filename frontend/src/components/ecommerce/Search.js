@@ -3,16 +3,11 @@ import React, { useState } from "react";
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const router = useNavigate();
+  const navigate = useNavigate();
 
   const handleSearch = () => {
     console.log("click");
-    router.push({
-      pathname: "/products",
-      query: {
-        search: searchTerm,
-      },
-    });
+    navigate("/products", { search: { search: searchTerm } });
     setSearchTerm("");
   };
 

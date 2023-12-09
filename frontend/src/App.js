@@ -17,6 +17,7 @@ import VendorList from "./pages/VendorList";
 import Contact from "./pages/Contact";
 import WishList from "./pages/WishList";
 import Cart from "./pages/Cart";
+import Products from "./pages/Products";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -39,6 +40,7 @@ function App() {
                 <Route path="/page-contact" element={<Contact />} />
                 <Route path="/shop-wishlist" element={<WishList />} />
                 <Route path="/shop-cart" element={<Cart />} />
+                <Route path="products" element={<Products />} />
               </Routes>
             </BrowserRouter>
           </StorageWrapper>

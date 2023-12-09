@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { updateProductFilters } from "../../../redux/action/productFiltersAction";
@@ -9,8 +9,7 @@ import "rc-slider/assets/index.css";
 const PriceRangeSlider = ({ updateProductFilters }) => {
   // console.log(updateProductFilters);
 
-  const Router = useNavigate();
-  const searchTerm = Router.query.search;
+  const { search: searchTerm } = useParams();
 
   const [price, setPrice] = useState({ value: { min: 0, max: 500 } });
 

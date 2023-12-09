@@ -3,18 +3,13 @@ import { connect } from "react-redux";
 import { updateProductCategory } from "../../../redux/action/productFiltersAction";
 
 const CategoryProduct = ({ updateProductCategory }) => {
-  const router = useNavigate();
+  const navigate = useNavigate();
 
   const selectCategory = (e, category) => {
     e.preventDefault();
     // removeSearchTerm();
     updateProductCategory(category);
-    router.push({
-      pathname: "/products",
-      query: {
-        cat: category, //
-      },
-    });
+    navigate("/products", { search: { cat: category } });
   };
   return (
     <>

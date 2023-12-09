@@ -5,11 +5,7 @@ import CategoryProduct2 from "../ecommerce/Filter/CategoryProduct2";
 import CategoryProduct3 from "../ecommerce/Filter/CategoryProduct3";
 import Search from "../ecommerce/Search";
 
-const Header = ({
-  totalCartItems,
-  toggleClick,
-  totalWishlistItems,
-}) => {
+const Header = ({ totalCartItems, toggleClick, totalWishlistItems }) => {
   const [isToggled, setToggled] = useState(false);
   const [scroll, setScroll] = useState(0);
 
@@ -65,42 +61,13 @@ const Header = ({
                         English
                         <i className="fi-rs-angle-small-down"></i>
                       </Link>
-                      <ul className="language-dropdown">
-                        <li>
-                          <Link to="/#">
-                            <img
-                              src="/assets/imgs/theme/flag-su.png"
-                              alt="nest"
-                            />
-                            عربي
-                          </Link>
-                        </li>
-                      </ul>
+                      <ul className="language-dropdown"></ul>
                     </li>
                     <li>
                       <a className="language-dropdown-active" href="#">
                         USD <i className="fi-rs-angle-small-down"></i>
                       </a>
-                      <ul className="language-dropdown">
-                        <li>
-                          <a to="/">
-                            <img
-                              src="/assets/imgs/theme/flag-jr.png"
-                              alt="nest"
-                            />
-                            JOD
-                          </a>
-                        </li>
-                        <li>
-                          <a to="/">
-                            <img
-                              src="/assets/imgs/theme/flag-il.png"
-                              alt="nest"
-                            />
-                            NIS
-                          </a>
-                        </li>
-                      </ul>
+                      <ul className="language-dropdown"></ul>
                     </li>
                   </ul>
                 </div>
