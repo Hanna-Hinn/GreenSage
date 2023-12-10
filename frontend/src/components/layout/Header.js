@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import CategoryProduct2 from "../ecommerce/Filter/CategoryProduct2";
-import CategoryProduct3 from "../ecommerce/Filter/CategoryProduct3";
 import Search from "../ecommerce/Search";
 
 const Header = ({ totalCartItems, toggleClick, totalWishlistItems }) => {
@@ -209,7 +208,6 @@ const Header = ({ totalCartItems, toggleClick, totalWishlistItems }) => {
                   >
                     <div className="d-flex categori-dropdown-inner">
                       <CategoryProduct2 />
-                      <CategoryProduct3 />
                     </div>
                     <div
                       className="more_slide_open"

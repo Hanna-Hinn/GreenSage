@@ -6,7 +6,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 SwiperCore.use([Navigation, Thumbs]);
 
 const ThumbSlider = ({ product }) => {
-    const [thumbsSwiper, setThumbsSwiper] = useState(null);
+    const [thumbsSwiper, setThumbsSwiper] = useState();
+    console.log(product.gallery);
 
     return (
         <div>
@@ -24,13 +25,6 @@ const ThumbSlider = ({ product }) => {
                 {product.gallery.map((item) => (
                     <SwiperSlide>
                         <img src={item.thumb} alt="Thumbnail"/>
-                        {/* <Zoom
-                            img={item.thumb}
-                            zoomScale={5}
-                            width={500}
-                            height={500}
-                            ransitionTime={0.5}
-                        /> */}
                     </SwiperSlide>
                 ))}
             </Swiper>

@@ -15,7 +15,6 @@ import { fetchProduct } from "./../redux/action/product";
 const Products = ({ products, productFilters, fetchProduct }) => {
   // console.log(products);
   const { search: searchTerm } = useParams();
-  console.log(searchTerm);
   const limit = 20;
   const showPagination = 4;
 

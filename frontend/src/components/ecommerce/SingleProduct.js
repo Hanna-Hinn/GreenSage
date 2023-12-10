@@ -26,28 +26,28 @@ const SingleProduct = ({
       <div className="product-cart-wrap mb-30">
         <div className="product-img-action-wrap">
           <div className="product-img product-img-zoom">
-            <Link to="/products/[slug]" as={`/products/${product.slug}`}>
+            <Link to={`/products/${product.slug}`}>
               <img
                 className="default-img"
                 src={product.images[0].img}
-                alt="nest"
+                alt={`icon1`}
               />
               <img
                 className="hover-img"
                 src={product.images[1].img}
-                alt="nest"
+                alt={`icon2`}
               />
             </Link>
           </div>
           <div className="product-action-1">
-            <a
+            {/* <a
               aria-label="Quick view"
               className="action-btn hover-up"
               data-bs-toggle="modal"
               onClick={(e) => openQuickView(product)}
             >
               <i className="fi-rs-eye"></i>
-            </a>
+            </a> */}
             <a
               aria-label="Add To Wishlist"
               className="action-btn hover-up"
@@ -79,7 +79,7 @@ const SingleProduct = ({
 
           <div>
             <span className="font-small text-muted">
-              By <Link to="/vendor/1">NestFood</Link>
+              By <Link to="/vendor/1">GreenSage</Link>
             </span>
           </div>
 

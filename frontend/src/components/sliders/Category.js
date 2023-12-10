@@ -77,19 +77,13 @@ const data = [
   },
 ];
 const CategorySlider = () => {
-  const router = useNavigate();
+  const navigate = useNavigate();
 
   const selectCategory = (e, category) => {
     e.preventDefault();
     // removeSearchTerm();
     updateProductCategory(category);
-    router.push({
-      pathname: "/products",
-      query: {
-        cat: category, //
-      },
-    });
-
+    navigate("/products", { search: { cat: category } });
     console.log("Click");
   };
 
