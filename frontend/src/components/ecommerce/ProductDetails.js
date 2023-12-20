@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState } from "react";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
@@ -9,12 +10,10 @@ import {
 import { addToWishlist } from "../../redux/action/wishlistAction";
 import ProductTab from "../elements/ProductTab";
 import RelatedSlider from "../sliders/Related";
-import ThumbSlider from "../sliders/Thumb";
 
 const ProductDetails = ({
   product,
   cartItems,
-  addToCompare,
   addToCart,
   addToWishlist,
   increaseQuantity,
@@ -22,15 +21,9 @@ const ProductDetails = ({
   quickView,
 }) => {
   const [quantity, setQuantity] = useState(1);
-
   const handleCart = (product) => {
     addToCart(product);
     toast("Product added to Cart !");
-  };
-
-  const handleCompare = (product) => {
-    addToCompare(product);
-    toast("Added to Compare list !");
   };
 
   const handleWishlist = (product) => {
@@ -39,7 +32,6 @@ const ProductDetails = ({
   };
 
   const inCart = cartItems.find((cartItem) => cartItem.id === product.id);
-
 
   return (
     <>
@@ -56,7 +48,8 @@ const ProductDetails = ({
                       </span>
 
                       <div className="product-image-slider">
-                        <ThumbSlider product={product} />
+                        {/* <ThumbSlider product={product} /> */}
+                        <img src={product.images[0].img} alt={product.title} />
                       </div>
                     </div>
                   </div>
@@ -99,35 +92,7 @@ const ProductDetails = ({
                       <div className="short-desc mb-30">
                         <p className="font-lg">{product.desc}</p>
                       </div>
-                      <div className="attr-detail attr-color mb-15">
-                        <strong className="mr-10">Color</strong>
-                        <ul className="list-filter color-filter">
-                          {product.variations.map((clr, i) => (
-                            <li key={i}>
-                              <a href="#">
-                                <span className={`product-color-${clr}`}></span>
-                              </a>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div className="attr-detail attr-size">
-                        <strong className="mr-10">Size</strong>
-                        <ul className="list-filter size-filter font-small">
-                          <li className="active">
-                            <a>M</a>
-                          </li>
-                          <li>
-                            <a>L</a>
-                          </li>
-                          <li>
-                            <a>XL</a>
-                          </li>
-                          <li>
-                            <a>XXL</a>
-                          </li>
-                        </ul>
-                      </div>
+
                       <div className="bt-1 border-color-1 mt-30 mb-30"></div>
                       <div className="detail-extralink">
                         <div className="detail-qty border radius">
@@ -174,26 +139,9 @@ const ProductDetails = ({
                           >
                             <i className="fi-rs-heart"></i>
                           </a>
-                          <a
-                            aria-label="Compare"
-                            className="action-btn hover-up"
-                            onClick={(e) => handleCompare(product)}
-                          >
-                            <i className="fi-rs-shuffle"></i>
-                          </a>
                         </div>
                       </div>
                       <ul className="product-meta font-xs color-grey mt-50">
-                        <li className="mb-5">
-                          SKU:
-                          <a href="#">FWM15VKT</a>
-                        </li>
-                        <li className="mb-5">
-                          Tags:
-                          <a href="#" rel="tag" className="me-1">
-                            Cloth,
-                          </a>
-                        </li>
                         <li>
                           Availability:
                           <span className="in-stock text-success ml-5">
