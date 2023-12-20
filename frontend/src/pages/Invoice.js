@@ -245,11 +245,13 @@ export default function Invoice() {
                   <a
                     id="invoice_download_btn"
                     class="btn btn-lg btn-custom btn-download hover-up"
+                    
                   >
                     {" "}
                     <img
                       src="/assets/imgs/theme/icons/icon-download.svg"
                       alt=""
+                      
                     />{" "}
                     Download{" "}
                   </a>
