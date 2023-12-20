@@ -32,13 +32,13 @@ const Header = ({ totalCartItems, toggleClick, totalWishlistItems }) => {
                       <Link to="/page-about">About Us</Link>
                     </li>
                     <li>
-                      <Link to="/account">My Account</Link>
+                      <Link to="/page-account">My Account</Link>
                     </li>
                     <li>
                       <Link to="/shop-wishlist">Wishlist</Link>
                     </li>
                     <li>
-                      <Link to="/account">Order Tracking</Link>
+                      <Link to="/page-account">Order Tracking</Link>
                     </li>
                   </ul>
                 </div>
@@ -151,12 +151,6 @@ const Header = ({ totalCartItems, toggleClick, totalWishlistItems }) => {
                             <Link to="/shop-wishlist">
                               <i className="fi fi-rs-heart mr-10"></i>
                               My Wishlist
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="/page-account">
-                              <i className="fi fi-rs-settings-sliders mr-10"></i>
-                              Setting
                             </Link>
                           </li>
                           <li>

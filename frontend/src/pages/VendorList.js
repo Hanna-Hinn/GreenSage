@@ -19,12 +19,9 @@ const VendorList = () => {
                   key={i}
                 >
                   <div className="vendor-wrap mb-40  style-2">
-                    <div className="product-badges product-badges-position product-badges-mrg">
-                      <span className="hot">Mall</span>
-                    </div>
                     <div className="vendor-img-action-wrap">
                       <div className="vendor-img">
-                        <Link to={`vendor/${item.id}`}>
+                        <Link to={`/vendor/${item.id}`}>
                           <img
                             className="default-img"
                             src={`assets/imgs/vendor/${item.img}`}

@@ -169,35 +169,6 @@ const Cart = ({
                       Flat rate:
                       <span className="font-xl text-brand fw-900"> 10%</span>
                     </p>
-
-                    <div className="mb-30 mt-50">
-                      <div className="heading_s1 mb-3">
-                        <h4>Apply Coupon</h4>
-                      </div>
-                      <div className="total-amount">
-                        <div className="left">
-                          <div className="coupon">
-                            <form action="#" target="_blank">
-                              <div className="form-row row justify-content-center">
-                                <div className="form-group col-lg-6">
-                                  <input
-                                    className="font-medium"
-                                    name="Coupon"
-                                    placeholder="Enter Your Coupon"
-                                  />
-                                </div>
-                                <div className="form-group col-lg-6">
-                                  <button className="btn  btn-sm">
-                                    <i className="fi-rs-label mr-10"></i>
-                                    Apply
-                                  </button>
-                                </div>
-                              </div>
-                            </form>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                   <div className="col-lg-6 col-md-12">
                     <div className="border p-md-4 p-30 border-radius cart-totals">
@@ -237,7 +208,7 @@ const Cart = ({
                           </tbody>
                         </table>
                       </div>
-                      <a href="#" className="btn ">
+                      <a href="/shop-checkout" className="btn ">
                         <i className="fi-rs-box-alt mr-10"></i>
                         Proceed To CheckOut
                       </a>

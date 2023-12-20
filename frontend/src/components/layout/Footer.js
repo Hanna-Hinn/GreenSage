@@ -147,7 +147,7 @@ const Footer = () => {
                     <a href="/page-about">About Us</a>
                   </li>
                   <li>
-                    <a href="#">Delivery Information</a>
+                    <a href="/page-account">Delivery Information</a>
                   </li>
                   <li>
                     <a href="/page-contact">Contact Us</a>
@@ -161,22 +161,22 @@ const Footer = () => {
                 <h4 className="widget-title ">Account</h4>
                 <ul className="footer-list  mb-sm-5 mb-md-0">
                   <li>
-                    <a href="#">Sign In</a>
+                    <a href="/page-login">Sign In</a>
                   </li>
                   <li>
-                    <a href="#">View Cart</a>
+                    <a href="/shop-cart">View Cart</a>
                   </li>
                   <li>
-                    <a href="#">My Wishlist</a>
+                    <a href="/shop-wishlist">My Wishlist</a>
                   </li>
                   <li>
-                    <a href="#">Track My Order</a>
+                    <a href="/page-account">Track My Order</a>
                   </li>
                   <li>
-                    <a href="#">Help Ticket</a>
+                    <a href="/page-contact">Help Ticket</a>
                   </li>
                   <li>
-                    <a href="#">Shipping Details</a>
+                    <a href="/page-account">Shipping Details</a>
                   </li>
                 </ul>
               </div>
@@ -187,7 +187,7 @@ const Footer = () => {
                 <h4 className="widget-title ">Corporate</h4>
                 <ul className="footer-list  mb-sm-5 mb-md-0">
                   <li>
-                    <a href="#">Become a Vendor</a>
+                    <a href="/page-register">Become a Vendor</a>
                   </li>
                   <li>
                     <a href="/vendors-list">Our Vendors</a>
@@ -201,25 +201,25 @@ const Footer = () => {
                 <h4 className="widget-title ">Popular</h4>
                 <ul className="footer-list  mb-sm-5 mb-md-0">
                   <li>
-                    <a href="#">Milk & Flavoured Milk</a>
+                    <a href="/products">Milk & Flavoured Milk</a>
                   </li>
                   <li>
-                    <a href="#">Butter and Margarine</a>
+                    <a href="/products">Butter and Margarine</a>
                   </li>
                   <li>
-                    <a href="#">Eggs Substitutes</a>
+                    <a href="/products">Eggs Substitutes</a>
                   </li>
                   <li>
-                    <a href="#">Marmalades</a>
+                    <a href="/products">Marmalades</a>
                   </li>
                   <li>
-                    <a href="#">Sour Cream and Dips</a>
+                    <a href="/products">Sour Cream and Dips</a>
                   </li>
                   <li>
-                    <a href="#">Tea & Kombucha</a>
+                    <a href="/products">Tea & Kombucha</a>
                   </li>
                   <li>
-                    <a href="#">Cheese</a>
+                    <a href="/products">Cheese</a>
                   </li>
                 </ul>
               </div>
