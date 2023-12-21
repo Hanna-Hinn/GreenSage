@@ -28,7 +28,6 @@ import VendorAccount from "./pages/VendorAccount";
 import SingleVendor from "./pages/SingleVendor";
 import Checkout from "./pages/Checkout";
 import Invoice from "./pages/Invoice";
-import VendorDashBoard from "./pages/vendor/VendorDashBoard";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -69,9 +68,7 @@ function App() {
                   element={<SingleVendor />}
                 />
                 {/* <Route path="/vendors/:id" element={<SingleVendor />} /> */}
-                <Route path="/vendor" element={<VendorDashBoard/>}>
-                      
-                </Route>
+
                 <Route path="*" element={<PageNotFound />} />
               </Routes>
               <ToastContainer />
