@@ -143,7 +143,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                           <span className="text-muted">Since 2012</span>
                         </div>
                         <h4 className="mb-5">
-                          <Link to="/vendor/1" className="text-heading">
+                          <Link to="/vendors-list/vendor/1" className="text-heading">
                             {singleStore.title}
                           </Link>
                         </h4>
@@ -231,7 +231,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                               <span>(+91) - 540-025-124553</span>
                             </li>
                           </ul>
-                          <Link to="/vendor/1" className="btn btn-xs">
+                          <Link to="/vendors-list/vendor/1" className="btn btn-xs">
                             Contact Seller{" "}
                             <i className="i-rs-arrow-small-right"></i>
                           </Link>
