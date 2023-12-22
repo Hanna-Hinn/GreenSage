@@ -7,7 +7,6 @@ import CategoryProduct from "./../components/ecommerce/Filter/CategoryProduct";
 import PriceRangeSlider from "./../components/ecommerce/Filter/PriceRangeSlider";
 import VendorFilter from "./../components/ecommerce/Filter/VendorFilter";
 import Pagination from "./../components/ecommerce/Pagination";
-import QuickView from "./../components/ecommerce/QuickView";
 import SingleProduct from "./../components/ecommerce/SingleProduct";
 import Layout from "./../components/layout/Layout";
 import { fetchProduct } from "./../redux/action/product";
@@ -206,7 +205,6 @@ const Products = ({ products, productFilters, fetchProduct }) => {
             </div>
           </div>
         </section>
-        <QuickView />
       </Layout>
     </>
   );

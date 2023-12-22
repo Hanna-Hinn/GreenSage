@@ -4,11 +4,9 @@ import Layout from "../components/layout/Layout";
 import { Link } from "react-router-dom";
 import {
   clearCart,
-  closeCart,
   decreaseQuantity,
   deleteFromCart,
   increaseQuantity,
-  openCart,
 } from "../redux/action/cart";
 
 const Cart = ({
@@ -230,11 +228,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  closeCart,
   increaseQuantity,
   decreaseQuantity,
   deleteFromCart,
-  openCart,
   clearCart,
 };
 

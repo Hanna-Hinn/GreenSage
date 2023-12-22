@@ -24,11 +24,9 @@ import Login from "./pages/Login";
 import PageNotFound from "./pages/PageNotFound";
 import ForgotPassword from "./pages/ForgotPassword";
 import Account from "./pages/Account";
-import VendorAccount from "./pages/VendorAccount";
 import SingleVendor from "./pages/SingleVendor";
 import Checkout from "./pages/Checkout";
 import Invoice from "./pages/Invoice";
-import VendorHome from "./pages/VendorPages/VendorHome";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -68,10 +66,7 @@ function App() {
                   path="/vendors-list/vendor/:id"
                   element={<SingleVendor />}
                 />
-                {/* <Route path="/vendors/:id" element={<SingleVendor />} /> */}
-                {/* <Route path="/vendors" element={<VendorHome />}>
 
-                </Route> */}
                 <Route path="*" element={<PageNotFound />} />
               </Routes>
               <ToastContainer />

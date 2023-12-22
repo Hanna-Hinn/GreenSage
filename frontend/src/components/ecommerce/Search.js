@@ -6,7 +6,6 @@ const Search = () => {
   const navigate = useNavigate();
 
   const handleSearch = () => {
-    console.log("click");
     navigate("/products", { search: { search: searchTerm } });
     setSearchTerm("");
   };

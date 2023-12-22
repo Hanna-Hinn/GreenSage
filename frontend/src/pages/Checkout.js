@@ -4,18 +4,14 @@ import { useNavigate } from "react-router-dom";
 import Layout from "../components/layout/Layout";
 import {
   clearCart,
-  closeCart,
   decreaseQuantity,
   deleteFromCart,
   increaseQuantity,
-  openCart,
 } from "../redux/action/cart";
 
 const Cart = ({
-  openCart,
   cartItems,
   activeCart,
-  closeCart,
   increaseQuantity,
   decreaseQuantity,
   deleteFromCart,
@@ -538,11 +534,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  closeCart,
   increaseQuantity,
   decreaseQuantity,
   deleteFromCart,
-  openCart,
   clearCart,
 };
 

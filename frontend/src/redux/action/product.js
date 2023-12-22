@@ -11,8 +11,6 @@ export const fetchProduct = (searchTerm, url, filters) => async (dispatch) => {
 
     window.products = data;
 
-    console.log("dispatch", searchTerm);
-
     const searchedItems = searchItemsByText(searchTerm, data);
     const filteredList = filterProductList(searchedItems, filters);
     dispatch({

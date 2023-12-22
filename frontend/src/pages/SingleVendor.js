@@ -3,12 +3,10 @@ import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import CategoryProduct from "../components/ecommerce/Filter/CategoryProduct";
 import PriceRangeSlider from "../components/ecommerce/Filter/PriceRangeSlider";
-import ShowSelect from "../components/ecommerce/Filter/ShowSelect";
 import SizeFilter from "../components/ecommerce/Filter/SizeFilter";
 import SortSelect from "../components/ecommerce/Filter/SortSelect";
 import VendorFilter from "../components/ecommerce/Filter/VendorFilter";
 import Pagination from "../components/ecommerce/Pagination";
-import QuickView from "../components/ecommerce/QuickView";
 import SingleProduct from "../components/ecommerce/SingleProduct";
 import Layout from "../components/layout/Layout";
 import { fetchProduct } from "../redux/action/product";
@@ -88,12 +86,6 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                     </p>
                   </div>
                   <div className="sort-by-product-area">
-                    <div className="sort-by-cover mr-10">
-                      <ShowSelect
-                        selectChange={selectChange}
-                        showLimit={showLimit}
-                      />
-                    </div>
                     <div className="sort-by-cover">
                       <SortSelect />
                     </div>
@@ -143,7 +135,10 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                           <span className="text-muted">Since 2012</span>
                         </div>
                         <h4 className="mb-5">
-                          <Link to="/vendors-list/vendor/1" className="text-heading">
+                          <Link
+                            to="/vendors-list/vendor/1"
+                            className="text-heading"
+                          >
                             {singleStore.title}
                           </Link>
                         </h4>
@@ -231,7 +226,10 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                               <span>(+91) - 540-025-124553</span>
                             </li>
                           </ul>
-                          <Link to="/vendors-list/vendor/1" className="btn btn-xs">
+                          <Link
+                            to="/vendors-list/vendor/1"
+                            className="btn btn-xs"
+                          >
                             Contact Seller{" "}
                             <i className="i-rs-arrow-small-right"></i>
                           </Link>
@@ -339,37 +337,6 @@ const Products = ({ products, productFilters, fetchProduct }) => {
             </div>
           </div>
         </section>
-        {/* <WishlistModal /> */}
-        {/* <CompareModal /> */}
-        {/* <CartSidebar /> */}
-        <QuickView />
-        {/* <div className="container">
-                    <div className="row">
-                        <div className="col-xl-6">
-                            <Search />
-                        </div>
-                        <div className="col-xl-6">
-                            <SideBarIcons />
-                        </div>
-                    </div>
-                    <div className="row justify-content-center text-center">
-                        <div className="col-xl-6">
-                            <CategoryProduct />
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-xl-3">
-
-                        </div>
-                        <div className="col-md-9">
-
-
-
-
-
-                        </div>
-                    </div>
-                </div> */}
       </Layout>
     </>
   );

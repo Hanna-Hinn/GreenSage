@@ -1,8 +1,6 @@
 import CategoryTab from "../components/ecommerce/categoryTab";
-import FetchDeals from "../components/ecommerce/fetchDeals";
 import FetchTabSlider from "../components/ecommerce/fetchTabSlider";
 import Bottom from "../components/elements/Bottom";
-import QuickView from "./../components/ecommerce/QuickView";
 import Banner5 from "./../components/elements/Banner5";
 import Layout from "./../components/layout/Layout";
 import CategorySlider from "./../components/sliders/Category";
@@ -81,8 +79,6 @@ export default function Home() {
         </section>
 
         <Bottom />
-
-        <QuickView />
       </Layout>
     </>
   );

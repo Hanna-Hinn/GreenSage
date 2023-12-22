@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 // Filter Products By Filters
 
 export default (productList, filters) => {
