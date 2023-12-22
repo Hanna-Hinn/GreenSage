@@ -28,6 +28,7 @@ import VendorAccount from "./pages/VendorAccount";
 import SingleVendor from "./pages/SingleVendor";
 import Checkout from "./pages/Checkout";
 import Invoice from "./pages/Invoice";
+import VendorHome from "./pages/VendorPages/VendorHome";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -68,7 +69,9 @@ function App() {
                   element={<SingleVendor />}
                 />
                 {/* <Route path="/vendors/:id" element={<SingleVendor />} /> */}
+                {/* <Route path="/vendors" element={<VendorHome />}>
 
+                </Route> */}
                 <Route path="*" element={<PageNotFound />} />
               </Routes>
               <ToastContainer />
