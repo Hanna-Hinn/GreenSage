@@ -26,7 +26,7 @@ export default function Home() {
                 <h3>Featured Categories</h3>
                 <ul className="list-inline nav nav-tabs links">
                   <li className="list-inline-item nav-item">
-                    <Link to="/products" className="nav-link">
+                    <Link to="/products" query={{cat: "Cake & Milk"}} className="nav-link">
                       Cake & Milk
                     </Link>
                   </li>

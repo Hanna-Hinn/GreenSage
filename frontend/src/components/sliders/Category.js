@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import SwiperCore, { Autoplay, Navigation } from "swiper";
@@ -10,70 +11,81 @@ const data = [
     id: 1,
     title: "Cake & Milk",
     slug: "jeans",
-    img: "cat-13.png",
+    img: "assets/imgs/shop/cat-13.png",
     bg: "bg-9",
+    itemsCount: 20,
   },
   {
     id: 2,
     title: "Oganic Kiwi",
     slug: "shoe",
-    img: "cat-12.png",
+    img: "assets/imgs/shop/cat-12.png",
     bg: "bg-10",
+    itemsCount: 20,
   },
   {
     id: 3,
     title: "Peach",
     slug: "jacket",
-    img: "cat-11.png",
+    img: "assets/imgs/shop/cat-11.png",
     bg: "bg-11",
+    itemsCount: 20,
   },
   {
     id: 4,
     title: "Red Apple",
-    img: "cat-9.png",
+    img: "assets/imgs/shop/cat-9.png",
     bg: "bg-12",
+    itemsCount: 20,
   },
   {
     id: 5,
     title: "Snack",
-    img: "cat-3.png",
+    img: "assets/imgs/shop/cat-3.png",
     bg: "bg-13",
+    itemsCount: 20,
   },
   {
     id: 6,
     title: "Vegetables",
-    img: "cat-1.png",
+    img: "assets/imgs/shop/cat-1.png",
     bg: "bg-14",
+    itemsCount: 20,
   },
   {
     id: 7,
     title: "Strawberry",
-    img: "cat-2.png",
+    img: "assets/imgs/shop/cat-2.png",
     bg: "bg-15",
+    itemsCount: 20,
   },
   {
     id: 8,
     title: "Black plum",
-    img: "cat-4.png",
+    img: "assets/imgs/shop/cat-4.png",
     bg: "bg-12",
+    itemsCount: 15,
   },
   {
     id: 9,
     title: "Custard apple",
-    img: "cat-5.png",
+    img: "assets/imgs/shop/cat-5.png",
     bg: "bg-10",
+    itemsCount: 10,
   },
   {
     id: 10,
     title: "Coffe & Tea",
-    img: "cat-14.png",
+    img: "assets/imgs/shop/cat-14.png",
     bg: "bg-12",
+    itemsCount: 5,
   },
   {
     id: 11,
     title: "Headphone",
-    img: "cat-15.png",
+    img: "assets/imgs/shop/cat-15.png",
     bg: "bg-11",
+    itemsCount: 20,
   },
 ];
 const CategorySlider = () => {
@@ -81,10 +93,8 @@ const CategorySlider = () => {
 
   const selectCategory = (e, category) => {
     e.preventDefault();
-    // removeSearchTerm();
     updateProductCategory(category);
     navigate("/products", { search: { cat: category } });
-    console.log("Click");
   };
 
   return (
@@ -122,13 +132,13 @@ const CategorySlider = () => {
             >
               <figure className=" img-hover-scale overflow-hidden">
                 <a>
-                  <img src={`assets/imgs/shop/${item.img}`} alt="nest" />
+                  <img src={`${item.img}`} alt={item.title} />
                 </a>
               </figure>
               <h6>
                 <a>{item.title}</a>
               </h6>
-              <span>26 items</span>
+              <span>{item.itemsCount} items</span>
             </div>
           </SwiperSlide>
         ))}
