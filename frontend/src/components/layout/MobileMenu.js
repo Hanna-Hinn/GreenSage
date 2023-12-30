@@ -72,74 +72,42 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
             </div>
             <div className="mobile-menu-wrap mobile-header-border">
               <div className="main-categori-wrap mobile-header-border">
-                <button
+                <Link
                   className="categori-button-active-2"
                   onClick={handleToggleMenu}
                 >
                   <span className="fi-rs-apps"></span> Browse Categories
-                </button>
-                <div
-                  className={`categori-dropdown-wrap categori-dropdown-active-small ${
-                    isMenuOpen ? "active" : ""
-                  }`}
-                >
-                  <ul>
-                    <li>
-                      <Link to="/shop-grid-right">
-                        <i className="evara-font-dress"></i>
-                        Women's Clothing
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/shop-grid-right">
-                        <i className="evara-font-tshirt"></i>
-                        Men's Clothing
-                      </Link>
-                    </li>
-                    <li>
-                      {" "}
-                      <Link to="/shop-grid-right">
-                        <i className="evara-font-smartphone"></i> Cellphones
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/shop-grid-right">
-                        <i className="evara-font-desktop"></i>
-                        Computer & Office
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/shop-grid-right">
-                        <i className="evara-font-cpu"></i>
-                        Consumer Electronics
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/shop-grid-right">
-                        <i className="evara-font-home"></i>
-                        Home & Garden
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/shop-grid-right">
-                        <i className="evara-font-high-heels"></i>
-                        Shoes
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/shop-grid-right">
-                        <i className="evara-font-teddy-bear"></i>
-                        Mother & Kids
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/shop-grid-right">
-                        <i className="evara-font-kite"></i>
-                        Outdoor fun
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
+                </Link>
+                {isMenuOpen && (
+                  <div >
+                    <ul>
+                      <li>
+                        <Link to="/products">
+                          <i className="evara-font-dress"></i>
+                          Herbs
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/products">
+                          <i className="evara-font-dress"></i>
+                          Vegetables
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/products">
+                          <i className="evara-font-dress"></i>
+                          Fruits
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/products">
+                          <i className="evara-font-dress"></i>
+                          Others
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+                )}
               </div>
 
               <nav>
@@ -199,34 +167,34 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
             </div>
             <div className="mobile-social-icon">
               <h5 className="mb-15 text-grey-4">Follow Us</h5>
-              <Link to="#">
+              <Link to="www.facebook.com">
                 <img
                   src="/assets/imgs/theme/icons/icon-facebook.svg"
-                  alt="nest"
+                  alt="Facebook"
                 />
               </Link>
-              <Link to="#">
+              <Link to="www.twitter.com">
                 <img
                   src="/assets/imgs/theme/icons/icon-twitter.svg"
-                  alt="nest"
+                  alt="Twitter"
                 />
               </Link>
-              <Link to="#">
+              <Link to="www.instagram.com">
                 <img
                   src="/assets/imgs/theme/icons/icon-instagram.svg"
-                  alt="nest"
+                  alt="Instagram"
                 />
               </Link>
-              <Link to="#">
+              <Link to="www.pinterest.com">
                 <img
                   src="/assets/imgs/theme/icons/icon-pinterest.svg"
-                  alt="nest"
+                  alt="Pinterest"
                 />
               </Link>
-              <Link to="#">
+              <Link to="www.youtube.com">
                 <img
                   src="/assets/imgs/theme/icons/icon-youtube.svg"
-                  alt="nest"
+                  alt="Youtube"
                 />
               </Link>
             </div>
