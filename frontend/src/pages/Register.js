@@ -6,16 +6,63 @@ function Register() {
   // Needs to handle the Event of the Form
 
   const [securityCode, setSecurityCode] = useState("");
+  const [agree, setAgree] = useState(false);
+  const [error, setError] = useState({
+    type: "",
+    message: "",
+  });
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    userType: "customer",
+  });
+
+  const handleCheckboxChange = (event) => {
+    setAgree(!agree);
+    setError({
+      type: "check",
+      message: "Please Agree to Terms and Policy to Register!",
+    });
+    if (!agree) {
+      setError({});
+    }
+  };
+
+  const handleConfirmPasswordChange = (event) => {
+    if (event.target.value !== formData.password) {
+      setError({
+        type: "password",
+        message: "Password Does not Match!",
+      });
+    } else {
+      setError({});
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!agree) {
+      setError({
+        type: "check",
+        message: "Please Agree to Terms and Policy to Register!",
+      });
+    } else {
+      setError({});
+      console.log("username: " + e.target.username.value);
+    }
+  };
 
   useEffect(() => {
     const generateCode = () => {
       const randomDigits = Array(4)
         .fill()
-        .map(() => Math.floor(Math.random() * 10)); // Generate 4 random digits
-      setSecurityCode(randomDigits.join("")); // Join digits into a string
+        .map(() => Math.floor(Math.random() * 10));
+      setSecurityCode(randomDigits.join(""));
     };
 
-    generateCode(); // Generate code on initial render
+    generateCode();
   }, []);
 
   return (
@@ -36,7 +83,7 @@ function Register() {
                             <Link to="/page-login">Log in instead!</Link>
                           </p>
                         </div>
-                        <form method="post">
+                        <form onSubmit={handleSubmit}>
                           <div className="form-group">
                             <input
                               type="text"
@@ -62,12 +109,22 @@ function Register() {
                             />
                           </div>
                           <div className="form-group">
+                            {}
                             <input
                               required=""
                               type="password"
                               name="password"
                               placeholder="Confirm password"
+                              onChange={handleConfirmPasswordChange}
                             />
+                            {error.type === "password" && (
+                              <>
+                                <br />
+                                <span style={{ color: "red" }}>
+                                  {error.message}
+                                </span>
+                              </>
+                            )}
                           </div>
                           <div className="login_footer form-group">
                             <div className="chek-form">
@@ -140,6 +197,8 @@ function Register() {
                                   name="checkbox"
                                   id="exampleCheckbox12"
                                   value=""
+                                  checked={agree}
+                                  onChange={handleCheckboxChange}
                                 />
                                 <label
                                   className="form-check-label"
@@ -147,6 +206,14 @@ function Register() {
                                 >
                                   <span>I agree to terms &amp; Policy.</span>
                                 </label>
+                                {error.type === "check" && (
+                                  <>
+                                    <br />
+                                    <span style={{ color: "red" }}>
+                                      {error.message}
+                                    </span>
+                                  </>
+                                )}
                               </div>
                             </div>
                           </div>

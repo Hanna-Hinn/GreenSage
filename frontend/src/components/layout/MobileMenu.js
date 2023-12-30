@@ -30,7 +30,10 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleToggleMenu = () => {
-    setIsMenuOpen((prevIsMenuOpen) => !prevIsMenuOpen);
+    console.log("Click");
+    console.log("Before " + isMenuOpen);
+    setIsMenuOpen(!isMenuOpen);
+    console.log("After " + isMenuOpen);
   };
   return (
     <>
@@ -69,13 +72,12 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
             </div>
             <div className="mobile-menu-wrap mobile-header-border">
               <div className="main-categori-wrap mobile-header-border">
-                <Link
-                  to="#"
+                <button
                   className="categori-button-active-2"
                   onClick={handleToggleMenu}
                 >
                   <span className="fi-rs-apps"></span> Browse Categories
-                </Link>
+                </button>
                 <div
                   className={`categori-dropdown-wrap categori-dropdown-active-small ${
                     isMenuOpen ? "active" : ""

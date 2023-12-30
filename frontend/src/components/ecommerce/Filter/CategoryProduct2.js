@@ -13,34 +13,28 @@ const CategoryProduct2 = ({ updateProductCategory }) => {
   return (
     <>
       <ul>
-        <li onClick={(e) => selectCategory(e, "jeans")}>
+        <li onClick={(e) => selectCategory(e, "Herbs")}>
           <a>
-            <img src="/assets/imgs/theme/icons/category-1.svg" alt="nest" />
-            Milks & Dairies
+            <img src="/assets/imgs/theme/icons/category-8.svg" alt="herbs" />
+            Herbs
           </a>
         </li>
-        <li onClick={(e) => selectCategory(e, "shoe")}>
+        <li onClick={(e) => selectCategory(e, "Vegetables")}>
           <a>
-            <img src="/assets/imgs/theme/icons/category-2.svg" alt="nest" />
-            Clothing
+            <img src="/assets/imgs/theme/icons/category-9.svg" alt="vegetables" />
+            Vegetables
           </a>
         </li>
-        <li onClick={(e) => selectCategory(e, "jacket")}>
+        <li onClick={(e) => selectCategory(e, "Fruits")}>
           <a>
-            <img src="/assets/imgs/theme/icons/category-3.svg" alt="nest" />
-            Pet Foods{" "}
+            <img src="/assets/imgs/theme/icons/category-7.svg" alt="fruits" />
+            Fruits
           </a>
         </li>
-        <li onClick={(e) => selectCategory(e, "trousers")}>
+        <li onClick={(e) => selectCategory(e, "Others")}>
           <a>
-            <img src="/assets/imgs/theme/icons/category-4.svg" alt="nest" />
-            Baking material
-          </a>
-        </li>
-        <li onClick={(e) => selectCategory(e, "accessories")}>
-          <a>
-            <img src="/assets/imgs/theme/icons/category-5.svg" alt="nest" />
-            Fresh Fruit
+            <img src="/assets/imgs/theme/icons/category-1.svg" alt="others" />
+            Others
           </a>
         </li>
       </ul>

@@ -3,9 +3,9 @@ import FetchTabSlider from "../components/ecommerce/fetchTabSlider";
 import Bottom from "../components/elements/Bottom";
 import Banner5 from "./../components/elements/Banner5";
 import Layout from "./../components/layout/Layout";
-import CategorySlider from "./../components/sliders/Category";
+// import CategorySlider from "./../components/sliders/Category";
 import Intro1 from "./../components/sliders/Intro1";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
@@ -19,7 +19,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="popular-categories section-padding">
+        {/* <section className="popular-categories section-padding">
           <div className="container wow animate__fadeIn animate__animated">
             <div className="section-title">
               <div className="title">
@@ -54,7 +54,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         <section className="banners mb-25">
           <div className="container">

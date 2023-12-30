@@ -17,7 +17,10 @@ const Header = ({ totalCartItems, toggleClick, totalWishlistItems }) => {
     });
   });
 
-  const handleToggle = () => setToggled(!isToggled);
+  const handleToggle = () => {
+    console.log("click");
+    setToggled(!isToggled);
+  };
 
   return (
     <>
@@ -203,53 +206,6 @@ const Header = ({ totalCartItems, toggleClick, totalWishlistItems }) => {
                     <div className="d-flex categori-dropdown-inner">
                       <CategoryProduct2 />
                     </div>
-                    <div
-                      className="more_slide_open"
-                      style={{ display: "none" }}
-                    >
-                      <div className="d-flex categori-dropdown-inner">
-                        <ul>
-                          <li>
-                            <Link to="/products">
-                              <img
-                                src="/assets/imgs/theme/icons/icon-1.svg"
-                                alt="nest"
-                              />
-                              Milks and Dairies
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="/products">
-                              <img
-                                src="/assets/imgs/theme/icons/icon-2.svg"
-                                alt="nest"
-                              />
-                              Clothing & beauty
-                            </Link>
-                          </li>
-                        </ul>
-                        <ul className="end">
-                          <li>
-                            <Link to="/products">
-                              <img
-                                src="/assets/imgs/theme/icons/icon-3.svg"
-                                alt="nest"
-                              />
-                              Wines & Drinks
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="/products">
-                              <img
-                                src="/assets/imgs/theme/icons/icon-4.svg"
-                                alt="nest"
-                              />
-                              Fresh Seafood
-                            </Link>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
                   </div>
                 </div>
                 <div className="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block  font-heading">
@@ -307,74 +263,6 @@ const Header = ({ totalCartItems, toggleClick, totalWishlistItems }) => {
                       />
                       <span className="pro-count white">{totalCartItems}</span>
                     </Link>
-                    <div className="cart-dropdown-wrap cart-dropdown-hm2">
-                      <ul>
-                        <li>
-                          <div className="shopping-cart-img">
-                            <Link to="/shop-grid-right">
-                              <img
-                                alt="Evara"
-                                src="/assets/imgs/shop/thumbnail-3.jpg"
-                              />
-                            </Link>
-                          </div>
-                          <div className="shopping-cart-title">
-                            <h4>
-                              <Link to="/shop-grid-right">
-                                Plain Striola Shirts
-                              </Link>
-                            </h4>
-                            <h3>
-                              <span>1 × </span>
-                              $800.00
-                            </h3>
-                          </div>
-                          <div className="shopping-cart-delete">
-                            <Link to="/#">
-                              <i className="fi-rs-cross-small"></i>
-                            </Link>
-                          </div>
-                        </li>
-                        <li>
-                          <div className="shopping-cart-img">
-                            <Link to="/shop-grid-right">
-                              <img
-                                alt="Evara"
-                                src="/assets/imgs/shop/thumbnail-4.jpg"
-                              />
-                            </Link>
-                          </div>
-                          <div className="shopping-cart-title">
-                            <h4>
-                              <Link to="/shop-grid-right">
-                                Macbook Pro 2024
-                              </Link>
-                            </h4>
-                            <h3>
-                              <span>1 × </span>
-                              $3500.00
-                            </h3>
-                          </div>
-                          <div className="shopping-cart-delete">
-                            <Link to="/#">
-                              <i className="fi-rs-cross-small"></i>
-                            </Link>
-                          </div>
-                        </li>
-                      </ul>
-                      <div className="shopping-cart-footer">
-                        <div className="shopping-cart-total">
-                          <h4>
-                            Total
-                            <span>$383.00</span>
-                          </h4>
-                        </div>
-                        <div className="shopping-cart-button">
-                          <Link to="/shop-cart">View cart</Link>
-                          <Link to="/shop-checkout">Checkout</Link>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
