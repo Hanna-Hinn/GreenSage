@@ -62,7 +62,9 @@ const SingleProduct = ({ product, addToCart, addToWishlist }) => {
             <Link to="/products">{product.brand}</Link>
           </div> */}
           <h2>
-            <Link to={`/products/${product["_id"]}`}>{product.title}</Link>
+            <Link to={`/products/${product["_id"]}`}>
+              {product.title ? product.title : product.name}
+            </Link>
           </h2>
 
           <div className="product-rate-cover">
