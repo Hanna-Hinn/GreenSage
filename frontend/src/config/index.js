@@ -4,4 +4,4 @@ export const server = dev ? "http://localhost:3000" : "";
 
 export const BACKEND_URL = dev
   ? "http://localhost:5000/api"
-  : "https://greensage.onrender.com";
+  : "https://greensage.onrender.com/api";
