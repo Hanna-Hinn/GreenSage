@@ -14,29 +14,38 @@ const CategoryProduct = ({ updateProductCategory }) => {
   return (
     <>
       <ul>
-        <li onClick={(e) => selectCategory(e, "")}>
-          <a>All</a>
-        </li>
-        <li onClick={(e) => selectCategory(e, "jeans")}>
+        <li onClick={(e) => selectCategory(e, "Herbs")}>
           <a>
-            <img src="/assets/imgs/theme/icons/category-1.svg" alt="nest" />
-            Milks & Dairies
+            <img src="/assets/imgs/theme/icons/category-1.svg" alt="herbs" />
+            All
           </a>
-          <span className="count">30</span>
         </li>
-        <li onClick={(e) => selectCategory(e, "shoe")}>
+        <li onClick={(e) => selectCategory(e, "Herbs")}>
           <a>
-            <img src="/assets/imgs/theme/icons/category-2.svg" alt="nest" />
-            Clothing
+            <img src="/assets/imgs/theme/icons/category-8.svg" alt="herbs" />
+            Herbs
           </a>
-          <span className="count">35</span>
         </li>
-        <li onClick={(e) => selectCategory(e, "jacket")}>
+        <li onClick={(e) => selectCategory(e, "Vegetables")}>
           <a>
-            <img src="/assets/imgs/theme/icons/category-3.svg" alt="nest" />
-            Pet Foods{" "}
+            <img
+              src="/assets/imgs/theme/icons/category-9.svg"
+              alt="vegetables"
+            />
+            Vegetables
           </a>
-          <span className="count">42</span>
+        </li>
+        <li onClick={(e) => selectCategory(e, "Fruits")}>
+          <a>
+            <img src="/assets/imgs/theme/icons/category-7.svg" alt="fruits" />
+            Fruits
+          </a>
+        </li>
+        <li onClick={(e) => selectCategory(e, "Others")}>
+          <a>
+            <img src="/assets/imgs/theme/icons/category-6.svg" alt="others" />
+            Others
+          </a>
         </li>
       </ul>
     </>

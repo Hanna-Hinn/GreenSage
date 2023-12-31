@@ -1,13 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import Layout from "../components/layout/Layout";
+import { BACKEND_URL } from "../config/index";
+import { useDispatch } from "react-redux";
+import { registerSuccess } from "../redux/action/auth";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [securityCode, setSecurityCode] = useState("");
   const [isCustomer, setIsCustomer] = useState(true);
-  // const [submitted, setSubmitted] = useState(false);
   const [agree, setAgree] = useState(false);
   const [error, setError] = useState({});
+  const [addresses, setAddresses] = useState();
   const [minerals, setMinerals] = useState({
     vitaminD: false,
     iron: false,
@@ -43,7 +50,7 @@ function Register() {
     });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const isValid = validateInputs();
     if (!isValid) {
       return;
@@ -53,9 +60,25 @@ function Register() {
       setFormData({ ...formData, healthStatus: minerals });
     }
 
-    console.log(formData);
-
-    // setSubmitted(true);
+    const user = formData;
+    let url = `${BACKEND_URL}/register`;
+    if (!isCustomer) {
+      url = `${BACKEND_URL}/users`;
+    }
+    try {
+      console.log(url, user);
+      const response = await axios.post(url, user);
+      const data = response.data.data;
+      dispatch(registerSuccess(data));
+      navigate("/");
+    } catch (error) {
+      setError({
+        ...error,
+        responseError: error.message
+          ? error.message
+          : "Something Went Wrong!!!",
+      });
+    }
   };
 
   const validateInputs = () => {
@@ -352,6 +375,94 @@ function Register() {
                               </>
                             )}
                           </div>
+
+                          <label style={{ marginBottom: 10 }}>
+                            Please Enter your address Info:
+                          </label>
+                          <div
+                            style={{
+                              display: "flex",
+                              gap: "5px",
+                              flexWrap: "wrap",
+                            }}
+                          >
+                            <div className="form-group">
+                              <input
+                                type="text"
+                                required
+                                name="street"
+                                placeholder="Street..."
+                                onChange={(e) => {
+                                  setAddresses({
+                                    ...addresses,
+                                    street: e.target.value,
+                                  });
+                                  setFormData({
+                                    ...formData,
+                                    addresses: [{ ...addresses }],
+                                  });
+                                }}
+                              />
+                            </div>
+
+                            <div className="form-group">
+                              <input
+                                type="text"
+                                required
+                                name="postalCode"
+                                placeholder="postalCode..."
+                                onChange={(e) => {
+                                  setAddresses({
+                                    ...addresses,
+                                    postalCode: e.target.value,
+                                  });
+                                  setFormData({
+                                    ...formData,
+                                    addresses: [{ ...addresses }],
+                                  });
+                                }}
+                              />
+                            </div>
+
+                            <div className="form-group">
+                              <input
+                                type="text"
+                                required
+                                name="state"
+                                placeholder="State..."
+                                onChange={(e) => {
+                                  setAddresses({
+                                    ...addresses,
+                                    state: e.target.value,
+                                  });
+                                  setFormData({
+                                    ...formData,
+                                    addresses: [{ ...addresses }],
+                                  });
+                                }}
+                              />
+                            </div>
+
+                            <div className="form-group">
+                              <input
+                                type="text"
+                                required
+                                name="city"
+                                placeholder="City..."
+                                onChange={(e) => {
+                                  setAddresses({
+                                    ...addresses,
+                                    city: e.target.value,
+                                  });
+                                  setFormData({
+                                    ...formData,
+                                    addresses: [{ ...addresses }],
+                                  });
+                                }}
+                              />
+                            </div>
+                          </div>
+
                           {isCustomer && (
                             <div className="payment_option mb-50">
                               <label>
@@ -504,7 +615,9 @@ function Register() {
                             </button>
                           </div>
                         </form>
-                        {/* {submitted && <p>Form submitted successfully!</p>} */}
+                        {!error.responseError && (
+                          <p style={{ color: "red" }}>{error.responseError}</p>
+                        )}
                       </div>
                     </div>
                   </div>

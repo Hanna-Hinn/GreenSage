@@ -1,10 +1,69 @@
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import Layout from "../components/layout/Layout";
+import { BACKEND_URL } from "../config/index";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "../redux/action/auth";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
-  // Needs to handle the Event of the Form
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [securityCode, setSecurityCode] = useState("");
+  const [formData, setFormData] = useState({});
+  const [error, setError] = useState({});
+
+  const handleSubmit = async () => {
+    const isValid = validateInputs();
+    if (!isValid) {
+      return;
+    }
+
+    const user = formData;
+    try {
+      const response = await axios.post(`${BACKEND_URL}/login`, user);
+      const data = response.data.data;
+      dispatch(loginSuccess(data));
+      navigate("/");
+    } catch (error) {
+      setError({
+        ...error,
+        responseError: error.message
+          ? error.message
+          : "Something Went Wrong!!!",
+      });
+    }
+  };
+
+  const validateInputs = () => {
+    const email = formData["email"];
+    const password = formData["password"];
+    const confirmCode = formData["securityCode"];
+
+    if (!email || email.trim() === "" || !validateEmail(email)) {
+      setError({ ...error, email: "Entered Email not Valid!!!" });
+      return false;
+    }
+    if (!password || password.trim() === "" || password.length < 8) {
+      setError({
+        ...error,
+        password: "Password Length Must be more than 8 characters!!!",
+      });
+      return false;
+    }
+    if (confirmCode !== securityCode) {
+      setError({ ...error, securityCode: "Security Code does not Match!!!" });
+      return false;
+    }
+    return true;
+  };
+
+  function validateEmail(email) {
+    const emailRegex =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    return emailRegex.test(String(email).toLowerCase());
+  }
 
   useEffect(() => {
     const generateCode = () => {
@@ -41,32 +100,86 @@ function Login() {
                             <Link to="/page-register">Create here</Link>
                           </p>
                         </div>
-                        <form method="post">
+                        <form onSubmit={(e) => e.preventDefault()}>
                           <div className="form-group">
                             <input
                               type="text"
                               required=""
                               name="email"
-                              placeholder="Username or Email *"
+                              placeholder="Email..."
+                              onChange={(e) => {
+                                setFormData({
+                                  ...formData,
+                                  email: e.target.value,
+                                });
+                                setError((curr) => {
+                                  const { email, ...rest } = curr;
+                                  return rest;
+                                });
+                              }}
                             />
+                            {error.email && (
+                              <>
+                                <br />
+                                <span style={{ color: "red" }}>
+                                  {error.email}
+                                </span>
+                              </>
+                            )}
                           </div>
                           <div className="form-group">
                             <input
                               required=""
                               type="password"
                               name="password"
-                              placeholder="Your password *"
+                              placeholder="Your password..."
+                              onChange={(e) => {
+                                setFormData({
+                                  ...formData,
+                                  password: e.target.value,
+                                });
+                                setError((curr) => {
+                                  const { password, ...rest } = curr;
+                                  return rest;
+                                });
+                              }}
                             />
                           </div>
+                          {error.password && (
+                            <>
+                              <br />
+                              <span style={{ color: "red" }}>
+                                {error.password}
+                              </span>
+                            </>
+                          )}
                           <div className="login_footer form-group">
                             <div className="chek-form">
                               <input
                                 type="text"
                                 required=""
                                 name="email"
-                                placeholder="Security code *"
+                                placeholder="Security code..."
+                                onChange={(e) => {
+                                  setFormData({
+                                    ...formData,
+                                    securityCode: e.target.value,
+                                  });
+                                  setError((curr) => {
+                                    const { securityCode, ...rest } = curr;
+                                    return rest;
+                                  });
+                                }}
                               />
                             </div>
+                            {error.securityCode && (
+                              <>
+                                <br />
+                                <span style={{ color: "red" }}>
+                                  {error.securityCode}
+                                </span>
+                              </>
+                            )}
                             <span className="security-code">
                               {securityCode.split("").map((digit, index) => (
                                 <b
@@ -81,23 +194,6 @@ function Login() {
                             </span>
                           </div>
                           <div className="login_footer form-group mb-50">
-                            <div className="chek-form">
-                              <div className="custome-checkbox">
-                                <input
-                                  className="form-check-input"
-                                  type="checkbox"
-                                  name="checkbox"
-                                  id="exampleCheckbox1"
-                                  value=""
-                                />
-                                <label
-                                  className="form-check-label"
-                                  htmlFor="exampleCheckbox1"
-                                >
-                                  <span>Remember me</span>
-                                </label>
-                              </div>
-                            </div>
                             <a
                               className="text-muted"
                               href="/page-forgot-password"
@@ -106,10 +202,16 @@ function Login() {
                             </a>
                           </div>
                           <div className="form-group">
+                            {!error.responseError && (
+                              <p style={{ color: "red" }}>
+                                {error.responseError}
+                              </p>
+                            )}
                             <button
-                              type="submit"
+                              // type="submit"
                               className="btn btn-heading btn-block hover-up"
                               name="login"
+                              onClick={handleSubmit}
                             >
                               Log in
                             </button>

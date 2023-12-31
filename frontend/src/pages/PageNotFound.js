@@ -11,8 +11,8 @@ function PageNotFound() {
                 <div className="col-xl-8 col-lg-10 col-md-12 m-auto text-center">
                   <p className="mb-20">
                     <img
-                      src="assets/imgs/page/page-404.png"
-                      alt="nest"
+                      src="/assets/imgs/page/page-404.png"
+                      alt="404 Not Found"
                       className="hover-up"
                     />
                   </p>

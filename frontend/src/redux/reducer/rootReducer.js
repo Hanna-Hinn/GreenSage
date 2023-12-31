@@ -3,7 +3,7 @@ import products from "./product";
 import cart from "./cart";
 import wishlist from "./wishlist";
 import quickView from "./quickView";
-
+import authReducer from "./auth";
 import productFilters from "./productFilters";
 
 const rootReducer = combineReducers({
@@ -11,7 +11,7 @@ const rootReducer = combineReducers({
   cart,
   wishlist,
   quickView,
-
+  authReducer,
   productFilters,
 });
 

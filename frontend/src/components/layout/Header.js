@@ -86,7 +86,7 @@ const Header = ({ totalCartItems, toggleClick, totalWishlistItems }) => {
                 </Link>
               </div>
               <div className="header-right">
-                <div className="search-style-2">
+                <div className="search-style-1">
                   <Search />
                 </div>
                 <div className="header-action-right">

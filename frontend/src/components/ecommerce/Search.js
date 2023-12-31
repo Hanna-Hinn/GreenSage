@@ -19,19 +19,13 @@ const Search = () => {
   return (
     <>
       <form>
-        <select className="select-active">
-          <option>All Categories</option>
-          <option>Women's</option>
-          <option>Men's</option>
-          <option>Cellphones</option>
-          <option>Computer</option>
-          <option>Electronics</option>
-          <option> Accessories</option>
-          <option>Home & Garden</option>
-          <option>Luggage</option>
-          <option>Shoes</option>
-          <option>Mother & Kids</option>
-        </select>
+        {/* <select className="select-active">
+          <option>All</option>
+          <option>Herbs</option>
+          <option>Fruits</option>
+          <option>Vegetables</option>
+          <option>Others</option>
+        </select> */}
         <input
           value={searchTerm}
           onKeyDown={handleInput}

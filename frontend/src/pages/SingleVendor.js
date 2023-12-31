@@ -14,8 +14,8 @@ import data from "../util/storeData";
 
 const Products = ({ products, productFilters, fetchProduct }) => {
   const { search: searchTerm } = useParams();
-  const showLimit = 12;
-  const showPagination = 4;
+  const showLimit = 20;
+  const showPagination = 1;
 
   let [pagination, setPagination] = useState([]);
   let [limit, setLimit] = useState(showLimit);
@@ -27,21 +27,22 @@ const Products = ({ products, productFilters, fetchProduct }) => {
   const { id } = useParams();
 
   useEffect(() => {
-    fetchProduct(searchTerm, "/static/product.json", productFilters);
+    console.log(id);
+    // fetchProduct(searchTerm, "/static/product.json", productFilters);
 
-    setSingleStore(data.find((data) => data.id === Number(id)));
-    cratePagination();
+    // setSingleStore(data.find((data) => data.id === Number(id)));
+    // cratePagination();
   }, [productFilters, limit, pages, products.items.length, id]);
 
-  const cratePagination = () => {
-    // set pagination
-    let arr = new Array(Math.ceil(products.items.length / limit))
-      .fill()
-      .map((_, idx) => idx + 1);
+  // const cratePagination = () => {
+  //   // set pagination
+  //   let arr = new Array(Math.ceil(products.items.length / limit))
+  //     .fill()
+  //     .map((_, idx) => idx + 1);
 
-    setPagination(arr);
-    setPages(Math.ceil(products.items.length / limit));
-  };
+  //   setPagination(arr);
+  //   setPages(Math.ceil(products.items.length / limit));
+  // };
 
   const startIndex = currentPage * limit - limit;
   const endIndex = startIndex + limit;
@@ -256,18 +257,18 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                     </div>
                   </div>
 
-                  <div className="list-group">
+                  {/* <div className="list-group">
                     <div className="list-group-item mb-10 mt-10">
                       <label className="fw-900">Color</label>
                       <VendorFilter />
                       <label className="fw-900 mt-15">Item Condition</label>
                       <SizeFilter />
                     </div>
-                  </div>
+                  </div> */}
                   <br />
                 </div>
 
-                <div className="sidebar-widget product-sidebar  mb-30 p-30 bg-grey border-radius-10">
+                {/* <div className="sidebar-widget product-sidebar  mb-30 p-30 bg-grey border-radius-10">
                   <h5 className="section-title style-1 mb-30">New products</h5>
                   <div className="single-post clearfix">
                     <div className="image">
@@ -320,7 +321,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
                 <div className="banner-img wow fadeIn mb-lg-0 animated d-lg-block d-none">
                   <img src="/assets/imgs/banner/banner-11.png" alt="nest" />
                   <div className="banner-text">
