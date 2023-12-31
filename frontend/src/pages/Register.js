@@ -5,7 +5,7 @@ import Layout from "../components/layout/Layout";
 function Register() {
   const [securityCode, setSecurityCode] = useState("");
   const [isCustomer, setIsCustomer] = useState(true);
-  const [submitted, setSubmitted] = useState(false);
+  // const [submitted, setSubmitted] = useState(false);
   const [agree, setAgree] = useState(false);
   const [error, setError] = useState({});
   const [minerals, setMinerals] = useState({
@@ -28,6 +28,7 @@ function Register() {
       ...prevMinerals,
       [inputName]: !prevMinerals[inputName],
     }));
+    setFormData({ ...formData, healthStatus: minerals });
   };
 
   const handleRadioChange = () => {
@@ -47,7 +48,6 @@ function Register() {
     if (!isValid) {
       return;
     }
-    console.log("passed");
 
     if (isCustomer) {
       setFormData({ ...formData, healthStatus: minerals });
@@ -55,7 +55,7 @@ function Register() {
 
     console.log(formData);
 
-    setSubmitted(true);
+    // setSubmitted(true);
   };
 
   const validateInputs = () => {
@@ -504,7 +504,7 @@ function Register() {
                             </button>
                           </div>
                         </form>
-                        {submitted && <p>Form submitted successfully!</p>}
+                        {/* {submitted && <p>Form submitted successfully!</p>} */}
                       </div>
                     </div>
                   </div>
