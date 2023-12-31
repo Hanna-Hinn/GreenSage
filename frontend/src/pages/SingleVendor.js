@@ -11,64 +11,64 @@ import SingleProduct from "../components/ecommerce/SingleProduct";
 import Layout from "../components/layout/Layout";
 import { fetchProduct } from "../redux/action/product";
 import data from "../util/storeData";
+import axios from "axios";
+import { BACKEND_URL } from "../config";
 
 const Products = ({ products, productFilters, fetchProduct }) => {
-  const { search: searchTerm } = useParams();
-  const showLimit = 20;
-  const showPagination = 1;
+  // const { search: searchTerm } = useParams();
+  // const showLimit = 20;
+  // const showPagination = 1;
+  const [data, setData] = useState({ owner: {}, products: [] });
+  const [storeAddress, setStoreAddress] = useState("");
+  // let [pagination, setPagination] = useState([]);
+  // let [limit, setLimit] = useState(showLimit);
+  // let [pages, setPages] = useState(Math.ceil(products.items.length / limit));
+  // let [currentPage, setCurrentPage] = useState(1);
 
-  let [pagination, setPagination] = useState([]);
-  let [limit, setLimit] = useState(showLimit);
-  let [pages, setPages] = useState(Math.ceil(products.items.length / limit));
-  let [currentPage, setCurrentPage] = useState(1);
-
-  const [singleStore, setSingleStore] = useState(null);
+  // const [singleStore, setSingleStore] = useState(null);
 
   const { id } = useParams();
 
   useEffect(() => {
-    console.log(id);
     // fetchProduct(searchTerm, "/static/product.json", productFilters);
 
     // setSingleStore(data.find((data) => data.id === Number(id)));
     // cratePagination();
-  }, [productFilters, limit, pages, products.items.length, id]);
+    getData()
+      .then((data) => {
+        setData(data);
+        const address = data.owner.addresses[0];
 
-  // const cratePagination = () => {
-  //   // set pagination
-  //   let arr = new Array(Math.ceil(products.items.length / limit))
-  //     .fill()
-  //     .map((_, idx) => idx + 1);
+        setStoreAddress(
+          `${address.street}, ${address.city} ${address.postalCode}, ${address.state}  `
+        );
+      })
+      .catch((error) => {});
+  }, []);
 
-  //   setPagination(arr);
-  //   setPages(Math.ceil(products.items.length / limit));
+  const getData = async () => {
+    const response = await axios.get(`${BACKEND_URL}/owners/${id}`);
+    console.log(response.data.data);
+    return response.data.data;
+  };
+
+  // const next = () => {
+  //   setCurrentPage((page) => page + 1);
   // };
 
-  const startIndex = currentPage * limit - limit;
-  const endIndex = startIndex + limit;
-  const getPaginatedProducts = products.items.slice(startIndex, endIndex);
+  // const prev = () => {
+  //   setCurrentPage((page) => page - 1);
+  // };
 
-  let start = Math.floor((currentPage - 1) / showPagination) * showPagination;
-  let end = start + showPagination;
-  const getPaginationGroup = pagination.slice(start, end);
+  // const handleActive = (item) => {
+  //   setCurrentPage(item);
+  // };
 
-  const next = () => {
-    setCurrentPage((page) => page + 1);
-  };
-
-  const prev = () => {
-    setCurrentPage((page) => page - 1);
-  };
-
-  const handleActive = (item) => {
-    setCurrentPage(item);
-  };
-
-  const selectChange = (e) => {
-    setLimit(Number(e.target.value));
-    setCurrentPage(1);
-    setPages(Math.ceil(products.items.length / Number(e.target.value)));
-  };
+  // const selectChange = (e) => {
+  //   setLimit(Number(e.target.value));
+  //   setCurrentPage(1);
+  //   setPages(Math.ceil(products.items.length / Number(e.target.value)));
+  // };
   return (
     <>
       <Layout parent="Home" sub="Store  " subChild="About">
@@ -79,36 +79,35 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                 <div className="shop-product-fillter">
                   <div className="totall-product">
                     <p>
-                      We found
+                      We found{" "}
                       <strong className="text-brand">
-                        {products.items.length}
-                      </strong>
+                        {data ? data.products.length : 0}
+                      </strong>{" "}
                       items for you!
                     </p>
                   </div>
-                  <div className="sort-by-product-area">
+                  {/* <div className="sort-by-product-area">
                     <div className="sort-by-cover">
                       <SortSelect />
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 <div className="row product-grid">
-                  {getPaginatedProducts.length === 0 && (
-                    <h3>No Products Found </h3>
-                  )}
+                  {data.products.length === 0 && <h3>No Products Found </h3>}
 
-                  {getPaginatedProducts.map((item, i) => (
-                    <div
-                      className="col-lg-1-5 col-md-4 col-12 col-sm-6"
-                      key={i}
-                    >
-                      <SingleProduct product={item} />
-                      {/* <SingleProductList product={item}/> */}
-                    </div>
-                  ))}
+                  {data &&
+                    data.products.map((item, i) => (
+                      <div
+                        className="col-lg-1-5 col-md-4 col-12 col-sm-6"
+                        key={i}
+                      >
+                        <SingleProduct product={item} />
+                        {/* <SingleProductList product={item}/> */}
+                      </div>
+                    ))}
                 </div>
 
-                <div className="pagination-area mt-15 mb-sm-5 mb-lg-0">
+                {/* <div className="pagination-area mt-15 mb-sm-5 mb-lg-0">
                   <nav aria-label="Page navigation example">
                     <Pagination
                       getPaginationGroup={getPaginationGroup}
@@ -119,32 +118,26 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                       handleActive={handleActive}
                     />
                   </nav>
-                </div>
+                </div> */}
               </div>
               <div className="col-lg-1-5 primary-sidebar sticky-sidebar">
-                {singleStore && (
+                {data.owner && (
                   <>
                     <div className="sidebar-widget widget-store-info mb-30 bg-3 border-0">
                       <div className="vendor-logo mb-30">
                         <img
-                          src={`/assets/imgs/vendor/${singleStore.img}`}
-                          alt="nest"
+                          src={`${data.owner.imageUrl}`}
+                          alt={`${data.owner.firstName} ${data.owner.lastName}`}
                         />
                       </div>
                       <div className="vendor-info">
-                        <div className="product-category">
-                          <span className="text-muted">Since 2012</span>
-                        </div>
                         <h4 className="mb-5">
-                          <Link
-                            to="/vendors-list/vendor/1"
-                            className="text-heading"
-                          >
-                            {singleStore.title}
-                          </Link>
+                          <div className="text-heading">
+                            {`${data.owner.firstName} ${data.owner.lastName}`}
+                          </div>
                         </h4>
 
-                        <div className="product-rate-cover mb-15">
+                        {/* <div className="product-rate-cover mb-15">
                           <div className="product-rate d-inline-block">
                             <div
                               className="product-rating"
@@ -155,7 +148,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                             {" "}
                             (4.0)
                           </span>
-                        </div>
+                        </div> */}
 
                         <div className="vendor-des mb-30">
                           <p className="ont-sm text-heading">
@@ -172,7 +165,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                               <a href="#">
                                 <img
                                   src="/assets/imgs/theme/icons/social-tw.svg"
-                                  alt="nest"
+                                  alt="twitter"
                                 />
                               </a>
                             </li>
@@ -180,7 +173,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                               <a href="#">
                                 <img
                                   src="/assets/imgs/theme/icons/social-fb.svg"
-                                  alt="nest"
+                                  alt="facebook"
                                 />
                               </a>
                             </li>
@@ -188,7 +181,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                               <a href="#">
                                 <img
                                   src="/assets/imgs/theme/icons/social-insta.svg"
-                                  alt="nest"
+                                  alt="instagram"
                                 />
                               </a>
                             </li>
@@ -196,7 +189,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                               <a href="#">
                                 <img
                                   src="/assets/imgs/theme/icons/social-pin.svg"
-                                  alt="nest"
+                                  alt="pinterest"
                                 />
                               </a>
                             </li>
@@ -208,39 +201,31 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                             <li>
                               <img
                                 className="mr-5"
-                                src="assets/imgs/theme/icons/icon-location.svg"
-                                alt="nest"
+                                src="/assets/imgs/theme/icons/icon-location.svg"
+                                alt="location"
                               />
                               <strong>Address: </strong>{" "}
                               <span>
-                                5171 W Campbell Ave undefined, Utah 53127 United
-                                States
+                                {data.owner.addresses && storeAddress}
                               </span>
                             </li>
                             <li>
                               <img
                                 className="mr-5"
-                                src="assets/imgs/theme/icons/icon-contact.svg"
-                                alt="nest"
+                                src="/assets/imgs/theme/icons/icon-contact.svg"
+                                alt="contact"
                               />
                               <strong>Call Us:</strong>
-                              <span>(+91) - 540-025-124553</span>
+                              <span>{` ${data.owner.mobile} `}</span>
                             </li>
                           </ul>
-                          <Link
-                            to="/vendors-list/vendor/1"
-                            className="btn btn-xs"
-                          >
-                            Contact Seller{" "}
-                            <i className="i-rs-arrow-small-right"></i>
-                          </Link>
                         </div>
                       </div>
                     </div>
                   </>
                 )}
 
-                <div className="sidebar-widget widget-category-2 mb-30">
+                {/* <div className="sidebar-widget widget-category-2 mb-30">
                   <h5 className="section-title style-1 mb-30">Category</h5>
                   <CategoryProduct />
                 </div>
@@ -257,16 +242,16 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                     </div>
                   </div>
 
-                  {/* <div className="list-group">
+                  <div className="list-group">
                     <div className="list-group-item mb-10 mt-10">
                       <label className="fw-900">Color</label>
                       <VendorFilter />
                       <label className="fw-900 mt-15">Item Condition</label>
                       <SizeFilter />
                     </div>
-                  </div> */}
+                  </div>
                   <br />
-                </div>
+                </div> */}
 
                 {/* <div className="sidebar-widget product-sidebar  mb-30 p-30 bg-grey border-radius-10">
                   <h5 className="section-title style-1 mb-30">New products</h5>
@@ -328,7 +313,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                     <span>Oganic</span>
                     <h4>
                       Save 17% <br />
-                      on <span className="text-brand">Oganic</span>
+                      on <span className="text-brand">Organic</span>
                       <br />
                       Juice
                     </h4>
