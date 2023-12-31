@@ -10,7 +10,6 @@ const SingleProduct = ({
   product,
   addToCart,
   addToWishlist,
-  openQuickView,
 }) => {
   const handleCart = (product) => {
     addToCart(product);

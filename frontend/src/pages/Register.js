@@ -6,17 +6,49 @@ function Register() {
   // Needs to handle the Event of the Form
 
   const [securityCode, setSecurityCode] = useState("");
+  const [isCustomer, setIsCustomer] = useState(true);
   const [agree, setAgree] = useState(false);
   const [error, setError] = useState({
     type: "",
     message: "",
   });
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-    userType: "customer",
+  const [minerals, setMinerals] = useState({
+    vitaminD: false,
+    iron: false,
+    vitaminB12: false,
+    calcium: false,
+    omega3: false,
+    iodine: false,
+    vitaminC: false,
+    folate: false,
+    magnesium: false,
+    zinc: false,
   });
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    mobile: "",
+    password: "",
+    imageUrl: "",
+    healthStatus: { ...minerals },
+  });
+
+  const handleMineralsRadio = (event) => {
+    const inputName = event.target.name;
+    setMinerals((prevMinerals) => ({
+      ...prevMinerals,
+      [inputName]: !prevMinerals[inputName],
+    }));
+  };
+
+  const handleRadioChange = () => {
+    setIsCustomer(!isCustomer);
+  };
+
+  useEffect(() => {
+    console.log(isCustomer);
+  }, [isCustomer]);
 
   const handleCheckboxChange = (event) => {
     setAgree(!agree);
@@ -50,7 +82,7 @@ function Register() {
       });
     } else {
       setError({});
-      console.log("username: " + e.target.username.value);
+      console.log("username: " + e.target.firstName.value);
     }
   };
 
@@ -84,20 +116,47 @@ function Register() {
                           </p>
                         </div>
                         <form onSubmit={handleSubmit}>
-                          <div className="form-group">
-                            <input
-                              type="text"
-                              required=""
-                              name="username"
-                              placeholder="Username"
-                            />
+                          <div style={{ display: "flex", gap: "10px" }}>
+                            <div className="form-group">
+                              <input
+                                type="text"
+                                required=""
+                                name="firstName"
+                                placeholder="First Name..."
+                              />
+                            </div>
+                            <div className="form-group">
+                              <input
+                                type="text"
+                                required=""
+                                name="lastName"
+                                placeholder="Last Name..."
+                              />
+                            </div>
                           </div>
+
                           <div className="form-group">
                             <input
                               type="text"
                               required=""
                               name="email"
-                              placeholder="Email"
+                              placeholder="Email..."
+                            />
+                          </div>
+                          <div className="form-group">
+                            <input
+                              type="tel"
+                              required=""
+                              name="mobile"
+                              placeholder="Mobile Number..."
+                            />
+                          </div>
+                          <div className="form-group">
+                            <input
+                              type="url"
+                              required=""
+                              name="imageUrl"
+                              placeholder="Profile Image Url..."
                             />
                           </div>
                           <div className="form-group">
@@ -126,12 +185,42 @@ function Register() {
                               </>
                             )}
                           </div>
+                          {isCustomer && (
+                            <div className="payment_option mb-50">
+                              <label>
+                                Please Check the Preferred Minerals:
+                              </label>
+                              <br />
+                              {Object.entries(minerals).map(([key, value]) => {
+                                return (
+                                  <div className="custome-radio">
+                                    <input
+                                      className="form-check-input"
+                                      type="radio"
+                                      name={key}
+                                      id={key}
+                                      value="true"
+                                      checked={value}
+                                      onClick={handleMineralsRadio}
+                                    />
+                                    <label
+                                      className="form-check-label"
+                                      htmlFor={key}
+                                    >
+                                      {key}
+                                    </label>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          )}
+
                           <div className="login_footer form-group">
                             <div className="chek-form">
                               <input
                                 type="text"
                                 required=""
-                                name="email"
+                                name="securityCode"
                                 placeholder="Security code *"
                               />
                             </div>
@@ -154,9 +243,11 @@ function Register() {
                                 className="form-check-input"
                                 required=""
                                 type="radio"
-                                name="payment_option"
+                                name="customer"
                                 id="exampleRadios3"
-                                defaultChecked=""
+                                defaultChecked
+                                checked={isCustomer}
+                                onChange={handleRadioChange}
                               />
                               <label
                                 className="form-check-label"
@@ -173,9 +264,10 @@ function Register() {
                                 className="form-check-input"
                                 required=""
                                 type="radio"
-                                name="payment_option"
+                                name="vendor"
                                 id="exampleRadios4"
-                                defaultChecked=""
+                                checked={!isCustomer}
+                                onChange={handleRadioChange}
                               />
                               <label
                                 className="form-check-label"

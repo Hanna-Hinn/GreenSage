@@ -96,16 +96,13 @@ function Account() {
                           </div>
                           <div className="card-body">
                             <p>
-                              From your account dashboard. you can easily check
-                              &amp; view your <a href="#">recent orders</a>,
-                              <br />
-                              manage your{" "}
-                              <a href="#">
-                                shipping and billing addresses
-                              </a> and{" "}
-                              <a href="#">
-                                edit your password and account details.
-                              </a>
+                              Hey there, [user name]! Feeling empowered? Welcome
+                              back to your dashboard, your personal command
+                              center for conquering goals and crushing to-dos.
+                              Let's make today epic. Whether you're on fire for
+                              progress or need a nudge in the right direction,
+                              everything you need to win is right here. Now go
+                              forth and dominate!
                             </p>
                           </div>
                         </div>
