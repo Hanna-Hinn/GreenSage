@@ -58,6 +58,7 @@ const SingleProduct = ({ product, addToCart, addToWishlist, fixWidth }) => {
 
               return (
                 <span
+                  key={index}
                   style={{
                     color:
                       currentRating <= Math.round(product.averageRating)
