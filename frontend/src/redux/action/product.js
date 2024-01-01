@@ -2,20 +2,25 @@
 import filterProductList from "../../util/filterProduct";
 import searchItemsByText from "../../util/searchItemsByText";
 import * as Types from "../constants/actionTypes";
-
+import axios from "axios";
+import { BACKEND_URL } from "../../config/index";
 // Fetch Product fetchProduct
 export const fetchProduct = (searchTerm, url, filters) => async (dispatch) => {
   try {
-    const sendRequest = await fetch(url);
-    const data = await sendRequest.json();
+    const response = await axios.get(
+      searchTerm
+        ? `${BACKEND_URL}/products/v1/search?productName=${searchTerm}`
+        : url
+    );
+    const data = searchTerm ? response.data.data : response.data.data.products;
 
     window.products = data;
-
-    const searchedItems = searchItemsByText(searchTerm, data);
-    const filteredList = filterProductList(searchedItems, filters);
+    console.log(data);
+    // const searchedItems = searchItemsByText(searchTerm, data);
+    // const filteredList = filterProductList(data, filters);
     dispatch({
       type: Types.FETCHED_PRODUCT,
-      payload: { products: filteredList },
+      payload: { products: data },
     });
   } catch (error) {
     console.log(error);
@@ -44,8 +49,8 @@ export const fetchMoreProduct = (url, total) => async (dispatch) => {
 
 export const fetchByCategory = async (url, filters) => {
   try {
-    const sendRequest = await fetch(url);
-    const data = await sendRequest.json();
+    const sendRequest = await axios.get(url);
+    const data = sendRequest.data;
     const filteredList = filterProductList(data, filters);
 
     return filteredList;

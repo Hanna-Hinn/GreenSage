@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Link } from "react-router-dom";
 import React from "react";
 import { connect } from "react-redux";
@@ -13,6 +14,9 @@ const SingleProduct2 = ({
   addToWishlist,
   openQuickView,
 }) => {
+  const soldItems = Math.floor(
+    Math.random() * (product.availableInStock - 5 - 5) + 5
+  );
   const handleCart = (product) => {
     addToCart(product);
     toast("Product added to Cart !");
@@ -27,16 +31,11 @@ const SingleProduct2 = ({
       <div className="product-cart-wrap mb-30">
         <div className="product-img-action-wrap">
           <div className="product-img product-img-zoom">
-            <Link to="/products/[slug]" as={`/products/${product.slug}`}>
+            <Link to={`/products/${product["_id"]}`}>
               <img
                 className="default-img"
-                src={product.images[0].img}
-                alt="nest"
-              />
-              <img
-                className="hover-img"
-                src={product.images[1].img}
-                alt="nest"
+                src={product.imageUrl}
+                alt={`${product.name}`}
               />
             </Link>
           </div>
@@ -52,23 +51,42 @@ const SingleProduct2 = ({
         </div>
         <div className="product-content-wrap">
           <div className="product-category">
-            <Link to="/products">{product.brand}</Link>
+            <Link to="/products">{product.categoryName}</Link>
           </div>
           <h2>
-            <Link to="/products/[slug]" as={`/products/${product.slug}`}>
-              {product.title}
+            <Link to={`/products/${product["_id"]}`}>
+              {product.title ? product.title : product.name}
             </Link>
           </h2>
 
-          <div className="product-rate d-inline-block">
-            <div className="product-rating" style={{ width: "90%" }}></div>
+          <div className="product-rate-cover">
+            {[...Array(5)].map((star, index) => {
+              const currentRating = index + 1;
+
+              return (
+                <span
+                  key={index}
+                  style={{
+                    color:
+                      currentRating <= Math.round(product.averageRating)
+                        ? "#ffc107"
+                        : "#e4e5e9",
+                    fontSize: "1rem",
+                    margin: "1px",
+                  }}
+                >
+                  &#9733;
+                </span>
+              );
+            })}
+            <span className="font-small ml-5 text-muted">
+              {" "}
+              ({product.averageRating})
+            </span>
           </div>
 
           <div className="product-price mt-10">
-            <span>${product.price} </span>
-            <span className="old-price">
-              {product.oldPrice && `$ ${product.oldPrice}`}
-            </span>
+            <span>$ {product.price["$numberDecimal"]} </span>
           </div>
           <div className="sold mt-15 mb-15">
             <div className="progress mb-5">
@@ -78,7 +96,7 @@ const SingleProduct2 = ({
                 style={{ width: "50%" }}
               ></div>
             </div>
-            <span className="font-xs text-heading"> Sold: 90/120</span>
+            <span className="font-xs text-heading">{`Sold: ${soldItems}/${product.availableInStock}`}</span>
           </div>
 
           <a

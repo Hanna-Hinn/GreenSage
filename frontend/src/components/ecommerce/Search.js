@@ -6,7 +6,8 @@ const Search = () => {
   const navigate = useNavigate();
 
   const handleSearch = () => {
-    navigate("/products", { search: { search: searchTerm } });
+    navigate(`/products?search=${searchTerm}`);
+    console.log(searchTerm);
     setSearchTerm("");
   };
 
@@ -19,13 +20,6 @@ const Search = () => {
   return (
     <>
       <form>
-        {/* <select className="select-active">
-          <option>All</option>
-          <option>Herbs</option>
-          <option>Fruits</option>
-          <option>Vegetables</option>
-          <option>Others</option>
-        </select> */}
         <input
           value={searchTerm}
           onKeyDown={handleInput}

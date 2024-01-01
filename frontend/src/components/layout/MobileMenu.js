@@ -1,12 +1,15 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import useClickOutside from "../../util/outsideClick";
+import { useNavigate } from "react-router-dom";
 
 const MobileMenu = ({ isToggled, toggleClick }) => {
+  const navigate = useNavigate();
   const [isActive, setIsActive] = useState({
     status: false,
     key: "",
   });
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleToggle = (key) => {
     if (isActive.key === key) {
@@ -35,6 +38,13 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
     setIsMenuOpen(!isMenuOpen);
     console.log("After " + isMenuOpen);
   };
+
+  const handleSearch = () => {
+    navigate(`/products?search=${searchTerm}`);
+    console.log(searchTerm);
+    setSearchTerm("");
+  };
+
   return (
     <>
       <div
@@ -63,9 +73,13 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
           </div>
           <div className="mobile-header-content-area">
             <div className="mobile-search search-style-3 mobile-header-border">
-              <form action="#">
-                <input type="text" placeholder="Search for items…" />
-                <button type="submit">
+              <form onSubmit={(e) => e.preventDefault()}>
+                <input
+                  type="text"
+                  placeholder="Search for items…"
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <button type="submit" onClick={handleSearch}>
                   <i className="fi-rs-search"></i>
                 </button>
               </form>
@@ -79,7 +93,7 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                   <span className="fi-rs-apps"></span> Browse Categories
                 </Link>
                 {isMenuOpen && (
-                  <div >
+                  <div>
                     <ul>
                       <li>
                         <Link to="/products">

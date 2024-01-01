@@ -15,8 +15,10 @@ export default (productList, filters) => {
         if (filters[key] === "lowToHigh") {
           filteredList = [
             ...filteredList.sort((a, b) => {
-              if (a.price < b.price) return -1;
-              if (a.price > b.price) return 1;
+              if (a.price["$numberDecimal"] < b.price["$numberDecimal"])
+                return -1;
+              if (a.price["$numberDecimal"] > b.price["$numberDecimal"])
+                return 1;
             }),
           ];
         } else {
@@ -24,8 +26,10 @@ export default (productList, filters) => {
             console.log("hi");
             filteredList = [
               ...filteredList.sort((a, b) => {
-                if (b.price < a.price) return -1;
-                if (b.price > a.price) return 1;
+                if (b.price["$numberDecimal"] < a.price["$numberDecimal"])
+                  return -1;
+                if (b.price["$numberDecimal"] > a.price["$numberDecimal"])
+                  return 1;
               }),
             ];
           } else {
@@ -40,6 +44,7 @@ export default (productList, filters) => {
       filteredList = filterByPrice(filteredList, filters[key], key);
     }
   }
+
   return filteredList;
 };
 

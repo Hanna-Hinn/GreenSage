@@ -1,59 +1,78 @@
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import SwiperCore, { Navigation } from "swiper";
-import { server } from "../../config/index";
+import { BACKEND_URL } from "../../config/index";
+import axios from "axios";
 
 SwiperCore.use([Navigation]);
 
 const NewArrival2 = () => {
-    const [newArrival, setNewArrival] = useState([]);
+  const [newArrival, setNewArrival] = useState([]);
 
-    useEffect(() => {
-        fetchProducts();
-    }, []);
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
-    const fetchProducts = async () => {
-        // With Category
-        const request = await fetch(`${server}/static/product.json`);
-        const allProducts = await request.json();
-
-        const newArrivalProducts = allProducts.sort(function (a, b) {
-            return a.created > b.created ? -1 : 1;
-        });
-
-        setNewArrival(newArrivalProducts);
-    };
-
-    return (
-        <>
-            {newArrival.slice(0, 3).map((product, i) => (
-                <article className="row align-items-center hover-up" key={i}>
-                    <figure className="col-md-4 mb-0">
-                        <Link to="/products/[slug]" as={`/products/${product.slug}`}>
-                            <img src={product.images[0].img} alt="nest" />
-                        </Link>
-                    </figure>
-                    <div className="col-md-8 mb-0">
-                        <h6>
-                            <Link to="/products/[slug]" as={`/products/${product.slug}`}>
-                                {product.title}
-                            </Link>
-                        </h6>
-                        <div className="product-rate-cover">
-                            <div className="product-rate d-inline-block">
-                                <div className="product-rating" style={{ width: "90%" }}></div>
-                            </div>
-                            <span className="font-small ml-5 text-muted"> (4.0)</span>
-                        </div>
-                        <div className="product-price">
-                            <span>${product.price} </span>
-                            <span className="old-price">{product.oldPrice && `$ ${product.oldPrice}`}</span>
-                        </div>
-                    </div>
-                </article>
-            ))}
-        </>
+  const fetchProducts = async () => {
+    // With Category
+    const request = await axios.get(
+      `${BACKEND_URL}/products/v1/query?pageNumber=1`
     );
+    const allProducts = await request.data.data.products;
+    const newArrivalProducts = allProducts.filter((item) => item.newAdded);
+    setNewArrival(newArrivalProducts);
+  };
+
+  return (
+    <>
+      {newArrival.slice(0, 3).map((product, i) => (
+        <article className="row align-items-center hover-up" key={i}>
+          <figure className="col-md-4 mb-0">
+            <Link to={`/products/${product["_id"]}`}>
+              <img
+                className="default-img"
+                src={product.imageUrl}
+                alt={`${product.name}`}
+              />
+            </Link>
+          </figure>
+          <div className="col-md-8 mb-0">
+            <h6>
+              <Link to={`/products/${product["_id"]}`}>{product.name}</Link>
+            </h6>
+            <div className="product-rate-cover">
+              {[...Array(5)].map((star, index) => {
+                const currentRating = index + 1;
+
+                return (
+                  <span
+                    key={index}
+                    style={{
+                      color:
+                        currentRating <= Math.round(product.averageRating)
+                          ? "#ffc107"
+                          : "#e4e5e9",
+                      fontSize: "1rem",
+                      margin: "1px",
+                    }}
+                  >
+                    &#9733;
+                  </span>
+                );
+              })}
+              <span className="font-small ml-5 text-muted">
+                {" "}
+                ({product.averageRating})
+              </span>
+            </div>
+            <div className="product-price">
+              <span>$ {product.price["$numberDecimal"]} </span>
+            </div>
+          </div>
+        </article>
+      ))}
+    </>
+  );
 };
 
 export default NewArrival2;

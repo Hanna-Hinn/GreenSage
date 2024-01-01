@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import SortSelect from "../components/ecommerce/Filter/SortSelect";
@@ -10,10 +10,12 @@ import Pagination from "./../components/ecommerce/Pagination";
 import SingleProduct from "./../components/ecommerce/SingleProduct";
 import Layout from "./../components/layout/Layout";
 import { fetchProduct } from "./../redux/action/product";
+import { BACKEND_URL } from "../config/index";
 
 const Products = ({ products, productFilters, fetchProduct }) => {
-  // console.log(products);
-  const { search: searchTerm } = useParams();
+  const location = useLocation();
+  const urlParams = new URLSearchParams(location.search);
+  const searchTerm = urlParams.get('search');
   const limit = 20;
   const showPagination = 4;
 
@@ -22,9 +24,14 @@ const Products = ({ products, productFilters, fetchProduct }) => {
   let [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    fetchProduct(searchTerm, "/static/product.json", productFilters);
+    fetchProduct(
+      searchTerm,
+      `${BACKEND_URL}/products/v1/query?pageNumber=${currentPage}`,
+      productFilters
+    );
+    console.log("search",searchTerm);
     cratePagination();
-  }, [productFilters, limit, pages, products.items.length]);
+  }, [currentPage]);
 
   const cratePagination = () => {
     // set pagination
@@ -68,9 +75,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                   <div className="totall-product">
                     <p>
                       We found
-                      <strong className="text-brand">
-                        {products.items.length}
-                      </strong>
+                      <strong className="text-brand">{products.length}</strong>
                       items for you!
                     </p>
                   </div>
@@ -114,7 +119,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                   <CategoryProduct />
                 </div>
 
-                <div className="sidebar-widget price_range range mb-30">
+                {/* <div className="sidebar-widget price_range range mb-30">
                   <h5 className="section-title style-1 mb-30">Fill by price</h5>
 
                   <div className="price-filter">
@@ -133,7 +138,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                     </div>
                   </div>
                   <br />
-                </div>
+                </div> */}
 
                 <div className="sidebar-widget product-sidebar  mb-30 p-30 bg-grey border-radius-10">
                   <h5 className="section-title style-1 mb-30">New products</h5>

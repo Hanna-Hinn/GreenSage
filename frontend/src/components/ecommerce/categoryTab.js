@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BACKEND_URL, server } from "../../config/index";
+import { BACKEND_URL } from "../../config/index";
 import Cat1Tab from "../elements/FeaturedTab";
 import Cat2Tab from "../elements/NewArrivalTab";
 import Cat3Tab from "../elements/TrendingTab";
@@ -22,24 +22,30 @@ function CategoryTab() {
     setActive("1");
   };
   const catP1 = async () => {
-    const request = await fetch(`${server}/static/product.json`);
-    const allProducts = await request.json();
-    const cat1Item = allProducts.filter((item) => item.category === "jeans");
+    const request = await axios.get(
+      `${BACKEND_URL}/products/v1/query?pageNumber=1`
+    );
+    const allProducts = await request.data.data.products;
+    const cat1Item = allProducts.filter((item) => item.featured);
     setCat1(cat1Item);
     setActive("2");
   };
 
   const catP2 = async () => {
-    const request = await fetch(`${server}/static/product.json`);
-    const allProducts = await request.json();
-    const cat2Item = allProducts.filter((item) => item.category === "shoe");
+    const request = await axios.get(
+      `${BACKEND_URL}/products/v1/query?pageNumber=1`
+    );
+    const allProducts = await request.data.data.products;
+    const cat2Item = allProducts.filter((item) => item.popular);
     setCat2(cat2Item);
     setActive("3");
   };
   const catP3 = async () => {
-    const request = await fetch(`${server}/static/product.json`);
-    const allProducts = await request.json();
-    const cat3Item = allProducts.filter((item) => item.category === "jacket");
+    const request = await axios.get(
+      `${BACKEND_URL}/products/v1/query?pageNumber=1`
+    );
+    const allProducts = await request.data.data.products;
+    const cat3Item = allProducts.filter((item) => item.newAdded);
     setCat3(cat3Item);
     setActive("4");
   };

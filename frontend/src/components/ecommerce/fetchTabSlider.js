@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 // import { fetchByCategory } from "../../redux/action/product";
-import { server } from "../../config/index";
+import { BACKEND_URL } from "../../config/index";
 import FeaturedSlider from "../sliders/Featured";
 import NewArrivalTabSlider from "../sliders/NewArrivalTab";
 import TrendingSlider from "../sliders/Trending";
+import axios from "axios";
 
 function FetchTabSlider() {
   const [active, setActive] = useState("1");
@@ -13,26 +14,31 @@ function FetchTabSlider() {
   const [newArrival, setNewArrival] = useState([]);
 
   const featuredProduct = async () => {
-    const request = await fetch(`${server}/static/product.json`);
-    const allProducts = await request.json();
+    const request = await axios.get(
+      `${BACKEND_URL}/products/v1/query?pageNumber=1`
+    );
+    const allProducts = await request.data.data.products;
     const featuredItem = allProducts.filter((item) => item.featured);
+
     setFeatured(featuredItem);
     setActive("1");
   };
 
   const trendingProduct = async () => {
-    const request = await fetch(`${server}/static/product.json`);
-    const allProducts = await request.json();
-    const trendingItem = allProducts.filter((item) => item.trending);
+    const request = await axios.get(
+      `${BACKEND_URL}/products/v1/query?pageNumber=1`
+    );
+    const allProducts = await request.data.data.products;
+    const trendingItem = allProducts.filter((item) => item.popular);
     setTrending(trendingItem);
     setActive("2");
   };
   const newArrivalProduct = async () => {
-    const request = await fetch(`${server}/static/product.json`);
-    const allProducts = await request.json();
-    const newArrivalItem = allProducts.sort(function (a, b) {
-      return a.created > b.created ? -1 : 1;
-    });
+    const request = await axios.get(
+      `${BACKEND_URL}/products/v1/query?pageNumber=1`
+    );
+    const allProducts = await request.data.data.products;
+    const newArrivalItem = allProducts.filter((item) => item.newAdded);
     setNewArrival(newArrivalItem);
     setActive("3");
   };

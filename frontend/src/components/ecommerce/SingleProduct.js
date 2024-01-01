@@ -46,6 +46,9 @@ const SingleProduct = ({ product, addToCart, addToWishlist, fixWidth }) => {
           </div>
         </div>
         <div className="product-content-wrap">
+          <div className="product-category">
+            <Link to="/products">{product.categoryName}</Link>
+          </div>
           <h2>
             <Link to={`/products/${product["_id"]}`}>
               {product.title ? product.title : product.name}
@@ -85,10 +88,6 @@ const SingleProduct = ({ product, addToCart, addToWishlist, fixWidth }) => {
           <div className="product-card-bottom">
             <div className="product-price">
               <span>$ {product.price["$numberDecimal"]} </span>
-              {/* <span className="old-price">
-                {product.price["$numberDecimal"] &&
-                  "$ " + product.price[`$numberDecimal`]}
-              </span> */}
             </div>
             <div className="add-cart">
               <a className="add" onClick={(e) => handleCart(product)}>
