@@ -12,7 +12,6 @@ const VendorList = () => {
     getData()
       .then((data) => {
         setData(data);
-        console.log(data[0]["_id"]);
       })
       .catch((error) => {
         console.log("Error fetching Vendors", error);
@@ -21,8 +20,7 @@ const VendorList = () => {
 
   const getData = async () => {
     const response = await axios.get(`${BACKEND_URL}/owners`);
-    // setData(response.data.data);
-    console.log(response);
+    console.log(response.data.data);
     return response.data.data;
   };
 
@@ -63,22 +61,10 @@ const VendorList = () => {
                         <div className="mb-30">
                           <h4 className="mb-5">
                             <Link to={`/vendors-list/vendor/${item["_id"]}`}>
-                              {item.title}
+                              {`${item.firstName} ${item.lastName}`}
                             </Link>
                           </h4>
 
-                          {/* <div className="product-rate-cover">
-                          <div className="product-rate d-inline-block">
-                            <div
-                              className="product-rating"
-                              style={{ width: "90%" }}
-                            ></div>
-                          </div>
-                          <span className="font-small ml-5 text-muted">
-                            {" "}
-                            (4.0)
-                          </span>
-                        </div> */}
                           <div className="vendor-info d-flex justify-content-between align-items-end mt-30">
                             <ul className="contact-infor text-muted">
                               <li>
@@ -114,47 +100,6 @@ const VendorList = () => {
                   </div>
                 ))}
             </div>
-            {/* <div className="pagination-area mt-20 mb-20">
-              <nav aria-label="Page navigation example">
-                <ul className="pagination justify-content-start">
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      <i className="fi-rs-arrow-small-left"></i>
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      1
-                    </a>
-                  </li>
-                  <li className="page-item active">
-                    <a className="page-link" href="#">
-                      2
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      3
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link dot" href="#">
-                      ...
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      6
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      <i className="fi-rs-arrow-small-right"></i>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div> */}
           </div>
         </div>
       </Layout>

@@ -47,7 +47,9 @@ const Products = ({ products, productFilters, fetchProduct }) => {
   }, []);
 
   const getData = async () => {
-    const response = await axios.get(`${BACKEND_URL}/owners/${id}`);
+    const response = await axios.get(
+      `${BACKEND_URL}/owners/${id}/v1/query?pageNumber=1`
+    );
     console.log(response.data.data);
     return response.data.data;
   };
@@ -98,10 +100,10 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                   {data &&
                     data.products.map((item, i) => (
                       <div
-                        className="col-lg-1-5 col-md-4 col-12 col-sm-6"
+                        className="col-lg-1-5 col-md-4 col-15 col-sm-6"
                         key={i}
                       >
-                        <SingleProduct product={item} />
+                        <SingleProduct product={item} fixWidth={true} />
                         {/* <SingleProductList product={item}/> */}
                       </div>
                     ))}

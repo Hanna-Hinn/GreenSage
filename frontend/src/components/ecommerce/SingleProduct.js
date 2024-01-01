@@ -7,7 +7,7 @@ import { addToCart } from "../../redux/action/cart";
 import { openQuickView } from "../../redux/action/quickViewAction";
 import { addToWishlist } from "../../redux/action/wishlistAction";
 
-const SingleProduct = ({ product, addToCart, addToWishlist }) => {
+const SingleProduct = ({ product, addToCart, addToWishlist, fixWidth }) => {
   const handleCart = (product) => {
     addToCart(product);
     toast("Product added to Cart !");
@@ -33,22 +33,9 @@ const SingleProduct = ({ product, addToCart, addToWishlist }) => {
                 height="250px"
                 alt={`${product.name}`}
               />
-              {/* <img
-                className="hover-img"
-                src={product.images[1].img}
-                alt={`icon2`}
-              /> */}
             </Link>
           </div>
           <div className="product-action-1">
-            {/* <a
-              aria-label="Quick view"
-              className="action-btn hover-up"
-              data-bs-toggle="modal"
-              onClick={(e) => openQuickView(product)}
-            >
-              <i className="fi-rs-eye"></i>
-            </a> */}
             <a
               aria-label="Add To Wishlist"
               className="action-btn hover-up"
@@ -66,12 +53,9 @@ const SingleProduct = ({ product, addToCart, addToWishlist }) => {
           </h2>
 
           <div className="product-rate-cover">
-            {/* <div className="product-rate d-inline-block">
-              <div className="product-rating" style={{ width: "90%" }}></div>
-            </div> */}
             {[...Array(5)].map((star, index) => {
               const currentRating = index + 1;
-              console.log(currentRating);
+
               return (
                 <span
                   style={{

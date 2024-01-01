@@ -17,7 +17,6 @@ function CategoryTab() {
       `${BACKEND_URL}/products/v1/query?pageNumber=1`
     );
     const allProducts = await request.data.data.products;
-    console.log(allProducts);
     const catAllItem = allProducts.filter((item) => item.categoryName);
     setCatAll(catAllItem);
     setActive("1");
