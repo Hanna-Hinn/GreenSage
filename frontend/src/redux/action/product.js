@@ -58,3 +58,25 @@ export const fetchByCategory = async (url, filters) => {
     console.log(error);
   }
 };
+
+export const fetchTopSelling = async (url, filters) => {
+  try {
+    const sendRequest = await axios.get(url);
+    const data = sendRequest.data.data.productsWithDetails;
+
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchTopRated = async (url, filters) => {
+  try {
+    const sendRequest = await axios.get(url);
+    const data = sendRequest.data.data.productsWithDetails;
+
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
