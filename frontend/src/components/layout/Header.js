@@ -1,10 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import CategoryProduct2 from "../ecommerce/Filter/CategoryProduct2";
 import Search from "../ecommerce/Search";
 
 const Header = ({ totalCartItems, toggleClick, totalWishlistItems }) => {
+  const location = useLocation();
+  const currentPathname = location.pathname;
+  console.log(currentPathname);
   const [isToggled, setToggled] = useState(false);
   const [scroll, setScroll] = useState(0);
 
@@ -212,20 +215,44 @@ const Header = ({ totalCartItems, toggleClick, totalWishlistItems }) => {
                   <nav>
                     <ul>
                       <li>
-                        <Link to="/" className="active">
+                        <Link
+                          to="/"
+                          className={currentPathname === "/" ? "active" : ""}
+                        >
                           Home
                         </Link>
                       </li>
                       <li>
-                        <Link to="/page-about">About</Link>
+                        <Link
+                          to="/page-about"
+                          className={
+                            currentPathname === "/page-about" ? "active" : ""
+                          }
+                        >
+                          About
+                        </Link>
                       </li>
 
                       <li>
-                        <Link to="/vendors-list">Vendors</Link>
+                        <Link
+                          to="/vendors-list"
+                          className={
+                            currentPathname === "/vendors-list" ? "active" : ""
+                          }
+                        >
+                          Vendors
+                        </Link>
                       </li>
 
                       <li>
-                        <Link to="/page-contact">Contact</Link>
+                        <Link
+                          to="/page-contact"
+                          className={
+                            currentPathname === "/page-contact" ? "active" : ""
+                          }
+                        >
+                          Contact
+                        </Link>
                       </li>
                     </ul>
                   </nav>

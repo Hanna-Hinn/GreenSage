@@ -35,6 +35,7 @@ const SingleProduct2 = ({
               <img
                 className="default-img"
                 src={product.imageUrl}
+                height="250px"
                 alt={`${product.name}`}
               />
             </Link>
