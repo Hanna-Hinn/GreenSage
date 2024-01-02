@@ -15,9 +15,7 @@ export const fetchProduct = (searchTerm, url, filters) => async (dispatch) => {
     const data = searchTerm ? response.data.data : response.data.data.products;
 
     window.products = data;
-    console.log(data);
-    // const searchedItems = searchItemsByText(searchTerm, data);
-    // const filteredList = filterProductList(data, filters);
+
     dispatch({
       type: Types.FETCHED_PRODUCT,
       payload: { products: data },
@@ -80,3 +78,8 @@ export const fetchTopRated = async (url, filters) => {
     console.log(error);
   }
 };
+
+
+export const fetchRelated = async (url) => {
+  
+}

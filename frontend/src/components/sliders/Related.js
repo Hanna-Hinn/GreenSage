@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import SwiperCore, { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { fetchByCategory } from "../../redux/action/product";
+import { fetchRelated } from "../../redux/action/product";
 import SingleProduct from "./../ecommerce/SingleProduct";
 
 SwiperCore.use([Navigation]);
@@ -15,7 +15,7 @@ const RelatedSlider = () => {
 
     const fetchProducts = async () => {
         // With Category
-        const allProducts = await fetchByCategory("/static/product.json");
+        const allProducts = await fetchRelated("/static/product.json");
         setRelated(allProducts);
     };
 

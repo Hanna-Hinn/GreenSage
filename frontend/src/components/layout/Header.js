@@ -7,7 +7,6 @@ import Search from "../ecommerce/Search";
 const Header = ({ totalCartItems, toggleClick, totalWishlistItems }) => {
   const location = useLocation();
   const currentPathname = location.pathname;
-  console.log(currentPathname);
   const [isToggled, setToggled] = useState(false);
   const [scroll, setScroll] = useState(0);
 
