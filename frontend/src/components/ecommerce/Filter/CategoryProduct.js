@@ -9,12 +9,12 @@ const CategoryProduct = ({ updateProductCategory }) => {
     e.preventDefault();
     // removeSearchTerm();
     updateProductCategory(category);
-    navigate("/products", { search: { cat: category } });
+    navigate(`/products?cat=${category}`);
   };
   return (
     <>
       <ul>
-        <li onClick={(e) => selectCategory(e, "Herbs")}>
+        <li onClick={(e) => selectCategory(e, "")}>
           <a>
             <img src="/assets/imgs/theme/icons/category-1.svg" alt="herbs" />
             All

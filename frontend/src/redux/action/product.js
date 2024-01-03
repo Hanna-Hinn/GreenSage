@@ -1,18 +1,13 @@
 // import fetch from 'isomorphic-unfetch'
 import filterProductList from "../../util/filterProduct";
-import searchItemsByText from "../../util/searchItemsByText";
 import * as Types from "../constants/actionTypes";
 import axios from "axios";
-import { BACKEND_URL } from "../../config/index";
+
 // Fetch Product fetchProduct
-export const fetchProduct = (searchTerm, url, filters) => async (dispatch) => {
+export const fetchProduct = (url) => async (dispatch) => {
   try {
-    const response = await axios.get(
-      searchTerm
-        ? `${BACKEND_URL}/products/v1/search?productName=${searchTerm}`
-        : url
-    );
-    const data = searchTerm ? response.data.data : response.data.data.products;
+    const response = await axios.get(url);
+    const data = response.data.products;
 
     window.products = data;
 
@@ -22,6 +17,22 @@ export const fetchProduct = (searchTerm, url, filters) => async (dispatch) => {
     });
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const searchProducts = (url, filters) => async (dispatch) => {
+  try {
+    console.log(url);
+    const response = await axios.get(url);
+    const data = response.data.data;
+    window.products = data;
+
+    dispatch({
+      type: Types.FETCHED_PRODUCT,
+      payload: { products: data },
+    });
+  } catch (e) {
+    console.log(e);
   }
 };
 

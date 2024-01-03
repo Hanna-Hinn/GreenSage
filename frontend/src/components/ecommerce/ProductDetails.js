@@ -33,8 +33,6 @@ const ProductDetails = ({
 
   const inCart = cartItems.find((cartItem) => cartItem.id === product.id);
 
-  console.log(product);
-
   return (
     <>
       <section className="mt-50 mb-50">
