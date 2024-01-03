@@ -21,7 +21,9 @@ const Cart = ({
 }) => {
   const price = () => {
     let price = 0;
-    cartItems.forEach((item) => (price += item.price * item.quantity));
+    cartItems.forEach(
+      (item) => (price += item.price["$numberDecimal"] * item.quantity)
+    );
 
     return price;
   };
@@ -70,30 +72,46 @@ const Cart = ({
                       {cartItems.map((item, i) => (
                         <tr key={i}>
                           <td className="image product-thumbnail">
-                            <img src={item.images[0].img} />
+                            <img src={item.imageUrl} alt={item.name} />
                           </td>
 
                           <td className="product-des product-name">
                             <h6 className="product-name">
-                              <Link to="/products">{item.title}</Link>
+                              <Link to={`/products/${item["_id"]}`}>
+                                {item.name}
+                              </Link>
                             </h6>
                             <div className="product-rate-cover">
-                              <div className="product-rate d-inline-block">
-                                <div
-                                  className="product-rating"
-                                  style={{
-                                    width: "90%",
-                                  }}
-                                ></div>
-                              </div>
+                              {[...Array(5)].map((star, index) => {
+                                const currentRating = index + 1;
+
+                                return (
+                                  <span
+                                    key={index}
+                                    style={{
+                                      color:
+                                        currentRating <=
+                                        Math.round(item.averageRating)
+                                          ? "#ffc107"
+                                          : "#e4e5e9",
+                                      fontSize: "1rem",
+                                      margin: "1px",
+                                    }}
+                                  >
+                                    &#9733;
+                                  </span>
+                                );
+                              })}
                               <span className="font-small ml-5 text-muted">
                                 {" "}
-                                (4.0)
+                                ({item.averageRating})
                               </span>
                             </div>
                           </td>
                           <td className="price" data-title="Price">
-                            <h4 className="text-brand">${item.price}</h4>
+                            <h4 className="text-brand">
+                              ${item.price["$numberDecimal"]}
+                            </h4>
                           </td>
                           <td
                             className="text-center detail-info"
@@ -119,7 +137,7 @@ const Cart = ({
                           </td>
                           <td className="text-right" data-title="Cart">
                             <h4 className="text-body">
-                              ${item.quantity * item.price}
+                              ${item.quantity * item.price["$numberDecimal"]}
                             </h4>
                           </td>
                           <td className="action" data-title="Remove">
