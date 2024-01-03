@@ -15,31 +15,29 @@ function FetchTabSlider() {
 
   const featuredProduct = async () => {
     const request = await axios.get(
-      `${BACKEND_URL}/products/v1/query?pageNumber=1`
+      `${BACKEND_URL}/products/v1/filter?featured=true`
     );
-    const allProducts = await request.data.data.products;
-    const featuredItem = allProducts.filter((item) => item.featured);
+    const allProducts = await request.data.data.productsWithDetails;
 
-    setFeatured(featuredItem);
+    setFeatured(allProducts);
     setActive("1");
   };
 
   const trendingProduct = async () => {
     const request = await axios.get(
-      `${BACKEND_URL}/products/v1/query?pageNumber=1`
+      `${BACKEND_URL}/products/v1/filter?popular=true`
     );
-    const allProducts = await request.data.data.products;
-    const trendingItem = allProducts.filter((item) => item.popular);
-    setTrending(trendingItem);
+    const products = await request.data.data.productsWithDetails;
+    setTrending(products);
     setActive("2");
   };
   const newArrivalProduct = async () => {
     const request = await axios.get(
-      `${BACKEND_URL}/products/v1/query?pageNumber=1`
+      `${BACKEND_URL}/products/v1/filter?newAdded=true`
     );
-    const allProducts = await request.data.data.products;
-    const newArrivalItem = allProducts.filter((item) => item.newAdded);
-    setNewArrival(newArrivalItem);
+    const products = await request.data.data.productsWithDetails;
+
+    setNewArrival(products);
     setActive("3");
   };
 

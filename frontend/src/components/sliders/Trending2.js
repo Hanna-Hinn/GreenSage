@@ -12,12 +12,11 @@ const TrendingSlider = () => {
   const fetchProducts = async () => {
     // With Category
     const request = await axios.get(
-      `${BACKEND_URL}/products/v1/query?pageNumber=1`
+      `${BACKEND_URL}/products/v1/filter?popular=true`
     );
-    const allProducts = await request.data.data.products;
+    const allProducts = await request.data.data.productsWithDetails;
 
-    const trendingItem = allProducts.filter((item) => item.popular);
-    setTrending(trendingItem);
+    setTrending(allProducts);
   };
 
   return (

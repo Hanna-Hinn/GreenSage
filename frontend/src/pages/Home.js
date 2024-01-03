@@ -3,9 +3,7 @@ import FetchTabSlider from "../components/ecommerce/fetchTabSlider";
 import Bottom from "../components/elements/Bottom";
 import Banner5 from "./../components/elements/Banner5";
 import Layout from "./../components/layout/Layout";
-// import CategorySlider from "./../components/sliders/Category";
 import Intro1 from "./../components/sliders/Intro1";
-// import { Link } from "react-router-dom";
 
 export default function Home() {
   return (

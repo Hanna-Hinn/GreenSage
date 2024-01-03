@@ -14,9 +14,10 @@ const SingleProduct2 = ({
   addToWishlist,
   openQuickView,
 }) => {
-  const soldItems = Math.floor(
-    Math.random() * (product.availableInStock - 5 - 5) + 5
-  );
+  // const soldItems = Math.floor(
+  //   Math.random() * (product.availableInStock - 5 - 5) + 5
+  // );
+  const soldItems = 10;
   const handleCart = (product) => {
     addToCart(product);
     toast("Product added to Cart !");

@@ -57,6 +57,28 @@ export const fetchByCategory = async (url, filters) => {
   }
 };
 
+export const fetchFeatured = async (url, filters) => {
+  try {
+    const sendRequest = await axios.get(url);
+    const data = sendRequest.data.data.productsWithDetails;
+
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchPopular = async (url, filters) => {
+  try {
+    const sendRequest = await axios.get(url);
+    const data = sendRequest.data.data.productsWithDetails;
+
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const fetchTopSelling = async (url, filters) => {
   try {
     const sendRequest = await axios.get(url);
@@ -79,7 +101,13 @@ export const fetchTopRated = async (url, filters) => {
   }
 };
 
+export const fetchNewAdded = async (url, filters) => {
+  try {
+    const sendRequest = await axios.get(url);
+    const data = sendRequest.data.data.productsWithDetails;
 
-export const fetchRelated = async (url) => {
-  
-}
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};

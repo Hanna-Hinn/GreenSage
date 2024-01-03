@@ -16,37 +16,36 @@ function CategoryTab() {
     const request = await axios.get(
       `${BACKEND_URL}/products/v1/query?pageNumber=1`
     );
-    const allProducts = await request.data.data.products;
-    const catAllItem = allProducts.filter((item) => item.categoryName);
-    setCatAll(catAllItem);
+    const products = await request.data.data.products;
+
+    setCatAll(products);
     setActive("1");
   };
   const catP1 = async () => {
     const request = await axios.get(
-      `${BACKEND_URL}/products/v1/query?pageNumber=1`
+      `${BACKEND_URL}/products/v1/filter?featured=true`
     );
-    const allProducts = await request.data.data.products;
-    const cat1Item = allProducts.filter((item) => item.featured);
-    setCat1(cat1Item);
+    const products = await request.data.data.productsWithDetails;
+    setCat1(products);
     setActive("2");
   };
 
   const catP2 = async () => {
     const request = await axios.get(
-      `${BACKEND_URL}/products/v1/query?pageNumber=1`
+      `${BACKEND_URL}/products/v1/filter?popular=true`
     );
-    const allProducts = await request.data.data.products;
-    const cat2Item = allProducts.filter((item) => item.popular);
-    setCat2(cat2Item);
+    const products = await request.data.data.productsWithDetails;
+
+    setCat2(products);
     setActive("3");
   };
   const catP3 = async () => {
     const request = await axios.get(
-      `${BACKEND_URL}/products/v1/query?pageNumber=1`
+      `${BACKEND_URL}/products/v1/filter?newAdded=true`
     );
-    const allProducts = await request.data.data.products;
-    const cat3Item = allProducts.filter((item) => item.newAdded);
-    setCat3(cat3Item);
+    const products = await request.data.data.productsWithDetails;
+
+    setCat3(products);
     setActive("4");
   };
 
@@ -64,7 +63,7 @@ function CategoryTab() {
               className={active === "1" ? "nav-link active" : "nav-link"}
               onClick={catPAll}
             >
-              All
+              Recommended
             </button>
           </li>
           <li className="nav-item" role="presentation">
