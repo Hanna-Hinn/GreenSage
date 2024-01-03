@@ -7,14 +7,16 @@ import axios from "axios";
 
 const ProductId = () => {
   const [product, setProduct] = useState(null);
+  const [relatedProducts, setRelatedProducts] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
     const fetchProduct = async () => {
       const response = await axios.get(`${BACKEND_URL}/products/${id}`);
       const data = response.data.data.product;
-
+      const relatedProducts = response.data.data.relatedProducts;
       setProduct(data);
+      setRelatedProducts(relatedProducts);
     };
     fetchProduct();
   }, [id]);
@@ -25,7 +27,7 @@ const ProductId = () => {
     <>
       <Layout parent="Home" sub="Shop" subChild={product.name}>
         <div className="container">
-          <ProductDetails product={product} />
+          <ProductDetails product={product} relatedProducts={relatedProducts} />
         </div>
       </Layout>
     </>

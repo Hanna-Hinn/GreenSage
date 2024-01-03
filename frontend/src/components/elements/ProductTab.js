@@ -1,11 +1,45 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import axios from "axios";
 import React, { useState } from "react";
+import { BACKEND_URL } from "../../config";
 
-const ProductTab = ({ desc, vendor, ratingCount, reviews }) => {
+const ProductTab = ({
+  productDetails,
+  userId,
+  desc,
+  vendor,
+  ratingCount,
+  reviews,
+}) => {
   const [activeIndex, setActiveIndex] = useState(1);
+  const [hover, setHover] = useState(null);
+  const [success, setSuccess] = useState({ status: false, msg: "" });
+  const [formData, setFormData] = useState({
+    title: productDetails.name,
+    productId: productDetails.id,
+    userId: "6591c9101193d526b0f1f958",
+    rating: 0,
+  });
 
   const handleOnClick = (index) => {
     setActiveIndex(index);
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post(`${BACKEND_URL}/ratings`, formData);
+      setSuccess({
+        status: response.data.success,
+        msg: response.data.msg ? response.data.msg : response.data.message,
+      });
+      window.location.reload(false);
+    } catch (e) {
+      console.log(e);
+      setSuccess({
+        status: false,
+        msg: e.message ? e.message : "Something Went Wrong!!!",
+      });
+    }
   };
 
   return (
@@ -61,10 +95,15 @@ const ProductTab = ({ desc, vendor, ratingCount, reviews }) => {
             id="vendors"
           >
             <div className="vendor-logo d-flex mb-30">
-              {/* <img src={vendor.imageUrl} alt={vendor.name} /> */}
+              <img
+                src={vendor.imageUrl}
+                alt={`${vendor.firstName} ${vendor.lastName}`}
+              />
               <div className="vendor-name ml-15">
                 <h6>
-                  <a href="vendor-details-2.html">{vendor.name}</a>
+                  <a
+                    href={`/vendor-list/vendors/${vendor["_id"]}`}
+                  >{`${vendor.firstName} ${vendor.lastName}`}</a>
                 </h6>
               </div>
             </div>
@@ -75,9 +114,9 @@ const ProductTab = ({ desc, vendor, ratingCount, reviews }) => {
                   alt="location"
                 />
                 <strong>Address: </strong>{" "}
-                {/* <span>
+                <span>
                   {`${vendor.addresses[0].street}, ${vendor.addresses[0].city} ${vendor.addresses[0].postalCode}, ${vendor.addresses[0].state}  `}
-                </span> */}
+                </span>
               </li>
               <li>
                 <img
@@ -89,7 +128,7 @@ const ProductTab = ({ desc, vendor, ratingCount, reviews }) => {
               </li>
             </ul>
 
-            {/* <p>{vendor.description}</p> */}
+            <p>{vendor.description}</p>
           </div>
           <div
             className={
@@ -101,109 +140,54 @@ const ProductTab = ({ desc, vendor, ratingCount, reviews }) => {
               <div className="row">
                 <div className="col-lg-8">
                   <div className="comment-list">
-                    <div className="single-comment justify-content-between d-flex">
-                      <div className="user justify-content-between d-flex">
-                        <div className="thumb text-center">
-                          <img
-                            src="/assets/imgs/blog/author-2.png"
-                            alt="nest"
-                          />
-                          <h6>
-                            <a href="#">Jacky Chan</a>
-                          </h6>
-                        </div>
-                        <div className="desc">
-                          <div className="product-rate d-inline-block">
-                            <div
-                              className="product-rating"
-                              style={{
-                                width: "90%",
-                              }}
-                            ></div>
-                          </div>
-                          <p>
-                            Thank you very fast shipping from Poland only 3days.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
+                    {reviews.map((item, index) => {
+                      const rating = item.rating;
+                      return (
+                        <div
+                          className="single-comment justify-content-between d-flex"
+                          key={index}
+                        >
+                          <div className="user justify-content-between d-flex">
+                            <div className="thumb text-center">
+                              <img
+                                src={`${rating.userImage}`}
+                                alt={`${rating.userName}`}
+                              />
+                              <h6
+                                style={{ color: "#3bb77e" }}
+                              >{`${rating.userName}`}</h6>
+                            </div>
+                            <div className="desc">
+                              <div className="product-rate-cover d-inline-block">
+                                {[...Array(5)].map((star, index) => {
+                                  const currentRating = index + 1;
 
-                    <div className="single-comment justify-content-between d-flex">
-                      <div className="user justify-content-between d-flex">
-                        <div className="thumb text-center">
-                          <img
-                            src="/assets/imgs/blog/author-3.png"
-                            alt="nest"
-                          />
-                          <h6>
-                            <a href="#">Ana Rosie</a>
-                          </h6>
-                          <p className="font-xxs">Since 2008</p>
-                        </div>
-                        <div className="desc">
-                          <div className="product-rate d-inline-block">
-                            <div
-                              className="product-rating"
-                              style={{
-                                width: "90%",
-                              }}
-                            ></div>
-                          </div>
-                          <p>Great low price and works well.</p>
-                          <div className="d-flex justify-content-between">
-                            <div className="d-flex align-items-center">
-                              <p className="font-xs mr-30">
-                                December 4, 2020 at 3:12 pm
-                              </p>
-                              <a href="#" className="text-brand btn-reply">
-                                Reply
-                                <i className="fi-rs-arrow-right"></i>
-                              </a>
+                                  return (
+                                    <span
+                                      key={index}
+                                      style={{
+                                        color:
+                                          currentRating <=
+                                          Math.round(
+                                            rating.rating["$numberDecimal"]
+                                          )
+                                            ? "#ffc107"
+                                            : "grey",
+                                        fontSize: "1rem",
+                                      }}
+                                    >
+                                      &#9733;
+                                    </span>
+                                  );
+                                })}
+                              </div>
+
+                              <p>{rating.description}</p>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-
-                    <div className="single-comment justify-content-between d-flex">
-                      <div className="user justify-content-between d-flex">
-                        <div className="thumb text-center">
-                          <img
-                            src="/assets/imgs/blog/author-4.png"
-                            alt="nest"
-                          />
-                          <h6>
-                            <a href="#">Steven Keny</a>
-                          </h6>
-                          <p className="font-xxs">Since 2010</p>
-                        </div>
-                        <div className="desc">
-                          <div className="product-rate d-inline-block">
-                            <div
-                              className="product-rating"
-                              style={{
-                                width: "90%",
-                              }}
-                            ></div>
-                          </div>
-                          <p>
-                            Authentic and Beautiful, Love these way more than
-                            ever expected They are Great earphones
-                          </p>
-                          <div className="d-flex justify-content-between">
-                            <div className="d-flex align-items-center">
-                              <p className="font-xs mr-30">
-                                December 4, 2020 at 3:12 pm
-                              </p>
-                              <a href="#" className="text-brand btn-reply">
-                                Reply
-                                <i className="fi-rs-arrow-right"></i>
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
@@ -211,13 +195,44 @@ const ProductTab = ({ desc, vendor, ratingCount, reviews }) => {
 
             <div className="comment-form">
               <h4 className="mb-15">Add a review</h4>
-              <div className="product-rate d-inline-block mb-30"></div>
+              {[...Array(5)].map((star, index) => {
+                const currentRating = index + 1;
+
+                return (
+                  <label key={index}>
+                    <input
+                      type="radio"
+                      name="rating"
+                      value={currentRating}
+                      style={{ display: "none" }}
+                      onChange={() =>
+                        setFormData({ ...formData, rating: currentRating })
+                      }
+                    />
+                    <span
+                      className="star"
+                      style={{
+                        color:
+                          currentRating <= (hover || formData.rating)
+                            ? "#ffc107"
+                            : "#e4e5e9",
+                        cursor: "pointer",
+                        fontSize: "2rem",
+                        margin: "5px",
+                      }}
+                      onMouseEnter={() => setHover(currentRating)}
+                      onMouseLeave={() => setHover(null)}
+                    >
+                      &#9733;
+                    </span>
+                  </label>
+                );
+              })}
               <div className="row">
                 <div className="col-lg-8 col-md-12">
                   <form
                     className="form-contact comment_form"
-                    action="#"
-                    id="commentForm"
+                    onSubmit={(e) => e.preventDefault()}
                   >
                     <div className="row">
                       <div className="col-12">
@@ -229,50 +244,27 @@ const ProductTab = ({ desc, vendor, ratingCount, reviews }) => {
                             cols="30"
                             rows="9"
                             placeholder="Write Comment"
+                            onChange={(e) => {
+                              setFormData({
+                                ...formData,
+                                description: e.target.value,
+                              });
+                            }}
                           ></textarea>
-                        </div>
-                      </div>
-                      <div className="col-sm-6">
-                        <div className="form-group">
-                          <input
-                            className="form-control"
-                            name="name"
-                            id="name"
-                            type="text"
-                            placeholder="Name"
-                          />
-                        </div>
-                      </div>
-                      <div className="col-sm-6">
-                        <div className="form-group">
-                          <input
-                            className="form-control"
-                            name="email"
-                            id="email"
-                            type="email"
-                            placeholder="Email"
-                          />
-                        </div>
-                      </div>
-                      <div className="col-12">
-                        <div className="form-group">
-                          <input
-                            className="form-control"
-                            name="website"
-                            id="website"
-                            type="text"
-                            placeholder="Website"
-                          />
                         </div>
                       </div>
                     </div>
                     <div className="form-group">
                       <button
-                        type="submit"
+                        // type="submit"
+                        onClick={handleSubmit}
                         className="button button-contactForm"
                       >
                         Submit Review
                       </button>
+                      <p style={{ marginTop: "5px", color: "red" }}>
+                        {success.msg}
+                      </p>
                     </div>
                   </form>
                 </div>

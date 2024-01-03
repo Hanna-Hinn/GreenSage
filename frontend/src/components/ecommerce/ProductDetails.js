@@ -18,7 +18,7 @@ const ProductDetails = ({
   addToWishlist,
   increaseQuantity,
   decreaseQuantity,
-  quickView,
+  relatedProducts,
 }) => {
   const [quantity, setQuantity] = useState(1);
   const handleCart = (product) => {
@@ -32,6 +32,8 @@ const ProductDetails = ({
   };
 
   const inCart = cartItems.find((cartItem) => cartItem.id === product.id);
+
+  console.log(product);
 
   return (
     <>
@@ -48,7 +50,6 @@ const ProductDetails = ({
                       </span>
 
                       <div className="product-image-slider">
-                        {/* <ThumbSlider product={product} /> */}
                         <img src={product.imageUrl} alt={product.name} />
                       </div>
                     </div>
@@ -157,8 +158,9 @@ const ProductDetails = ({
 
                 <>
                   <ProductTab
+                    productDetails={{ name: product.name, id: product["_id"] }}
                     desc={product.description}
-                    vendor={product.owner}
+                    vendor={product.ownerDetails[0]}
                     ratingCount={product.ratingCount}
                     reviews={product.ratingDetails}
                   />
@@ -170,7 +172,7 @@ const ProductDetails = ({
                     </div>
                     <div className="col-12">
                       <div className="row related-products position-relative">
-                        <RelatedSlider />
+                        <RelatedSlider products={relatedProducts} />
                       </div>
                     </div>
                   </div>
