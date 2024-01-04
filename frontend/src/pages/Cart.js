@@ -142,7 +142,7 @@ const Cart = ({
                           </td>
                           <td className="action" data-title="Remove">
                             <a
-                              onClick={(e) => deleteFromCart(item.id)}
+                              onClick={(e) => deleteFromCart(item['_id'])}
                               className="text-muted"
                             >
                               <i className="fi-rs-trash"></i>

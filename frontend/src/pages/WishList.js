@@ -124,7 +124,7 @@ const Wishlist = ({
                             </td>
                             <td className="action" data-title="Remove">
                               <a
-                                onClick={(e) => deleteFromWishlist(product.id)}
+                                onClick={(e) => deleteFromWishlist(product['_id'])}
                               >
                                 <i className="fi-rs-trash"></i>
                               </a>
