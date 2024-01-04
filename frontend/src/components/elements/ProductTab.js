@@ -262,7 +262,12 @@ const ProductTab = ({
                       >
                         Submit Review
                       </button>
-                      <p style={{ marginTop: "5px", color: "red" }}>
+                      <p
+                        style={{
+                          marginTop: "5px",
+                          color: success ? "red" : "green",
+                        }}
+                      >
                         {success.msg}
                       </p>
                     </div>
