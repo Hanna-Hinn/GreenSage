@@ -7,7 +7,7 @@ import { addToCart } from "../../redux/action/cart";
 import { openQuickView } from "../../redux/action/quickViewAction";
 import { addToWishlist } from "../../redux/action/wishlistAction";
 
-const SingleProduct = ({ product, addToCart, addToWishlist, fixWidth }) => {
+const SingleProduct = ({ product, addToCart, addToWishlist }) => {
   const handleCart = (product) => {
     addToCart(product);
     toast("Product added to Cart !");
@@ -39,7 +39,9 @@ const SingleProduct = ({ product, addToCart, addToWishlist, fixWidth }) => {
             <a
               aria-label="Add To Wishlist"
               className="action-btn hover-up"
-              onClick={(e) => handleWishlist(product)}
+              onClick={(e) => {
+                handleWishlist(product);
+              }}
             >
               <i className="fi-rs-heart"></i>
             </a>
