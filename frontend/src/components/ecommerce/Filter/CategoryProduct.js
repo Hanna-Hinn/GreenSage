@@ -12,11 +12,12 @@ const CategoryProduct = ({ updateProductCategory }) => {
     // removeSearchTerm();
     updateProductCategory(category);
     // Fix when cat already exists
-    navigate(
-      path.slice(-1) === "&"
-        ? `${path}cat=${category}`
-        : `${path}&cat=${category}`
-    );
+    // navigate(
+    //   path.slice(-1) === "&"
+    //     ? `${path}cat=${category}`
+    //     : `${path}&cat=${category}`
+    // );
+    navigate(`/products?cat=${category}`);
   };
   return (
     <>
