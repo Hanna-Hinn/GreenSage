@@ -31,7 +31,7 @@ const ProductDetails = ({
     toast("Added to Wishlist !");
   };
 
-  const inCart = cartItems.find((cartItem) => cartItem.id === product.id);
+  const inCart = cartItems.find((cartItem) => cartItem.id === product["_id"]);
 
   return (
     <>
@@ -101,7 +101,9 @@ const ProductDetails = ({
                             onClick={(e) =>
                               !inCart
                                 ? setQuantity(quantity > 1 ? quantity - 1 : 1)
-                                : decreaseQuantity(product?.id)
+                                : decreaseQuantity(
+                                    product ? product["_id"] : null
+                                  )
                             }
                             className="qty-down"
                           >
@@ -114,7 +116,7 @@ const ProductDetails = ({
                             onClick={() =>
                               !inCart
                                 ? setQuantity(quantity + 1)
-                                : increaseQuantity(product.id)
+                                : increaseQuantity(product["_id"])
                             }
                             className="qty-up"
                           >
