@@ -4,8 +4,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import { addToCart } from "../../redux/action/cart";
-
-import { openQuickView } from "../../redux/action/quickViewAction";
 import { addToWishlist } from "../../redux/action/wishlistAction";
 
 const SingleProduct2 = ({
@@ -116,7 +114,6 @@ const SingleProduct2 = ({
 const mapDispatchToProps = {
   addToCart,
   addToWishlist,
-  openQuickView,
 };
 
 export default connect(null, mapDispatchToProps)(SingleProduct2);

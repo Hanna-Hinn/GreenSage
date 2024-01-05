@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import Layout from "../components/layout/Layout";
 import { BACKEND_URL } from "../config/index";
-import { useDispatch } from "react-redux";
-import { loginSuccess } from "../redux/action/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../redux/action/auth";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -12,7 +12,15 @@ function Login() {
   const navigate = useNavigate();
   const [securityCode, setSecurityCode] = useState("");
   const [formData, setFormData] = useState({});
-  const [error, setError] = useState({});
+  const [validError, setValidError] = useState({});
+  const userLogin = useSelector((state) => state.auth);
+  const { error, userInfo } = userLogin;
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/page-account");
+    }
+  }, [userInfo]);
 
   const handleSubmit = async () => {
     const isValid = validateInputs();
@@ -20,20 +28,22 @@ function Login() {
       return;
     }
 
-    const user = formData;
-    try {
-      const response = await axios.post(`${BACKEND_URL}/login`, user);
-      const data = response.data.data;
-      dispatch(loginSuccess(data));
-      navigate("/");
-    } catch (error) {
-      setError({
-        ...error,
-        responseError: error.message
-          ? error.message
-          : "Something Went Wrong!!!",
-      });
-    }
+    dispatch(login(formData.email, formData.password));
+
+    // const user = formData;
+    // try {
+    //   const response = await axios.post(`${BACKEND_URL}/login`, user);
+    //   const data = response.data.data;
+    //   dispatch(loginSuccess(data));
+    //   navigate("/");
+    // } catch (error) {
+    //   setError({
+    //     ...error,
+    //     responseError: error.message
+    //       ? error.message
+    //       : "Something Went Wrong!!!",
+    //   });
+    // }
   };
 
   const validateInputs = () => {
@@ -42,18 +52,21 @@ function Login() {
     const confirmCode = formData["securityCode"];
 
     if (!email || email.trim() === "" || !validateEmail(email)) {
-      setError({ ...error, email: "Entered Email not Valid!!!" });
+      setValidError({ ...validError, email: "Entered Email not Valid!!!" });
       return false;
     }
     if (!password || password.trim() === "" || password.length < 8) {
-      setError({
-        ...error,
+      setValidError({
+        ...validError,
         password: "Password Length Must be more than 8 characters!!!",
       });
       return false;
     }
     if (confirmCode !== securityCode) {
-      setError({ ...error, securityCode: "Security Code does not Match!!!" });
+      setValidError({
+        ...validError,
+        securityCode: "Security Code does not Match!!!",
+      });
       return false;
     }
     return true;
@@ -112,17 +125,17 @@ function Login() {
                                   ...formData,
                                   email: e.target.value,
                                 });
-                                setError((curr) => {
+                                setValidError((curr) => {
                                   const { email, ...rest } = curr;
                                   return rest;
                                 });
                               }}
                             />
-                            {error.email && (
+                            {validError.email && (
                               <>
                                 <br />
                                 <span style={{ color: "red" }}>
-                                  {error.email}
+                                  {validError.email}
                                 </span>
                               </>
                             )}
@@ -138,18 +151,18 @@ function Login() {
                                   ...formData,
                                   password: e.target.value,
                                 });
-                                setError((curr) => {
+                                setValidError((curr) => {
                                   const { password, ...rest } = curr;
                                   return rest;
                                 });
                               }}
                             />
                           </div>
-                          {error.password && (
+                          {validError.password && (
                             <>
                               <br />
                               <span style={{ color: "red" }}>
-                                {error.password}
+                                {validError.password}
                               </span>
                             </>
                           )}
@@ -165,18 +178,18 @@ function Login() {
                                     ...formData,
                                     securityCode: e.target.value,
                                   });
-                                  setError((curr) => {
+                                  setValidError((curr) => {
                                     const { securityCode, ...rest } = curr;
                                     return rest;
                                   });
                                 }}
                               />
                             </div>
-                            {error.securityCode && (
+                            {validError.securityCode && (
                               <>
                                 <br />
                                 <span style={{ color: "red" }}>
-                                  {error.securityCode}
+                                  {validError.securityCode}
                                 </span>
                               </>
                             )}
@@ -202,11 +215,7 @@ function Login() {
                             </a>
                           </div>
                           <div className="form-group">
-                            {!error.responseError && (
-                              <p style={{ color: "red" }}>
-                                {error.responseError}
-                              </p>
-                            )}
+                            {error && <p style={{ color: "red" }}>{error}</p>}
                             <button
                               // type="submit"
                               className="btn btn-heading btn-block hover-up"

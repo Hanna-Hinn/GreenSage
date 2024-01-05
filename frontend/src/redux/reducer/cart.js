@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import storage from "../../util/localStorage";
 import { deleteProduct, findProductIndexById } from "../../util/util";
 import * as Types from "../constants/actionTypes";

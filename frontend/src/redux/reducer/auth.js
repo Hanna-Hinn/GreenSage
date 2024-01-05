@@ -1,20 +1,44 @@
-import { REGISTER_SUCCESS, LOGIN_SUCCESS } from "../constants/actionTypes";
+import {
+  REGISTER_SUCCESS,
+  LOGIN_SUCCESS,
+  LOGIN_REQUEST,
+  LOGIN_FAIL,
+  LOGOUT,
+} from "../constants/actionTypes";
+import storage from "../../util/localStorage";
 
 const initialState = {
-  user: null,
+  userInfo: storage.get("userInfo") || null,
 };
 
-const authReducer = (state = initialState, action) => {
+const user = (state = initialState, action) => {
   switch (action.type) {
+    case LOGIN_REQUEST:
+      return {
+        loading: true,
+      };
     case REGISTER_SUCCESS:
+      return {
+        loading: false,
+        userInfo: action.payload,
+      };
     case LOGIN_SUCCESS:
       return {
-        ...state,
-        user: action.payload,
+        loading: false,
+        userInfo: action.payload,
+      };
+    case LOGIN_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    case LOGOUT:
+      return {
+        loading: false,
       };
     default:
       return state;
   }
 };
 
-export default authReducer;
+export default user;

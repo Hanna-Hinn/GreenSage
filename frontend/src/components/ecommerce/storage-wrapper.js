@@ -14,8 +14,9 @@ const StorageWrapper = (props) => {
   useEffect(() => {
     const cart = storage.get("dokani_cart") || [];
     const wishlist = storage.get("dokani_wishlist") || [];
+    const userInfo = storage.get("userInfo") || {};
 
-    props.saveStoredItems({ cart, wishlist });
+    props.saveStoredItems({ cart, wishlist, userInfo });
   }, []);
 
   return <>{props.children}</>;
