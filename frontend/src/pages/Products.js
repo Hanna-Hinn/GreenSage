@@ -34,7 +34,6 @@ const Products = ({ products, searchProducts, fetchProduct }) => {
       description ? `description=${description}&` : ""
     }${ownerName ? `ownerName=${ownerName}&` : ""}`;
     searchProducts(url);
-    console.log(products);
     cratePagination();
   }, [currentPage, searchTerm, categoryName, description, ownerName]);
 

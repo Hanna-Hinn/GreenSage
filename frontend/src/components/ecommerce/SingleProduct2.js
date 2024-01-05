@@ -25,6 +25,7 @@ const SingleProduct2 = ({
     addToWishlist(product);
     toast("Added to Wishlist !");
   };
+  console.log(product);
   return (
     <>
       <div className="product-cart-wrap mb-30">
@@ -81,7 +82,7 @@ const SingleProduct2 = ({
             })}
             <span className="font-small ml-5 text-muted">
               {" "}
-              ({Math.round(product.averageRating * 10) / 10})
+              ({product.averageRating})
             </span>
           </div>
 

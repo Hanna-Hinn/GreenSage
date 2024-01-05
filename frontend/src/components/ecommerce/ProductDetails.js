@@ -79,7 +79,7 @@ const ProductDetails = ({
                         })}
                         <span className="font-small ml-5 text-muted">
                           {" "}
-                          ({product.averageRating})
+                          ({Math.round(product.averageRating)})
                         </span>
                       </div>
                       <div className="clearfix product-price-cover">
