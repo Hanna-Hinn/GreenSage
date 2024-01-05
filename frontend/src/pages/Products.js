@@ -32,7 +32,7 @@ const Products = ({ products, searchProducts, fetchProduct }) => {
       categoryName ? `categoryName=${categoryName}&` : ""
     }${searchTerm ? `productName=${searchTerm}&` : ""}${
       description ? `description=${description}&` : ""
-    }${ownerName ? `ownerName=${ownerName}&` : ""}`;
+    }${ownerName ? `ownerName=${ownerName}&` : ""} $pageNumber=${currentPage}`;
     searchProducts(url);
     cratePagination();
   }, [currentPage, searchTerm, categoryName, description, ownerName]);

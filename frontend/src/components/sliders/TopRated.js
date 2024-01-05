@@ -16,7 +16,7 @@ const TopRatedSlider = () => {
   const fetchProducts = async () => {
     // With Category
     const allProducts = await fetchTopRated(
-      `${BACKEND_URL}/products/v1/filter?topRated=true`
+      `${BACKEND_URL}/products/v1/filter/v1/query?topRated=true`
     );
 
     setTopRatedProducts(allProducts);

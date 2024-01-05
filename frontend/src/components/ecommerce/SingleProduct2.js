@@ -25,7 +25,7 @@ const SingleProduct2 = ({
     addToWishlist(product);
     toast("Added to Wishlist !");
   };
-  console.log(product);
+
   return (
     <>
       <div className="product-cart-wrap mb-30">

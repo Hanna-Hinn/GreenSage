@@ -23,7 +23,7 @@ function CategoryTab() {
   };
   const catP1 = async () => {
     const request = await axios.get(
-      `${BACKEND_URL}/products/v1/filter?featured=true`
+      `${BACKEND_URL}/products/v1/filter/v1/query?featured=true&pageNumber=1`
     );
     const products = await request.data.data.productsWithDetails;
     setCat1(products);
@@ -32,7 +32,7 @@ function CategoryTab() {
 
   const catP2 = async () => {
     const request = await axios.get(
-      `${BACKEND_URL}/products/v1/filter?popular=true`
+      `${BACKEND_URL}/products/v1/filter/v1/query?popular=true&pageNumber=1`
     );
     const products = await request.data.data.productsWithDetails;
 
@@ -41,7 +41,7 @@ function CategoryTab() {
   };
   const catP3 = async () => {
     const request = await axios.get(
-      `${BACKEND_URL}/products/v1/filter?newAdded=true`
+      `${BACKEND_URL}/products/v1/filter/v1/query?newAdded=true&pageNumber=1`
     );
     const products = await request.data.data.productsWithDetails;
 

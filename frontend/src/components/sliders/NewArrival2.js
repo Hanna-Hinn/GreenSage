@@ -16,7 +16,7 @@ const NewArrival2 = () => {
   const fetchProducts = async () => {
     // With Category
     const request = await axios.get(
-      `${BACKEND_URL}/products/v1/filter?newAdded=true`
+      `${BACKEND_URL}/products/v1/filter/v1/query?newAdded=true&pageNumber=1`
     );
     const allProducts = await request.data.data.productsWithDetails;
 
