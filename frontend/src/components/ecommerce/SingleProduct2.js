@@ -81,7 +81,7 @@ const SingleProduct2 = ({
             })}
             <span className="font-small ml-5 text-muted">
               {" "}
-              ({product.averageRating})
+              ({Math.round(product.averageRating * 10) / 10})
             </span>
           </div>
 
