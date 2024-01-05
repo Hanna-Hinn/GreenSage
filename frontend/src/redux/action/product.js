@@ -22,9 +22,8 @@ export const fetchProduct = (url) => async (dispatch) => {
 
 export const searchProducts = (url, filters) => async (dispatch) => {
   try {
-    console.log(url);
     const response = await axios.get(url);
-    const data = response.data.data;
+    const data = response.data.data.products;
     window.products = data;
 
     dispatch({
