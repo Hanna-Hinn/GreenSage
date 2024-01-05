@@ -1,15 +1,22 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 import { updateProductCategory } from "../../../redux/action/productFiltersAction";
 
 const CategoryProduct = ({ updateProductCategory }) => {
+  const location = useLocation();
+  const path = `${location.pathname}${location.search}`;
   const navigate = useNavigate();
 
   const selectCategory = (e, category) => {
     e.preventDefault();
     // removeSearchTerm();
     updateProductCategory(category);
-    navigate(`/products?cat=${category}`);
+    // Fix when cat already exists
+    navigate(
+      path.slice(-1) === "&"
+        ? `${path}cat=${category}`
+        : `${path}&cat=${category}`
+    );
   };
   return (
     <>
