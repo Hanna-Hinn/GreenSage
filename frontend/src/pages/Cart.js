@@ -105,7 +105,7 @@ const Cart = ({
                               })}
                               <span className="font-small ml-5 text-muted">
                                 {" "}
-                                ({item.averageRating})
+                                ({Math.round(item.averageRating * 10) / 10})
                               </span>
                             </div>
                           </td>

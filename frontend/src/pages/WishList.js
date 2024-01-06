@@ -85,13 +85,14 @@ const Wishlist = ({
                                 })}
                                 <span className="font-small ml-5 text-muted">
                                   {" "}
-                                  ({product.averageRating})
+                                  ({Math.round(product.averageRating * 10) / 10}
+                                  )
                                 </span>
                               </div>
                             </td>
                             <td className="price" data-title="Price">
                               <h3 className="text-brand">
-                                ${product.price["$decimalNumber"]}
+                                ${product.price["$numberDecimal"]}
                               </h3>
                             </td>
                             <td
@@ -124,7 +125,9 @@ const Wishlist = ({
                             </td>
                             <td className="action" data-title="Remove">
                               <a
-                                onClick={(e) => deleteFromWishlist(product['_id'])}
+                                onClick={(e) =>
+                                  deleteFromWishlist(product["_id"])
+                                }
                               >
                                 <i className="fi-rs-trash"></i>
                               </a>
