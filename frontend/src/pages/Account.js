@@ -280,6 +280,7 @@ function Account() {
                                   <input
                                     required=""
                                     className="form-control"
+                                    value={user.firstName}
                                     name="name"
                                     type="text"
                                   />
@@ -291,6 +292,7 @@ function Account() {
                                   </label>
                                   <input
                                     required=""
+                                    value={user.lastName}
                                     className="form-control"
                                     name="phone"
                                   />
@@ -303,6 +305,7 @@ function Account() {
                                   <input
                                     required=""
                                     className="form-control"
+                                    value={user.email}
                                     name="email"
                                     type="email"
                                   />
@@ -327,7 +330,7 @@ function Account() {
                                   <input
                                     required=""
                                     className="form-control"
-                                    name="npassword"
+                                    name="newPassword"
                                     type="password"
                                   />
                                 </div>
@@ -339,7 +342,7 @@ function Account() {
                                   <input
                                     required=""
                                     className="form-control"
-                                    name="cpassword"
+                                    name="confirmPassword"
                                     type="password"
                                   />
                                 </div>

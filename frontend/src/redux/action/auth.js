@@ -33,7 +33,7 @@ export const login = (email, password) => async (dispatch) => {
       type: LOGIN_SUCCESS,
       payload: decodedToken,
     });
-
+    localStorage.setItem("sageToken", data.data);
     localStorage.setItem(
       "userInfo",
       JSON.stringify(decodedToken),

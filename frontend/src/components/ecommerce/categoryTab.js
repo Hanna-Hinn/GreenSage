@@ -4,6 +4,7 @@ import Cat1Tab from "../elements/FeaturedTab";
 import Cat2Tab from "../elements/NewArrivalTab";
 import Cat3Tab from "../elements/TrendingTab";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 function CategoryTab() {
   const [active, setActive] = useState("1");
@@ -11,12 +12,17 @@ function CategoryTab() {
   const [cat1, setCat1] = useState([]);
   const [cat2, setCat2] = useState([]);
   const [cat3, setCat3] = useState([]);
+  const userLogin = useSelector((state) => state.auth);
+  const { userInfo } = userLogin;
 
   const catPAll = async () => {
-    const request = await axios.get(
-      `${BACKEND_URL}/products/v1/query?pageNumber=1`
-    );
-    const products = await request.data.data.products;
+    const url = userInfo
+      ? `${BACKEND_URL}/products/users/${userInfo.id}/v1/query?pageNumber=1`
+      : `${BACKEND_URL}/products/v1/query?pageNumber=1`;
+    const request = await axios.get(url);
+    const products = userInfo
+      ? request.data.data.productsWithDetails
+      : request.data.data.products;
 
     setCatAll(products);
     setActive("1");
