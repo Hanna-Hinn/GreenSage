@@ -1,10 +1,8 @@
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import Layout from "../components/layout/Layout";
-import { BACKEND_URL } from "../config/index";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/action/auth";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function Login() {

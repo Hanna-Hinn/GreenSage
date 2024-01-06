@@ -2,14 +2,19 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import useClickOutside from "../../util/outsideClick";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../redux/action/auth";
 
 const MobileMenu = ({ isToggled, toggleClick }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [isActive, setIsActive] = useState({
     status: false,
     key: "",
   });
   const [searchTerm, setSearchTerm] = useState("");
+  const userLogin = useSelector((state) => state.auth);
+  const { userInfo } = userLogin;
 
   const handleToggle = (key) => {
     if (isActive.key === key) {
@@ -33,16 +38,17 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleToggleMenu = () => {
-    console.log("Click");
-    console.log("Before " + isMenuOpen);
     setIsMenuOpen(!isMenuOpen);
-    console.log("After " + isMenuOpen);
   };
 
   const handleSearch = () => {
     navigate(`/products?search=${searchTerm}`);
     console.log(searchTerm);
     setSearchTerm("");
+  };
+
+  const logoutHandler = () => {
+    dispatch(logout());
   };
 
   return (
@@ -172,12 +178,27 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
               <div className="single-mobile-header-info mt-30">
                 <Link to="/page-contact">Contact</Link>
               </div>
-              <div className="single-mobile-header-info">
-                <Link to="/page-register">Sign Up</Link>
-              </div>
-              <div className="single-mobile-header-info">
-                <Link to="/page-login">Log In</Link>
-              </div>
+              {userInfo ? (
+                <>
+                  <div className="single-mobile-header-info">
+                    <Link to="/page-account">My Account</Link>
+                  </div>
+                  <div className="single-mobile-header-info">
+                    <Link onClick={logoutHandler} to="/page-login">
+                      Logout
+                    </Link>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="single-mobile-header-info">
+                    <Link to="/page-register">Sign Up</Link>
+                  </div>
+                  <div className="single-mobile-header-info">
+                    <Link to="/page-login">Log In</Link>
+                  </div>
+                </>
+              )}
             </div>
             <div className="mobile-social-icon">
               <h5 className="mb-15 text-grey-4">Follow Us</h5>

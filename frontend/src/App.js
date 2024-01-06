@@ -27,6 +27,7 @@ import Account from "./pages/Account";
 import SingleVendor from "./pages/SingleVendor";
 import Checkout from "./pages/Checkout";
 import Invoice from "./pages/Invoice";
+import AddAddress from "./pages/AddAddress";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -59,6 +60,7 @@ function App() {
                   element={<ForgotPassword />}
                 />
                 <Route path="/page-account" element={<Account />} />
+                <Route path="/add-address" element={<AddAddress />} />
                 <Route path="/page-invoice" element={<Invoice />} />
 
                 <Route path="/vendors-list" element={<VendorList />} />

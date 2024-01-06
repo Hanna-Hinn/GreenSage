@@ -70,6 +70,10 @@ function Account() {
     }
   };
 
+  const addAddressHandler = () => {
+    navigate("/add-address");
+  }
+
   return (
     <>
       <Layout parent="Home" sub="Pages" subChild="Account">
@@ -225,37 +229,55 @@ function Account() {
                           {user.addresses &&
                             user.addresses.map((address, index) => {
                               return (
-                                <div
-                                  className="col-lg-6"
-                                  style={{ marginBottom: "5px" }}
-                                >
-                                  <div className="card mb-3 mb-lg-0">
-                                    <div className="card-header">
-                                      <h3 className="mb-0">{`Address ${
-                                        index + 1
-                                      }`}</h3>
-                                    </div>
-                                    <div className="card-body">
-                                      <address>
-                                        {address.street}
-                                        <br />
-                                        {address.state}, {address.postalCode}
-                                      </address>
-                                      <p>{address.city}</p>
-                                      <a
-                                        style={{ color: "red" }}
-                                        className="btn-small"
-                                        onClick={() => {
-                                          addressDeleteHandler(address["_id"]);
-                                        }}
-                                      >
-                                        Delete
-                                      </a>
+                                <>
+                                  <div
+                                    className="col-lg-6"
+                                    style={{ marginBottom: "10px" }}
+                                  >
+                                    <div className="card mb-3 mb-lg-0">
+                                      <div className="card-header">
+                                        <h3 className="mb-0">{`Address ${
+                                          index + 1
+                                        }`}</h3>
+                                      </div>
+                                      <div className="card-body">
+                                        <address>
+                                          {address.street}
+                                          <br />
+                                          {address.state}, {address.postalCode}
+                                        </address>
+                                        <p>{address.city}</p>
+                                        <a
+                                          style={{ color: "red" }}
+                                          className="btn-small"
+                                          onClick={() => {
+                                            addressDeleteHandler(
+                                              address["_id"]
+                                            );
+                                          }}
+                                        >
+                                          Delete
+                                        </a>
+                                      </div>
                                     </div>
                                   </div>
-                                </div>
+                                </>
                               );
                             })}
+                        </div>
+
+                        <div className="row">
+                          <div
+                            className="col-lg-6"
+                            style={{ marginBottom: "5px" }}
+                          >
+                            <button
+                              className="btn btn-fill-out submit font-weight-bold"
+                              onClick={addAddressHandler}
+                            >
+                              Add
+                            </button>
+                          </div>
                         </div>
                       </div>
                       <div
