@@ -1,14 +1,18 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Link, useLocation } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import CategoryProduct2 from "../ecommerce/Filter/CategoryProduct2";
 import Search from "../ecommerce/Search";
+import { logout } from "../../redux/action/auth";
 
 const Header = ({ totalCartItems, toggleClick, totalWishlistItems }) => {
   const location = useLocation();
+  const dispatch = useDispatch();
   const currentPathname = location.pathname;
   const [isToggled, setToggled] = useState(false);
   const [scroll, setScroll] = useState(0);
+  const user = localStorage.getItem("userInfo");
 
   useEffect(() => {
     document.addEventListener("scroll", () => {
@@ -20,8 +24,11 @@ const Header = ({ totalCartItems, toggleClick, totalWishlistItems }) => {
   });
 
   const handleToggle = () => {
-    console.log("click");
     setToggled(!isToggled);
+  };
+
+  const logoutHandler = () => {
+    dispatch(logout());
   };
 
   return (
@@ -133,38 +140,37 @@ const Header = ({ totalCartItems, toggleClick, totalWishlistItems }) => {
                         <span className="lable ml-0">Account</span>
                       </Link>
                       <div className="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
-                        <ul>
-                          <li>
-                            <Link to="/page-account">
-                              <i className="fi fi-rs-user mr-10"></i>
-                              My Account
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="/page-account">
-                              <i className="fi fi-rs-location-alt mr-10"></i>
-                              Order Tracking
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="/page-account">
-                              <i className="fi fi-rs-label mr-10"></i>
-                              My Voucher
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="/shop-wishlist">
-                              <i className="fi fi-rs-heart mr-10"></i>
-                              My Wishlist
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="/page-login">
-                              <i className="fi fi-rs-sign-out mr-10"></i>
-                              Sign out
-                            </Link>
-                          </li>
-                        </ul>
+                        {user ? (
+                          <ul>
+                            <li>
+                              <Link to="/page-account">
+                                <i className="fi fi-rs-user mr-10"></i>
+                                My Account
+                              </Link>
+                            </li>
+                            <li>
+                              <Link onClick={logoutHandler} to="/">
+                                <i className="fi fi-rs-sign-out mr-10"></i>
+                                Sign out
+                              </Link>
+                            </li>
+                          </ul>
+                        ) : (
+                          <ul>
+                            <li>
+                              <Link to="/page-register">
+                                <i className="fi fi-rs-user mr-10"></i>
+                                Register
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to="/page-login">
+                                <i className="fi fi-rs-user mr-10"></i>
+                                Login
+                              </Link>
+                            </li>
+                          </ul>
+                        )}
                       </div>
                     </div>
                   </div>

@@ -1,13 +1,73 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import Layout from "../components/layout/Layout";
-import { Link } from "react-router-dom";
-import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "./../redux/action/auth";
+import axios from "axios";
+import { BACKEND_URL } from "../config";
 
 function Account() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState(1);
+  const userLogin = useSelector((state) => state.auth);
+  const { userInfo } = userLogin;
+  const [user, setUser] = useState({});
+  const [userOrders, setUserOrders] = useState([]);
+  const [refresh, setRefresh] = useState(false);
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  useEffect(() => {
+    if (!userInfo) {
+      navigate("/page-login");
+    } else {
+      fetchData();
+    }
+  }, [userInfo, refresh]);
+
+  const fetchData = async () => {
+    const { data: userData } = await axios.get(
+      `${BACKEND_URL}/users/${userInfo.id}`
+    );
+    const { data: orderData } = await axios.get(
+      `${BACKEND_URL}/orders/${userInfo.id}`
+    );
+    console.log(userData.data, orderData.data);
+    setUser(userData.data);
+    setUserOrders(orderData.data);
+  };
 
   const handleOnClick = (index) => {
-    setActiveIndex(index); // remove the curly braces
+    setActiveIndex(index);
+  };
+
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
+
+  const addressDeleteHandler = async (addressId) => {
+    try {
+      const response = await axios.delete(
+        `${BACKEND_URL}/addresses/${user["_id"]}/address/${addressId}`
+      );
+      setRefresh(true);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -45,17 +105,6 @@ function Account() {
                         <li className="nav-item">
                           <a
                             className={
-                              activeIndex === 3 ? "nav-link active" : "nav-link"
-                            }
-                            onClick={() => handleOnClick(3)}
-                          >
-                            <i className="fi-rs-shopping-cart-check mr-10"></i>
-                            Track Your Order
-                          </a>
-                        </li>
-                        <li className="nav-item">
-                          <a
-                            className={
                               activeIndex === 4 ? "nav-link active" : "nav-link"
                             }
                             onClick={() => handleOnClick(4)}
@@ -74,7 +123,11 @@ function Account() {
                           </a>
                         </li>
                         <li className="nav-item">
-                          <Link to="/page-login" className="nav-link">
+                          <Link
+                            to="/page-login"
+                            onClick={logoutHandler}
+                            className="nav-link"
+                          >
                             <i className="fi-rs-sign-out mr-10"></i>Logout
                           </Link>
                         </li>
@@ -92,17 +145,18 @@ function Account() {
                       >
                         <div className="card">
                           <div className="card-header">
-                            <h3 className="mb-0">Hello Rosie!</h3>
+                            <h3
+                              className="mb-0"
+                              style={{ textTransform: "capitalize" }}
+                            >
+                              Hello {user.firstName}!
+                            </h3>
                           </div>
                           <div className="card-body">
                             <p>
-                              Hey there, [user name]! Feeling empowered? Welcome
-                              back to your dashboard, your personal command
-                              center for conquering goals and crushing to-dos.
-                              Let's make today epic. Whether you're on fire for
-                              progress or need a nudge in the right direction,
-                              everything you need to win is right here. Now go
-                              forth and dominate!
+                              Hey there, {`${user.firstName} ${user.lastName}`}!
+                              Feeling empowered? Welcome back to your dashboard,
+                              your personal command center.
                             </p>
                           </div>
                         </div>
@@ -127,102 +181,39 @@ function Account() {
                                     <th>Date</th>
                                     <th>Status</th>
                                     <th>Total</th>
-                                    <th>Actions</th>
+                                    <th>Address</th>
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <td>#1357</td>
-                                    <td>March 45, 2020</td>
-                                    <td>Processing</td>
-                                    <td>$125.00 for 2 item</td>
-                                    <td>
-                                      <a href="#" className="btn-small d-block">
-                                        View
-                                      </a>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>#2468</td>
-                                    <td>June 29, 2020</td>
-                                    <td>Completed</td>
-                                    <td>$364.00 for 5 item</td>
-                                    <td>
-                                      <a href="#" className="btn-small d-block">
-                                        View
-                                      </a>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>#2366</td>
-                                    <td>August 02, 2020</td>
-                                    <td>Completed</td>
-                                    <td>$280.00 for 3 item</td>
-                                    <td>
-                                      <a href="#" className="btn-small d-block">
-                                        View
-                                      </a>
-                                    </td>
-                                  </tr>
+                                  {userOrders.length === 0 && (
+                                    <h6>Place Order to view here</h6>
+                                  )}
+                                  {userOrders.map((order, index) => {
+                                    const date = new Date(order.date);
+
+                                    const formattedDate =
+                                      monthNames[date.getMonth()] +
+                                      " " +
+                                      date.getDate() +
+                                      ", " +
+                                      date.getFullYear();
+                                    return (
+                                      <tr key={index}>
+                                        <td>{index + 1}</td>
+                                        <td>{formattedDate}</td>
+                                        <td>{order.shipmentStatus}</td>
+                                        <td>{`$${order.totalPrice} for ${order.cartItems.length} item`}</td>
+                                        <td>{`${order.userAddress.street}, ${order.userAddress.city} ${order.userAddress.state} ${order.userAddress.postalCode}`}</td>
+                                      </tr>
+                                    );
+                                  })}
                                 </tbody>
                               </table>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div
-                        className={
-                          activeIndex === 3
-                            ? "tab-pane fade active show"
-                            : "tab-pane fade "
-                        }
-                      >
-                        <div className="card">
-                          <div className="card-header">
-                            <h3 className="mb-0">Orders tracking</h3>
-                          </div>
-                          <div className="card-body contact-from-area">
-                            <p>
-                              To track your order please enter your OrderID in
-                              the box below and press "Track" button. This was
-                              given to you on your receipt and in the
-                              confirmation email you should have received.
-                            </p>
-                            <div className="row">
-                              <div className="col-lg-8">
-                                <form
-                                  className="contact-form-style mt-30 mb-50"
-                                  action="#"
-                                  method="post"
-                                >
-                                  <div className="input-style mb-20">
-                                    <label>Order ID</label>
-                                    <input
-                                      name="order-id"
-                                      placeholder="Found in your order confirmation email"
-                                      type="text"
-                                    />
-                                  </div>
-                                  <div className="input-style mb-20">
-                                    <label>Billing email</label>
-                                    <input
-                                      name="billing-email"
-                                      placeholder="Email you used during checkout"
-                                      type="email"
-                                    />
-                                  </div>
-                                  <button
-                                    className="submit submit-auto-width"
-                                    type="submit"
-                                  >
-                                    Track
-                                  </button>
-                                </form>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+
                       <div
                         className={
                           activeIndex === 4
@@ -231,47 +222,40 @@ function Account() {
                         }
                       >
                         <div className="row">
-                          <div className="col-lg-6">
-                            <div className="card mb-3 mb-lg-0">
-                              <div className="card-header">
-                                <h3 className="mb-0">Billing Address</h3>
-                              </div>
-                              <div className="card-body">
-                                <address>
-                                  3522 Interstate
-                                  <br />
-                                  75 Business Spur,
-                                  <br />
-                                  Sault Ste. <br />
-                                  Marie, MI 49783
-                                </address>
-                                <p>New York</p>
-                                <a href="#" className="btn-small">
-                                  Edit
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="col-lg-6">
-                            <div className="card">
-                              <div className="card-header">
-                                <h5 className="mb-0">Shipping Address</h5>
-                              </div>
-                              <div className="card-body">
-                                <address>
-                                  4299 Express Lane
-                                  <br />
-                                  Sarasota, <br />
-                                  FL 34249 USA <br />
-                                  Phone: 1.941.227.4444
-                                </address>
-                                <p>Sarasota</p>
-                                <a href="#" className="btn-small">
-                                  Edit
-                                </a>
-                              </div>
-                            </div>
-                          </div>
+                          {user.addresses &&
+                            user.addresses.map((address, index) => {
+                              return (
+                                <div
+                                  className="col-lg-6"
+                                  style={{ marginBottom: "5px" }}
+                                >
+                                  <div className="card mb-3 mb-lg-0">
+                                    <div className="card-header">
+                                      <h3 className="mb-0">{`Address ${
+                                        index + 1
+                                      }`}</h3>
+                                    </div>
+                                    <div className="card-body">
+                                      <address>
+                                        {address.street}
+                                        <br />
+                                        {address.state}, {address.postalCode}
+                                      </address>
+                                      <p>{address.city}</p>
+                                      <a
+                                        style={{ color: "red" }}
+                                        className="btn-small"
+                                        onClick={() => {
+                                          addressDeleteHandler(address["_id"]);
+                                        }}
+                                      >
+                                        Delete
+                                      </a>
+                                    </div>
+                                  </div>
+                                </div>
+                              );
+                            })}
                         </div>
                       </div>
                       <div
@@ -286,10 +270,6 @@ function Account() {
                             <h5>Account Details</h5>
                           </div>
                           <div className="card-body">
-                            <p>
-                              Already have an account?{" "}
-                              <Link to="/page-login">Log in instead!</Link>
-                            </p>
                             <form method="post" name="enq">
                               <div className="row">
                                 <div className="form-group col-md-6">
@@ -313,18 +293,6 @@ function Account() {
                                     required=""
                                     className="form-control"
                                     name="phone"
-                                  />
-                                </div>
-                                <div className="form-group col-md-12">
-                                  <label>
-                                    Display Name{" "}
-                                    <span className="required">*</span>
-                                  </label>
-                                  <input
-                                    required=""
-                                    className="form-control"
-                                    name="dname"
-                                    type="text"
                                   />
                                 </div>
                                 <div className="form-group col-md-12">

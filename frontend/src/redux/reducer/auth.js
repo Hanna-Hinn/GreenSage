@@ -33,9 +33,7 @@ const user = (state = initialState, action) => {
         error: action.payload,
       };
     case LOGOUT:
-      return {
-        loading: false,
-      };
+      return {};
     default:
       return state;
   }

@@ -1,11 +1,10 @@
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import Layout from "../components/layout/Layout";
 import { BACKEND_URL } from "../config/index";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { registerSuccess } from "../redux/action/auth";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 function Register() {
   const dispatch = useDispatch();
@@ -28,6 +27,14 @@ function Register() {
     zinc: false,
   });
   const [formData, setFormData] = useState({});
+  const userLogin = useSelector((state) => state.auth);
+  const { userInfo } = userLogin;
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/page-account");
+    }
+  }, [userInfo]);
 
   const handleMineralsRadio = (event) => {
     const inputName = event.target.name;

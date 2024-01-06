@@ -28,7 +28,7 @@ const Products = ({ products, searchProducts, fetchProduct }) => {
   let [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    const url = `${BACKEND_URL}/products/v1/search/v1/query?${
+    const url = `${BACKEND_URL}/products/v1/searchFilter/v1/query?${
       categoryName ? `categoryName=${categoryName}&` : ""
     }${searchTerm ? `productName=${searchTerm}&` : ""}${
       description ? `description=${description}&` : ""
