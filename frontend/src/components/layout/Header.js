@@ -49,9 +49,6 @@ const Header = ({ totalCartItems, toggleClick, totalWishlistItems }) => {
                     <li>
                       <Link to="/shop-wishlist">Wishlist</Link>
                     </li>
-                    <li>
-                      <Link to="/page-account">Order Tracking</Link>
-                    </li>
                   </ul>
                 </div>
               </div>

@@ -1,6 +1,7 @@
-import { useState } from "react";
-import { connect } from "react-redux";
+import { useState, useEffect } from "react";
+import { connect, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
 import Layout from "../components/layout/Layout";
 import {
   clearCart,
@@ -17,12 +18,22 @@ const Cart = ({
   deleteFromCart,
   clearCart,
 }) => {
-  const [orderID, setOrderID] = useState(1);
+  const [orderID, setOrderID] = useState("1");
   const navigate = useNavigate();
+  const userLogin = useSelector((state) => state.auth);
+  const { userInfo } = userLogin;
+
+  useEffect(() => {
+    if (!userInfo) {
+      navigate("/page-login");
+    }
+  }, [userInfo]);
 
   const price = () => {
     let price = 0;
-    cartItems.forEach((item) => (price += item.price * item.quantity));
+    cartItems.forEach(
+      (item) => (price += item.price["$numberDecimal"] * item.quantity)
+    );
 
     return price;
   };
@@ -48,87 +59,6 @@ const Cart = ({
             </div>
             <div className="row">
               <div className="col-lg-7">
-                <div className="row mb-50">
-                  <div className="col-lg-6 mb-sm-15 mb-lg-0 mb-md-3">
-                    <div className="toggle_info">
-                      <span>
-                        <i className="fi-rs-user mr-10"></i>
-                        <span className="text-muted font-lg">
-                          Already have an account?
-                        </span>{" "}
-                        <a
-                          href="#loginform"
-                          data-bs-toggle="collapse"
-                          className="collapsed font-lg"
-                          aria-expanded="false"
-                        >
-                          Click here to login
-                        </a>
-                      </span>
-                    </div>
-                    <div
-                      className="panel-collapse collapse login_form"
-                      id="loginform"
-                    >
-                      <div className="panel-body">
-                        <p className="mb-30 font-sm">
-                          If you have shopped with us before, please enter your
-                          details below. If you are a new customer, please
-                          proceed to the Billing &amp; Shipping section.
-                        </p>
-                        <form method="post">
-                          <div className="form-group">
-                            <input
-                              type="text"
-                              name="email"
-                              placeholder="Username Or Email"
-                            />
-                          </div>
-                          <div className="form-group">
-                            <input
-                              type="password"
-                              name="password"
-                              placeholder="Password"
-                            />
-                          </div>
-                          <div className="login_footer form-group">
-                            <div className="chek-form">
-                              <div className="custome-checkbox">
-                                <input
-                                  className="form-check-input"
-                                  type="checkbox"
-                                  name="checkbox"
-                                  id="remember"
-                                  value=""
-                                />
-                                <label
-                                  className="form-check-label"
-                                  htmlFor="remember"
-                                >
-                                  <span>Remember me</span>
-                                </label>
-                              </div>
-                            </div>
-                            <a href="/page-forgot-password">Forgot password?</a>
-                          </div>
-                          <div className="form-group">
-                            <button className="btn btn-md" name="login">
-                              Log in
-                            </button>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-lg-6">
-                    <form method="post" className="apply-coupon">
-                      <input type="text" placeholder="Enter Coupon Code..." />
-                      <button className="btn  btn-md" name="login">
-                        Apply Coupon
-                      </button>
-                    </form>
-                  </div>
-                </div>
                 <div className="mb-25">
                   <h4>Billing Details</h4>
                 </div>
@@ -225,52 +155,8 @@ const Cart = ({
                       name="password"
                     />
                   </div>
-                  <div className="form-group">
-                    <div className="checkbox">
-                      <div className="custome-checkbox">
-                        <input
-                          className="form-check-input"
-                          type="checkbox"
-                          name="checkbox"
-                          id="createaccount"
-                        />
-                        <label
-                          className="form-check-label label_info"
-                          data-bs-toggle="collapse"
-                          href="#collapsePassword"
-                          data-target="#collapsePassword"
-                          aria-controls="collapsePassword"
-                          htmlFor="createaccount"
-                        >
-                          <span>Create an account?</span>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
 
                   <div className="ship_detail">
-                    <div className="form-group">
-                      <div className="chek-form">
-                        <div className="custome-checkbox">
-                          <input
-                            className="form-check-input"
-                            type="checkbox"
-                            name="checkbox"
-                            id="differentaddress"
-                          />
-                          <label
-                            className="form-check-label label_info"
-                            data-bs-toggle="collapse"
-                            data-target="#collapseAddress"
-                            href="#collapseAddress"
-                            aria-controls="collapseAddress"
-                            htmlFor="differentaddress"
-                          >
-                            <span>Ship to a different address?</span>
-                          </label>
-                        </div>
-                      </div>
-                    </div>
                     <div
                       id="collapseAddress"
                       className="different_address collapse in"
@@ -365,23 +251,37 @@ const Cart = ({
                         {cartItems.map((item, i) => (
                           <tr key={i}>
                             <td className="image product-thumbnail">
-                              <img src={item.images[0].img} alt="#" />
+                              <img src={item.imageUrl} alt={item.name} />
                             </td>
                             <td>
                               <h6 className="w-160 mb-5">
-                                <a>{item.title}</a>
+                                <a href={`/products/${item["_id"]}`}>
+                                  {item.name}
+                                </a>
                                 <div className="product-rate-cover">
-                                  <div className="product-rate d-inline-block">
-                                    <div
-                                      className="product-rating"
-                                      style={{
-                                        width: "90%",
-                                      }}
-                                    ></div>
-                                  </div>
+                                  {[...Array(5)].map((star, index) => {
+                                    const currentRating = index + 1;
+
+                                    return (
+                                      <span
+                                        key={index}
+                                        style={{
+                                          color:
+                                            currentRating <=
+                                            Math.round(item.averageRating)
+                                              ? "#ffc107"
+                                              : "#e4e5e9",
+                                          fontSize: "1rem",
+                                          margin: "1px",
+                                        }}
+                                      >
+                                        &#9733;
+                                      </span>
+                                    );
+                                  })}
                                   <span className="font-small ml-5 text-muted">
                                     {" "}
-                                    (4.0)
+                                    ({Math.round(item.averageRating * 10) / 10})
                                   </span>
                                 </div>
                               </h6>{" "}
@@ -393,7 +293,7 @@ const Cart = ({
                             </td>
                             <td>
                               <h4 className="text-brand">
-                                ${item.quantity * item.price}
+                                ${item.quantity * item.price["$numberDecimal"]}
                               </h4>
                             </td>
                           </tr>
@@ -457,17 +357,8 @@ const Cart = ({
                           data-target="#checkPayment"
                           aria-controls="checkPayment"
                         >
-                          Check Payment
+                          Cash
                         </label>
-                        <div
-                          className="form-group collapse in"
-                          id="checkPayment"
-                        >
-                          <p className="text-muted mt-5">
-                            Please send your cheque to Store Name, Store Street,
-                            Store Town, Store State / County, Store Postcode.{" "}
-                          </p>
-                        </div>
                       </div>
                       <div className="custome-radio">
                         <input
