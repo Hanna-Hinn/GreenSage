@@ -2,22 +2,20 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { BACKEND_URL } from "../../config";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
-const ProductTab = ({
-  productDetails,
-  userId,
-  desc,
-  vendor,
-  ratingCount,
-  reviews,
-}) => {
+const ProductTab = ({ productDetails, desc, vendor, ratingCount, reviews }) => {
   const [activeIndex, setActiveIndex] = useState(1);
   const [hover, setHover] = useState(null);
   const [success, setSuccess] = useState({ status: false, msg: "" });
+  const userLogin = useSelector((state) => state.auth);
+  const { userInfo } = userLogin;
+  const [error, setError] = useState();
   const [formData, setFormData] = useState({
     title: productDetails.name,
     productId: productDetails.id,
-    userId: "6591c9101193d526b0f1f958",
+    userId: userInfo ? userInfo.id : "",
     rating: 0,
   });
 
@@ -27,6 +25,10 @@ const ProductTab = ({
 
   const handleSubmit = async () => {
     try {
+      if (!userInfo) {
+        setError("Click here to login, So you can Review.");
+        return;
+      }
       const response = await axios.post(`${BACKEND_URL}/ratings`, formData);
       setSuccess({
         status: response.data.success,
@@ -271,6 +273,7 @@ const ProductTab = ({
                         {success.msg}
                       </p>
                     </div>
+                    {error && <Link to="/page-login">{error}</Link>}
                   </form>
                 </div>
               </div>

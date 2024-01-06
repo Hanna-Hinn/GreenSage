@@ -76,7 +76,7 @@ function Register() {
       const response = await axios.post(url, user);
       const data = response.data.data;
       dispatch(registerSuccess(data));
-      navigate("/");
+      navigate("/page-login");
     } catch (error) {
       setError({
         ...error,
