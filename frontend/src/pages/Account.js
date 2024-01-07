@@ -15,6 +15,7 @@ function Account() {
   const { userInfo } = userLogin;
   const [user, setUser] = useState({});
   const [userOrders, setUserOrders] = useState([]);
+  const [ownerProducts, setOwnerProducts] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const monthNames = [
     "January",
@@ -44,11 +45,25 @@ function Account() {
       `${BACKEND_URL}/users/${userInfo.id}`
     );
     const { data: orderData } = await axios.get(
-      `${BACKEND_URL}/orders/${userInfo.id}`
+      userInfo.userType === "owner"
+        ? `${BACKEND_URL}/owners/${userInfo.id}`
+        : `${BACKEND_URL}/orders/${userInfo.id}`
     );
+
+    if (userInfo.userType === "owner") {
+      const { data: products } = await axios.get(
+        `${BACKEND_URL}/products/v1/searchFilter/v1/query?ownerName=${userData.data.firstName} ${userData.data.lastName}&pageNumber=1`
+      );
+      setOwnerProducts(products.data.products);
+    }
+
     console.log(userData.data, orderData.data);
     setUser(userData.data);
-    setUserOrders(orderData.data);
+    setUserOrders(
+      userInfo.userType === "owner"
+        ? orderData.data.matchingOrders
+        : orderData.data
+    );
   };
 
   const handleOnClick = (index) => {
@@ -72,7 +87,7 @@ function Account() {
 
   const addAddressHandler = () => {
     navigate("/add-address");
-  }
+  };
 
   return (
     <>
@@ -106,6 +121,21 @@ function Account() {
                             <i className="fi-rs-shopping-bag mr-10"></i>Orders
                           </a>
                         </li>
+                        {userInfo.userType === "owner" && (
+                          <li className="nav-item">
+                            <a
+                              className={
+                                activeIndex === 3
+                                  ? "nav-link active"
+                                  : "nav-link"
+                              }
+                              onClick={() => handleOnClick(3)}
+                            >
+                              <i className="fi-rs-shopping-bag mr-10"></i>
+                              Products
+                            </a>
+                          </li>
+                        )}
                         <li className="nav-item">
                           <a
                             className={
@@ -178,45 +208,168 @@ function Account() {
                           </div>
                           <div className="card-body">
                             <div className="table-responsive">
-                              <table className="table">
-                                <thead>
-                                  <tr>
-                                    <th>Order</th>
-                                    <th>Date</th>
-                                    <th>Status</th>
-                                    <th>Total</th>
-                                    <th>Address</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  {userOrders.length === 0 && (
-                                    <h6>Place Order to view here</h6>
-                                  )}
-                                  {userOrders.map((order, index) => {
-                                    const date = new Date(order.date);
+                              {userInfo.userType !== "owner" ? (
+                                <table className="table">
+                                  <thead>
+                                    <tr>
+                                      <th>Order</th>
+                                      <th>Date</th>
+                                      <th>Status</th>
+                                      <th>Total</th>
+                                      <th>Address</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {userOrders.length === 0 && (
+                                      <h6>
+                                        Your Orders Will be Displayed Here
+                                      </h6>
+                                    )}
+                                    {userOrders.map((order, index) => {
+                                      const date = new Date(order.date);
 
-                                    const formattedDate =
-                                      monthNames[date.getMonth()] +
-                                      " " +
-                                      date.getDate() +
-                                      ", " +
-                                      date.getFullYear();
-                                    return (
-                                      <tr key={index}>
-                                        <td>{index + 1}</td>
-                                        <td>{formattedDate}</td>
-                                        <td>{order.shipmentStatus}</td>
-                                        <td>{`$${order.totalPrice} for ${order.cartItems.length} item`}</td>
-                                        <td>{`${order.userAddress.street}, ${order.userAddress.city} ${order.userAddress.state} ${order.userAddress.postalCode}`}</td>
-                                      </tr>
-                                    );
-                                  })}
-                                </tbody>
-                              </table>
+                                      const formattedDate =
+                                        monthNames[date.getMonth()] +
+                                        " " +
+                                        date.getDate() +
+                                        ", " +
+                                        date.getFullYear();
+                                      return (
+                                        <tr key={index}>
+                                          <td>{index + 1}</td>
+                                          <td>{formattedDate}</td>
+                                          <td>{order.shipmentStatus}</td>
+                                          <td>{`$${order.totalPrice} for ${order.cartItems.length} item`}</td>
+                                          <td>{`${order.userAddress.street}, ${order.userAddress.city} ${order.userAddress.state} ${order.userAddress.postalCode}`}</td>
+                                        </tr>
+                                      );
+                                    })}
+                                  </tbody>
+                                </table>
+                              ) : (
+                                <table className="table table-hover">
+                                  <thead>
+                                    <tr>
+                                      <th>#ID</th>
+                                      <th scope="col">Name</th>
+                                      <th scope="col">Total</th>
+                                      <th scope="col">Status</th>
+                                      <th scope="col">Date</th>
+                                      <th scope="col">Address</th>
+                                      <th scope="col">Action</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {userOrders.length === 0 && (
+                                      <h6>
+                                        Your Orders Will be Displayed Here
+                                      </h6>
+                                    )}
+                                    {userOrders.map((order, index) => {
+                                      const date = new Date(order.date);
+
+                                      const formattedDate =
+                                        monthNames[date.getMonth()] +
+                                        " " +
+                                        date.getDate() +
+                                        ", " +
+                                        date.getFullYear();
+                                      return (
+                                        <tr key={index}>
+                                          <td>{index + 1}</td>
+                                          <td>{order.userName}</td>
+                                          <td>{order.totalPrice} $</td>
+                                          <td>{order.shipmentStatus}</td>
+                                          <td>{formattedDate}</td>
+                                          <td>{`${order.userAddress.street}, ${order.userAddress.city} ${order.userAddress.state} ${order.userAddress.postalCode}`}</td>
+                                          <td>
+                                            <a
+                                              href="#"
+                                              class="btn btn-md rounded font-sm"
+                                            >
+                                              Detail
+                                            </a>
+                                          </td>
+                                        </tr>
+                                      );
+                                    })}
+                                  </tbody>
+                                </table>
+                              )}
                             </div>
                           </div>
                         </div>
                       </div>
+
+                      {userInfo.userType === "owner" && (
+                        <div
+                          className={
+                            activeIndex === 3
+                              ? "tab-pane fade active show"
+                              : "tab-pane fade "
+                          }
+                        >
+                          <div className="card">
+                            <div className="card-header">
+                              <h3 className="mb-0">Products List</h3>
+                              <a
+                                style={{ marginTop: "10px" }}
+                                href="#"
+                                class="btn btn-md rounded font-sm"
+                              >
+                                Add Product
+                              </a>
+                            </div>
+
+                            <div className="card-body">
+                              <div className="table-responsive">
+                                <table className="table">
+                                  <thead>
+                                    <tr>
+                                      <th>Product</th>
+                                      <th>Name</th>
+                                      <th>Price</th>
+                                      <th>AvailableInStock</th>
+                                      <th>Rating</th>
+                                      <th>Category</th>
+                                      <th>Action</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {ownerProducts.length === 0 && (
+                                      <h6>
+                                        Your Products Will be Displayed Here
+                                      </h6>
+                                    )}
+                                    {ownerProducts.map((product, index) => {
+                                      return (
+                                        <tr key={index}>
+                                          <td>{index + 1}</td>
+                                          <td>{product.name}</td>
+                                          <td>
+                                            {product.price["$numberDecimal"]}
+                                          </td>
+                                          <td>{product.availableInStock}</td>
+                                          <td>{product.averageRating}</td>
+                                          <td>{product.categoryName}</td>
+                                          <td>
+                                            <a
+                                              href="#"
+                                              class="btn btn-md rounded font-sm"
+                                            >
+                                              Details
+                                            </a>
+                                          </td>
+                                        </tr>
+                                      );
+                                    })}
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
 
                       <div
                         className={
