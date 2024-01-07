@@ -16,13 +16,16 @@ function CategoryTab() {
   const { userInfo } = userLogin;
 
   const catPAll = async () => {
-    const url = userInfo
-      ? `${BACKEND_URL}/products/users/${userInfo.id}/v1/query?pageNumber=1`
-      : `${BACKEND_URL}/products/v1/query?pageNumber=1`;
+    const url =
+      userInfo && userInfo.userType !== "owner"
+        ? `${BACKEND_URL}/products/users/${userInfo.id}/v1/query?pageNumber=1`
+        : `${BACKEND_URL}/products/v1/query?pageNumber=1`;
+    console.log(url);
     const request = await axios.get(url);
-    const products = userInfo
-      ? request.data.data.productsWithDetails
-      : request.data.data.products;
+    const products =
+      userInfo && userInfo.userType !== "owner"
+        ? request.data.data.productsWithDetails
+        : request.data.data.products;
 
     setCatAll(products);
     setActive("1");

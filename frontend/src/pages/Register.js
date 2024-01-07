@@ -65,6 +65,8 @@ function Register() {
 
     if (isCustomer) {
       setFormData({ ...formData, healthStatus: minerals });
+    } else {
+      setFormData(delete formData.healthStatus);
     }
 
     const user = formData;
@@ -381,6 +383,22 @@ function Register() {
                               </>
                             )}
                           </div>
+                          {!isCustomer && (
+                            <div className="form-group">
+                              <textarea
+                                type="text"
+                                required
+                                name="Description"
+                                placeholder="Vendor Description"
+                                onChange={(e) => {
+                                  setFormData({
+                                    ...formData,
+                                    description: e.target.value,
+                                  });
+                                }}
+                              />
+                            </div>
+                          )}
 
                           <label style={{ marginBottom: 10 }}>
                             Please Enter your address Info:

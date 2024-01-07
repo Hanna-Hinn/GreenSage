@@ -20,7 +20,7 @@ const user = (state = initialState, action) => {
     case REGISTER_SUCCESS:
       return {
         loading: false,
-        userInfo: action.payload,
+        login: true,
       };
     case LOGIN_SUCCESS:
       return {
