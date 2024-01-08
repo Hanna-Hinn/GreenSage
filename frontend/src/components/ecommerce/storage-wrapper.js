@@ -13,14 +13,14 @@ const saveStoredItems = (storedItems) => (dispatch) => {
 };
 
 const StorageWrapper = (props) => {
-  const userInfo = storage.get("userInfo") || {};
+  const userInfo = storage.get("userInfo");
   useEffect(() => {
     const fetchData = async () => {
       if (!userInfo) {
         props.saveStoredItems({
           cart: [],
           wishlist: [],
-          userInfo,
+          userInfo: {},
         });
       } else {
         try {
