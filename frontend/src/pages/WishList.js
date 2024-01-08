@@ -50,7 +50,7 @@ const Wishlist = ({
                           <tr className="pt-30" key={i}>
                             <td className="image product-thumbnail pt-40">
                               <img
-                                src={product.imageUrl}
+                                src={product.productImage}
                                 alt={product.name}
                                 className="img-fluid"
                               />
