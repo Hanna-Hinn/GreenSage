@@ -27,21 +27,6 @@ function Login() {
     }
 
     dispatch(login(formData.email, formData.password));
-
-    // const user = formData;
-    // try {
-    //   const response = await axios.post(`${BACKEND_URL}/login`, user);
-    //   const data = response.data.data;
-    //   dispatch(loginSuccess(data));
-    //   navigate("/");
-    // } catch (error) {
-    //   setError({
-    //     ...error,
-    //     responseError: error.message
-    //       ? error.message
-    //       : "Something Went Wrong!!!",
-    //   });
-    // }
   };
 
   const validateInputs = () => {

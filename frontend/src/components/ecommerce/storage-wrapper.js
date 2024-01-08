@@ -1,7 +1,9 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { connect } from "react-redux";
 import * as Types from "../../redux/constants/actionTypes";
 import storage from "../../util/localStorage";
+import axios from "axios";
+import { BACKEND_URL } from "../../config/index";
 
 const saveStoredItems = (storedItems) => (dispatch) => {
   dispatch({
@@ -11,13 +13,37 @@ const saveStoredItems = (storedItems) => (dispatch) => {
 };
 
 const StorageWrapper = (props) => {
+  const userInfo = storage.get("userInfo") || {};
   useEffect(() => {
-    const cart = storage.get("dokani_cart") || [];
-    const wishlist = storage.get("dokani_wishlist") || [];
-    const userInfo = storage.get("userInfo") || {};
+    const fetchData = async () => {
+      if (!userInfo) {
+        props.saveStoredItems({
+          cart: [],
+          wishlist: [],
+          userInfo,
+        });
+      } else {
+        try {
+          const { data: cartData } = await axios.get(
+            `${BACKEND_URL}/carts/${userInfo.id}`
+          );
+          const { data: wishListData } = await axios.get(
+            `${BACKEND_URL}/favorites/${userInfo.id}`
+          );
 
-    props.saveStoredItems({ cart, wishlist, userInfo });
-  }, []);
+          props.saveStoredItems({
+            cart: cartData.data.cartItems,
+            wishlist: wishListData.data.items,
+            userInfo,
+          });
+        } catch (error) {
+          console.error("Error fetching cart:", error);
+        }
+      }
+    };
+
+    fetchData();
+  }, [userInfo]);
 
   return <>{props.children}</>;
 };

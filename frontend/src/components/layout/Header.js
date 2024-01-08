@@ -43,11 +43,20 @@ const Header = ({ totalCartItems, toggleClick, totalWishlistItems }) => {
                     <li>
                       <Link to="/page-about">About Us</Link>
                     </li>
-                    <li>
-                      <Link to="/page-account">My Account</Link>
-                    </li>
+                    {user ? (
+                      <li>
+                        <Link to="/page-account">My Account</Link>
+                      </li>
+                    ) : (
+                      <li>
+                        <Link to="/page-login">Sign In</Link>
+                      </li>
+                    )}
                     <li>
                       <Link to="/shop-wishlist">Wishlist</Link>
+                    </li>
+                    <li>
+                      <Link to="/shop-cart">My Cart</Link>
                     </li>
                   </ul>
                 </div>
@@ -133,7 +142,7 @@ const Header = ({ totalCartItems, toggleClick, totalWishlistItems }) => {
                           src="/assets/imgs/theme/icons/icon-user.svg"
                         />
                       </Link>
-                      <Link to="/page-account">
+                      <Link to={!user ? "/page-login" : "/page-account"}>
                         <span className="lable ml-0">Account</span>
                       </Link>
                       <div className="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">

@@ -57,7 +57,6 @@ function Account() {
       setOwnerProducts(products.data.products);
     }
 
-    console.log(userData.data, orderData.data);
     setUser(userData.data);
     setUserOrders(
       userInfo.userType === "owner"
@@ -121,7 +120,7 @@ function Account() {
                             <i className="fi-rs-shopping-bag mr-10"></i>Orders
                           </a>
                         </li>
-                        {userInfo.userType === "owner" && (
+                        {userInfo && userInfo.userType === "owner" && (
                           <li className="nav-item">
                             <a
                               className={
@@ -208,7 +207,7 @@ function Account() {
                           </div>
                           <div className="card-body">
                             <div className="table-responsive">
-                              {userInfo.userType !== "owner" ? (
+                              {userInfo && userInfo.userType !== "owner" ? (
                                 <table className="table">
                                   <thead>
                                     <tr>
@@ -301,7 +300,7 @@ function Account() {
                         </div>
                       </div>
 
-                      {userInfo.userType === "owner" && (
+                      {userInfo && userInfo.userType === "owner" && (
                         <div
                           className={
                             activeIndex === 3

@@ -39,6 +39,7 @@ export const login = (email, password) => async (dispatch) => {
       JSON.stringify(decodedToken),
       decodedToken.exp
     );
+    window.location.reload(false);
   } catch (error) {
     dispatch({
       type: LOGIN_FAIL,
