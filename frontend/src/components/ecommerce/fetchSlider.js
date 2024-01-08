@@ -16,8 +16,6 @@ const FetchSlider = ({ productFilters }) => {
   const [discount, setDiscount] = useState([]);
   const [related, setRelated] = useState([]);
 
-  console.log(trending);
-
   useEffect(() => {
     fetchProducts();
   }, [productFilters.category]);

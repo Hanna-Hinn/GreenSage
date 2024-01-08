@@ -1,12 +1,22 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { Link } from "react-router-dom";
-import React from "react";
+import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import { addToCart } from "../../redux/action/cart";
 import { addToWishlist } from "../../redux/action/wishlistAction";
 
 const SingleProduct = ({ product, addToCart, addToWishlist }) => {
+  const [averageRating, setAverageRating] = useState(0);
+
+  useEffect(() => {
+    if (typeof Number(product.averageRating) === "number") {
+      setAverageRating(product.averageRating);
+    } else {
+      setAverageRating(product.averageRating["$numberDecimal"]);
+    }
+  }, [averageRating]);
+
   const handleCart = (product) => {
     addToCart(product);
     toast("Product added to Cart !");
@@ -65,7 +75,12 @@ const SingleProduct = ({ product, addToCart, addToWishlist }) => {
                   key={index}
                   style={{
                     color:
-                      currentRating <= Math.round(product.averageRating)
+                      currentRating <=
+                      Math.round(
+                        product.relatedProductAverageRating
+                          ? averageRating
+                          : product.relatedProductAverageRating
+                      )
                         ? "#ffc107"
                         : "#e4e5e9",
                     fontSize: "1rem",
@@ -78,7 +93,13 @@ const SingleProduct = ({ product, addToCart, addToWishlist }) => {
             })}
             <span className="font-small ml-5 text-muted">
               {" "}
-              ({Math.round(product.averageRating * 10) / 10})
+              (
+              {Math.round(
+                (product.relatedProductAverageRating
+                  ? averageRating
+                  : product.relatedProductAverageRating) * 10
+              ) / 10}
+              )
             </span>
           </div>
 
