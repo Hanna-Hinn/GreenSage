@@ -77,9 +77,9 @@ const SingleProduct = ({ product, addToCart, addToWishlist }) => {
                     color:
                       currentRating <=
                       Math.round(
-                        product.relatedProductAverageRating
-                          ? averageRating
-                          : product.relatedProductAverageRating
+                        product.relatedProductAverageRating >= 0
+                          ? product.relatedProductAverageRating
+                          : averageRating
                       )
                         ? "#ffc107"
                         : "#e4e5e9",
@@ -95,9 +95,9 @@ const SingleProduct = ({ product, addToCart, addToWishlist }) => {
               {" "}
               (
               {Math.round(
-                (product.relatedProductAverageRating
-                  ? averageRating
-                  : product.relatedProductAverageRating) * 10
+                (product.relatedProductAverageRating >= 0
+                  ? product.relatedProductAverageRating
+                  : averageRating) * 10
               ) / 10}
               )
             </span>
