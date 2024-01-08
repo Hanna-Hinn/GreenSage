@@ -502,7 +502,7 @@ function Register() {
                                       name={key}
                                       id={key}
                                       checked={value}
-                                      onClick={handleMineralsRadio}
+                                      onClick={(e) => handleMineralsRadio(e)}
                                       // onChange={handleMineralsRadio}
                                     />
                                     <label
