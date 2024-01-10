@@ -7,6 +7,7 @@ import { addToCart } from "../../redux/action/cart";
 import { addToWishlist } from "../../redux/action/wishlistAction";
 
 const SingleProduct2 = ({
+  wishList,
   product,
   addToCart,
   addToWishlist,
@@ -22,8 +23,12 @@ const SingleProduct2 = ({
   };
 
   const handleWishlist = (product) => {
-    addToWishlist(product);
-    toast("Added to Wishlist !");
+    if (!wishList.find((item) => item.productId === product["_id"])) {
+      addToWishlist(product);
+      toast("Added to Wishlist !");
+    } else {
+      toast("Already Added To WishList !");
+    }
   };
 
   return (
@@ -112,9 +117,13 @@ const SingleProduct2 = ({
   );
 };
 
+const mapStateToProps = (state) => ({
+  wishList: state.wishlist,
+});
+
 const mapDispatchToProps = {
   addToCart,
   addToWishlist,
 };
 
-export default connect(null, mapDispatchToProps)(SingleProduct2);
+export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct2);

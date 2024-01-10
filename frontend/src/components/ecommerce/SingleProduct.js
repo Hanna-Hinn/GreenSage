@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { addToCart } from "../../redux/action/cart";
 import { addToWishlist } from "../../redux/action/wishlistAction";
 
-const SingleProduct = ({ product, addToCart, addToWishlist }) => {
+const SingleProduct = ({ wishList, product, addToCart, addToWishlist }) => {
   const [averageRating, setAverageRating] = useState(0);
 
   useEffect(() => {
@@ -23,8 +23,12 @@ const SingleProduct = ({ product, addToCart, addToWishlist }) => {
   };
 
   const handleWishlist = (product) => {
-    addToWishlist(product);
-    toast("Added to Wishlist !");
+    if (!wishList.find((item) => item.productId === product["_id"])) {
+      addToWishlist(product);
+      toast("Added to Wishlist !");
+    } else {
+      toast("Already Added To WishList !");
+    }
   };
 
   return (
@@ -123,9 +127,13 @@ const SingleProduct = ({ product, addToCart, addToWishlist }) => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  wishList: state.wishlist,
+});
+
 const mapDispatchToProps = {
   addToCart,
   addToWishlist,
 };
 
-export default connect(null, mapDispatchToProps)(SingleProduct);
+export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);

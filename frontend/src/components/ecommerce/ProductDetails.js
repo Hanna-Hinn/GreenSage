@@ -9,6 +9,7 @@ import RelatedSlider from "../sliders/Related";
 
 const ProductDetails = ({
   product,
+  wishList,
   cartItems,
   addToCart,
   addToWishlist,
@@ -21,8 +22,12 @@ const ProductDetails = ({
   };
 
   const handleWishlist = (product) => {
-    addToWishlist(product);
-    toast("Added to Wishlist !");
+    if (!wishList.find((item) => item.productId === product["_id"])) {
+      addToWishlist(product);
+      toast("Added to Wishlist !");
+    } else {
+      toast("Already Added To WishList !");
+    }
   };
 
   const inCart = cartItems.find((cartItem) => cartItem.id === product["_id"]);
@@ -174,6 +179,7 @@ const ProductDetails = ({
 
 const mapStateToProps = (state) => ({
   cartItems: state.cart,
+  wishList: state.wishlist,
 });
 
 const mapDispatchToProps = {

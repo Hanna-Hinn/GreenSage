@@ -1,10 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
-import storage from "../../util/localStorage";
-import { deleteProduct, findProductIndexById } from "../../util/util";
 import * as Types from "../constants/actionTypes";
 
 export default (state = [], action) => {
-  let index = null;
 
   switch (action.type) {
     case Types.INIT_LOCALSTORAGE:

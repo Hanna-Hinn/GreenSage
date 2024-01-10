@@ -328,7 +328,7 @@ const Header = ({ totalCartItems, toggleClick, totalWishlistItems }) => {
 
 const mapStateToProps = (state) => ({
   totalCartItems: state.cart.length,
-  totalWishlistItems: state.wishlist.items.length,
+  totalWishlistItems: state.wishlist.length,
 });
 
 export default connect(mapStateToProps, null)(Header);

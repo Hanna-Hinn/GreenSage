@@ -8,8 +8,14 @@ export const addToCart =
   (dispatch) => {
     const user = storage.get("userInfo");
     if (user) {
+      let url;
+      if (product.productId) {
+        url = `${BACKEND_URL}/carts/${user.id}/items/${product.productId}`;
+      } else {
+        url = `${BACKEND_URL}/carts/${user.id}/items/${product["_id"]}`;
+      }
       axios
-        .post(`${BACKEND_URL}/carts/${user.id}/items/${product["_id"]}`, {
+        .post(url, {
           quantity,
         })
         .then(async ({ data }) => {
@@ -17,7 +23,7 @@ export const addToCart =
             `${BACKEND_URL}/carts/${user.id}`
           );
           const cartItems = cartData.data.cartItems;
-
+          console.log(cartItems);
           dispatch({
             type: Types.ADD_TO_CART,
             payload: cartItems,

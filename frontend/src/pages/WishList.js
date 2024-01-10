@@ -1,17 +1,16 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import Layout from "../components/layout/Layout";
 import { addToCart } from "../redux/action/cart";
 import {
   clearWishlist,
-  closeWishlistModal,
   deleteFromWishlist,
 } from "../redux/action/wishlistAction";
 
 const Wishlist = ({
   wishlist,
   clearWishlist,
-  closeWishlistModal,
   deleteFromWishlist,
   addToCart,
 }) => {
@@ -26,7 +25,7 @@ const Wishlist = ({
           <div className="container">
             <div className="row">
               <div className="col-xl-10 col-lg-12 m-auto">
-                {wishlist.items.length > 0 ? (
+                {wishlist.length > 0 ? (
                   <div className="table-responsive shopping-summery">
                     <table className="table table-wishlist">
                       <thead>
@@ -46,20 +45,20 @@ const Wishlist = ({
                         </tr>
                       </thead>
                       <tbody>
-                        {wishlist.items.map((product, i) => (
+                        {wishlist.map((product, i) => (
                           <tr className="pt-30" key={i}>
                             <td className="image product-thumbnail pt-40">
                               <img
                                 src={product.productImage}
-                                alt={product.name}
+                                alt={product.productName}
                                 className="img-fluid"
                               />
                             </td>
 
                             <td className="product-des product-name">
                               <h6 className="product-name  mb-10">
-                                <a href={`/products/${product["_id"]}`}>
-                                  {product.name}
+                                <a href={`/products/${product.productId}`}>
+                                  {product.productName}
                                 </a>
                               </h6>
                               <div className="product-rate-cover">
@@ -126,7 +125,7 @@ const Wishlist = ({
                             <td className="action" data-title="Remove">
                               <a
                                 onClick={(e) =>
-                                  deleteFromWishlist(product["_id"])
+                                  deleteFromWishlist(product.productId)
                                 }
                               >
                                 <i className="fi-rs-trash"></i>
@@ -159,7 +158,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  closeWishlistModal,
   deleteFromWishlist,
   clearWishlist,
   addToCart,

@@ -1,7 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
 import * as Types from "../constants/actionTypes";
-import { deleteProduct, findProductIndexById } from "../../util/util";
-import storage from "../../util/localStorage";
 
 const initialState = {
   modal: false,
@@ -12,54 +10,22 @@ export default (state = initialState, action) => {
   let index = null;
 
   switch (action.type) {
-    case Types.OPEN_WISHLIST:
-      return {
-        ...state,
-        modal: true,
-      };
-
-    case Types.CLOSE_WISHLIST:
-      return {
-        ...state,
-        modal: false,
-      };
-
     case Types.INIT_LOCALSTORAGE:
-      return {
-        ...state,
-        items: [...action.payload.wishlist],
-      };
+      return [...action.payload.wishlist];
 
     case Types.ADD_TO_WISHLIST:
-      index = findProductIndexById(state.items, action.payload.productId);
-      if (index !== -1) return state;
-
-      const items = [...state.items, action.payload.product];
-      storage.set("dokani_wishlist", items);
-
-      return {
-        ...state,
-        items,
-      };
+      return action.payload;
 
     case Types.DELETE_FROM_WISHLIST:
-      
-      const list = deleteProduct(state.items, action.payload.productId);
-      console.log(list);
-      storage.set("dokani_wishlist", list);
-
-      return {
-        ...state,
-        items: [...list],
-      };
+      return action.payload;
 
     case Types.CLEAR_WISHLIST:
-      storage.set("dokani_wishlist", []);
-
       return {
         ...state,
         items: [],
       };
+    case Types.ERROR_ADD_TO_WISHLIST:
+      return [...state];
 
     default:
       return state;
