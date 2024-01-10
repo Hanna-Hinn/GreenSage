@@ -20,6 +20,8 @@ const Cart = ({
   deleteFromCart,
   clearCart,
 }) => {
+  const shippingCost = 10;
+
   const price = () => {
     let price = 0;
     cartItems.forEach(
@@ -183,15 +185,6 @@ const Cart = ({
                 </div>
                 <div className="row mb-50">
                   <div className="col-lg-6 col-md-12">
-                    <div className="heading_s1 mb-3">
-                      <h4>Calculate Shipping</h4>
-                    </div>
-                    <p className="mt-15 mb-30">
-                      Flat rate:
-                      <span className="font-xl text-brand fw-900"> 10%</span>
-                    </p>
-                  </div>
-                  <div className="col-lg-6 col-md-12">
                     <div className="border p-md-4 p-30 border-radius cart-totals">
                       <div className="heading_s1 mb-3">
                         <h4>Cart Totals</h4>
@@ -212,8 +205,9 @@ const Cart = ({
                             <tr>
                               <td className="cart_total_label">Shipping</td>
                               <td className="cart_total_amount">
-                                <i className="ti-gift mr-5"></i>
-                                Free Shipping
+                                <span className="font-lg fw-900 text-brand">
+                                  $10
+                                </span>
                               </td>
                             </tr>
                             <tr>
@@ -221,7 +215,7 @@ const Cart = ({
                               <td className="cart_total_amount">
                                 <strong>
                                   <span className="font-xl fw-900 text-brand">
-                                    ${price()}
+                                    ${price() + shippingCost}
                                   </span>
                                 </strong>
                               </td>
