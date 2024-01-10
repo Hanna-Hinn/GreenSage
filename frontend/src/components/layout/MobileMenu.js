@@ -43,7 +43,6 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
 
   const handleSearch = () => {
     navigate(`/products?search=${searchTerm}`);
-    console.log(searchTerm);
     setSearchTerm("");
   };
 

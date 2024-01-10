@@ -44,20 +44,22 @@ const Header = ({ totalCartItems, toggleClick, totalWishlistItems }) => {
                       <Link to="/page-about">About Us</Link>
                     </li>
                     {user ? (
-                      <li>
-                        <Link to="/page-account">My Account</Link>
-                      </li>
+                      <>
+                        <li>
+                          <Link to="/page-account">My Account</Link>
+                        </li>
+                        <li>
+                          <Link to="/shop-wishlist">Wishlist</Link>
+                        </li>
+                        <li>
+                          <Link to="/shop-cart">My Cart</Link>
+                        </li>
+                      </>
                     ) : (
                       <li>
                         <Link to="/page-login">Sign In</Link>
                       </li>
                     )}
-                    <li>
-                      <Link to="/shop-wishlist">Wishlist</Link>
-                    </li>
-                    <li>
-                      <Link to="/shop-cart">My Cart</Link>
-                    </li>
                   </ul>
                 </div>
               </div>
@@ -106,39 +108,45 @@ const Header = ({ totalCartItems, toggleClick, totalWishlistItems }) => {
                 </div>
                 <div className="header-action-right">
                   <div className="header-action-2">
-                    <div className="header-action-icon-2">
-                      <Link to="/shop-wishlist">
-                        <img
-                          className="svgInject"
-                          alt="wishlist"
-                          src="/assets/imgs/theme/icons/icon-heart.svg"
-                        />
-                        <span className="pro-count blue">
-                          {totalWishlistItems}
-                        </span>
-                      </Link>
-                      <Link to="/shop-wishlist">
-                        <span className="lable">Wishlist</span>
-                      </Link>
-                    </div>
-                    <div className="header-action-icon-2">
-                      <Link to="/shop-cart" className="mini-cart-icon">
-                        <img
-                          alt="Evara"
-                          src="/assets/imgs/theme/icons/icon-cart.svg"
-                        />
-                        <span className="pro-count blue">{totalCartItems}</span>
-                      </Link>
-                      <Link to="/shop-cart">
-                        <span className="lable">Cart</span>
-                      </Link>
-                    </div>
+                    {user && (
+                      <>
+                        <div className="header-action-icon-2">
+                          <Link to="/shop-wishlist">
+                            <img
+                              className="svgInject"
+                              alt="wishlist"
+                              src="/assets/imgs/theme/icons/icon-heart.svg"
+                            />
+                            <span className="pro-count blue">
+                              {totalWishlistItems}
+                            </span>
+                          </Link>
+                          <Link to="/shop-wishlist">
+                            <span className="lable">Wishlist</span>
+                          </Link>
+                        </div>
+                        <div className="header-action-icon-2">
+                          <Link to="/shop-cart" className="mini-cart-icon">
+                            <img
+                              alt="cart"
+                              src="/assets/imgs/theme/icons/icon-cart.svg"
+                            />
+                            <span className="pro-count blue">
+                              {totalCartItems}
+                            </span>
+                          </Link>
+                          <Link to="/shop-cart">
+                            <span className="lable">Cart</span>
+                          </Link>
+                        </div>
+                      </>
+                    )}
 
                     <div className="header-action-icon-2">
                       <Link to="/page-account">
                         <img
                           className="svgInject"
-                          alt="Nest"
+                          alt="user"
                           src="/assets/imgs/theme/icons/icon-user.svg"
                         />
                       </Link>
@@ -282,26 +290,32 @@ const Header = ({ totalCartItems, toggleClick, totalWishlistItems }) => {
 
               <div className="header-action-right d-block d-lg-none">
                 <div className="header-action-2">
-                  <div className="header-action-icon-2">
-                    <Link to="/shop-wishlist">
-                      <img
-                        alt="Evara"
-                        src="/assets/imgs/theme/icons/icon-heart.svg"
-                      />
-                      <span className="pro-count white">
-                        {totalWishlistItems}
-                      </span>
-                    </Link>
-                  </div>
-                  <div className="header-action-icon-2">
-                    <Link to="/shop-cart" className="mini-cart-icon">
-                      <img
-                        alt="Evara"
-                        src="/assets/imgs/theme/icons/icon-cart.svg"
-                      />
-                      <span className="pro-count white">{totalCartItems}</span>
-                    </Link>
-                  </div>
+                  {user && (
+                    <>
+                      <div className="header-action-icon-2">
+                        <Link to="/shop-wishlist">
+                          <img
+                            alt="wishlist"
+                            src="/assets/imgs/theme/icons/icon-heart.svg"
+                          />
+                          <span className="pro-count white">
+                            {totalWishlistItems}
+                          </span>
+                        </Link>
+                      </div>
+                      <div className="header-action-icon-2">
+                        <Link to="/shop-cart" className="mini-cart-icon">
+                          <img
+                            alt="car"
+                            src="/assets/imgs/theme/icons/icon-cart.svg"
+                          />
+                          <span className="pro-count white">
+                            {totalCartItems}
+                          </span>
+                        </Link>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
