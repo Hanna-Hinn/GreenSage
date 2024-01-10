@@ -238,7 +238,12 @@ function Account() {
                                           <td>{index + 1}</td>
                                           <td>{formattedDate}</td>
                                           <td>{order.shipmentStatus}</td>
-                                          <td>{`$${order.totalPrice} for ${order.cartItems.length} item`}</td>
+                                          <td>{`$${
+                                            Math.round(order.totalPrice * 10) /
+                                            10
+                                          } for ${
+                                            order.cartItems.length
+                                          } item`}</td>
                                           <td>{`${order.userAddress.street}, ${order.userAddress.city} ${order.userAddress.state} ${order.userAddress.postalCode}`}</td>
                                         </tr>
                                       );
