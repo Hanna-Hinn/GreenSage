@@ -2,11 +2,7 @@
 import { useState } from "react";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
-import {
-  addToCart,
-  decreaseQuantity,
-  increaseQuantity,
-} from "../../redux/action/cart";
+import { addToCart } from "../../redux/action/cart";
 import { addToWishlist } from "../../redux/action/wishlistAction";
 import ProductTab from "../elements/ProductTab";
 import RelatedSlider from "../sliders/Related";
@@ -16,13 +12,11 @@ const ProductDetails = ({
   cartItems,
   addToCart,
   addToWishlist,
-  increaseQuantity,
-  decreaseQuantity,
   relatedProducts,
 }) => {
   const [quantity, setQuantity] = useState(1);
   const handleCart = (product) => {
-    addToCart(product);
+    addToCart(product, quantity);
     toast("Product added to Cart !");
   };
 
@@ -99,11 +93,7 @@ const ProductDetails = ({
                         <div className="detail-qty border radius">
                           <a
                             onClick={(e) =>
-                              !inCart
-                                ? setQuantity(quantity > 1 ? quantity - 1 : 1)
-                                : decreaseQuantity(
-                                    product ? product["_id"] : null
-                                  )
+                              setQuantity(quantity > 1 ? quantity - 1 : 1)
                             }
                             className="qty-down"
                           >
@@ -113,11 +103,7 @@ const ProductDetails = ({
                             {inCart?.quantity || quantity}
                           </span>
                           <a
-                            onClick={() =>
-                              !inCart
-                                ? setQuantity(quantity + 1)
-                                : increaseQuantity(product["_id"])
-                            }
+                            onClick={() => setQuantity(quantity + 1)}
                             className="qty-up"
                           >
                             <i className="fi-rs-angle-small-up"></i>
@@ -193,8 +179,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   addToWishlist,
   addToCart,
-  increaseQuantity,
-  decreaseQuantity,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails);

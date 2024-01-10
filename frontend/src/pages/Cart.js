@@ -121,14 +121,18 @@ const Cart = ({
                             <div className="detail-extralink mr-15">
                               <div className="detail-qty border radius ">
                                 <a
-                                  onClick={(e) => decreaseQuantity(item["_id"])}
+                                  onClick={(e) =>
+                                    decreaseQuantity(item.productId)
+                                  }
                                   className="qty-down"
                                 >
                                   <i className="fi-rs-angle-small-down"></i>
                                 </a>
                                 <span className="qty-val">{item.quantity}</span>
                                 <a
-                                  onClick={(e) => increaseQuantity(item["_id"])}
+                                  onClick={(e) =>
+                                    increaseQuantity(item.productId)
+                                  }
                                   className="qty-up"
                                 >
                                   <i className="fi-rs-angle-small-up"></i>
