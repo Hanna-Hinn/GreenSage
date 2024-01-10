@@ -14,7 +14,7 @@ export const addToWishlist = (product) => (dispatch) => {
         );
 
         const items = wishListData.data.items;
-        console.log(items);
+
         dispatch({
           type: Types.ADD_TO_WISHLIST,
           payload: items,
