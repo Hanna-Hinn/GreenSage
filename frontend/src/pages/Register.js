@@ -14,18 +14,18 @@ function Register() {
   const [agree, setAgree] = useState(false);
   const [error, setError] = useState({});
   const [addresses, setAddresses] = useState();
-  const [minerals, setMinerals] = useState({
-    vitaminD: false,
-    iron: false,
-    vitaminB12: false,
-    calcium: false,
-    omega3: false,
-    iodine: false,
-    vitaminC: false,
-    folate: false,
-    magnesium: false,
-    zinc: false,
-  });
+  const mineralsArray = [
+    "vitaminD",
+    "iron",
+    "vitaminB12",
+    "calcium",
+    "omega3",
+    "iodine",
+    "vitaminC",
+    "folate",
+    "magnesium",
+    "zinc",
+  ];
   const [formData, setFormData] = useState({});
   const userLogin = useSelector((state) => state.auth);
   const { userInfo } = userLogin;
@@ -36,13 +36,14 @@ function Register() {
     }
   }, [userInfo]);
 
-  const handleMineralsRadio = (event) => {
-    const inputName = event.target.name;
-    setMinerals((prevMinerals) => ({
-      ...prevMinerals,
-      [inputName]: !prevMinerals[inputName],
-    }));
-    setFormData({ ...formData, healthStatus: minerals });
+  const handleMineralChange = (e) => {
+    const { value, checked } = e.target;
+    setFormData((prev) => {
+      return {
+        ...prev,
+        healthStatus: { ...prev.healthStatus, [value]: checked },
+      };
+    });
   };
 
   const handleRadioChange = () => {
@@ -59,17 +60,16 @@ function Register() {
 
   const handleSubmit = async () => {
     const isValid = validateInputs();
+
     if (!isValid) {
       return;
     }
 
-    if (isCustomer) {
-      setFormData({ ...formData, healthStatus: minerals });
-    } else {
+    if (!isCustomer) {
       setFormData(delete formData.healthStatus);
     }
-
     const user = formData;
+    console.log(user, formData);
     let url = `${BACKEND_URL}/register`;
     if (!isCustomer) {
       url = `${BACKEND_URL}/users`;
@@ -493,19 +493,19 @@ function Register() {
                                 Please Check the Preferred Minerals:
                               </label>
                               <br />
-                              {Object.entries(minerals).map(([key, value]) => {
+                              {mineralsArray.map((key) => {
                                 return (
-                                  <div className="custome-radio" key={key}>
+                                  <div key={key}>
                                     <input
                                       className="form-check-input"
-                                      type="radio"
+                                      type="checkbox"
                                       name={key}
+                                      value={key}
                                       id={key}
-                                      checked={value}
-                                      onClick={(e) => handleMineralsRadio(e)}
-                                      // onChange={handleMineralsRadio}
+                                      onChange={(e) => handleMineralChange(e)}
                                     />
                                     <label
+                                      style={{ paddingLeft: "5px" }}
                                       className="form-check-label"
                                       htmlFor={key}
                                     >

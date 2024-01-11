@@ -15,26 +15,17 @@ export default function AddProduct() {
   const token = localStorage.getItem("sageToken");
   const urlParams = new URLSearchParams(location.search);
   const productId = urlParams.get("productId");
-  const [product, setProduct] = useState({
-    name: "",
-    description: "",
-    price: 1,
-    availableInStock: 1,
-    imageUrl:
-      "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png",
-    categoryId: "6588caa801b34c4874769210",
-  });
+  const [product, setProduct] = useState({});
   const [categories, setCategories] = useState([]);
 
   const formik = useFormik({
     initialValues: {
-      name: "",
-      description: "",
-      price: 1,
-      availableInStock: 1,
-      imageUrl:
-        "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png",
-      categoryId: "6588caa801b34c4874769210",
+      name: product?.name || "",
+      description: product?.description || "",
+      price: product?.price || 0,
+      availableInStock: product?.availableInStock || 0,
+      imageUrl: product?.imageUrl || "",
+      categoryId: product?.categoryId || "",
     },
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
@@ -80,7 +71,7 @@ export default function AddProduct() {
                   <div className="col-lg-6 col-md-8">
                     <div className="login_wrap widget-taber-content background-white">
                       <div className="padding_eight_all bg-white">
-                        <form>
+                        <form onSubmit={formik.handleSubmit}>
                           <div className="form-group">
                             <label htmlFor="name">Product Name:</label>
                             <input
@@ -89,6 +80,8 @@ export default function AddProduct() {
                               name="name"
                               id="name"
                               placeholder="Product Name ...."
+                              onChange={formik.handleChange}
+                              value={formik.values.name}
                             />
                           </div>
                           <div className="form-group">
@@ -98,21 +91,23 @@ export default function AddProduct() {
                             <textarea
                               type="text"
                               required
-                              name="name"
+                              name="description"
                               id="description"
                               placeholder="Product Description ...."
+                              onChange={formik.handleChange}
+                              value={formik.values.description}
                             />
                           </div>
                           <div className="form-group">
-                            <label htmlFor="price">
-                              Product price:
-                            </label>
+                            <label htmlFor="price">Product price:</label>
                             <input
                               type="number"
                               required
                               name="price"
                               id="price"
                               placeholder="Product price ...."
+                              onChange={formik.handleChange}
+                              value={formik.values.price}
                             />
                           </div>
                           <div className="form-group">
@@ -125,19 +120,45 @@ export default function AddProduct() {
                               name="availableInStock"
                               id="availableInStock"
                               placeholder="Product availableInStock ...."
+                              onChange={formik.handleChange}
+                              value={formik.values.availableInStock}
                             />
                           </div>
                           <div className="form-group">
-                            <label htmlFor="imageUrl">
-                              Product imageUrl:
-                            </label>
+                            <label htmlFor="imageUrl">Product imageUrl:</label>
                             <input
                               type="url"
                               required
                               name="imageUrl"
                               id="imageUrl"
                               placeholder="Product imageUrl ...."
+                              onChange={formik.handleChange}
+                              value={formik.values.imageUrl}
                             />
+                          </div>
+                          <div className="form-group">
+                            <label htmlFor="category">
+                              Please Select Category:
+                            </label>
+                            <select
+                              id="category"
+                              name="categoryId"
+                              onChange={formik.handleChange}
+                              // value={formik.values.categoryId}
+                            >
+                              <option>Select One of the below:</option>
+                              {categories &&
+                                categories.map((cat) => {
+                                  return (
+                                    <option key={cat["_id"]} value={cat["_id"]}>
+                                      {cat.name}
+                                    </option>
+                                  );
+                                })}
+                            </select>
+                          </div>
+                          <div className="form-group">
+                            <button type="submit">Save</button>
                           </div>
                         </form>
                       </div>
