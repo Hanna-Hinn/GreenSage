@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
 import { toast } from "react-toastify";
-import { useFormik } from "formik";
 
 export default function AddProduct() {
   const location = useLocation();
@@ -13,24 +12,13 @@ export default function AddProduct() {
   const userLogin = useSelector((state) => state.auth);
   const { userInfo } = userLogin;
   const token = localStorage.getItem("sageToken");
+  const config = { headers: { Authorization: `Bearer ${token}` } };
   const urlParams = new URLSearchParams(location.search);
   const productId = urlParams.get("productId");
+  const [error, setError] = useState({});
   const [product, setProduct] = useState({});
   const [categories, setCategories] = useState([]);
-
-  const formik = useFormik({
-    initialValues: {
-      name: product?.name || "",
-      description: product?.description || "",
-      price: product?.price || 0,
-      availableInStock: product?.availableInStock || 0,
-      imageUrl: product?.imageUrl || "",
-      categoryId: product?.categoryId || "",
-    },
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-    },
-  });
+  const [formData, setFormData] = useState({});
 
   useEffect(() => {
     if (!userInfo || userInfo.userType !== "owner") {
@@ -47,6 +35,15 @@ export default function AddProduct() {
           `${BACKEND_URL}/products/${productId}`
         );
         setProduct(productData.data.product);
+        setFormData({
+          name: productData.data.product.name,
+          description: productData.data.product.description,
+          price: productData.data.product.price["$numberDecimal"],
+          availableInStock: productData.data.product.availableInStock,
+          imageUrl: productData.data.product.imageUrl,
+          categoryId: productData.data.product.categoryId,
+        });
+        console.log(formData);
       }
 
       const { data: categoriesData } = await axios.get(
@@ -60,6 +57,64 @@ export default function AddProduct() {
     }
   };
 
+  const handleSubmit = async () => {
+    const isValid = validateInputs();
+    console.log(formData);
+    if (!isValid) {
+      return;
+    }
+
+    try {
+      let response;
+      if (!productId) {
+        response = await axios.post(
+          `${BACKEND_URL}/products`,
+          formData,
+          config
+        );
+      } else {
+        response = await axios.put(
+          `${BACKEND_URL}/products/users/${productId}/v1/query?pageNumber=1`,
+          formData,
+          config
+        );
+      }
+
+      if (response.data.success) {
+        toast("Product Saved !");
+        if (productId) {
+          navigate(`products/${productId}`);
+        } else {
+          navigate("/page-account");
+        }
+      }
+    } catch (e) {
+      console.log(e);
+      toast(e?.message || "Something Went Wrong !");
+    }
+  };
+
+  const validateInputs = () => {
+    const name = formData.name ? formData.name : formData.title;
+    const imageUrl = formData["imageUrl"];
+
+    if (!name || name.trim() === "") {
+      setError({ ...error, name: "Name is Required!!!" });
+      return false;
+    }
+
+    if (!imageUrl || imageUrl.trim() === "" || !validateImageUrl(imageUrl)) {
+      setError({ ...error, imageUrl: "Entered Image URL not Valid!!!" });
+      return false;
+    }
+    return true;
+  };
+
+  function validateImageUrl(url) {
+    const imageUrlRegex = /^https?:\/\/.*\.(?:png|jpg|jpeg|gif|svg)$/i;
+    return imageUrlRegex.test(url);
+  }
+
   return (
     <>
       <Layout parent="Home" sub="Account" subChild="Add Product">
@@ -71,7 +126,7 @@ export default function AddProduct() {
                   <div className="col-lg-6 col-md-8">
                     <div className="login_wrap widget-taber-content background-white">
                       <div className="padding_eight_all bg-white">
-                        <form onSubmit={formik.handleSubmit}>
+                        <form onSubmit={(e) => e.preventDefault()}>
                           <div className="form-group">
                             <label htmlFor="name">Product Name:</label>
                             <input
@@ -80,9 +135,29 @@ export default function AddProduct() {
                               name="name"
                               id="name"
                               placeholder="Product Name ...."
-                              onChange={formik.handleChange}
-                              value={formik.values.name}
+                              onChange={(e) => {
+                                if (!productId) {
+                                  setFormData({
+                                    ...formData,
+                                    name: e.target.value,
+                                  });
+                                } else {
+                                  setFormData({
+                                    ...formData,
+                                    title: e.target.value,
+                                  });
+                                }
+                              }}
+                              defaultValue={formData?.name || formData.title}
                             />
+                            {error.name && (
+                              <>
+                                <br />
+                                <span style={{ color: "red" }}>
+                                  {error.name}
+                                </span>
+                              </>
+                            )}
                           </div>
                           <div className="form-group">
                             <label htmlFor="description">
@@ -94,8 +169,13 @@ export default function AddProduct() {
                               name="description"
                               id="description"
                               placeholder="Product Description ...."
-                              onChange={formik.handleChange}
-                              value={formik.values.description}
+                              onChange={(e) => {
+                                setFormData({
+                                  ...formData,
+                                  description: e.target.value,
+                                });
+                              }}
+                              defaultValue={formData.description}
                             />
                           </div>
                           <div className="form-group">
@@ -106,8 +186,13 @@ export default function AddProduct() {
                               name="price"
                               id="price"
                               placeholder="Product price ...."
-                              onChange={formik.handleChange}
-                              value={formik.values.price}
+                              onChange={(e) => {
+                                setFormData({
+                                  ...formData,
+                                  price: e.target.value,
+                                });
+                              }}
+                              defaultValue={formData.price}
                             />
                           </div>
                           <div className="form-group">
@@ -120,8 +205,13 @@ export default function AddProduct() {
                               name="availableInStock"
                               id="availableInStock"
                               placeholder="Product availableInStock ...."
-                              onChange={formik.handleChange}
-                              value={formik.values.availableInStock}
+                              onChange={(e) => {
+                                setFormData({
+                                  ...formData,
+                                  availableInStock: e.target.value,
+                                });
+                              }}
+                              defaultValue={formData.availableInStock}
                             />
                           </div>
                           <div className="form-group">
@@ -132,9 +222,22 @@ export default function AddProduct() {
                               name="imageUrl"
                               id="imageUrl"
                               placeholder="Product imageUrl ...."
-                              onChange={formik.handleChange}
-                              value={formik.values.imageUrl}
+                              onChange={(e) => {
+                                setFormData({
+                                  ...formData,
+                                  imageUrl: e.target.value,
+                                });
+                              }}
+                              defaultValue={formData.imageUrl}
                             />
+                            {error.imageUrl && (
+                              <>
+                                <br />
+                                <span style={{ color: "red" }}>
+                                  {error.imageUrl}
+                                </span>
+                              </>
+                            )}
                           </div>
                           <div className="form-group">
                             <label htmlFor="category">
@@ -143,10 +246,16 @@ export default function AddProduct() {
                             <select
                               id="category"
                               name="categoryId"
-                              onChange={formik.handleChange}
-                              // value={formik.values.categoryId}
+                              onChange={(e) => {
+                                setFormData({
+                                  ...formData,
+                                  categoryId: e.target.value,
+                                });
+                              }}
                             >
-                              <option>Select One of the below:</option>
+                              <option value="other">
+                                Select One of the below:
+                              </option>
                               {categories &&
                                 categories.map((cat) => {
                                   return (
@@ -158,7 +267,9 @@ export default function AddProduct() {
                             </select>
                           </div>
                           <div className="form-group">
-                            <button type="submit">Save</button>
+                            <button className="submit" onClick={handleSubmit}>
+                              Save
+                            </button>
                           </div>
                         </form>
                       </div>

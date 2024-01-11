@@ -69,7 +69,7 @@ function Register() {
       setFormData(delete formData.healthStatus);
     }
     const user = formData;
-    console.log(user, formData);
+
     let url = `${BACKEND_URL}/register`;
     if (!isCustomer) {
       url = `${BACKEND_URL}/users`;
