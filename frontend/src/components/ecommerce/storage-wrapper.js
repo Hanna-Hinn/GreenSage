@@ -23,6 +23,13 @@ const StorageWrapper = (props) => {
           userInfo: {},
         });
       } else {
+        if (userInfo.userType === "owner") {
+          return props.saveStoredItems({
+            cart: [],
+            wishlist: [],
+            userInfo,
+          });
+        }
         try {
           const { data: cartData } = await axios.get(
             `${BACKEND_URL}/carts/${userInfo.id}`

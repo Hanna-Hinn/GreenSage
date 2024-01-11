@@ -1,11 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import Layout from "../components/layout/Layout";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "./../redux/action/auth";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
+import { toast } from "react-toastify";
 
 function Account() {
   const dispatch = useDispatch();
@@ -13,10 +14,13 @@ function Account() {
   const [activeIndex, setActiveIndex] = useState(1);
   const userLogin = useSelector((state) => state.auth);
   const { userInfo } = userLogin;
+  const token = localStorage.getItem("sageToken");
   const [user, setUser] = useState({});
   const [userOrders, setUserOrders] = useState([]);
   const [ownerProducts, setOwnerProducts] = useState([]);
+  const [orderEdit, setOrderEdit] = useState(false);
   const [refresh, setRefresh] = useState(false);
+  const [orderStatus, setOrderStatus] = useState("pending");
   const monthNames = [
     "January",
     "February",
@@ -73,12 +77,48 @@ function Account() {
     dispatch(logout());
   };
 
+  const onStatusChangeHandler = (e) => {
+    setOrderStatus("");
+    setOrderStatus(e.target.value);
+  };
+
+  const handleOrderEdit = async (id) => {
+    if (orderEdit) {
+      try {
+        await axios.put(
+          `${BACKEND_URL}/orders/${id}`,
+          {
+            shipmentStatus: orderStatus,
+            userId: userInfo.id,
+          },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+
+        const { data: orderData } = await axios.get(
+          `${BACKEND_URL}/owners/${userInfo.id}`
+        );
+        setUserOrders(orderData.data.matchingOrders);
+
+        toast("Order Updated Successfully");
+        setRefresh(!refresh);
+      } catch (e) {
+        console.log(e);
+        toast(e.message ? e.message : "Something Went Wrong !");
+      }
+    }
+    setOrderEdit(!orderEdit);
+  };
+
   const addressDeleteHandler = async (addressId) => {
     try {
-      const response = await axios.delete(
+      const { data } = await axios.delete(
         `${BACKEND_URL}/addresses/${user["_id"]}/address/${addressId}`
       );
-      setRefresh(true);
+      if (data.success) {
+        toast("Address Deleted Successfully !");
+      } else {
+        toast("Something Went Wrong !");
+      }
     } catch (e) {
       console.log(e);
     }
@@ -86,6 +126,32 @@ function Account() {
 
   const addAddressHandler = () => {
     navigate("/add-address");
+  };
+
+  const handleAddProduct = () => {
+    navigate("/add-product");
+  };
+
+  const handleOnDelete = async (productId) => {
+    const config = { headers: { Authorization: `Bearer ${token}` } };
+    try {
+      const { data } = await axios.delete(
+        `${BACKEND_URL}/products/${productId}`,
+        config
+      );
+      const { data: products } = await axios.get(
+        `${BACKEND_URL}/products/v1/searchFilter/v1/query?ownerName=${user.firstName} ${user.lastName}&pageNumber=1`
+      );
+      setOwnerProducts(products.data.products);
+      if (data.success) {
+        toast("Product Deleted Successfully !");
+        setRefresh(true);
+      } else {
+        toast("Something Went Wrong !");
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -208,97 +274,138 @@ function Account() {
                           <div className="card-body">
                             <div className="table-responsive">
                               {userInfo && userInfo.userType !== "owner" ? (
-                                <table className="table">
-                                  <thead>
-                                    <tr>
-                                      <th>Order</th>
-                                      <th>Date</th>
-                                      <th>Status</th>
-                                      <th>Total</th>
-                                      <th>Address</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    {userOrders.length === 0 && (
-                                      <h6>
-                                        Your Orders Will be Displayed Here
-                                      </h6>
-                                    )}
-                                    {userOrders.map((order, index) => {
-                                      const date = new Date(order.date);
+                                <>
+                                  {userOrders.length === 0 && (
+                                    <h6>Your Orders Will be Displayed Here</h6>
+                                  )}
+                                  <table className="table">
+                                    <thead>
+                                      <tr>
+                                        <th>Order</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Total</th>
+                                        <th>Address</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {userOrders.map((order, index) => {
+                                        const date = new Date(order.date);
 
-                                      const formattedDate =
-                                        monthNames[date.getMonth()] +
-                                        " " +
-                                        date.getDate() +
-                                        ", " +
-                                        date.getFullYear();
-                                      return (
-                                        <tr key={index}>
-                                          <td>{index + 1}</td>
-                                          <td>{formattedDate}</td>
-                                          <td>{order.shipmentStatus}</td>
-                                          <td>{`$${
-                                            Math.round(order.totalPrice * 10) /
-                                            10
-                                          } for ${
-                                            order.cartItems.length
-                                          } item`}</td>
-                                          <td>{`${order.userAddress.street}, ${order.userAddress.city} ${order.userAddress.state} ${order.userAddress.postalCode}`}</td>
-                                        </tr>
-                                      );
-                                    })}
-                                  </tbody>
-                                </table>
+                                        const formattedDate =
+                                          monthNames[date.getMonth()] +
+                                          " " +
+                                          date.getDate() +
+                                          ", " +
+                                          date.getFullYear();
+                                        return (
+                                          <tr key={index}>
+                                            <td>{index + 1}</td>
+                                            <td>{formattedDate}</td>
+                                            <td>{order.shipmentStatus}</td>
+                                            <td>{`$${
+                                              Math.round(
+                                                order.totalPrice * 10
+                                              ) / 10
+                                            } for ${
+                                              order.cartItems.length
+                                            } item`}</td>
+                                            <td>{`${order.userAddress.street}, ${order.userAddress.city} ${order.userAddress.state} ${order.userAddress.postalCode}`}</td>
+                                          </tr>
+                                        );
+                                      })}
+                                    </tbody>
+                                  </table>
+                                </>
                               ) : (
-                                <table className="table table-hover">
-                                  <thead>
-                                    <tr>
-                                      <th>#ID</th>
-                                      <th scope="col">Name</th>
-                                      <th scope="col">Total</th>
-                                      <th scope="col">Status</th>
-                                      <th scope="col">Date</th>
-                                      <th scope="col">Address</th>
-                                      <th scope="col">Action</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    {userOrders.length === 0 && (
-                                      <h6>
-                                        Your Orders Will be Displayed Here
-                                      </h6>
-                                    )}
-                                    {userOrders.map((order, index) => {
-                                      const date = new Date(order.date);
-
-                                      const formattedDate =
-                                        monthNames[date.getMonth()] +
-                                        " " +
-                                        date.getDate() +
-                                        ", " +
-                                        date.getFullYear();
-                                      return (
-                                        <tr key={index}>
-                                          <td>{index + 1}</td>
-                                          <td>{order.userName}</td>
-                                          <td>{order.totalPrice} $</td>
-                                          <td>{order.shipmentStatus}</td>
-                                          <td>{formattedDate}</td>
-                                          <td>{`${order.userAddress.street}, ${order.userAddress.city} ${order.userAddress.state} ${order.userAddress.postalCode}`}</td>
-                                          <td>
-                                            <a
-                                              href="#"
-                                              class="btn btn-md rounded font-sm"
+                                <>
+                                  {userOrders.length === 0 && (
+                                    <h6>Your Orders Will be Displayed Here</h6>
+                                  )}
+                                  <table className="table table-hover">
+                                    <thead>
+                                      <tr>
+                                        <th>#ID</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Address</th>
+                                        <th scope="col">Action</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {userOrders.map((order, index) => {
+                                        const date = new Date(order.date);
+                                        const formattedDate =
+                                          monthNames[date.getMonth()] +
+                                          " " +
+                                          date.getDate() +
+                                          ", " +
+                                          date.getFullYear();
+                                        return (
+                                          <tr key={index}>
+                                            <td>{index + 1}</td>
+                                            <td>{order.userName}</td>
+                                            <td>{order.totalPrice} $</td>
+                                            <td>
+                                              {orderEdit ? (
+                                                <>
+                                                  <select
+                                                    name="status"
+                                                    id="status"
+                                                    defaultValue="pending"
+                                                    onChange={
+                                                      onStatusChangeHandler
+                                                    }
+                                                  >
+                                                    <option value="pending">
+                                                      Select Status
+                                                    </option>
+                                                    <option value="pending">
+                                                      Pending
+                                                    </option>
+                                                    <option value="delivered">
+                                                      Delivered
+                                                    </option>
+                                                    <option value="shipped">
+                                                      Shipped
+                                                    </option>
+                                                  </select>
+                                                </>
+                                              ) : (
+                                                order.shipmentStatus
+                                              )}
+                                            </td>
+                                            <td>{formattedDate}</td>
+                                            <td>{`${order.userAddress.street}, ${order.userAddress.city} ${order.userAddress.state} ${order.userAddress.postalCode}`}</td>
+                                            <td
+                                              style={{
+                                                display: "flex",
+                                                gap: "10px",
+                                              }}
                                             >
-                                              Detail
-                                            </a>
-                                          </td>
-                                        </tr>
-                                      );
-                                    })}
-                                  </tbody>
-                                </table>
+                                              <a
+                                                onClick={() => {
+                                                  handleOrderEdit(order["_id"]);
+                                                }}
+                                                className="btn btn-md rounded font-sm"
+                                              >
+                                                {orderEdit ? "Confirm" : "Edit"}
+                                              </a>
+                                              <a
+                                                href={`/orders/${order["_id"]}`}
+                                                className="btn btn-md rounded font-sm"
+                                              >
+                                                Detail
+                                              </a>
+                                            </td>
+                                          </tr>
+                                        );
+                                      })}
+                                    </tbody>
+                                  </table>
+                                </>
                               )}
                             </div>
                           </div>
@@ -318,8 +425,8 @@ function Account() {
                               <h3 className="mb-0">Products List</h3>
                               <a
                                 style={{ marginTop: "10px" }}
-                                href="#"
-                                class="btn btn-md rounded font-sm"
+                                onClick={handleAddProduct}
+                                className="btn btn-md rounded font-sm"
                               >
                                 Add Product
                               </a>
@@ -327,6 +434,9 @@ function Account() {
 
                             <div className="card-body">
                               <div className="table-responsive">
+                                {ownerProducts.length === 0 && (
+                                  <h6>Your Products Will be Displayed Here</h6>
+                                )}
                                 <table className="table">
                                   <thead>
                                     <tr>
@@ -340,28 +450,45 @@ function Account() {
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    {ownerProducts.length === 0 && (
-                                      <h6>
-                                        Your Products Will be Displayed Here
-                                      </h6>
-                                    )}
                                     {ownerProducts.map((product, index) => {
                                       return (
                                         <tr key={index}>
                                           <td>{index + 1}</td>
-                                          <td>{product.name}</td>
+                                          <td>
+                                            <a
+                                              href={`/products/${product["_id"]}`}
+                                            >
+                                              {product.name}
+                                            </a>
+                                          </td>
                                           <td>
                                             {product.price["$numberDecimal"]}
                                           </td>
                                           <td>{product.availableInStock}</td>
                                           <td>{product.averageRating}</td>
                                           <td>{product.categoryName}</td>
-                                          <td>
+                                          <td
+                                            style={{
+                                              display: "flex",
+                                              gap: "10px",
+                                            }}
+                                          >
                                             <a
-                                              href="#"
-                                              class="btn btn-md rounded font-sm"
+                                              href={`/add-product?productId=${product['_id']}`}
+                                              className="btn btn-md rounded font-sm"
                                             >
-                                              Details
+                                              Edit
+                                            </a>
+                                            <a
+                                              className="btn btn-md rounded font-sm"
+                                              style={{
+                                                backgroundColor: "#f44",
+                                              }}
+                                              onClick={() => {
+                                                handleOnDelete(product["_id"]);
+                                              }}
+                                            >
+                                              Delete
                                             </a>
                                           </td>
                                         </tr>
@@ -386,7 +513,7 @@ function Account() {
                           {user.addresses &&
                             user.addresses.map((address, index) => {
                               return (
-                                <>
+                                <React.Fragment key={index}>
                                   <div
                                     className="col-lg-6"
                                     style={{ marginBottom: "10px" }}
@@ -418,7 +545,7 @@ function Account() {
                                       </div>
                                     </div>
                                   </div>
-                                </>
+                                </React.Fragment>
                               );
                             })}
                         </div>

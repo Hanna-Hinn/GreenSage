@@ -28,6 +28,7 @@ import SingleVendor from "./pages/SingleVendor";
 import Checkout from "./pages/Checkout";
 import Invoice from "./pages/Invoice";
 import AddAddress from "./pages/AddAddress";
+import AddProduct from "./pages/AddProduct";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -61,6 +62,7 @@ function App() {
                 />
                 <Route path="/page-account" element={<Account />} />
                 <Route path="/add-address" element={<AddAddress />} />
+                <Route path="/add-product" element={<AddProduct />} />
                 <Route path="/page-invoice" element={<Invoice />} />
 
                 <Route path="/vendors-list" element={<VendorList />} />

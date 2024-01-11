@@ -6,13 +6,12 @@ import CategoryProduct2 from "../ecommerce/Filter/CategoryProduct2";
 import Search from "../ecommerce/Search";
 import { logout } from "../../redux/action/auth";
 
-const Header = ({ totalCartItems, toggleClick, totalWishlistItems }) => {
+const Header = ({ user, totalCartItems, toggleClick, totalWishlistItems }) => {
   const location = useLocation();
   const dispatch = useDispatch();
   const currentPathname = location.pathname;
   const [isToggled, setToggled] = useState(false);
   const [scroll, setScroll] = useState(0);
-  const user = localStorage.getItem("userInfo");
 
   useEffect(() => {
     document.addEventListener("scroll", () => {
@@ -48,12 +47,16 @@ const Header = ({ totalCartItems, toggleClick, totalWishlistItems }) => {
                         <li>
                           <Link to="/page-account">My Account</Link>
                         </li>
-                        <li>
-                          <Link to="/shop-wishlist">Wishlist</Link>
-                        </li>
-                        <li>
-                          <Link to="/shop-cart">My Cart</Link>
-                        </li>
+                        {user.userType !== "owner" && (
+                          <>
+                            <li>
+                              <Link to="/shop-wishlist">Wishlist</Link>
+                            </li>
+                            <li>
+                              <Link to="/shop-cart">My Cart</Link>
+                            </li>
+                          </>
+                        )}
                       </>
                     ) : (
                       <li>
@@ -108,7 +111,7 @@ const Header = ({ totalCartItems, toggleClick, totalWishlistItems }) => {
                 </div>
                 <div className="header-action-right">
                   <div className="header-action-2">
-                    {user && (
+                    {user && user.userType !== "owner" && (
                       <>
                         <div className="header-action-icon-2">
                           <Link to="/shop-wishlist">
@@ -290,7 +293,7 @@ const Header = ({ totalCartItems, toggleClick, totalWishlistItems }) => {
 
               <div className="header-action-right d-block d-lg-none">
                 <div className="header-action-2">
-                  {user && (
+                  {user && user.userType !== "owner" && (
                     <>
                       <div className="header-action-icon-2">
                         <Link to="/shop-wishlist">
@@ -306,7 +309,7 @@ const Header = ({ totalCartItems, toggleClick, totalWishlistItems }) => {
                       <div className="header-action-icon-2">
                         <Link to="/shop-cart" className="mini-cart-icon">
                           <img
-                            alt="car"
+                            alt="cart"
                             src="/assets/imgs/theme/icons/icon-cart.svg"
                           />
                           <span className="pro-count white">
@@ -327,6 +330,7 @@ const Header = ({ totalCartItems, toggleClick, totalWishlistItems }) => {
 };
 
 const mapStateToProps = (state) => ({
+  user: state.auth.userInfo,
   totalCartItems: state.cart.length,
   totalWishlistItems: state.wishlist.length,
 });
