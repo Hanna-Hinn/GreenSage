@@ -465,7 +465,17 @@ function Account() {
                                             {product.price["$numberDecimal"]}
                                           </td>
                                           <td>{product.availableInStock}</td>
-                                          <td>{product.averageRating}</td>
+                                          <td>
+                                            {product.averageRating[
+                                              "$numberDecimal"
+                                            ]
+                                              ? Math.round(
+                                                  product.averageRating[
+                                                    "$numberDecimal"
+                                                  ] * 10
+                                                ) / 10
+                                              : 0}
+                                          </td>
                                           <td>{product.categoryName}</td>
                                           <td
                                             style={{
@@ -474,7 +484,7 @@ function Account() {
                                             }}
                                           >
                                             <a
-                                              href={`/add-product?productId=${product['_id']}`}
+                                              href={`/add-product?productId=${product["_id"]}`}
                                               className="btn btn-md rounded font-sm"
                                             >
                                               Edit
