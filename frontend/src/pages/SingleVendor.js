@@ -154,10 +154,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
 
                         <div className="vendor-des mb-30">
                           <p className="ont-sm text-heading">
-                            Got a smooth, buttery spread in your fridge? Chances
-                            are good that it's Good Chef. This brand made
-                            Lionto's list of the most popular grocery brands
-                            across the country.
+                            {data.owner.description}
                           </p>
                         </div>
                         <div className="ollow-social mb-20">

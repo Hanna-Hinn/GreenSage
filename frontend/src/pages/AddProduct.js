@@ -43,7 +43,6 @@ export default function AddProduct() {
           imageUrl: productData.data.product.imageUrl,
           categoryId: productData.data.product.categoryId,
         });
-        console.log(formData);
       }
 
       const { data: categoriesData } = await axios.get(
@@ -59,13 +58,13 @@ export default function AddProduct() {
 
   const handleSubmit = async () => {
     const isValid = validateInputs();
-    console.log(formData);
     if (!isValid) {
       return;
     }
 
     try {
       let response;
+      console.log(formData);
       if (!productId) {
         response = await axios.post(
           `${BACKEND_URL}/products`,
@@ -74,19 +73,16 @@ export default function AddProduct() {
         );
       } else {
         response = await axios.put(
-          `${BACKEND_URL}/products/users/${productId}/v1/query?pageNumber=1`,
+          `${BACKEND_URL}/products/${productId}`,
           formData,
           config
         );
       }
+      console.log(response);
 
       if (response.data.success) {
         toast("Product Saved !");
-        if (productId) {
-          navigate(`products/${productId}`);
-        } else {
-          navigate("/page-account");
-        }
+        navigate("/page-account");
       }
     } catch (e) {
       console.log(e);
@@ -136,17 +132,10 @@ export default function AddProduct() {
                               id="name"
                               placeholder="Product Name ...."
                               onChange={(e) => {
-                                if (!productId) {
-                                  setFormData({
-                                    ...formData,
-                                    name: e.target.value,
-                                  });
-                                } else {
-                                  setFormData({
-                                    ...formData,
-                                    title: e.target.value,
-                                  });
-                                }
+                                setFormData({
+                                  ...formData,
+                                  name: e.target.value,
+                                });
                               }}
                               defaultValue={formData?.name || formData.title}
                             />
@@ -247,6 +236,7 @@ export default function AddProduct() {
                               id="category"
                               name="categoryId"
                               onChange={(e) => {
+                                console.log(e.target.value);
                                 setFormData({
                                   ...formData,
                                   categoryId: e.target.value,
