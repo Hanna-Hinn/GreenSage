@@ -8,6 +8,7 @@ import ProductTab from "../elements/ProductTab";
 import RelatedSlider from "../sliders/Related";
 
 const ProductDetails = ({
+  userInfo,
   product,
   wishList,
   cartItems,
@@ -17,16 +18,24 @@ const ProductDetails = ({
 }) => {
   const [quantity, setQuantity] = useState(1);
   const handleCart = (product) => {
-    addToCart(product, quantity);
-    toast("Product added to Cart !");
+    if (userInfo) {
+      addToCart(product, quantity);
+      toast("Product added to Cart !");
+    } else {
+      toast("Please Login to continue !");
+    }
   };
 
   const handleWishlist = (product) => {
-    if (!wishList.find((item) => item.productId === product["_id"])) {
-      addToWishlist(product);
-      toast("Added to Wishlist !");
+    if (userInfo) {
+      if (!wishList.find((item) => item.productId === product["_id"])) {
+        addToWishlist(product);
+        toast("Added to Wishlist !");
+      } else {
+        toast("Already Added To WishList !");
+      }
     } else {
-      toast("Already Added To WishList !");
+      toast("Please Login to continue !");
     }
   };
 
@@ -178,6 +187,7 @@ const ProductDetails = ({
 };
 
 const mapStateToProps = (state) => ({
+  userInfo: state.auth.userInfo,
   cartItems: state.cart,
   wishList: state.wishlist,
 });

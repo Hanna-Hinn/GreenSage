@@ -7,6 +7,7 @@ import { addToCart } from "../../redux/action/cart";
 import { addToWishlist } from "../../redux/action/wishlistAction";
 
 const SingleProduct2 = ({
+  userInfo,
   wishList,
   product,
   addToCart,
@@ -18,16 +19,24 @@ const SingleProduct2 = ({
   // );
   const soldItems = 10;
   const handleCart = (product) => {
-    addToCart(product);
-    toast("Product added to Cart !");
+    if (userInfo) {
+      addToCart(product);
+      toast("Product added to Cart !");
+    } else {
+      toast("Please Login to continue !");
+    }
   };
 
   const handleWishlist = (product) => {
-    if (!wishList.find((item) => item.productId === product["_id"])) {
-      addToWishlist(product);
-      toast("Added to Wishlist !");
+    if (userInfo) {
+      if (!wishList.find((item) => item.productId === product["_id"])) {
+        addToWishlist(product);
+        toast("Added to Wishlist !");
+      } else {
+        toast("Already Added To WishList !");
+      }
     } else {
-      toast("Already Added To WishList !");
+      toast("Please Login to continue !");
     }
   };
 
@@ -118,6 +127,7 @@ const SingleProduct2 = ({
 };
 
 const mapStateToProps = (state) => ({
+  userInfo: state.auth.userInfo,
   wishList: state.wishlist,
 });
 
