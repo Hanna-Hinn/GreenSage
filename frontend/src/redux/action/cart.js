@@ -42,37 +42,35 @@ export const addToCart =
   };
 
 export const deleteFromCart = (productId) => (dispatch) => {
-  // const user = storage.get("userInfo");
-  // if (user) {
-  //   axios
-  //     .post(`${BACKEND_URL}/carts/${user.id}/items/${productId}`, {
-  //       quantity,
-  //     })
-  //     .then(async ({ data }) => {
-  //       const { data: cartData } = await axios.get(
-  //         `${BACKEND_URL}/carts/${user.id}`
-  //       );
-  //       const cartItems = cartData.data.cartItems;
-  //       console.log(cartItems);
-  //       dispatch({
-  //         type: Types.DELETE_FROM_CART,
-  //         payload: cartItems,
-  //       });
-  //     })
-  //     .catch((e) => {
-  //       console.log(e);
-  //       dispatch({ type: Types.DELETE_FROM_CART, error: e });
-  //     });
-  // } else {
-  //   dispatch({
-  //     type: Types.DELETE_FROM_CART,
-  //     error: "User Not Logged In!",
-  //   });
-  // }
-  dispatch({
-    type: Types.DELETE_FROM_CART,
-    payload: { productId },
-  });
+  const user = storage.get("userInfo");
+  if (user) {
+    axios
+      .delete(`${BACKEND_URL}/carts/${user.id}/products/${productId}`)
+      .then(async ({ data }) => {
+        const { data: cartData } = await axios.get(
+          `${BACKEND_URL}/carts/${user.id}`
+        );
+        const cartItems = cartData.data.cartItems;
+        console.log(cartItems);
+        dispatch({
+          type: Types.DELETE_FROM_CART,
+          payload: cartItems,
+        });
+      })
+      .catch((e) => {
+        console.log(e);
+        dispatch({ type: Types.DELETE_FROM_CART, error: e });
+      });
+  } else {
+    dispatch({
+      type: Types.DELETE_FROM_CART,
+      error: "User Not Logged In!",
+    });
+  }
+  // dispatch({
+  //   type: Types.DELETE_FROM_CART,
+  //   payload: { productId },
+  // });
 };
 
 export const increaseQuantity = (productId) => (dispatch) => {
