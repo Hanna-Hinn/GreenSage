@@ -1,6 +1,44 @@
 import Layout from "../components/layout/Layout";
+import { useEffect, useState } from "react";
+import io from "socket.io-client";
+import { SOCKET_URL } from "../config";
+import ChatMessage from "../components/elements/ChatMessage";
+import { useSelector } from "react-redux";
+
+const socket = io(SOCKET_URL);
 
 function Contact() {
+  const userLogin = useSelector((state) => state.auth);
+  const { userInfo } = userLogin;
+  const [formData, setFormData] = useState({
+    messages: [],
+  });
+  const [users, setUsers] = useState([]);
+  const token = localStorage.getItem("sageToken");
+
+  useEffect(() => {
+    socket.emit("join", token);
+
+    socket.on("private message", (message) => {
+      console.log(message);
+      setFormData({ ...formData, messages: [...formData.messages, message] });
+    });
+
+    socket.on("disconnect", () => {
+      console.log("Disconnected from server");
+    });
+    // console.log(formData.messages);
+  }, [formData.messages]);
+
+  const handleSubmit = () => {
+    socket.emit("private message", {
+      to: formData.to,
+      message: formData.message,
+      senderData: { id: userInfo.id, firstName: userInfo.firstName },
+    });
+    setFormData({ ...formData, message: "", to: "" });
+  };
+
   return (
     <>
       <Layout parent="Home" sub="Pages" subChild="Contact">
@@ -11,66 +49,71 @@ function Contact() {
                 <section className="mb-50">
                   <div className="row">
                     <div className="col-xl-8">
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          padding: "20px",
+                        }}
+                      >
+                        {formData.messages.map((message, index) => {
+                          return (
+                            <ChatMessage
+                              key={index}
+                              message={{
+                                user: message.from,
+                                text: message.message,
+                              }}
+                            />
+                          );
+                        })}
+                      </div>
+                    </div>
+                    <div className="col-xl-8">
                       <div className="contact-from-area padding-20-row-col">
-                        <h5 className="text-brand mb-10">Contact form</h5>
-                        <h2 className="mb-10">Drop Us a Line</h2>
-                        <p className="text-muted mb-30 font-sm">
-                          Your email address will not be published. Required
-                          fields are marked *
-                        </p>
+                        <h5 className="text-brand mb-10">Chat</h5>
+                        <h2 className="mb-10">Chat Now!</h2>
                         <form
                           className="contact-form-style mt-30"
                           id="contact-form"
-                          action="#"
-                          method="post"
+                          onSubmit={(e) => e.preventDefault()}
                         >
                           <div className="row">
                             <div className="col-lg-6 col-md-6">
                               <div className="input-style mb-20">
                                 <input
-                                  name="name"
-                                  placeholder="First Name"
-                                  type="text"
-                                />
-                              </div>
-                            </div>
-                            <div className="col-lg-6 col-md-6">
-                              <div className="input-style mb-20">
-                                <input
                                   name="email"
-                                  placeholder="Your Email"
+                                  placeholder="Enter Email..."
                                   type="email"
+                                  value={formData.to}
+                                  onChange={(e) => {
+                                    setFormData({
+                                      ...formData,
+                                      to: e.target.value,
+                                    });
+                                  }}
                                 />
                               </div>
                             </div>
-                            <div className="col-lg-6 col-md-6">
-                              <div className="input-style mb-20">
-                                <input
-                                  name="telephone"
-                                  placeholder="Your Phone"
-                                  type="tel"
-                                />
-                              </div>
-                            </div>
-                            <div className="col-lg-6 col-md-6">
-                              <div className="input-style mb-20">
-                                <input
-                                  name="subject"
-                                  placeholder="Subject"
-                                  type="text"
-                                />
-                              </div>
-                            </div>
+
                             <div className="col-lg-12 col-md-12">
                               <div className="textarea-style mb-30">
                                 <textarea
                                   name="message"
                                   placeholder="Message"
+                                  value={formData.message}
+                                  onChange={(e) => {
+                                    setFormData({
+                                      ...formData,
+                                      message: e.target.value,
+                                    });
+                                  }}
                                 ></textarea>
                               </div>
                               <button
                                 className="submit submit-auto-width"
                                 type="submit"
+                                onClick={handleSubmit}
                               >
                                 Send message
                               </button>

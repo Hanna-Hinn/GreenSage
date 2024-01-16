@@ -5,3 +5,7 @@ export const server = dev ? "http://localhost:3000" : "";
 export const BACKEND_URL = dev
   ? "http://localhost:5000/api"
   : "https://greensage.onrender.com/api";
+
+export const SOCKET_URL = dev
+  ? "http://localhost:5000"
+  : "https://greensage.onrender.com";
