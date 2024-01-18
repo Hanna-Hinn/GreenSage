@@ -21,6 +21,20 @@ function Account() {
   const [orderEdit, setOrderEdit] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [orderStatus, setOrderStatus] = useState("pending");
+  const [error, setError] = useState({});
+  const [formData, setFormData] = useState({});
+  const mineralsArray = [
+    "vitaminD",
+    "iron",
+    "vitaminB12",
+    "calcium",
+    "omega3",
+    "iodine",
+    "vitaminC",
+    "folate",
+    "magnesium",
+    "zinc",
+  ];
   const monthNames = [
     "January",
     "February",
@@ -42,6 +56,7 @@ function Account() {
     } else {
       fetchData();
     }
+    console.log(formData);
   }, [userInfo, refresh]);
 
   const fetchData = async () => {
@@ -67,6 +82,7 @@ function Account() {
         ? orderData.data.matchingOrders
         : orderData.data
     );
+    setFormData(userData.data);
   };
 
   const handleOnClick = (index) => {
@@ -132,6 +148,16 @@ function Account() {
     navigate("/add-product");
   };
 
+  const handleMineralChange = (e) => {
+    const { value, checked } = e.target;
+    setFormData((prev) => {
+      return {
+        ...prev,
+        healthStatus: { ...prev.healthStatus, [value]: checked },
+      };
+    });
+  };
+
   const handleOnDelete = async (productId) => {
     const config = { headers: { Authorization: `Bearer ${token}` } };
     try {
@@ -151,8 +177,99 @@ function Account() {
       }
     } catch (e) {
       console.log(e);
+      toast("Something Went Wrong !");
     }
   };
+
+  const handleSubmit = async () => {
+    const isValid = validateInputs();
+
+    if (!isValid) {
+      return;
+    }
+
+    setFormData(delete formData.confirmPassword);
+
+    if (userInfo.userType === "owner") {
+      setFormData(delete formData.healthStatus);
+    }
+
+    try {
+      const { data } = await axios.put(
+        `${BACKEND_URL}/users/${userInfo.id}`,
+        formData
+      );
+      if (data.success) {
+        toast("User Updates Successfully");
+        // dispatch(logout());
+      }
+    } catch (e) {
+      console.log(e);
+      toast(e.message ? e.message : "Something went wrong !");
+    }
+  };
+
+  const validateInputs = () => {
+    const firstName = formData["firstName"];
+    const lastName = formData["lastName"];
+    const email = formData["email"];
+    const mobile = formData["mobile"];
+    const imageUrl = formData["imageUrl"];
+    const password = formData["password"];
+    const confirmPassword = formData["confirmPassword"];
+
+    if (!firstName || firstName.trim() === "") {
+      setError({ ...error, firstName: "First name is required!!!" });
+      return false;
+    }
+    if (!lastName || lastName.trim() === "") {
+      setError({ ...error, lastName: "Last name is required!!!" });
+      return false;
+    }
+    if (!email || email.trim() === "" || !validateEmail(email)) {
+      setError({ ...error, email: "Entered Email not Valid!!!" });
+      return false;
+    }
+    if (!mobile || mobile.trim() === "" || !validateMobile(mobile)) {
+      setError({ ...error, mobile: "Entered Mobile number not Valid!!!" });
+      return false;
+    }
+    if (!imageUrl || imageUrl.trim() === "" || !validateImageUrl(imageUrl)) {
+      setError({ ...error, imageUrl: "Entered Image URL not Valid!!!" });
+      return false;
+    }
+    if (!password || password.trim() === "" || password.length < 8) {
+      setError({
+        ...error,
+        password: "Password Length Must be more than 8 characters!!!",
+      });
+      return false;
+    }
+    if (confirmPassword !== password) {
+      setError({
+        ...error,
+        confirmPassword: "Confirm Password Does not Match!!!",
+      });
+      return false;
+    }
+    return true;
+  };
+
+  function validateEmail(email) {
+    const emailRegex =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    return emailRegex.test(String(email).toLowerCase());
+  }
+
+  function validateMobile(mobile) {
+    const mobileRegex = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]*$/;
+    return mobileRegex.test(mobile);
+  }
+
+  function validateImageUrl(url) {
+    const imageUrlRegex = /^https?:\/\/.*\.(?:png|jpg|jpeg|gif|svg)$/i;
+    return imageUrlRegex.test(url);
+  }
 
   return (
     <>
@@ -586,94 +703,273 @@ function Account() {
                             <h5>Account Details</h5>
                           </div>
                           <div className="card-body">
-                            <form method="post" name="enq">
-                              <div className="row">
-                                <div className="form-group col-md-6">
-                                  <label>
-                                    First Name{" "}
-                                    <span className="required">*</span>
-                                  </label>
+                            <form onSubmit={(e) => e.preventDefault()}>
+                              <div style={{ display: "flex", gap: "10px" }}>
+                                <div className="form-group">
                                   <input
-                                    required=""
-                                    className="form-control"
-                                    value={user.firstName}
-                                    name="name"
                                     type="text"
+                                    required
+                                    name="firstName"
+                                    placeholder="First Name..."
+                                    value={formData.firstName}
+                                    onChange={(e) => {
+                                      setFormData({
+                                        ...formData,
+                                        firstName: e.target.value,
+                                      });
+                                      setError((curr) => {
+                                        const { firstName, ...rest } = curr;
+                                        return rest;
+                                      });
+                                    }}
                                   />
                                 </div>
-                                <div className="form-group col-md-6">
-                                  <label>
-                                    Last Name{" "}
-                                    <span className="required">*</span>
-                                  </label>
+                                {error.firstName && (
+                                  <>
+                                    <br />
+                                    <span style={{ color: "red" }}>
+                                      {error.firstName}
+                                    </span>
+                                  </>
+                                )}
+                                <div className="form-group">
                                   <input
-                                    required=""
-                                    value={user.lastName}
-                                    className="form-control"
-                                    name="phone"
+                                    type="text"
+                                    required
+                                    name="lastName"
+                                    placeholder="Last Name..."
+                                    value={formData.lastName}
+                                    onChange={(e) => {
+                                      setFormData({
+                                        ...formData,
+                                        lastName: e.target.value,
+                                      });
+                                      setError((curr) => {
+                                        const { lastName, ...rest } = curr;
+                                        return rest;
+                                      });
+                                    }}
                                   />
                                 </div>
-                                <div className="form-group col-md-12">
+                                {error.lastName && (
+                                  <>
+                                    <br />
+                                    <span style={{ color: "red" }}>
+                                      {error.lastName}
+                                    </span>
+                                  </>
+                                )}
+                              </div>
+
+                              <div className="form-group">
+                                <input
+                                  type="text"
+                                  required
+                                  name="email"
+                                  placeholder="Email..."
+                                  value={formData.email}
+                                  onChange={(e) => {
+                                    setFormData({
+                                      ...formData,
+                                      email: e.target.value,
+                                    });
+                                    setError((curr) => {
+                                      const { email, ...rest } = curr;
+                                      return rest;
+                                    });
+                                  }}
+                                />
+                                {error.email && (
+                                  <>
+                                    <br />
+                                    <span style={{ color: "red" }}>
+                                      {error.email}
+                                    </span>
+                                  </>
+                                )}
+                              </div>
+
+                              <div className="form-group">
+                                <input
+                                  type="tel"
+                                  required
+                                  name="mobile"
+                                  placeholder="Mobile Number..."
+                                  value={formData.mobile}
+                                  onChange={(e) => {
+                                    setFormData({
+                                      ...formData,
+                                      mobile: e.target.value,
+                                    });
+                                    setError((curr) => {
+                                      const { mobile, ...rest } = curr;
+                                      return rest;
+                                    });
+                                  }}
+                                />
+                                {error.mobile && (
+                                  <>
+                                    <br />
+                                    <span style={{ color: "red" }}>
+                                      {error.mobile}
+                                    </span>
+                                  </>
+                                )}
+                              </div>
+
+                              <div className="form-group">
+                                <input
+                                  type="url"
+                                  required
+                                  name="imageUrl"
+                                  placeholder="Profile Image Url..."
+                                  value={formData.imageUrl}
+                                  onChange={(e) => {
+                                    setFormData({
+                                      ...formData,
+                                      imageUrl: e.target.value,
+                                    });
+                                    setError((curr) => {
+                                      const { imageUrl, ...rest } = curr;
+                                      return rest;
+                                    });
+                                  }}
+                                />
+                                {error.imageUrl && (
+                                  <>
+                                    <br />
+                                    <span style={{ color: "red" }}>
+                                      {error.imageUrl}
+                                    </span>
+                                  </>
+                                )}
+                              </div>
+
+                              <div className="form-group">
+                                <input
+                                  required
+                                  type="password"
+                                  name="password"
+                                  placeholder="Password"
+                                  onChange={(e) => {
+                                    setFormData({
+                                      ...formData,
+                                      password: e.target.value,
+                                    });
+                                    setError((curr) => {
+                                      const { password, ...rest } = curr;
+                                      return rest;
+                                    });
+                                  }}
+                                />
+                                {error.password && (
+                                  <>
+                                    <br />
+                                    <span style={{ color: "red" }}>
+                                      {error.password}
+                                    </span>
+                                  </>
+                                )}
+                              </div>
+
+                              <div className="form-group">
+                                <input
+                                  required
+                                  type="password"
+                                  name="confirmPassword"
+                                  placeholder="Confirm password"
+                                  onChange={(e) => {
+                                    setFormData({
+                                      ...formData,
+                                      confirmPassword: e.target.value,
+                                    });
+                                    setError((curr) => {
+                                      const { confirmPassword, ...rest } = curr;
+                                      return rest;
+                                    });
+                                  }}
+                                />
+                                {error.confirmPassword && (
+                                  <>
+                                    <br />
+                                    <span style={{ color: "red" }}>
+                                      {error.confirmPassword}
+                                    </span>
+                                  </>
+                                )}
+                              </div>
+                              {userInfo && userInfo.userType === "owner" && (
+                                <div className="form-group">
+                                  <textarea
+                                    type="text"
+                                    required
+                                    name="Description"
+                                    placeholder="Vendor Description"
+                                    value={formData.description}
+                                    onChange={(e) => {
+                                      setFormData({
+                                        ...formData,
+                                        description: e.target.value,
+                                      });
+                                    }}
+                                  />
+                                </div>
+                              )}
+
+                              {userInfo && userInfo.userType !== "owner" && (
+                                <div className="payment_option mb-50">
                                   <label>
-                                    Email Address{" "}
-                                    <span className="required">*</span>
+                                    Please Check the Preferred Minerals:
                                   </label>
-                                  <input
-                                    required=""
-                                    className="form-control"
-                                    value={user.email}
-                                    name="email"
-                                    type="email"
-                                  />
+                                  <br />
+                                  {mineralsArray.map((key) => {
+                                    return (
+                                      <div key={key}>
+                                        <input
+                                          className="form-check-input"
+                                          type="checkbox"
+                                          name={key}
+                                          value={key}
+                                          id={key}
+                                          checked={
+                                            formData &&
+                                            formData.healthStatus &&
+                                            formData.healthStatus[key]
+                                              ? formData.healthStatus[key]
+                                              : false
+                                          }
+                                          onChange={(e) =>
+                                            handleMineralChange(e)
+                                          }
+                                        />
+                                        <label
+                                          style={{ paddingLeft: "5px" }}
+                                          className="form-check-label"
+                                          htmlFor={key}
+                                        >
+                                          {key}
+                                        </label>
+                                      </div>
+                                    );
+                                  })}
                                 </div>
-                                <div className="form-group col-md-12">
-                                  <label>
-                                    Current Password{" "}
-                                    <span className="required">*</span>
-                                  </label>
-                                  <input
-                                    required=""
-                                    className="form-control"
-                                    name="password"
-                                    type="password"
-                                  />
-                                </div>
-                                <div className="form-group col-md-12">
-                                  <label>
-                                    New Password{" "}
-                                    <span className="required">*</span>
-                                  </label>
-                                  <input
-                                    required=""
-                                    className="form-control"
-                                    name="newPassword"
-                                    type="password"
-                                  />
-                                </div>
-                                <div className="form-group col-md-12">
-                                  <label>
-                                    Confirm Password{" "}
-                                    <span className="required">*</span>
-                                  </label>
-                                  <input
-                                    required=""
-                                    className="form-control"
-                                    name="confirmPassword"
-                                    type="password"
-                                  />
-                                </div>
-                                <div className="col-md-12">
-                                  <button
-                                    type="submit"
-                                    className="btn btn-fill-out submit font-weight-bold"
-                                    name="submit"
-                                    value="Submit"
-                                  >
-                                    Save Change
-                                  </button>
-                                </div>
+                              )}
+
+                              <div className="form-group mb-30">
+                                <button
+                                  // type="submit"
+                                  className="btn btn-fill-out btn-block font-weight-bold"
+                                  onClick={handleSubmit}
+                                >
+                                  Submit
+                                </button>
                               </div>
                             </form>
+                            {!error.responseError && (
+                              <p style={{ color: "red" }}>
+                                {error.responseError}
+                              </p>
+                            )}
                           </div>
                         </div>
                       </div>
