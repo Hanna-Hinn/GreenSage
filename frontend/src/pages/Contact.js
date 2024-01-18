@@ -1,8 +1,8 @@
+import ChatBox from "../components/elements/ChatBox";
 import Layout from "../components/layout/Layout";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
 import { SOCKET_URL } from "../config";
-import ChatMessage from "../components/elements/ChatMessage";
 import { useSelector } from "react-redux";
 
 const socket = io(SOCKET_URL);
@@ -42,33 +42,21 @@ function Contact() {
   return (
     <>
       <Layout parent="Home" sub="Pages" subChild="Contact">
-        <div className="page-content pt-50">
+        <div className="container">
+          <div className="col-lg-7" style={{ width: "100%" }}>
+            <ChatBox />
+          </div>
+        </div>
+
+        {/* <div className="page-content pt-50">
           <div className="container">
             <div className="row">
+             
               <div className="col-xl-10 col-lg-12 m-auto">
                 <section className="mb-50">
                   <div className="row">
-                    <div className="col-xl-8">
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          padding: "20px",
-                        }}
-                      >
-                        {formData.messages.map((message, index) => {
-                          return (
-                            <ChatMessage
-                              key={index}
-                              message={{
-                                user: message.from,
-                                text: message.message,
-                              }}
-                            />
-                          );
-                        })}
-                      </div>
-                    </div>
+                    <div className="col-xl-8"></div>
+
                     <div className="col-xl-8">
                       <div className="contact-from-area padding-20-row-col">
                         <h5 className="text-brand mb-10">Chat</h5>
@@ -127,7 +115,7 @@ function Contact() {
                       <img
                         className="border-radius-15 mt-50"
                         src="assets/imgs/page/contact-2.png"
-                        alt="nest"
+                        alt="contact"
                       />
                     </div>
                   </div>
@@ -135,7 +123,7 @@ function Contact() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </Layout>
     </>
   );
