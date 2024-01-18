@@ -199,9 +199,14 @@ function Account() {
         `${BACKEND_URL}/users/${userInfo.id}`,
         formData
       );
+
       if (data.success) {
         toast("User Updates Successfully");
-        // dispatch(logout());
+        const updateStorage = {
+          ...userInfo,
+          email: formData.email,
+        };
+        localStorage.setItem("userInfo", updateStorage);
       }
     } catch (e) {
       console.log(e);

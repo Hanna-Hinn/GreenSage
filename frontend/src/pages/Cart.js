@@ -31,6 +31,12 @@ const Cart = ({
     return price;
   };
 
+  function calTotal() {
+    let total = price() + shippingCost;
+    console.log(total);
+    return parseFloat(total.toFixed(2));
+  }
+
   return (
     <>
       <Layout parent="Home" sub="Shop" subChild="Cart">
@@ -215,7 +221,7 @@ const Cart = ({
                               <td className="cart_total_amount">
                                 <strong>
                                   <span className="font-xl fw-900 text-brand">
-                                    ${price() + shippingCost}
+                                    ${calTotal()}
                                   </span>
                                 </strong>
                               </td>

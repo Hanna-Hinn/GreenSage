@@ -40,7 +40,7 @@ export default function ChatBox() {
           </div>
         </header>
         <section className="message-view">
-          {/* <div className="message--send">
+          <div className="message--send">
             <div className="message__bubble--send">Hi Tim!</div>
             <span className="message__avatar">Hanna</span>
           </div>
@@ -53,7 +53,7 @@ export default function ChatBox() {
           <div className="message--send">
             <div className="message__bubble--send">How are you?</div>
             <span className="message__avatar">Hanna</span>
-          </div> */}
+          </div>
         </section>
         <footer className="chat-view__input">
           <div className="chat-input">

@@ -63,7 +63,7 @@ function App() {
                 <Route path="/page-account" element={<Account />} />
                 <Route path="/add-address" element={<AddAddress />} />
                 <Route path="/add-product" element={<AddProduct />} />
-                <Route path="/page-invoice" element={<Invoice />} />
+                <Route path="/orders/:id" element={<Invoice />} />
 
                 <Route path="/vendors-list" element={<VendorList />} />
                 <Route

@@ -22,11 +22,29 @@ const Cart = ({
   const navigate = useNavigate();
   const userLogin = useSelector((state) => state.auth);
   const { userInfo } = userLogin;
+  const shippingCost = 10;
+  const [addresses, setAddresses] = useState([
+    { id: 1, name: "John Doe", address: "123 Main St, Cityville, State 12345" },
+    {
+      id: 2,
+      name: "Jane Smith",
+      address: "456 Oak St, Townsville, State 67890",
+    },
+    // Add more addresses as needed
+  ]);
+
+  const [selectedAddress, setSelectedAddress] = useState(null);
+
+  const handleAddressSelection = (addressId) => {
+    const selected = addresses.find((address) => address.id === addressId);
+    setSelectedAddress(selected);
+  };
 
   useEffect(() => {
     if (!userInfo) {
       navigate("/page-login");
     }
+    console.log(cartItems);
   }, [userInfo]);
 
   const price = () => {
@@ -35,7 +53,7 @@ const Cart = ({
       (item) => (price += item.price["$numberDecimal"] * item.quantity)
     );
 
-    return price;
+    return parseFloat((price + shippingCost).toFixed(2));
   };
 
   const handlePlaceOrder = (e) => {
@@ -64,170 +82,45 @@ const Cart = ({
                 </div>
                 <form method="post">
                   <div className="form-group">
+                    <label for="fullName">Full Name:</label>
                     <input
+                      id="fullName"
                       type="text"
                       required=""
-                      name="fname"
-                      placeholder="First name *"
+                      name="fullName"
+                      placeholder="John M. Doe"
                     />
                   </div>
                   <div className="form-group">
+                    <label for="email">Email:</label>
                     <input
-                      type="text"
+                      id="email"
                       required=""
-                      name="lname"
-                      placeholder="Last name *"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <input
-                      required=""
-                      type="text"
-                      name="cname"
-                      placeholder="Company Name"
+                      type="email"
+                      name="email"
+                      placeholder="john@exmaple.com"
                     />
                   </div>
 
                   <div className="form-group">
-                    <input
-                      type="text"
-                      name="billing_address"
-                      required=""
-                      placeholder="Address *"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <input
-                      type="text"
-                      name="billing_address2"
-                      required=""
-                      placeholder="Address line2"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <input
-                      required=""
-                      type="text"
-                      name="city"
-                      placeholder="City / Town *"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <input
-                      required=""
-                      type="text"
-                      name="state"
-                      placeholder="State / County *"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <input
-                      required=""
-                      type="text"
-                      name="zipcode"
-                      placeholder="Postcode / ZIP *"
-                    />
-                  </div>
-                  <div className="form-group">
+                    <label for="phone">Phone:</label>
                     <input
                       required=""
                       type="text"
                       name="phone"
-                      placeholder="Phone *"
+                      id="phone"
+                      placeholder="+1 (555) 555-1234"
                     />
                   </div>
+
                   <div className="form-group">
-                    <input
-                      required=""
-                      type="text"
-                      name="email"
-                      placeholder="Email address *"
-                    />
-                  </div>
-                  <div
-                    id="collapsePassword"
-                    className="form-group create-account collapse in"
-                  >
-                    <input
-                      required=""
-                      type="password"
-                      placeholder="Password"
-                      name="password"
-                    />
+                    <label for="address">Select Shipping Address:</label>
                   </div>
 
-                  <div className="ship_detail">
-                    <div
-                      id="collapseAddress"
-                      className="different_address collapse in"
-                    >
-                      <div className="form-group">
-                        <input
-                          type="text"
-                          required=""
-                          name="fname"
-                          placeholder="First name *"
-                        />
-                      </div>
-                      <div className="form-group">
-                        <input
-                          type="text"
-                          required=""
-                          name="lname"
-                          placeholder="Last name *"
-                        />
-                      </div>
-                      <div className="form-group">
-                        <input
-                          required=""
-                          type="text"
-                          name="cname"
-                          placeholder="Company Name"
-                        />
-                      </div>
-
-                      <div className="form-group">
-                        <input
-                          type="text"
-                          name="billing_address"
-                          required=""
-                          placeholder="Address *"
-                        />
-                      </div>
-                      <div className="form-group">
-                        <input
-                          type="text"
-                          name="billing_address2"
-                          required=""
-                          placeholder="Address line2"
-                        />
-                      </div>
-                      <div className="form-group">
-                        <input
-                          required=""
-                          type="text"
-                          name="city"
-                          placeholder="City / Town *"
-                        />
-                      </div>
-                      <div className="form-group">
-                        <input
-                          required=""
-                          type="text"
-                          name="state"
-                          placeholder="State / County *"
-                        />
-                      </div>
-                      <div className="form-group">
-                        <input
-                          required=""
-                          type="text"
-                          name="zipcode"
-                          placeholder="Postcode / ZIP *"
-                        />
-                      </div>
-                    </div>
+                  <div className="form-group">
+                    <label for="address">Billing Address:</label>
                   </div>
+
                   <div className="form-group mb-30">
                     <textarea rows="5" placeholder="Order notes"></textarea>
                   </div>
@@ -251,12 +144,15 @@ const Cart = ({
                         {cartItems.map((item, i) => (
                           <tr key={i}>
                             <td className="image product-thumbnail">
-                              <img src={item.imageUrl} alt={item.name} />
+                              <img
+                                src={item.productImage}
+                                alt={item.productName}
+                              />
                             </td>
                             <td>
                               <h6 className="w-160 mb-5">
-                                <a href={`/products/${item["_id"]}`}>
-                                  {item.name}
+                                <a href={`/products/${item.productId}`}>
+                                  {item.productName}
                                 </a>
                                 <div className="product-rate-cover">
                                   {[...Array(5)].map((star, index) => {
@@ -330,16 +226,6 @@ const Cart = ({
                         >
                           Direct Bank Transfer
                         </label>
-                        <div
-                          className="form-group collapse in"
-                          id="bankTranfer"
-                        >
-                          <p className="text-muted mt-5">
-                            There are many variations of passages of Lorem Ipsum
-                            available, but the majority have suffered
-                            alteration.{" "}
-                          </p>
-                        </div>
                       </div>
                       <div className="custome-radio">
                         <input
@@ -379,25 +265,21 @@ const Cart = ({
                           Paypal
                         </label>
                       </div>
-                      <div class="payment-logo d-flex">
+                      <div className="payment-logo d-flex">
                         <img
-                          class="mr-15"
+                          className="mr-15"
                           src="assets/imgs/theme/icons/payment-paypal.svg"
-                          alt=""
+                          alt="paypal"
                         />
                         <img
-                          class="mr-15"
+                          className="mr-15"
                           src="assets/imgs/theme/icons/payment-visa.svg"
-                          alt=""
+                          alt="visa"
                         />
                         <img
-                          class="mr-15"
+                          className="mr-15"
                           src="assets/imgs/theme/icons/payment-master.svg"
-                          alt=""
-                        />
-                        <img
-                          src="assets/imgs/theme/icons/payment-zapper.svg"
-                          alt=""
+                          alt="masterCard"
                         />
                       </div>
                     </div>
