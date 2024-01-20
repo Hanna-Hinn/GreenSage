@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import Layout from "../components/layout/Layout";
 import { BACKEND_URL } from "../config";
 import axios from "axios";
-// import data from "../util/storeData";
 
 const VendorList = () => {
   const [data, setData] = useState([]);

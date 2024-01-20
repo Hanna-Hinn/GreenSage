@@ -1,32 +1,67 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import io from "socket.io-client";
+import { SOCKET_URL } from "../../config";
+import { useSelector } from "react-redux";
 
-export default function ChatBox() {
+const socket = io(SOCKET_URL);
+
+export default function ChatBox({ owners }) {
+  const [active, setActive] = useState(owners && owners[0]);
+  const userLogin = useSelector((state) => state.auth);
+  const { userInfo } = userLogin;
+  const token = localStorage.getItem("sageToken");
+  const [formData, setFormData] = useState({
+    messages: [],
+  });
+
+  useEffect(() => {
+    socket.emit("join", token);
+
+    socket.on("private message", (message) => {
+      console.log(message);
+      setFormData({ ...formData, messages: [...formData.messages, message] });
+    });
+
+    socket.on("disconnect", () => {
+      console.log("Disconnected from server");
+    });
+  }, [formData.messages]);
+
+  const handleOnClick = (item) => {
+    setActive({ ...item });
+  };
+
+  const handleSubmit = () => {
+    socket.emit("private message", {
+      to: formData.to,
+      message: formData.message,
+      senderData: { id: userInfo.id, firstName: userInfo.firstName },
+    });
+    setFormData({ ...formData, message: "", to: "" });
+  };
 
   return (
     <div className="window">
       <aside className="conv-list-view">
         <ul className="conv-list">
-          <li className="conv-element">
-            <div className="status">
-              <div className="meta">
-                <p>Name 1</p>
-              </div>
-            </div>
-          </li>
-          <li className="selected">
-            <div className="status">
-              <div className="meta">
-                <p>Tim Pietrusky</p>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div className="status">
-              <div className="meta">
-                <p>HugoGiraudel</p>
-              </div>
-            </div>
-          </li>
+          {owners &&
+            owners.map((item) => {
+              return (
+                <li
+                  key={item["_id"]}
+                  className={`conv-element ${
+                    active && active["_id"] === item["_id"] ? "selected" : ""
+                  }`}
+                  onClick={() => handleOnClick(item)}
+                >
+                  <div className="status">
+                    <div className="meta">
+                      <p>{`${item.firstName} ${item.lastName}`}</p>
+                    </div>
+                  </div>
+                </li>
+              );
+            })}
         </ul>
       </aside>
       <section className="chat-view">
@@ -34,7 +69,9 @@ export default function ChatBox() {
           <div className="cf">
             <div className="status">
               <div className="meta">
-                <div className="meta__name">Tim Pietrusky</div>
+                <div className="meta__name">
+                  {active && `${active.firstName} ${active.lastName}`}
+                </div>
               </div>
             </div>
           </div>

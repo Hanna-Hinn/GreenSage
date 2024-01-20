@@ -33,7 +33,7 @@ function FetchTabSlider() {
   };
   const newArrivalProduct = async () => {
     const request = await axios.get(
-      `${BACKEND_URL}/products/v1/filter/v1/query?newAdded=true`
+      `${BACKEND_URL}/products/v1/filter/v1/query?newAdded=true&pageNumber=1`
     );
     const products = await request.data.data.productsWithDetails;
 
