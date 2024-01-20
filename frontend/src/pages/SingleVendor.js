@@ -15,25 +15,14 @@ import axios from "axios";
 import { BACKEND_URL } from "../config";
 
 const Products = ({ products, productFilters, fetchProduct }) => {
-  // const { search: searchTerm } = useParams();
-  // const showLimit = 20;
-  // const showPagination = 1;
   const [data, setData] = useState({ owner: {}, products: [] });
   const [storeAddress, setStoreAddress] = useState("");
-  // let [pagination, setPagination] = useState([]);
-  // let [limit, setLimit] = useState(showLimit);
-  // let [pages, setPages] = useState(Math.ceil(products.items.length / limit));
-  // let [currentPage, setCurrentPage] = useState(1);
-
-  // const [singleStore, setSingleStore] = useState(null);
+  let [pages, setPages] = useState(1);
+  let [currentPage, setCurrentPage] = useState(1);
 
   const { id } = useParams();
 
   useEffect(() => {
-    // fetchProduct(searchTerm, "/static/product.json", productFilters);
-
-    // setSingleStore(data.find((data) => data.id === Number(id)));
-    // cratePagination();
     getData()
       .then((data) => {
         setData(data);
@@ -42,35 +31,30 @@ const Products = ({ products, productFilters, fetchProduct }) => {
         setStoreAddress(
           `${address.street}, ${address.city} ${address.postalCode}, ${address.state}  `
         );
+        setPages(data.totalPages);
       })
       .catch((error) => {});
-  }, []);
+  }, [currentPage]);
 
   const getData = async () => {
     const response = await axios.get(
-      `${BACKEND_URL}/owners/${id}/v1/query?pageNumber=1`
+      `${BACKEND_URL}/owners/${id}/v1/query?pageNumber=${currentPage}`
     );
-    console.log(response.data.data);
     return response.data.data;
   };
 
-  // const next = () => {
-  //   setCurrentPage((page) => page + 1);
-  // };
+  const next = () => {
+    setCurrentPage((page) => page + 1);
+  };
 
-  // const prev = () => {
-  //   setCurrentPage((page) => page - 1);
-  // };
+  const prev = () => {
+    setCurrentPage((page) => page - 1);
+  };
 
-  // const handleActive = (item) => {
-  //   setCurrentPage(item);
-  // };
+  const handleActive = (item) => {
+    setCurrentPage(item);
+  };
 
-  // const selectChange = (e) => {
-  //   setLimit(Number(e.target.value));
-  //   setCurrentPage(1);
-  //   setPages(Math.ceil(products.items.length / Number(e.target.value)));
-  // };
   return (
     <>
       <Layout parent="Home" sub="Store  " subChild="About">
@@ -83,7 +67,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                     <p>
                       We found{" "}
                       <strong className="text-brand">
-                        {data ? data.products.length : 0}
+                        {data ? data.totalProducts : 0}
                       </strong>{" "}
                       items for you!
                     </p>
@@ -109,10 +93,9 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                     ))}
                 </div>
 
-                {/* <div className="pagination-area mt-15 mb-sm-5 mb-lg-0">
+                <div className="pagination-area mt-15 mb-sm-5 mb-lg-0">
                   <nav aria-label="Page navigation example">
                     <Pagination
-                      getPaginationGroup={getPaginationGroup}
                       currentPage={currentPage}
                       pages={pages}
                       next={next}
@@ -120,7 +103,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                       handleActive={handleActive}
                     />
                   </nav>
-                </div> */}
+                </div>
               </div>
               <div className="col-lg-1-5 primary-sidebar sticky-sidebar">
                 {data.owner && (

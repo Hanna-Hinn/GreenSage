@@ -12,19 +12,20 @@ import Layout from "./../components/layout/Layout";
 import { fetchProduct, searchProducts } from "./../redux/action/product";
 import { BACKEND_URL } from "./../config/index";
 
-const Products = ({ products, searchProducts, fetchProduct }) => {
+const Products = ({
+  products,
+  totalPages,
+  totalProducts,
+  searchProducts,
+  fetchProduct,
+}) => {
   const location = useLocation();
   const urlParams = new URLSearchParams(location.search);
   const searchTerm = urlParams.get("search");
   const categoryName = urlParams.get("cat");
   const description = urlParams.get("desc");
   const ownerName = urlParams.get("vendor");
-  const limit = 20;
-  const showPagination = 4;
-
   const [sort, setSort] = useState("");
-  let [pagination, setPagination] = useState([]);
-  let [pages, setPages] = useState(Math.ceil(products.items.length / limit));
   let [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
@@ -34,26 +35,7 @@ const Products = ({ products, searchProducts, fetchProduct }) => {
       description ? `description=${description}&` : ""
     }${ownerName ? `ownerName=${ownerName}&` : ""}pageNumber=${currentPage}`;
     searchProducts(url);
-    cratePagination();
   }, [currentPage, searchTerm, categoryName, description, ownerName]);
-
-  const cratePagination = () => {
-    // set pagination
-    let arr = new Array(Math.ceil(products.items.length / limit))
-      .fill()
-      .map((_, idx) => idx + 1);
-
-    setPagination(arr);
-    setPages(Math.ceil(products.items.length / limit));
-  };
-
-  const startIndex = currentPage * limit - limit;
-  const endIndex = startIndex + limit;
-  const getPaginatedProducts = products.items.slice(startIndex, endIndex);
-
-  let start = Math.floor((currentPage - 1) / showPagination) * showPagination;
-  let end = start + showPagination;
-  const getPaginationGroup = pagination.slice(start, end);
 
   const selectSortOption = (e) => {
     setSort(e.target.value);
@@ -84,7 +66,7 @@ const Products = ({ products, searchProducts, fetchProduct }) => {
                     <p>
                       We found{" "}
                       <strong className="text-brand">
-                        {products.items.length ? products.items.length : 0}
+                        {totalProducts ? totalProducts : 0}
                       </strong>{" "}
                       items for you!
                     </p>
@@ -112,26 +94,24 @@ const Products = ({ products, searchProducts, fetchProduct }) => {
                   </div>
                 </div>
                 <div className="row product-grid">
-                  {getPaginatedProducts.length === 0 && (
-                    <h3>No Products Found </h3>
-                  )}
+                  {totalProducts === 0 && <h3>No Products Found </h3>}
 
-                  {getPaginatedProducts.map((item, i) => (
-                    <div
-                      className="col-lg-1-5 col-md-4 col-12 col-sm-6"
-                      key={i}
-                    >
-                      <SingleProduct product={item} />
-                    </div>
-                  ))}
+                  {products &&
+                    products.items.map((item, i) => (
+                      <div
+                        className="col-lg-1-5 col-md-4 col-12 col-sm-6"
+                        key={i}
+                      >
+                        <SingleProduct product={item} />
+                      </div>
+                    ))}
                 </div>
 
                 <div className="pagination-area mt-15 mb-sm-5 mb-lg-0">
                   <nav aria-label="Page navigation example">
                     <Pagination
-                      getPaginationGroup={getPaginationGroup}
                       currentPage={currentPage}
-                      pages={pages}
+                      pages={totalPages}
                       next={next}
                       prev={prev}
                       handleActive={handleActive}
@@ -216,6 +196,8 @@ const Products = ({ products, searchProducts, fetchProduct }) => {
 const mapStateToProps = (state) => ({
   products: state.products,
   productFilters: state.productFilters,
+  totalPages: state.products.totalPages,
+  totalProducts: state.products.totalProducts,
 });
 
 const mapDispatchToProps = {

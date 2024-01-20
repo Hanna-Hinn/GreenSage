@@ -23,12 +23,17 @@ export const fetchProduct = (url) => async (dispatch) => {
 export const searchProducts = (url, filters) => async (dispatch) => {
   try {
     const response = await axios.get(url);
+    const totalProducts = response.data.data.totalProducts;
+    const totalPages = response.data.data.totalPages;
     const data = response.data.data.products;
-    window.products = data;
 
     dispatch({
       type: Types.FETCHED_PRODUCT,
-      payload: { products: data },
+      payload: {
+        products: data,
+        totalPages: totalPages,
+        totalProducts: totalProducts,
+      },
     });
   } catch (e) {
     console.log(e);

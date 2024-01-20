@@ -10,6 +10,8 @@ export default (state = { items: [] }, action) => {
       return {
         ...state,
         items: [...action.payload.products],
+        totalProducts: action.payload.totalProducts,
+        totalPages: action.payload.totalPages,
       };
 
     case Types.FETCHED_MORE_PRODUCT:
