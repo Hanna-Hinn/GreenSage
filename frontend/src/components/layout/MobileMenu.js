@@ -177,6 +177,9 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
               <div className="single-mobile-header-info mt-30">
                 <Link to="/page-contact">Contact</Link>
               </div>
+              <div className="single-mobile-header-info">
+                <Link to="/shop-notification">Notifications</Link>
+              </div>
               {userInfo ? (
                 <>
                   <div className="single-mobile-header-info">

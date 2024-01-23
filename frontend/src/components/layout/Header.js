@@ -1,10 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { Link, useLocation } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { connect, useDispatch } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import CategoryProduct2 from "../ecommerce/Filter/CategoryProduct2";
 import Search from "../ecommerce/Search";
 import { logout } from "../../redux/action/auth";
+import axios from "axios";
+import { BACKEND_URL } from "../../config";
 
 const Header = ({ user, totalCartItems, toggleClick, totalWishlistItems }) => {
   const location = useLocation();
@@ -12,6 +14,10 @@ const Header = ({ user, totalCartItems, toggleClick, totalWishlistItems }) => {
   const currentPathname = location.pathname;
   const [isToggled, setToggled] = useState(false);
   const [scroll, setScroll] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  const userLogin = useSelector((state) => state.auth);
+  const { userInfo } = userLogin;
 
   useEffect(() => {
     document.addEventListener("scroll", () => {
@@ -20,7 +26,25 @@ const Header = ({ user, totalCartItems, toggleClick, totalWishlistItems }) => {
         setScroll(scrollCheck);
       }
     });
-  });
+    if (userInfo) {
+      fetchData();
+    }
+  }, [userInfo]);
+
+  const fetchData = async () => {
+    try {
+      const { data } = await axios.get(
+        `${BACKEND_URL}/products/${userInfo.id}/notifications`
+      );
+      if (data.success) {
+        setNotifications(data.data);
+      } else {
+        setNotifications([]);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const handleToggle = () => {
     setToggled(!isToggled);
@@ -28,6 +52,10 @@ const Header = ({ user, totalCartItems, toggleClick, totalWishlistItems }) => {
 
   const logoutHandler = () => {
     dispatch(logout());
+  };
+
+  const toggleNotifications = () => {
+    setIsOpen(!isOpen);
   };
 
   return (
@@ -113,6 +141,39 @@ const Header = ({ user, totalCartItems, toggleClick, totalWishlistItems }) => {
                   <div className="header-action-2">
                     {user && user.userType !== "owner" && (
                       <>
+                        <div className="header-action-icon-2 notification-container">
+                          <a
+                            className="mini-cart-icon"
+                            onClick={toggleNotifications}
+                          >
+                            <img
+                              alt="notification"
+                              src="/assets/imgs/theme/icons/notification-icon.png"
+                            />
+                            <span className="pro-count blue"></span>
+                          </a>
+                          <span className="lable">Notification</span>
+                          {isOpen && (
+                            <ul className="notifications-list">
+                              {notifications.map((notification) => (
+                                <li
+                                  key={notification.notificationId}
+                                  className="notification"
+                                >
+                                  <Link
+                                    to={
+                                      notification.type === "Status updated"
+                                        ? `/orders/${notification.status.orderId}`
+                                        : `/products/${notification.productDetails["_id"]}`
+                                    }
+                                  >
+                                    {notification.msg}{" "}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </div>
                         <div className="header-action-icon-2">
                           <Link to="/shop-wishlist">
                             <img

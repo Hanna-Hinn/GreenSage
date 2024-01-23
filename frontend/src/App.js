@@ -11,24 +11,27 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import StorageWrapper from "./components/ecommerce/storage-wrapper";
 import store from "./redux/store";
 import Preloader from "./components/elements/Preloader";
-import Home from "./pages/Home";
-import About from "./pages/About";
-import VendorList from "./pages/VendorList";
-import Contact from "./pages/Contact";
-import WishList from "./pages/WishList";
-import Cart from "./pages/Cart";
-import Products from "./pages/Products";
-import SingleProductPage from "./pages/SingleProductPage";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
-import PageNotFound from "./pages/PageNotFound";
-import ForgotPassword from "./pages/ForgotPassword";
-import Account from "./pages/Account";
-import SingleVendor from "./pages/SingleVendor";
-import Checkout from "./pages/Checkout";
-import Invoice from "./pages/Invoice";
-import AddAddress from "./pages/AddAddress";
-import AddProduct from "./pages/AddProduct";
+import {
+  Home,
+  About,
+  VendorList,
+  Contact,
+  WishList,
+  Cart,
+  Products,
+  SingleProductPage,
+  Register,
+  Login,
+  PageNotFound,
+  ForgotPassword,
+  Account,
+  SingleVendor,
+  Checkout,
+  Invoice,
+  AddAddress,
+  AddProduct,
+  Notification,
+} from "./pages/index";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -50,6 +53,7 @@ function App() {
 
                 <Route path="/page-contact" element={<Contact />} />
                 <Route path="/shop-wishlist" element={<WishList />} />
+                <Route path="//shop-notification" element={<Notification />} />
                 <Route path="/shop-cart" element={<Cart />} />
                 <Route path="/shop-checkout" element={<Checkout />} />
                 <Route path="/products" element={<Products />} />
