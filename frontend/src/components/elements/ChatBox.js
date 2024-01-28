@@ -22,24 +22,22 @@ export default function ChatBox() {
     fetchData();
     socket.emit("join", token);
 
-    socket.on("private message", (message) => {
-      console.log("message", message);
-      // if (message.from === formData.to) {
-      //   setFormData({ ...formData, messages: [...formData.messages, message] });
-      // }
-      setFormData({ ...formData, messages: [...formData.messages, message] });
-    });
-
     socket.on("disconnect", () => {
       console.log("Disconnected from server");
     });
-    console.log(formData.messages);
+  }, []);
+
+  useEffect(() => {
+    socket.on("private message", (message) => {
+      setFormData({ ...formData, messages: [...formData.messages, message] });
+    });
   }, [formData.messages]);
 
   const fetchData = async () => {
     const { data } = await axios.get(`${BACKEND_URL}/users/${userInfo.id}`);
     const { data: usersData } = await axios.get(`${BACKEND_URL}/users`);
     const names = usersData.data.map((user) => ({
+      firstName: user.firstName,
       name: `${user.firstName} ${user.lastName}`,
       id: user["_id"],
       email: user.email,
@@ -61,12 +59,12 @@ export default function ChatBox() {
       message: formData.message,
       senderData: { id: userInfo.id },
     });
-    setFormData({
-      ...formData,
-      // messages: [...formData.messages, sendMessage],
-      message: "",
-      to: "",
-    });
+    // setFormData({
+    //   ...formData,
+    //   messages: [...formData.messages, sendMessage],
+    //   message: "",
+    //   to: "",
+    // });
   };
 
   const handleRoomSelect = (room) => {
@@ -112,13 +110,6 @@ export default function ChatBox() {
       )}
 
       <section className="chat-view">
-        {/* <div className="room-selection">
-          {rooms.map((room) => (
-            <div key={room.id} onClick={() => handleRoomSelect(room.id)}>
-              {room.name}
-            </div>
-          ))}
-        </div> */}
         <header className="chat-view__header">
           <div className="cf">
             <div className="status">
@@ -166,6 +157,8 @@ export default function ChatBox() {
               }}
             >
               <input
+                value={formData.message}
+                required
                 onChange={(e) => {
                   setFormData({
                     ...formData,
