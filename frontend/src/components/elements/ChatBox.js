@@ -59,12 +59,12 @@ export default function ChatBox() {
       message: formData.message,
       senderData: { id: userInfo.id },
     });
-    // setFormData({
-    //   ...formData,
-    //   messages: [...formData.messages, sendMessage],
-    //   message: "",
-    //   to: "",
-    // });
+    setFormData({
+      ...formData,
+      messages: [...formData.messages],
+      message: "",
+      to: "",
+    });
   };
 
   const handleRoomSelect = (room) => {
@@ -169,7 +169,19 @@ export default function ChatBox() {
                   });
                 }}
               />
-              <button type="submit">Send</button>
+              <button
+                type="submit"
+                style={{
+                  position: "absolute",
+                  right: "0",
+                  width: "20%",
+                  height: "100%",
+                  bottom: "0",
+                  padding: "0",
+                }}
+              >
+                Send
+              </button>
             </form>
           </div>
         </footer>

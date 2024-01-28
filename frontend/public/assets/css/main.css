@@ -12388,12 +12388,12 @@ footer .hotline img {
 }
 
 .conv-list-view {
-  width: 100%;
+  width: 30%;
   height: 100%;
   box-shadow: 0 0 4px #ececec;
   background: white;
   z-index: 1;
-  overflow: hidden;
+  overflow: scroll;
 }
 
 .conv-list-view__header {
@@ -12583,11 +12583,9 @@ footer .hotline img {
 }
 
 .meta {
-  white-space: nowrap;
   align-items: center;
   justify-content: center;
   margin: auto;
-  width: 50%;
   height: 50px;
 }
 
@@ -12603,7 +12601,7 @@ footer .hotline img {
 
 .chat-view {
   position: absolute;
-  left: 270px;
+  left: 30%;
   right: 0;
   bottom: 0;
   top: 0;
@@ -12632,7 +12630,10 @@ footer .hotline img {
 }
 
 .message-view {
+  width: 100%;
+  height: 84%;
   font-size: 0.9em;
+  overflow-y: scroll;
 }
 
 .message--send {
