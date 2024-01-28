@@ -5,6 +5,7 @@ import { BACKEND_URL } from "../config/index";
 import { useDispatch, useSelector } from "react-redux";
 import { registerSuccess } from "../redux/action/auth";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 function Register() {
   const dispatch = useDispatch();
@@ -78,6 +79,7 @@ function Register() {
       const response = await axios.post(url, user);
       const data = response.data.data;
       dispatch(registerSuccess(data));
+      toast("Please Login to proceed !")
       navigate("/page-login");
     } catch (error) {
       setError({

@@ -104,7 +104,7 @@ const ProductTab = ({ productDetails, desc, vendor, ratingCount, reviews }) => {
               <div className="vendor-name ml-15">
                 <h6>
                   <a
-                    href={`/vendor-list/vendors/${vendor["_id"]}`}
+                    href={`/vendors-list/vendor/${vendor["_id"]}`}
                   >{`${vendor.firstName} ${vendor.lastName}`}</a>
                 </h6>
               </div>

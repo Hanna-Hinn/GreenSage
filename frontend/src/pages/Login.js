@@ -189,14 +189,7 @@ function Login() {
                               ))}
                             </span>
                           </div>
-                          <div className="login_footer form-group mb-50">
-                            <a
-                              className="text-muted"
-                              href="/page-forgot-password"
-                            >
-                              Forgot password?
-                            </a>
-                          </div>
+
                           <div className="form-group">
                             {error && <p style={{ color: "red" }}>{error}</p>}
                             <button

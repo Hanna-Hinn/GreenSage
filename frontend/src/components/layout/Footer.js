@@ -172,12 +172,6 @@ const Footer = () => {
                   <li>
                     <a href="/page-account">Track My Order</a>
                   </li>
-                  <li>
-                    <a href="/page-contact">Help Ticket</a>
-                  </li>
-                  <li>
-                    <a href="/page-account">Shipping Details</a>
-                  </li>
                 </ul>
               </div>
               <div
@@ -191,35 +185,6 @@ const Footer = () => {
                   </li>
                   <li>
                     <a href="/vendors-list">Our Vendors</a>
-                  </li>
-                </ul>
-              </div>
-              <div
-                className="footer-link-widget col  wow animate__animated animate__fadeInUp"
-                data-wow-delay=".4s"
-              >
-                <h4 className="widget-title ">Popular</h4>
-                <ul className="footer-list  mb-sm-5 mb-md-0">
-                  <li>
-                    <a href="/products">Milk & Flavoured Milk</a>
-                  </li>
-                  <li>
-                    <a href="/products">Butter and Margarine</a>
-                  </li>
-                  <li>
-                    <a href="/products">Eggs Substitutes</a>
-                  </li>
-                  <li>
-                    <a href="/products">Marmalades</a>
-                  </li>
-                  <li>
-                    <a href="/products">Sour Cream and Dips</a>
-                  </li>
-                  <li>
-                    <a href="/products">Tea & Kombucha</a>
-                  </li>
-                  <li>
-                    <a href="/products">Cheese</a>
                   </li>
                 </ul>
               </div>

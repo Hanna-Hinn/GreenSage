@@ -9,7 +9,6 @@ import SingleProductPage from "./SingleProductPage";
 import Register from "./Register";
 import Login from "./Login";
 import PageNotFound from "./PageNotFound";
-import ForgotPassword from "./ForgotPassword";
 import Account from "./Account";
 import SingleVendor from "./SingleVendor";
 import Checkout from "./Checkout";
@@ -30,7 +29,6 @@ export {
     Register,
     Login,
     PageNotFound,
-    ForgotPassword,
     Account,
     SingleVendor,
     Checkout,

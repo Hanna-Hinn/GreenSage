@@ -28,7 +28,6 @@ export const login = (email, password) => async (dispatch) => {
       config
     );
     const decodedToken = jwtDecode(data.data);
-
     dispatch({
       type: LOGIN_SUCCESS,
       payload: decodedToken,
@@ -53,6 +52,7 @@ export const login = (email, password) => async (dispatch) => {
 
 export const logout = (dispatch) => {
   localStorage.removeItem("userInfo");
+  localStorage.removeItem("sageToken");
   dispatch({
     type: LOGOUT,
   });

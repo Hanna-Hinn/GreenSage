@@ -19,6 +19,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
   useEffect(() => {
     getData()
       .then((data) => {
+        console.log(data);
         setData(data);
         const address = data.owner.addresses[0];
 

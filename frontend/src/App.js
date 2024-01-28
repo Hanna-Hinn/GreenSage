@@ -23,15 +23,15 @@ import {
   Register,
   Login,
   PageNotFound,
-  ForgotPassword,
   Account,
   SingleVendor,
-  Checkout,
   Invoice,
   AddAddress,
   AddProduct,
   Notification,
+  Checkout,
 } from "./pages/index";
+
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -60,10 +60,6 @@ function App() {
                 <Route path="/products/:id" element={<SingleProductPage />} />
                 <Route path="/page-register" element={<Register />} />
                 <Route path="/page-login" element={<Login />} />
-                <Route
-                  path="/page-forgot-password"
-                  element={<ForgotPassword />}
-                />
                 <Route path="/page-account" element={<Account />} />
                 <Route path="/add-address" element={<AddAddress />} />
                 <Route path="/add-product" element={<AddProduct />} />

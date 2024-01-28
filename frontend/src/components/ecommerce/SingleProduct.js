@@ -25,7 +25,7 @@ const SingleProduct = ({
 
   const handleCart = (product) => {
     if (userInfo) {
-      addToCart(product);
+      addToCart({...product});
       toast("Product added to Cart !");
     } else {
       toast("Please Login to continue !");

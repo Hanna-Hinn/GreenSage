@@ -17,14 +17,12 @@ function Contact() {
     }
   }, []);
 
- 
-
   return (
     <>
       <Layout parent="Home" sub="Pages" subChild="Contact">
         <div className="container">
           <div className="col-lg-7" style={{ width: "100%" }}>
-            <ChatBox />
+            {userInfo && <ChatBox />}
           </div>
         </div>
       </Layout>
