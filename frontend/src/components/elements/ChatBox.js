@@ -17,6 +17,7 @@ export default function ChatBox() {
   const [sender, setSender] = useState();
   const [rooms, setRooms] = useState([]);
   const [active, setActive] = useState();
+  const [unReadMessages, setUnReadMessages] = useState();
 
   useEffect(() => {
     fetchData();
@@ -28,32 +29,60 @@ export default function ChatBox() {
   }, []);
 
   useEffect(() => {
-    socket.on("private message", (message) => {
-      setFormData({ ...formData, messages: [...formData.messages, message] });
-    });
+    if (!isSupport) {
+      socket.on("private message", (message) => {
+        if (message.from === "Green" || message.from === sender) {
+          setFormData({
+            ...formData,
+            messages: [...formData.messages, message],
+          });
+        }
+      });
+    } else {
+      socket.on("private message", (message) => {
+        if (
+          (active && active.firstName === message.from) ||
+          message.from === sender
+        ) {
+          console.log("msg", message.from, active.firstName);
+          setFormData({
+            ...formData,
+            messages: [...formData.messages, message],
+          });
+        } else {
+          setUnReadMessages({ from: message.from });
+        }
+      });
+    }
+    console.log(formData.messages);
   }, [formData.messages]);
 
   const fetchData = async () => {
     const { data } = await axios.get(`${BACKEND_URL}/users/${userInfo.id}`);
     const { data: usersData } = await axios.get(`${BACKEND_URL}/users`);
-    const names = usersData.data.map((user) => ({
-      firstName: user.firstName,
-      name: `${user.firstName} ${user.lastName}`,
-      id: user["_id"],
-      email: user.email,
-    }));
+    let names;
+    if (isSupport) {
+      names = usersData.data.map((user) => ({
+        firstName: user.firstName,
+        name: `${user.firstName} ${user.lastName}`,
+        id: user["_id"],
+        email: user.email,
+      }));
+    } else {
+      names = [
+        {
+          firstName: "Green",
+          name: `GreenSage Support`,
+          email: "greenSage@support.com",
+        },
+      ];
+    }
     setRooms(names);
     setSender(data.data.firstName);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // const sendMessage = {
-    //   to: formData.to,
-    //   message: formData.message,
-    //   senderData: { id: userInfo.id },
-    //   from: sender,
-    // };
     socket.emit("private message", {
       to: formData.to,
       message: formData.message,
@@ -61,62 +90,51 @@ export default function ChatBox() {
     });
     setFormData({
       ...formData,
-      messages: [...formData.messages],
       message: "",
-      to: "",
     });
   };
 
   const handleRoomSelect = (room) => {
-    setFormData({ ...formData, to: room.email, messages: [] });
+    setFormData({ to: room.email, messages: [] });
     setActive({ ...room });
+    setUnReadMessages(false);
   };
 
   return (
     <div className="window">
-      {isSupport ? (
-        <aside className="conv-list-view">
-          <ul className="conv-list">
-            {rooms &&
-              rooms.map((item) => {
-                return (
-                  <li
-                    key={item.id}
-                    className={`conv-element ${
-                      active && active.id === item.id ? "selected" : ""
-                    }`}
-                    onClick={() => handleRoomSelect(item)}
-                  >
-                    <div className="status">
-                      <div className="meta">
-                        <p>{`${item.name}`}</p>
-                      </div>
+      <aside className="conv-list-view">
+        <ul className="conv-list">
+          {rooms &&
+            rooms.map((item, index) => {
+              return (
+                <li
+                  key={index}
+                  className={`conv-element ${
+                    active && active.id === item.id ? "selected" : ""
+                  }`}
+                  onClick={() => handleRoomSelect(item)}
+                >
+                  <div className="status">
+                    {unReadMessages &&
+                      unReadMessages.from === item.firstName && (
+                        <i class="status__indicator--unread-message"></i>
+                      )}
+                    <div className="meta">
+                      <p>{`${item.name}`}</p>
                     </div>
-                  </li>
-                );
-              })}
-          </ul>
-        </aside>
-      ) : (
-        <aside className="conv-list-view">
-          <ul className="conv-list">
-            <li className="conv-element selected">
-              <div className="status">
-                <div className="meta">GreenSage Support</div>
-              </div>
-            </li>
-          </ul>
-        </aside>
-      )}
+                  </div>
+                </li>
+              );
+            })}
+        </ul>
+      </aside>
 
       <section className="chat-view">
         <header className="chat-view__header">
           <div className="cf">
             <div className="status">
               <div className="meta">
-                <div className="meta__name">
-                  {!isSupport ? `GreenSage Support` : active && active.name}
-                </div>
+                <div className="meta__name">{active && active.name}</div>
               </div>
             </div>
           </div>
@@ -162,9 +180,7 @@ export default function ChatBox() {
                 onChange={(e) => {
                   setFormData({
                     ...formData,
-                    to: isSupport
-                      ? "hanna.hinn@gmail.com"
-                      : "greenSage@support.com",
+                    to: isSupport ? active.email : "greenSage@support.com",
                     message: e.target.value,
                   });
                 }}
