@@ -26,7 +26,6 @@ const Cart = ({
   deleteFromCart,
   clearCart,
 }) => {
-  const [orderID, setOrderID] = useState("1");
   const navigate = useNavigate();
   const userLogin = useSelector((state) => state.auth);
   const { userInfo } = userLogin;
