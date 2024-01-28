@@ -12603,7 +12603,8 @@ footer .hotline img {
 
 .chat-view {
   position: absolute;
-  width: 100%;
+  left: 270px;
+  right: 0;
   bottom: 0;
   top: 0;
   padding: 0.625em 1.25em 1.25em 1.25em;
