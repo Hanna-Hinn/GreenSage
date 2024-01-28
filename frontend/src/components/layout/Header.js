@@ -150,7 +150,9 @@ const Header = ({ user, totalCartItems, toggleClick, totalWishlistItems }) => {
                               alt="notification"
                               src="/assets/imgs/theme/icons/notification-icon.png"
                             />
-                            <span className="pro-count blue"></span>
+                            {notifications.length > 0 && (
+                              <span className="pro-count blue"></span>
+                            )}
                           </a>
                           <span className="lable">Notification</span>
                           {isOpen && (
