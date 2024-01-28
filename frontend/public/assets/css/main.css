@@ -6829,7 +6829,6 @@ h6.post-title {
   padding: 0;
 }
 
-
 .header-action-right .search-location {
   display: none;
 }
@@ -12556,13 +12555,11 @@ footer .hotline img {
   transform: rotate(45deg);
 }
 
-
 .message__avatar {
   position: relative;
   float: left;
   overflow: hidden;
 }
-
 
 .status__avatar--small {
   font-size: 0.8em;
@@ -12606,8 +12603,7 @@ footer .hotline img {
 
 .chat-view {
   position: absolute;
-  left: 270px;
-  right: 0;
+  width: 100%;
   bottom: 0;
   top: 0;
   padding: 0.625em 1.25em 1.25em 1.25em;
@@ -12901,11 +12897,16 @@ footer .hotline img {
     opacity: 0;
     visibility: hidden;
   }
-  .invoice-header, .invoice-top, .invoice-center, .invoice-bottom, .invoice-banner {
+  .invoice-header,
+  .invoice-top,
+  .invoice-center,
+  .invoice-bottom,
+  .invoice-banner {
     padding-left: 15px !important;
     padding-right: 15px !important;
   }
-  .invoice-top .col-sm-9, .invoice-top .col-sm-3 {
+  .invoice-top .col-sm-9,
+  .invoice-top .col-sm-3 {
     width: 50%;
   }
   .col-sm-12 {
@@ -12959,7 +12960,7 @@ footer .hotline img {
   }
   .invoice-1 .invoice-info {
     -webkit-box-shadow: none;
-            box-shadow: none;
+    box-shadow: none;
     margin: 0px;
   }
 }
@@ -13047,19 +13048,19 @@ footer .hotline img {
 .invoice-content .btn:focus {
   outline: 0;
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 
 .invoice-content .btn-download {
-  background: #3BB77E;
+  background: #3bb77e;
 }
 
 .invoice-content .btn-download:after {
-  background: #29A56C;
+  background: #29a56c;
 }
 
 .invoice-content .btn-print {
-  background: #253D4E;
+  background: #253d4e;
 }
 
 .invoice-content .btn-print:after {
@@ -13089,8 +13090,10 @@ footer .hotline img {
   top: 0;
   right: 0;
   z-index: -1;
-  -webkit-box-shadow: inset 0px 0px 0px 0px rgba(255, 255, 255, 0.5), 7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
-          box-shadow: inset 0px 0px 0px 0px rgba(255, 255, 255, 0.5), 7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: inset 0px 0px 0px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0px 0px 0px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
@@ -13110,7 +13113,7 @@ footer .hotline img {
 
 .invoice-content table thead {
   font-family: "Quicksand", sans-serif;
-  color: #253D4E;
+  color: #253d4e;
   font-weight: 700;
 }
 
@@ -13123,13 +13126,13 @@ footer .hotline img {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   -ms-flex-item-align: center;
-      align-self: center;
+  align-self: center;
 }
 
 .invoice-content .mobile-social-icon h6 {
@@ -13149,14 +13152,14 @@ footer .hotline img {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  background: #3BB77E;
+  background: #3bb77e;
   border-radius: 30px;
   line-height: 1;
   -ms-flex-line-pack: center;
-      align-content: center;
+  align-content: center;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 
 .invoice-content .mobile-social-icon a img {
@@ -13169,9 +13172,9 @@ footer .hotline img {
 
 .invoice-content .mobile-social-icon a:hover {
   -webkit-transform: translateY(-2px);
-          transform: translateY(-2px);
+  transform: translateY(-2px);
   -webkit-transition-duration: 0.5s;
-          transition-duration: 0.5s;
+  transition-duration: 0.5s;
   margin-top: -2px;
 }
 
@@ -13182,7 +13185,7 @@ footer .hotline img {
 /** Invoice 1 **/
 .invoice {
   padding: 50px 0;
-  background: #F2F3F4;
+  background: #f2f3f4;
 }
 
 .invoice .invoice-info {
@@ -13190,7 +13193,7 @@ footer .hotline img {
   margin-bottom: 30px;
   border-radius: 20px;
   -webkit-box-shadow: 20px 20px 54px rgba(0, 0, 0, 0.03);
-          box-shadow: 20px 20px 54px rgba(0, 0, 0, 0.03);
+  box-shadow: 20px 20px 54px rgba(0, 0, 0, 0.03);
 }
 
 .invoice .invoice-inner {
@@ -13312,7 +13315,13 @@ footer .hotline img {
   margin-bottom: 0;
 }
 
-.invoice-1 .invoice-info-buttom .table .invoice-1 .invoice-info-buttom .table tr,
+.invoice-1
+  .invoice-info-buttom
+  .table
+  .invoice-1
+  .invoice-info-buttom
+  .table
+  tr,
 .table tr {
   border: 1px solid #e9ecef;
 }
@@ -13329,7 +13338,8 @@ footer .hotline img {
 }
 
 .invoice-1 .invoice-header {
-  background: rgba(0, 0, 0, 0.04) url(../imgs/invoice/header-bg-1.png) top left repeat;
+  background: rgba(0, 0, 0, 0.04) url(../imgs/invoice/header-bg-1.png) top left
+    repeat;
 }
 
 .invoice-2 .invoice-info {
@@ -13349,7 +13359,7 @@ footer .hotline img {
 
 .invoice-3 .invoice-table thead {
   color: #fff !important;
-  background-color: #3BB77E;
+  background-color: #3bb77e;
 }
 
 .invoice-4 .invoice-info {
@@ -13392,15 +13402,15 @@ footer .hotline img {
 
 .invoice-6 .invoice-info {
   border-radius: 10px;
-  border: 1px solid #BCE3C9;
+  border: 1px solid #bce3c9;
   -webkit-box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05);
-          box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05);
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05);
 }
 
 .invoice-6 .hr {
   width: 100%;
   height: 1px;
-  background-color: #3BB77E;
+  background-color: #3bb77e;
 }
 
 .invoice-6 .invoice-header {
@@ -13429,7 +13439,7 @@ footer .hotline img {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  background-color: #3BB77E;
+  background-color: #3bb77e;
 }
 
 .invoice-icon img {
@@ -13459,7 +13469,6 @@ footer .hotline img {
 .notifications-container {
   position: relative; /* Position the list relative to the button */
 }
-
 
 .notifications-list {
   position: absolute;

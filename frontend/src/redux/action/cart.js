@@ -23,7 +23,7 @@ export const addToCart =
             `${BACKEND_URL}/carts/${user.id}`
           );
           const cartItems = cartData.data.cartItems;
-          console.log(cartItems);
+
           dispatch({
             type: Types.ADD_TO_CART,
             payload: cartItems,
@@ -81,11 +81,12 @@ export const increaseQuantity = (productId) => (dispatch) => {
         quantity: 1,
       })
       .then(async ({ data }) => {
+        console.log(data);
         const { data: cartData } = await axios.get(
           `${BACKEND_URL}/carts/${user.id}`
         );
         const cartItems = cartData.data.cartItems;
-        console.log(cartItems);
+
         dispatch({
           type: Types.INCREASE_QUANTITY,
           payload: cartItems,

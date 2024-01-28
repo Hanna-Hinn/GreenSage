@@ -33,7 +33,7 @@ const Cart = ({
 
   function calTotal() {
     let total = price() + shippingCost;
-    console.log(total);
+
     return parseFloat(total.toFixed(2));
   }
 
@@ -138,9 +138,12 @@ const Cart = ({
                                 </a>
                                 <span className="qty-val">{item.quantity}</span>
                                 <a
-                                  onClick={(e) =>
-                                    increaseQuantity(item.productId)
-                                  }
+                                  onClick={(e) => {
+                                    increaseQuantity(
+                                      item.productId,
+                                      item.quantity
+                                    );
+                                  }}
                                   className="qty-up"
                                 >
                                   <i className="fi-rs-angle-small-up"></i>

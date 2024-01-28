@@ -1,17 +1,24 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { BACKEND_URL } from "../config";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 export default function Invoice() {
   const { id } = useParams();
   const [order, setOrder] = useState();
-
+  const userLogin = useSelector((state) => state.auth);
+  const { userInfo } = userLogin;
+  const navigate = useNavigate();
   useEffect(() => {
-    fetchData();
-  }, [id]);
+    if (!userInfo) {
+      navigate("/page-login");
+    } else {
+      fetchData();
+    }
+  }, [id, userInfo]);
 
   const fetchData = async () => {
     try {
@@ -35,22 +42,22 @@ export default function Invoice() {
 
   return (
     <>
-      <div class="invoice invoice-content invoice-1">
-        <div class="back-top-home hover-up mt-30 ml-30">
-          <a class="hover-up" href="/">
-            <i class="fi-rs-home mr-5"></i> Homepage
+      <div className="invoice invoice-content invoice-1">
+        <div className="back-top-home hover-up mt-30 ml-30">
+          <a className="hover-up" href="/">
+            <i className="fi-rs-home mr-5"></i> Homepage
           </a>
         </div>
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="invoice-inner">
-                <div class="invoice-info" id="invoice_wrapper">
-                  <div class="invoice-header">
-                    <div class="row">
-                      <div class="col-sm-6">
-                        <div class="invoice-name">
-                          <div class="logo">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-12">
+              <div className="invoice-inner">
+                <div className="invoice-info" id="invoice_wrapper">
+                  <div className="invoice-header">
+                    <div className="row">
+                      <div className="col-sm-6">
+                        <div className="invoice-name">
+                          <div className="logo">
                             <a href="/">
                               <img
                                 src="/assets/imgs/theme/logo.svg"
@@ -60,36 +67,38 @@ export default function Invoice() {
                           </div>
                         </div>
                       </div>
-                      <div class="col-sm-6">
-                        <div class="invoice-numb">
-                          <h6 class="text-end mb-10 mt-20">
+                      <div className="col-sm-6">
+                        <div className="invoice-numb">
+                          <h6 className="text-end mb-10 mt-20">
                             Date: {order && formatDate(order.date)}
                           </h6>
-                          <h6 class="text-end invoice-header-1">
-                            Invoice No: #{order && order["_id"]}
+                          <h6 className="text-end invoice-header-1">
+                            Order No: #{order && order["_id"]}
                           </h6>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div class="invoice-top">
-                    <div class="row">
-                      <div class="col-lg-9 col-md-6">
-                        <div class="invoice-number">
-                          <h4 class="invoice-title-1 mb-10">User Details</h4>
-                          <p class="invoice-addr-1">
+                  <div className="invoice-top">
+                    <div className="row">
+                      <div className="col-lg-9 col-md-6">
+                        <div className="invoice-number">
+                          <h4 className="invoice-title-1 mb-10">
+                            User Details
+                          </h4>
+                          <p className="invoice-addr-1">
                             <strong>{order && order.userName}</strong> <br />
                             {/* {order && order.userEmail} <br />
                             {order && order.userMobile} */}
-                            Alaa@example.com <br />
-                            +112312312
+                            {order && order.userEmail} <br />
+                            {order && order.userMobile}
                           </p>
                         </div>
                       </div>
-                      <div class="col-lg-3 col-md-6">
-                        <div class="invoice-number">
-                          <h4 class="invoice-title-1 mb-10">Address</h4>
-                          <p class="invoice-addr-1">
+                      <div className="col-lg-3 col-md-6">
+                        <div className="invoice-number">
+                          <h4 className="invoice-title-1 mb-10">Address</h4>
+                          <p className="invoice-addr-1">
                             {order && order.userAddress.street} <br />
                             {order &&
                               `${order.userAddress.city}, ${order.userAddress.postalCode}, ${order.userAddress.state}`}
@@ -97,30 +106,30 @@ export default function Invoice() {
                         </div>
                       </div>
                     </div>
-                    <div class="row mt-2">
-                      <div class="col-lg-9 col-md-6">
-                        <h4 class="invoice-title-1 mb-10">Status:</h4>
-                        <p class="invoice-from-1">
+                    <div className="row mt-2">
+                      <div className="col-lg-9 col-md-6">
+                        <h4 className="invoice-title-1 mb-10">Status:</h4>
+                        <p className="invoice-from-1">
                           {order && order.shipmentStatus}
                         </p>
                       </div>
-                      <div class="col-lg-3 col-md-6">
-                        <h4 class="invoice-title-1 mb-10">Payment Method</h4>
-                        <p class="invoice-from-1">
-                          {order && order.paymentMethod}
-                        </p>
+                      <div className="col-lg-3 col-md-6">
+                        <h4 className="invoice-title-1 mb-10">
+                          Payment Method
+                        </h4>
+                        <p className="invoice-from-1">Bank Card</p>
                       </div>
                     </div>
                   </div>
-                  <div class="invoice-center">
-                    <div class="table-responsive">
-                      <table class="table table-striped invoice-table">
-                        <thead class="bg-active">
+                  <div className="invoice-center">
+                    <div className="table-responsive">
+                      <table className="table table-striped invoice-table">
+                        <thead className="bg-active">
                           <tr>
                             <th>Item name</th>
-                            <th class="text-center">Unit Price</th>
-                            <th class="text-center">Quantity</th>
-                            <th class="text-right">Amount</th>
+                            <th className="text-center">Unit Price</th>
+                            <th className="text-center">Quantity</th>
+                            <th className="text-right">Amount</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -129,19 +138,18 @@ export default function Invoice() {
                               return (
                                 <tr key={item["_id"]}>
                                   <td>
-                                    <div class="item-desc-1">
-                                      <span>
-                                        {item.productName}
-                                        Field Roast Chao Cheese Creamy Original
-                                      </span>
+                                    <div className="item-desc-1">
+                                      <span>{item.productName}</span>
                                       <small>{item.ownerName}</small>
                                     </div>
                                   </td>
-                                  <td class="text-center">
+                                  <td className="text-center">
                                     ${item.price["$numberDecimal"]}
                                   </td>
-                                  <td class="text-center">{item.quantity}</td>
-                                  <td class="text-right">
+                                  <td className="text-center">
+                                    {item.quantity}
+                                  </td>
+                                  <td className="text-right">
                                     ${item.itemTotalPrice}
                                   </td>
                                 </tr>
@@ -149,26 +157,26 @@ export default function Invoice() {
                             })}
 
                           <tr>
-                            <td colspan="3" class="text-end f-w-600">
+                            <td colSpan="3" className="text-end f-w-600">
                               SubTotal
                             </td>
-                            <td class="text-right">
+                            <td className="text-right">
                               ${order && order.totalPrice}
                             </td>
                           </tr>
                           <tr>
-                            <td colspan="3" class="text-end f-w-600">
+                            <td colSpan="3" className="text-end f-w-600">
                               Delivery Fee
                             </td>
-                            <td class="text-right">
+                            <td className="text-right">
                               ${order && order.deliveryFee}
                             </td>
                           </tr>
                           <tr>
-                            <td colspan="3" class="text-end f-w-600">
+                            <td colSpan="3" className="text-end f-w-600">
                               Grand Total
                             </td>
-                            <td class="text-right f-w-600">
+                            <td className="text-right f-w-600">
                               ${order && order.totalPrice + order.deliveryFee}
                             </td>
                           </tr>
@@ -176,12 +184,12 @@ export default function Invoice() {
                       </table>
                     </div>
                   </div>
-                  <div class="invoice-bottom">
-                    <div class="row">
-                      <div class="col-sm-6">
+                  <div className="invoice-bottom">
+                    <div className="row">
+                      <div className="col-sm-6">
                         <div>
-                          <h3 class="invoice-title-1">Important Note</h3>
-                          <ul class="important-notes-list-1">
+                          <h3 className="invoice-title-1">Important Note</h3>
+                          <ul className="important-notes-list-1">
                             <li>
                               All amounts shown on this page are in US dollars
                             </li>
@@ -197,15 +205,15 @@ export default function Invoice() {
                           </ul>
                         </div>
                       </div>
-                      <div class="col-sm-6 col-offsite">
-                        <div class="text-end">
-                          <p class="mb-0 text-13">
+                      <div className="col-sm-6 col-offsite">
+                        <div className="text-end">
+                          <p className="mb-0 text-13">
                             Thank you for your business
                           </p>
                           <p>
                             <strong>GreenSage</strong>
                           </p>
-                          <div class="mobile-social-icon mt-50 print-hide">
+                          <div className="mobile-social-icon mt-50 print-hide">
                             <h6>Follow Us</h6>
                             <a href="https://www.facebook.com">
                               <img
@@ -243,10 +251,10 @@ export default function Invoice() {
                     </div>
                   </div>
                 </div>
-                <div class="invoice-btn-section clearfix d-print-none">
+                <div className="invoice-btn-section clearfix d-print-none">
                   <a
                     href="javascript:window.print()"
-                    class="btn btn-lg btn-custom btn-print hover-up"
+                    className="btn btn-lg btn-custom btn-print hover-up"
                   >
                     {" "}
                     <img
@@ -255,7 +263,6 @@ export default function Invoice() {
                     />{" "}
                     Print{" "}
                   </a>
-                  
                 </div>
               </div>
             </div>

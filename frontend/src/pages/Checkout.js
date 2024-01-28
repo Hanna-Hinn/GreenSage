@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { connect, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
 import Layout from "../components/layout/Layout";
 import {
   clearCart,
@@ -9,6 +8,15 @@ import {
   deleteFromCart,
   increaseQuantity,
 } from "../redux/action/cart";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements, CardElement } from "@stripe/react-stripe-js";
+import { toast } from "react-toastify";
+import { BACKEND_URL } from "../config";
+import axios from "axios";
+
+const stripePromise = loadStripe(
+  "pk_test_51ObC0HAxHg3ogfzdo6YqP0rSxPDRDno4gSmW5mrmWMoMkIVGpmXGNfLW4qVxK0LjtMj9UWlTohAnUdjtLseOacbf00E7nbSwK2"
+);
 
 const Cart = ({
   cartItems,
@@ -23,28 +31,12 @@ const Cart = ({
   const userLogin = useSelector((state) => state.auth);
   const { userInfo } = userLogin;
   const shippingCost = 10;
-  const [addresses, setAddresses] = useState([
-    { id: 1, name: "John Doe", address: "123 Main St, Cityville, State 12345" },
-    {
-      id: 2,
-      name: "Jane Smith",
-      address: "456 Oak St, Townsville, State 67890",
-    },
-    // Add more addresses as needed
-  ]);
-
-  const [selectedAddress, setSelectedAddress] = useState(null);
-
-  const handleAddressSelection = (addressId) => {
-    const selected = addresses.find((address) => address.id === addressId);
-    setSelectedAddress(selected);
-  };
+  const [formData, setFormData] = useState({});
 
   useEffect(() => {
     if (!userInfo) {
       navigate("/page-login");
     }
-    console.log(cartItems);
   }, [userInfo]);
 
   const price = () => {
@@ -56,8 +48,28 @@ const Cart = ({
     return parseFloat((price + shippingCost).toFixed(2));
   };
 
-  const handlePlaceOrder = (e) => {
-    navigate("/page-invoice", { state: orderID });
+  const handlePlaceOrder = async (e) => {
+    try {
+      const { data } = await axios.post(
+        `${BACKEND_URL}/orders`,
+        { ...formData, userId: userInfo.id }
+      );
+
+      if (data.clientSecret) {
+        const { data: orderData } = await axios.post(
+          `${BACKEND_URL}/orders/${userInfo.id}`,
+          { shipmentStatus: "pending" }
+        );
+
+        if (orderData.success) {
+          const orderId = orderData.data["_id"];
+          navigate(`/orders/${orderId}`);
+        }
+      }
+    } catch (e) {
+      console.log(e);
+      toast(e.message ? e.message : "Something Went Wrong !");
+    }
   };
 
   return (
@@ -80,51 +92,134 @@ const Cart = ({
                 <div className="mb-25">
                   <h4>Billing Details</h4>
                 </div>
-                <form method="post">
+                <form method="post" onSubmit={(e) => e.preventDefault()}>
                   <div className="form-group">
                     <label for="fullName">Full Name:</label>
                     <input
                       id="fullName"
                       type="text"
-                      required=""
+                      required
                       name="fullName"
                       placeholder="John M. Doe"
+                      onChange={(e) => {
+                        setFormData({
+                          ...formData,
+                          fullName: e.target.value,
+                        });
+                      }}
                     />
                   </div>
                   <div className="form-group">
                     <label for="email">Email:</label>
                     <input
                       id="email"
-                      required=""
+                      required
                       type="email"
                       name="email"
                       placeholder="john@exmaple.com"
+                      onChange={(e) => {
+                        setFormData({
+                          ...formData,
+                          email: e.target.value,
+                        });
+                      }}
                     />
                   </div>
 
                   <div className="form-group">
                     <label for="phone">Phone:</label>
                     <input
-                      required=""
+                      required
                       type="text"
                       name="phone"
                       id="phone"
                       placeholder="+1 (555) 555-1234"
+                      onChange={(e) => {
+                        setFormData({
+                          ...formData,
+                          phone: e.target.value,
+                        });
+                      }}
                     />
                   </div>
-
-                  <div className="form-group">
-                    <label for="address">Select Shipping Address:</label>
-                  </div>
-
-                  <div className="form-group">
-                    <label for="address">Billing Address:</label>
-                  </div>
-
-                  <div className="form-group mb-30">
-                    <textarea rows="5" placeholder="Order notes"></textarea>
-                  </div>
                 </form>
+                <div className="form-group">
+                  <label for="address">Enter Address:</label>
+                  <input
+                    id="street"
+                    type="text"
+                    required
+                    name="street"
+                    placeholder="Street..."
+                    onChange={(e) => {
+                      setFormData({
+                        ...formData,
+
+                        street: e.target.value,
+                      });
+                    }}
+                  />
+                  <input
+                    id="postalCode"
+                    type="text"
+                    required
+                    name="postalCode"
+                    placeholder="postalCode..."
+                    onChange={(e) => {
+                      setFormData({
+                        ...formData,
+
+                        street: e.target.value,
+                      });
+                    }}
+                  />
+                  <input
+                    id="city"
+                    type="text"
+                    required
+                    name="city"
+                    placeholder="City..."
+                    onChange={(e) => {
+                      setFormData({
+                        ...formData,
+
+                        ...formData.address,
+                        city: e.target.value,
+                      });
+                    }}
+                  />
+                  <input
+                    id="state"
+                    type="text"
+                    required
+                    name="state"
+                    placeholder="State..."
+                    onChange={(e) => {
+                      setFormData({
+                        ...formData,
+
+                        state: e.target.value,
+                      });
+                    }}
+                  />
+                  <input
+                    id="country"
+                    type="text"
+                    required=""
+                    name="country"
+                    placeholder="Country..."
+                    onChange={(e) => {
+                      setFormData({
+                        ...formData,
+                        country: e.target.value,
+                      });
+                    }}
+                  />
+                </div>
+
+                <div className="form-group mb-30">
+                  <textarea rows="5" placeholder="Order notes"></textarea>
+                </div>
               </div>
               <div className="col-lg-5">
                 <div className="border p-40 cart-totals ml-30 mb-50">
@@ -207,64 +302,10 @@ const Cart = ({
                     <div className="mb-25">
                       <h5>Payment</h5>
                     </div>
-                    <div className="payment_option">
-                      <div className="custome-radio">
-                        <input
-                          className="form-check-input"
-                          required=""
-                          type="radio"
-                          name="payment_option"
-                          id="exampleRadios3"
-                          defaultChecked={true}
-                        />
-                        <label
-                          className="form-check-label"
-                          htmlFor="exampleRadios3"
-                          data-bs-toggle="collapse"
-                          data-target="#bankTranfer"
-                          aria-controls="bankTranfer"
-                        >
-                          Direct Bank Transfer
-                        </label>
-                      </div>
-                      <div className="custome-radio">
-                        <input
-                          className="form-check-input"
-                          required=""
-                          type="radio"
-                          name="payment_option"
-                          id="exampleRadios4"
-                          defaultChecked={true}
-                        />
-                        <label
-                          className="form-check-label"
-                          htmlFor="exampleRadios4"
-                          data-bs-toggle="collapse"
-                          data-target="#checkPayment"
-                          aria-controls="checkPayment"
-                        >
-                          Cash
-                        </label>
-                      </div>
-                      <div className="custome-radio">
-                        <input
-                          className="form-check-input"
-                          required=""
-                          type="radio"
-                          name="payment_option"
-                          id="exampleRadios5"
-                          defaultChecked={true}
-                        />
-                        <label
-                          className="form-check-label"
-                          htmlFor="exampleRadios5"
-                          data-bs-toggle="collapse"
-                          data-target="#paypal"
-                          aria-controls="paypal"
-                        >
-                          Paypal
-                        </label>
-                      </div>
+                    <div
+                      className="payment_option"
+                      style={{ marginBottom: "30px" }}
+                    >
                       <div className="payment-logo d-flex">
                         <img
                           className="mr-15"
@@ -283,6 +324,9 @@ const Cart = ({
                         />
                       </div>
                     </div>
+                    <Elements stripe={stripePromise}>
+                      <CardElement />
+                    </Elements>
                   </div>
 
                   <button
