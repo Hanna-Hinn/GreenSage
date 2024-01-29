@@ -19,7 +19,6 @@ const Products = ({ products, productFilters, fetchProduct }) => {
   useEffect(() => {
     getData()
       .then((data) => {
-        console.log(data);
         setData(data);
         const address = data.owner.addresses[0];
 
@@ -67,11 +66,6 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                       items for you!
                     </p>
                   </div>
-                  {/* <div className="sort-by-product-area">
-                    <div className="sort-by-cover">
-                      <SortSelect />
-                    </div>
-                  </div> */}
                 </div>
                 <div className="row product-grid">
                   {data.products.length === 0 && <h3>No Products Found </h3>}
@@ -83,7 +77,6 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                         key={i}
                       >
                         <SingleProduct product={item} fixWidth={true} />
-                        {/* <SingleProductList product={item}/> */}
                       </div>
                     ))}
                 </div>

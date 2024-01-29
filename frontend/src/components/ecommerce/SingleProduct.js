@@ -25,7 +25,7 @@ const SingleProduct = ({
 
   const handleCart = (product) => {
     if (userInfo) {
-      addToCart({...product});
+      addToCart({ ...product });
       toast("Product added to Cart !");
     } else {
       toast("Please Login to continue !");
@@ -34,7 +34,10 @@ const SingleProduct = ({
 
   const handleWishlist = (product) => {
     if (userInfo) {
-      if (!wishList.find((item) => item.productId === product["_id"])) {
+      if (wishList.length === 0) {
+        addToWishlist(product);
+        toast("Added to Wishlist !");
+      } else if (!wishList.find((item) => item.productId === product["_id"])) {
         addToWishlist(product);
         toast("Added to Wishlist !");
       } else {

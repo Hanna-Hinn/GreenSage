@@ -1,7 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import SortSelect from "../components/ecommerce/Filter/SortSelect";
 import Breadcrumb2 from "../components/layout/Breadcrumb2";
 import CategoryProduct from "./../components/ecommerce/Filter/CategoryProduct";
 // import PriceRangeSlider from "./../components/ecommerce/Filter/PriceRangeSlider";

@@ -25,14 +25,8 @@ function Payment() {
       country: "USA",
       userId: userInfo.id,
     });
-    console.log("response", data.clientSecret);
     setClientSecret(data.clientSecret);
   };
-
-  // Use useEffect to log the updated value of clientSecret
-  useEffect(() => {
-    console.log("client", clientSecret);
-  }, [clientSecret]);
 
   return (
     <>

@@ -29,7 +29,10 @@ const SingleProduct2 = ({
 
   const handleWishlist = (product) => {
     if (userInfo) {
-      if (!wishList.find((item) => item.productId === product["_id"])) {
+      if (wishList.length === 0) {
+        addToWishlist(product);
+        toast("Added to Wishlist !");
+      } else if (!wishList.find((item) => item.productId === product["_id"])) {
         addToWishlist(product);
         toast("Added to Wishlist !");
       } else {

@@ -44,7 +44,6 @@ export default function ChatBox() {
           (active && active.firstName === message.from) ||
           message.from === sender
         ) {
-          console.log("msg", message.from, active.firstName);
           setFormData({
             ...formData,
             messages: [...formData.messages, message],
@@ -54,7 +53,6 @@ export default function ChatBox() {
         }
       });
     }
-    console.log(formData.messages);
   }, [formData.messages]);
 
   const fetchData = async () => {

@@ -19,7 +19,7 @@ const VendorList = () => {
 
   const getData = async () => {
     const response = await axios.get(`${BACKEND_URL}/owners`);
-    console.log(response.data.data);
+
     return response.data.data;
   };
 

@@ -11,7 +11,7 @@ function About() {
                 <div className="col-lg-6">
                   <img
                     src="/assets/imgs/page/about-1.png"
-                    alt="nest"
+                    alt="about1"
                     className="border-radius-15 mb-md-3 mb-lg-0 mb-sm-4"
                   />
                 </div>

@@ -16,7 +16,6 @@ export default function AddProduct() {
   const urlParams = new URLSearchParams(location.search);
   const productId = urlParams.get("productId");
   const [error, setError] = useState({});
-  const [product, setProduct] = useState({});
   const [categories, setCategories] = useState([]);
   const [formData, setFormData] = useState({});
 
@@ -34,7 +33,6 @@ export default function AddProduct() {
         const { data: productData } = await axios.get(
           `${BACKEND_URL}/products/${productId}`
         );
-        setProduct(productData.data.product);
         setFormData({
           name: productData.data.product.name,
           description: productData.data.product.description,
@@ -64,7 +62,6 @@ export default function AddProduct() {
 
     try {
       let response;
-      console.log(formData);
       if (!productId) {
         response = await axios.post(
           `${BACKEND_URL}/products`,
@@ -78,7 +75,6 @@ export default function AddProduct() {
           config
         );
       }
-      console.log(response);
 
       if (response.data.success) {
         toast("Product Saved !");

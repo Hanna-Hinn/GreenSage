@@ -8,9 +8,7 @@ import {
   deleteFromCart,
   increaseQuantity,
 } from "../redux/action/cart";
-import { loadStripe } from "@stripe/stripe-js";
 import { PaymentElement } from "@stripe/react-stripe-js";
-import { toast } from "react-toastify";
 import { BACKEND_URL } from "../config";
 import axios from "axios";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
@@ -68,7 +66,6 @@ const Cart = ({
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        // Make sure to change this to your payment completion page
         return_url: `${window.location.origin}/orders/${orderId}`,
       },
     });
@@ -81,28 +78,6 @@ const Cart = ({
 
     setIsProcessing(false);
   };
-
-  // const handlePlaceOrder = async (e) => {
-  //   try {
-  //     const { data: orderData } = await axios.post(
-  //       `${BACKEND_URL}/orders/${userInfo.id}`,
-  //       { shipmentStatus: "pending" }
-  //     );
-
-  //     const orderId = orderData.data["_id"];
-
-  //     const { error } = await stripe.confirmPayment({
-  //       elements,
-  //       confirmParams: {
-  //         // Make sure to change this to your payment completion page
-  //         return_url: `${window.location.origin}/orders/${orderId}`,
-  //       },
-  //     });
-  //   } catch (e) {
-  //     console.log(e);
-  //     toast(e.message ? e.message : "Something Went Wrong !");
-  //   }
-  // };
 
   return (
     <>

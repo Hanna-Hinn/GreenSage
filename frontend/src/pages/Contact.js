@@ -13,7 +13,7 @@ function Contact() {
     if (userInfo) {
       // fetchData();
     } else {
-      toast("Please Login to user Chat!");
+      toast("Please Login to use Chat!");
     }
   }, []);
 

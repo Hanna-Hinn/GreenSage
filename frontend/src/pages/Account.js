@@ -56,7 +56,6 @@ function Account() {
     } else {
       fetchData();
     }
-    console.log(formData);
   }, [userInfo, refresh]);
 
   const fetchData = async () => {
@@ -422,7 +421,13 @@ function Account() {
                                           date.getFullYear();
                                         return (
                                           <tr key={index}>
-                                            <td>{index + 1}</td>
+                                            <td>
+                                              <Link
+                                                to={`/orders/${order["_id"]}`}
+                                              >
+                                                {index + 1}
+                                              </Link>
+                                            </td>
                                             <td>{formattedDate}</td>
                                             <td>{order.shipmentStatus}</td>
                                             <td>{`$${

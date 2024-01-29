@@ -11,7 +11,6 @@ const BestSellerSlider = () => {
   }, []);
 
   const fetchProducts = async () => {
-    // With Category
     const allProducts = await fetchTopSelling(
       `${BACKEND_URL}/products/v1/filter/v1/query?topSelling=true&pageNumber=1`
     );

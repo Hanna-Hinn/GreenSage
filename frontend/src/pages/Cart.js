@@ -11,10 +11,7 @@ import {
 } from "../redux/action/cart";
 
 const Cart = ({
-  openCart,
   cartItems,
-  activeCart,
-  closeCart,
   increaseQuantity,
   decreaseQuantity,
   deleteFromCart,
@@ -87,7 +84,7 @@ const Cart = ({
                           <td className="product-des product-name">
                             <h6 className="product-name">
                               <Link to={`/products/${item["_id"]}`}>
-                                {item.name}
+                                {item.productName}
                               </Link>
                             </h6>
                             <div className="product-rate-cover">
