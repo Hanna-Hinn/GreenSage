@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import Breadcrumb2 from "../components/layout/Breadcrumb2";
 import CategoryProduct from "./../components/ecommerce/Filter/CategoryProduct";
-// import PriceRangeSlider from "./../components/ecommerce/Filter/PriceRangeSlider";
-// import VendorFilter from "./../components/ecommerce/Filter/VendorFilter";
 import Pagination from "./../components/ecommerce/Pagination";
 import SingleProduct from "./../components/ecommerce/SingleProduct";
 import Layout from "./../components/layout/Layout";
@@ -24,7 +22,6 @@ const Products = ({
   const categoryName = urlParams.get("cat");
   const description = urlParams.get("desc");
   const ownerName = urlParams.get("vendor");
-  const [sort, setSort] = useState("");
   let [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
@@ -35,10 +32,6 @@ const Products = ({
     }${ownerName ? `ownerName=${ownerName}&` : ""}pageNumber=${currentPage}`;
     searchProducts(url);
   }, [currentPage, searchTerm, categoryName, description, ownerName]);
-
-  const selectSortOption = (e) => {
-    setSort(e.target.value);
-  };
 
   const next = () => {
     setCurrentPage((page) => page + 1);
