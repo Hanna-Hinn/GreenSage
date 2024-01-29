@@ -48,21 +48,21 @@ const Cart = ({
 
   const handlePlaceOrder = async (e) => {
     try {
+      const { data: orderData } = await axios.post(
+        `${BACKEND_URL}/orders/${userInfo.id}`,
+        { shipmentStatus: "pending" }
+      );
+
+      const orderId = orderData.data["_id"];
+      navigate(`/orders/${orderId}`);
+
       const { error } = await stripe.confirmPayment({
         elements,
+        confirmParams: {
+          // Make sure to change this to your payment completion page
+          return_url: `${window.location.origin}/orders/${orderId}`,
+        },
       });
-
-      if (!error) {
-        const { data: orderData } = await axios.post(
-          `${BACKEND_URL}/orders/${userInfo.id}`,
-          { shipmentStatus: "pending" }
-        );
-
-        if (orderData.success) {
-          const orderId = orderData.data["_id"];
-          navigate(`/orders/${orderId}`);
-        }
-      }
     } catch (e) {
       console.log(e);
       toast(e.message ? e.message : "Something Went Wrong !");
