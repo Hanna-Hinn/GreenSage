@@ -7,9 +7,12 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
 
+const stripe = loadStripe(
+  "pk_test_51ObC0HAxHg3ogfzdo6YqP0rSxPDRDno4gSmW5mrmWMoMkIVGpmXGNfLW4qVxK0LjtMj9UWlTohAnUdjtLseOacbf00E7nbSwK2"
+);
+
 function Payment() {
-  const [stripePromise, setStripePromise] = useState(null);
-  const [clientSecret, setClientSecret] = useState("");
+  const [clientSecret, setClientSecret] = useState();
   const userLogin = useSelector((state) => state.auth);
   const { userInfo } = userLogin;
 
@@ -18,24 +21,25 @@ function Payment() {
   }, []);
 
   const fetchData = async () => {
-    const stripe = loadStripe(
-      "pk_test_51ObC0HAxHg3ogfzdo6YqP0rSxPDRDno4gSmW5mrmWMoMkIVGpmXGNfLW4qVxK0LjtMj9UWlTohAnUdjtLseOacbf00E7nbSwK2"
-    );
-    setStripePromise(stripe);
-
     const { data } = await axios.post(`${BACKEND_URL}/orders/`, {
       country: "USA",
       userId: userInfo.id,
     });
-    console.log(data.clientSecret);
+    console.log("response", data.clientSecret);
     setClientSecret(data.clientSecret);
   };
+
+  // Use useEffect to log the updated value of clientSecret
+  useEffect(() => {
+    console.log("client", clientSecret);
+  }, [clientSecret]);
 
   return (
     <>
       <h1>React Stripe and the Payment Element</h1>
-      {clientSecret && stripePromise && (
-        <Elements stripe={stripePromise} options={{ clientSecret }}>
+
+      {clientSecret && (
+        <Elements stripe={stripe} options={{ clientSecret }}>
           <CheckoutForm />
         </Elements>
       )}

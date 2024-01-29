@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "react-responsive-modal/styles.css";
 import "swiper/css";
 import "swiper/css/navigation";
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import StorageWrapper from "./components/ecommerce/storage-wrapper";
 import store from "./redux/store";
@@ -35,12 +35,13 @@ import Payment from "./pages/Payment";
 
 function App() {
   const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-  }, []);
+  // useEffect(() => {
+  //   setLoading(true);
+  //   setTimeout(() => {
+  //     setLoading(false);
+  //   }, 2000);
+  // }, []);
+
   return (
     <>
       {!loading ? (

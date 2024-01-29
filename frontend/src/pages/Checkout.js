@@ -36,6 +36,10 @@ const Cart = ({
     if (!userInfo) {
       navigate("/page-login");
     }
+    if (cartItems.length === 0) {
+      toast("No Items in cart");
+      navigate("/shop-cart");
+    }
   }, [userInfo]);
 
   const price = () => {
@@ -49,10 +53,10 @@ const Cart = ({
 
   const handlePlaceOrder = async (e) => {
     try {
-      const { data } = await axios.post(
-        `${BACKEND_URL}/orders`,
-        { ...formData, userId: userInfo.id }
-      );
+      const { data } = await axios.post(`${BACKEND_URL}/orders`, {
+        ...formData,
+        userId: userInfo.id,
+      });
 
       if (data.clientSecret) {
         const { data: orderData } = await axios.post(
