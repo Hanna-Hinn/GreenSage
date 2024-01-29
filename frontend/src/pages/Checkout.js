@@ -130,7 +130,9 @@ const Cart = ({
                     type="submit"
                     className="btn btn-fill-out btn-block mt-30"
                   >
-                    Place Order
+                    <span id="button-text">
+                      {isProcessing ? "Processing ... " : "Pay now"}
+                    </span>
                   </button>
 
                   {message && <div id="payment-message">{message}</div>}
