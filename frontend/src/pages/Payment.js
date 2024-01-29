@@ -1,40 +1,46 @@
-import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
-import { BACKEND_URL } from "../config";
-import axios from "axios";
-import Checkout from "./Checkout";
-const stripePromise = loadStripe(
-  "pk_test_51ObC0HAxHg3ogfzdo6YqP0rSxPDRDno4gSmW5mrmWMoMkIVGpmXGNfLW4qVxK0LjtMj9UWlTohAnUdjtLseOacbf00E7nbSwK2"
-);
+import { useEffect, useState } from "react";
 
-export default function Payment() {
+import { Elements } from "@stripe/react-stripe-js";
+import CheckoutForm from "./CheckoutForm";
+import { loadStripe } from "@stripe/stripe-js";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import { BACKEND_URL } from "../config";
+
+function Payment() {
+  const [stripePromise, setStripePromise] = useState(null);
+  const [clientSecret, setClientSecret] = useState("");
   const userLogin = useSelector((state) => state.auth);
   const { userInfo } = userLogin;
-  const [clientSecret, setClientSecret] = useState("");
 
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
-    const { data } = await axios.post(`${BACKEND_URL}/orders`, {
+    const stripe = loadStripe(
+      "pk_test_51ObC0HAxHg3ogfzdo6YqP0rSxPDRDno4gSmW5mrmWMoMkIVGpmXGNfLW4qVxK0LjtMj9UWlTohAnUdjtLseOacbf00E7nbSwK2"
+    );
+    setStripePromise(stripe);
+
+    const { data } = await axios.post(`${BACKEND_URL}/orders/`, {
       country: "USA",
       userId: userInfo.id,
     });
-    console.log(typeof data.clientSecret);
+    console.log(data.clientSecret);
     setClientSecret(data.clientSecret);
   };
 
-
   return (
     <>
-      {stripePromise && clientSecret && (
+      <h1>React Stripe and the Payment Element</h1>
+      {clientSecret && stripePromise && (
         <Elements stripe={stripePromise} options={{ clientSecret }}>
-          <Checkout />
+          <CheckoutForm />
         </Elements>
       )}
     </>
   );
 }
+
+export default Payment;

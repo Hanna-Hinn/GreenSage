@@ -31,7 +31,7 @@ import {
   Notification,
   Checkout,
 } from "./pages/index";
-
+import Payment from "./pages/Payment";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -64,7 +64,7 @@ function App() {
                 <Route path="/add-address" element={<AddAddress />} />
                 <Route path="/add-product" element={<AddProduct />} />
                 <Route path="/orders/:id" element={<Invoice />} />
-
+                <Route path="/page-payment" element={<Payment />} />
                 <Route path="/vendors-list" element={<VendorList />} />
                 <Route
                   path="/vendors-list/vendor/:id"

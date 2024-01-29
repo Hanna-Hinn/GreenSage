@@ -161,7 +161,7 @@ export default function Invoice() {
                               SubTotal
                             </td>
                             <td className="text-right">
-                              ${order && order.totalPrice}
+                              ${order && order.totalPrice - order.deliveryFee}
                             </td>
                           </tr>
                           <tr>
@@ -177,7 +177,7 @@ export default function Invoice() {
                               Grand Total
                             </td>
                             <td className="text-right f-w-600">
-                              ${order && order.totalPrice + order.deliveryFee}
+                              ${order && order.totalPrice}
                             </td>
                           </tr>
                         </tbody>
