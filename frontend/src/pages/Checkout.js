@@ -27,7 +27,6 @@ const Cart = ({
   const userLogin = useSelector((state) => state.auth);
   const { userInfo } = userLogin;
   const shippingCost = 10;
-  const [formData, setFormData] = useState({});
   const stripe = useStripe();
   const elements = useElements();
 
@@ -46,28 +45,64 @@ const Cart = ({
     return parseFloat((price + shippingCost).toFixed(2));
   };
 
-  const handlePlaceOrder = async (e) => {
-    try {
-      const { data: orderData } = await axios.post(
-        `${BACKEND_URL}/orders/${userInfo.id}`,
-        { shipmentStatus: "pending" }
-      );
+  const [message, setMessage] = useState(null);
+  const [isProcessing, setIsProcessing] = useState(false);
 
-      const orderId = orderData.data["_id"];
-      navigate(`/orders/${orderId}`);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-      const { error } = await stripe.confirmPayment({
-        elements,
-        confirmParams: {
-          // Make sure to change this to your payment completion page
-          return_url: `${window.location.origin}/orders/${orderId}`,
-        },
-      });
-    } catch (e) {
-      console.log(e);
-      toast(e.message ? e.message : "Something Went Wrong !");
+    if (!stripe || !elements) {
+      // Stripe.js has not yet loaded.
+      // Make sure to disable form submission until Stripe.js has loaded.
+      return;
     }
+
+    setIsProcessing(true);
+    const { data: orderData } = await axios.post(
+      `${BACKEND_URL}/orders/${userInfo.id}`,
+      { shipmentStatus: "pending" }
+    );
+
+    const orderId = orderData.data["_id"];
+
+    const { error } = await stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        // Make sure to change this to your payment completion page
+        return_url: `${window.location.origin}/orders/${orderId}`,
+      },
+    });
+
+    if (error.type === "card_error" || error.type === "validation_error") {
+      setMessage(error.message);
+    } else {
+      setMessage("An unexpected error occured.");
+    }
+
+    setIsProcessing(false);
   };
+
+  // const handlePlaceOrder = async (e) => {
+  //   try {
+  //     const { data: orderData } = await axios.post(
+  //       `${BACKEND_URL}/orders/${userInfo.id}`,
+  //       { shipmentStatus: "pending" }
+  //     );
+
+  //     const orderId = orderData.data["_id"];
+
+  //     const { error } = await stripe.confirmPayment({
+  //       elements,
+  //       confirmParams: {
+  //         // Make sure to change this to your payment completion page
+  //         return_url: `${window.location.origin}/orders/${orderId}`,
+  //       },
+  //     });
+  //   } catch (e) {
+  //     console.log(e);
+  //     toast(e.message ? e.message : "Something Went Wrong !");
+  //   }
+  // };
 
   return (
     <>
@@ -89,134 +124,17 @@ const Cart = ({
                 <div className="mb-25">
                   <h4>Billing Details</h4>
                 </div>
-                <form method="post" onSubmit={(e) => e.preventDefault()}>
-                  <div className="form-group">
-                    <label for="fullName">Full Name:</label>
-                    <input
-                      id="fullName"
-                      type="text"
-                      required
-                      name="fullName"
-                      placeholder="John M. Doe"
-                      onChange={(e) => {
-                        setFormData({
-                          ...formData,
-                          fullName: e.target.value,
-                        });
-                      }}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label for="email">Email:</label>
-                    <input
-                      id="email"
-                      required
-                      type="email"
-                      name="email"
-                      placeholder="john@exmaple.com"
-                      onChange={(e) => {
-                        setFormData({
-                          ...formData,
-                          email: e.target.value,
-                        });
-                      }}
-                    />
-                  </div>
+                <form id="payment-form" onSubmit={handleSubmit}>
+                  <PaymentElement id="payment-element" />
+                  <button
+                    type="submit"
+                    className="btn btn-fill-out btn-block mt-30"
+                  >
+                    Place Order
+                  </button>
 
-                  <div className="form-group">
-                    <label for="phone">Phone:</label>
-                    <input
-                      required
-                      type="text"
-                      name="phone"
-                      id="phone"
-                      placeholder="+1 (555) 555-1234"
-                      onChange={(e) => {
-                        setFormData({
-                          ...formData,
-                          phone: e.target.value,
-                        });
-                      }}
-                    />
-                  </div>
+                  {message && <div id="payment-message">{message}</div>}
                 </form>
-                <div className="form-group">
-                  <label for="address">Enter Address:</label>
-                  <input
-                    id="street"
-                    type="text"
-                    required
-                    name="street"
-                    placeholder="Street..."
-                    onChange={(e) => {
-                      setFormData({
-                        ...formData,
-
-                        street: e.target.value,
-                      });
-                    }}
-                  />
-                  <input
-                    id="postalCode"
-                    type="text"
-                    required
-                    name="postalCode"
-                    placeholder="postalCode..."
-                    onChange={(e) => {
-                      setFormData({
-                        ...formData,
-
-                        street: e.target.value,
-                      });
-                    }}
-                  />
-                  <input
-                    id="city"
-                    type="text"
-                    required
-                    name="city"
-                    placeholder="City..."
-                    onChange={(e) => {
-                      setFormData({
-                        ...formData,
-
-                        ...formData.address,
-                        city: e.target.value,
-                      });
-                    }}
-                  />
-                  <input
-                    id="state"
-                    type="text"
-                    required
-                    name="state"
-                    placeholder="State..."
-                    onChange={(e) => {
-                      setFormData({
-                        ...formData,
-
-                        state: e.target.value,
-                      });
-                    }}
-                  />
-                  <input
-                    id="country"
-                    type="text"
-                    required=""
-                    name="country"
-                    placeholder="Country..."
-                    onChange={(e) => {
-                      setFormData({
-                        ...formData,
-                        country: e.target.value,
-                      });
-                    }}
-                  />
-                </div>
-
-                <div className="form-group mb-30">
-                  <textarea rows="5" placeholder="Order notes"></textarea>
-                </div>
               </div>
               <div className="col-lg-5">
                 <div className="border p-40 cart-totals ml-30 mb-50">
@@ -296,9 +214,6 @@ const Cart = ({
 
                   <div className="bt-1 border-color-1 mt-30 mb-30"></div>
                   <div className="payment_method">
-                    <div className="mb-25">
-                      <h5>Payment</h5>
-                    </div>
                     <div
                       className="payment_option"
                       style={{ marginBottom: "30px" }}
@@ -321,15 +236,7 @@ const Cart = ({
                         />
                       </div>
                     </div>
-                    <PaymentElement />
                   </div>
-
-                  <button
-                    onClick={handlePlaceOrder}
-                    className="btn btn-fill-out btn-block mt-30"
-                  >
-                    Place Order
-                  </button>
                 </div>
               </div>
             </div>
