@@ -71,27 +71,6 @@ const Products = ({
                       items for you!
                     </p>
                   </div>
-                  <div className="sort-by-product-area">
-                    <div className="sort-by-cover">
-                      <div className="sort-by-product-wrap">
-                        <div className="sort-by">
-                          <span>
-                            <i className="fi-rs-apps-sort"></i>
-                            Sort by:
-                          </span>
-                        </div>
-                        <div className="sort-by-dropdown-wrap custom-select">
-                          <select onChange={(e) => selectSortOption(e)}>
-                            <option value="">Defaults</option>
-                            <option value="featured">Featured</option>
-                            <option value="trending">Trending</option>
-                            <option value="lowToHigh">Low To High</option>
-                            <option value="highToLow">High To Low</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
                 <div className="row product-grid">
                   {totalProducts === 0 && <h3>No Products Found </h3>}
