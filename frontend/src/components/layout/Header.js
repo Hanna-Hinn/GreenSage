@@ -102,26 +102,6 @@ const Header = ({ user, totalCartItems, toggleClick, totalWishlistItems }) => {
                   </div>
                 </div>
               </div>
-              <div className="col-xl-3 col-lg-4">
-                <div className="header-info header-info-right">
-                  <ul>
-                    <li>
-                      <Link to="/#" className="language-dropdown-active">
-                        <i className="fi-rs-world"></i>
-                        English
-                        <i className="fi-rs-angle-small-down"></i>
-                      </Link>
-                      <ul className="language-dropdown"></ul>
-                    </li>
-                    <li>
-                      <a className="language-dropdown-active" href="#">
-                        USD <i className="fi-rs-angle-small-down"></i>
-                      </a>
-                      <ul className="language-dropdown"></ul>
-                    </li>
-                  </ul>
-                </div>
-              </div>
             </div>
           </div>
         </div>
