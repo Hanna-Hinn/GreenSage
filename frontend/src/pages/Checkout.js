@@ -9,7 +9,7 @@ import {
   increaseQuantity,
 } from "../redux/action/cart";
 import { loadStripe } from "@stripe/stripe-js";
-import { CardElement } from "@stripe/react-stripe-js";
+import { PaymentElement } from "@stripe/react-stripe-js";
 import { toast } from "react-toastify";
 import { BACKEND_URL } from "../config";
 import axios from "axios";
@@ -321,7 +321,7 @@ const Cart = ({
                         />
                       </div>
                     </div>
-                    <CardElement />
+                    <PaymentElement />
                   </div>
 
                   <button
