@@ -56,7 +56,7 @@ function App() {
                 <Route path="/shop-wishlist" element={<WishList />} />
                 <Route path="//shop-notification" element={<Notification />} />
                 <Route path="/shop-cart" element={<Cart />} />
-                <Route path="/shop-checkout" element={<Checkout />} />
+                <Route path="/shop-checkout" element={<Payment />} />
                 <Route path="/products" element={<Products />} />
                 <Route path="/products/:id" element={<SingleProductPage />} />
                 <Route path="/page-register" element={<Register />} />
@@ -65,7 +65,7 @@ function App() {
                 <Route path="/add-address" element={<AddAddress />} />
                 <Route path="/add-product" element={<AddProduct />} />
                 <Route path="/orders/:id" element={<Invoice />} />
-                <Route path="/page-payment" element={<Payment />} />
+
                 <Route path="/vendors-list" element={<VendorList />} />
                 <Route
                   path="/vendors-list/vendor/:id"

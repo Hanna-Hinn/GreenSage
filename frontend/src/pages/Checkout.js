@@ -9,14 +9,11 @@ import {
   increaseQuantity,
 } from "../redux/action/cart";
 import { loadStripe } from "@stripe/stripe-js";
-import { Elements, CardElement } from "@stripe/react-stripe-js";
+import { CardElement } from "@stripe/react-stripe-js";
 import { toast } from "react-toastify";
 import { BACKEND_URL } from "../config";
 import axios from "axios";
-
-const stripePromise = loadStripe(
-  "pk_test_51ObC0HAxHg3ogfzdo6YqP0rSxPDRDno4gSmW5mrmWMoMkIVGpmXGNfLW4qVxK0LjtMj9UWlTohAnUdjtLseOacbf00E7nbSwK2"
-);
+import { useStripe, useElements } from "@stripe/react-stripe-js";
 
 const Cart = ({
   cartItems,
@@ -31,14 +28,12 @@ const Cart = ({
   const { userInfo } = userLogin;
   const shippingCost = 10;
   const [formData, setFormData] = useState({});
+  const stripe = useStripe();
+  const elements = useElements();
 
   useEffect(() => {
     if (!userInfo) {
       navigate("/page-login");
-    }
-    if (cartItems.length === 0) {
-      toast("No Items in cart");
-      navigate("/shop-cart");
     }
   }, [userInfo]);
 
@@ -53,12 +48,11 @@ const Cart = ({
 
   const handlePlaceOrder = async (e) => {
     try {
-      const { data } = await axios.post(`${BACKEND_URL}/orders`, {
-        ...formData,
-        userId: userInfo.id,
+      const { error } = await stripe.confirmPayment({
+        elements,
       });
 
-      if (data.clientSecret) {
+      if (!error) {
         const { data: orderData } = await axios.post(
           `${BACKEND_URL}/orders/${userInfo.id}`,
           { shipmentStatus: "pending" }
@@ -327,9 +321,7 @@ const Cart = ({
                         />
                       </div>
                     </div>
-                    <Elements stripe={stripePromise}>
-                      <CardElement />
-                    </Elements>
+                    <CardElement />
                   </div>
 
                   <button

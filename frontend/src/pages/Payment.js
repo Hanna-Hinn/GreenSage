@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { Elements } from "@stripe/react-stripe-js";
-import CheckoutForm from "./CheckoutForm";
+import Checkout from "./Checkout";
 import { loadStripe } from "@stripe/stripe-js";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -40,7 +40,7 @@ function Payment() {
 
       {clientSecret && (
         <Elements stripe={stripe} options={{ clientSecret }}>
-          <CheckoutForm />
+          <Checkout />
         </Elements>
       )}
     </>
