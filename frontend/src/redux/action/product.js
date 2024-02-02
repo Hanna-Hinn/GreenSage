@@ -36,6 +36,14 @@ export const searchProducts = (url, filters) => async (dispatch) => {
       },
     });
   } catch (e) {
+    dispatch({
+      type: Types.FETCHED_PRODUCT,
+      payload: {
+        products: [],
+        totalPages: 1,
+        totalProducts: 0,
+      },
+    });
     console.log(e);
   }
 };

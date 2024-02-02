@@ -28,7 +28,7 @@ const Products = ({
     const url = `${BACKEND_URL}/products/v1/searchFilter/v1/query?${
       categoryName ? `categoryName=${categoryName}&` : ""
     }${searchTerm ? `productName=${searchTerm}&` : ""}${
-      description ? `description=${description}&` : ""
+      searchTerm ? `description=${searchTerm}&` : ""
     }${ownerName ? `ownerName=${ownerName}&` : ""}pageNumber=${currentPage}`;
     searchProducts(url);
   }, [currentPage, searchTerm, categoryName, description, ownerName]);

@@ -11,6 +11,7 @@ const VendorList = () => {
     getData()
       .then((data) => {
         setData(data);
+       
       })
       .catch((error) => {
         console.log("Error fetching Vendors", error);
