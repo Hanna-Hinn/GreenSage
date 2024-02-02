@@ -2,6 +2,7 @@ import SingleProduct from "../ecommerce/SingleProduct";
 
 const FeaturedTab = ({ products }) => {
   const showItem = 10;
+  console.log("tab", products);
   return (
     <>
       {products &&
