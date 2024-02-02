@@ -133,6 +133,7 @@ function Account() {
       );
       if (data.success) {
         toast("Address Deleted Successfully !");
+        setRefresh(true);
       } else {
         toast("Something Went Wrong !");
       }
@@ -217,7 +218,9 @@ function Account() {
           ...userInfo,
           email: formData.email,
         };
-        localStorage.setItem("userInfo", updateStorage);
+
+        localStorage.setItem("userInfo", JSON.stringify({ ...updateStorage }));
+        setRefresh(true);
       }
     } catch (e) {
       console.log(e);
@@ -986,7 +989,7 @@ function Account() {
                                               type="text"
                                               name="others"
                                               placeholder="Ex: vitaminC,vitaminB12,...etc"
-                                              value={
+                                              defaultValue={
                                                 formData &&
                                                 formData.healthStatus &&
                                                 formData.healthStatus[key]

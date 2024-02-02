@@ -98,9 +98,9 @@ const SingleProduct = ({
                     color:
                       currentRating <=
                       Math.round(
-                        typeof Number(product.averageRating) === "number"
-                          ? product.averageRating
-                          : product.averageRating["$numberDecimal"] || 0
+                        typeof product.averageRating === "object"
+                          ? product.averageRating["$numberDecimal"]
+                          : product.averageRating
                       )
                         ? "#ffc107"
                         : "#e4e5e9",
@@ -116,9 +116,9 @@ const SingleProduct = ({
               {" "}
               (
               {Math.round(
-                (typeof Number(product.averageRating) === "number"
-                  ? product.averageRating
-                  : product.averageRating["$numberDecimal"] || 0) * 10
+                (typeof product.averageRating === "object"
+                  ? product.averageRating["$numberDecimal"]
+                  : product.averageRating) * 10
               ) / 10}
               )
             </span>
