@@ -157,7 +157,7 @@ function Account() {
       setFormData((prev) => {
         return {
           ...prev,
-          healthStatus: { ...prev.healthStatus, other: value },
+          healthStatus: { ...prev.healthStatus, others: value },
         };
       });
     } else {
