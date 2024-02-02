@@ -34,6 +34,7 @@ function Account() {
     "folate",
     "magnesium",
     "zinc",
+    "others",
   ];
   const monthNames = [
     "January",
@@ -81,6 +82,7 @@ function Account() {
         ? orderData.data.matchingOrders
         : orderData.data
     );
+    console.log(userData.data);
     setFormData(userData.data);
   };
 
@@ -149,12 +151,22 @@ function Account() {
 
   const handleMineralChange = (e) => {
     const { value, checked } = e.target;
-    setFormData((prev) => {
-      return {
-        ...prev,
-        healthStatus: { ...prev.healthStatus, [value]: checked },
-      };
-    });
+
+    if (e.target.type === "text") {
+      setFormData((prev) => {
+        return {
+          ...prev,
+          healthStatus: { ...prev.healthStatus, other: value },
+        };
+      });
+    } else {
+      setFormData((prev) => {
+        return {
+          ...prev,
+          healthStatus: { ...prev.healthStatus, [value]: checked },
+        };
+      });
+    }
   };
 
   const handleOnDelete = async (productId) => {
@@ -959,6 +971,34 @@ function Account() {
                                         >
                                           {key}
                                         </label>
+                                        {key === "others" && (
+                                          <>
+                                            <br />
+                                            <label
+                                              style={{ paddingLeft: "5px" }}
+                                              className="form-check-label"
+                                              htmlFor={key}
+                                            >
+                                              Please Make sure it's the same
+                                              structure in the example
+                                            </label>
+                                            <input
+                                              type="text"
+                                              name="others"
+                                              placeholder="Ex: vitaminC,vitaminB12,...etc"
+                                              value={
+                                                formData &&
+                                                formData.healthStatus &&
+                                                formData.healthStatus[key]
+                                                  ? formData.healthStatus[key]
+                                                  : ""
+                                              }
+                                              onChange={(e) =>
+                                                handleMineralChange(e)
+                                              }
+                                            />
+                                          </>
+                                        )}
                                       </div>
                                     );
                                   })}

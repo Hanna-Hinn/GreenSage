@@ -26,6 +26,7 @@ function Register() {
     "folate",
     "magnesium",
     "zinc",
+    "others",
   ];
   const [formData, setFormData] = useState({});
   const userLogin = useSelector((state) => state.auth);
@@ -39,12 +40,22 @@ function Register() {
 
   const handleMineralChange = (e) => {
     const { value, checked } = e.target;
-    setFormData((prev) => {
-      return {
-        ...prev,
-        healthStatus: { ...prev.healthStatus, [value]: checked },
-      };
-    });
+
+    if (e.target.type === "text") {
+      setFormData((prev) => {
+        return {
+          ...prev,
+          healthStatus: { ...prev.healthStatus, others: value },
+        };
+      });
+    } else {
+      setFormData((prev) => {
+        return {
+          ...prev,
+          healthStatus: { ...prev.healthStatus, [value]: checked },
+        };
+      });
+    }
   };
 
   const handleRadioChange = () => {
@@ -61,7 +72,6 @@ function Register() {
 
   const handleSubmit = async () => {
     const isValid = validateInputs();
-
     if (!isValid) {
       return;
     }
@@ -79,7 +89,7 @@ function Register() {
       const response = await axios.post(url, user);
       const data = response.data.data;
       dispatch(registerSuccess(data));
-      toast("Please Login to proceed !")
+      toast("Please Login to proceed !");
       navigate("/page-login");
     } catch (error) {
       setError({
@@ -513,6 +523,27 @@ function Register() {
                                     >
                                       {key}
                                     </label>
+                                    {key === "others" && (
+                                      <>
+                                        <br />
+                                        <label
+                                          style={{ paddingLeft: "5px" }}
+                                          className="form-check-label"
+                                          htmlFor={key}
+                                        >
+                                          Please Make sure it's the same
+                                          structure in the example
+                                        </label>
+                                        <input
+                                          type="text"
+                                          name="others"
+                                          placeholder="Ex: vitaminC,vitaminB12,...etc"
+                                          onChange={(e) =>
+                                            handleMineralChange(e)
+                                          }
+                                        />
+                                      </>
+                                    )}
                                   </div>
                                 );
                               })}
