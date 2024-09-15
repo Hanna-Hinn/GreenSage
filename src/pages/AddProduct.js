@@ -232,7 +232,6 @@ export default function AddProduct() {
                               id="category"
                               name="categoryId"
                               onChange={(e) => {
-                                console.log(e.target.value);
                                 setFormData({
                                   ...formData,
                                   categoryId: e.target.value,

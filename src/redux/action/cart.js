@@ -51,7 +51,6 @@ export const deleteFromCart = (productId) => (dispatch) => {
           `${BACKEND_URL}/carts/${user.id}`
         );
         const cartItems = cartData.data.cartItems;
-        console.log(cartItems);
         dispatch({
           type: Types.DELETE_FROM_CART,
           payload: cartItems,

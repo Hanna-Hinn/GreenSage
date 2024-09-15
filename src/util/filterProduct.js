@@ -19,21 +19,21 @@ export default (productList, filters) => {
                 return -1;
               if (a.price["$numberDecimal"] > b.price["$numberDecimal"])
                 return 1;
+              return 0;
             }),
           ];
         } else {
           if (filters[key] === "highToLow") {
-            console.log("hi");
             filteredList = [
               ...filteredList.sort((a, b) => {
                 if (b.price["$numberDecimal"] < a.price["$numberDecimal"])
                   return -1;
                 if (b.price["$numberDecimal"] > a.price["$numberDecimal"])
                   return 1;
+                return 0;
               }),
             ];
           } else {
-            console.log("hi1");
             filteredList = filteredList.filter((item) => item[filters[key]]);
           }
         }

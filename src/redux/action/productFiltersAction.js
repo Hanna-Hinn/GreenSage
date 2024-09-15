@@ -15,7 +15,6 @@ export const updateProductCategory = category => dispatch => {
 }
 
 export const updateProductRating = rating => dispatch => {
-    console.log(rating);
     dispatch({
         type: Types.UPDATE_RATING,
         payload: rating 
