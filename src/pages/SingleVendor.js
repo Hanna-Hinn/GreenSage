@@ -20,7 +20,6 @@ const Products = ({ products, productFilters, fetchProduct }) => {
     getData()
       .then((data) => {
         setData(data);
-        console.log(data);
         const address = data.owner.addresses[0];
 
         setStoreAddress(

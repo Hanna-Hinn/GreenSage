@@ -25,7 +25,6 @@ export default function AddAddress() {
         `${BACKEND_URL}/Addresses/${userInfo.id}`,
         addresses
       );
-      console.log(response.data.data);
       setSuccess("Address Submitted Successfully");
       navigate("/page-account");
     } catch (e) {

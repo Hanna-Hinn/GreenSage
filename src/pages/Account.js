@@ -82,7 +82,6 @@ function Account() {
         ? orderData.data.matchingOrders
         : orderData.data
     );
-    console.log(userData.data);
     setFormData(userData.data);
   };
 

@@ -5,7 +5,6 @@ import SingleProduct2 from "./../ecommerce/SingleProduct2";
 SwiperCore.use([Navigation]);
 
 const FeaturedSlider = ({ products }) => {
-  console.log(products);
   return (
     <>
       <Swiper
