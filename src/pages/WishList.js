@@ -1,12 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { connect } from "react-redux";
-import { toast } from "react-toastify";
-import Layout from "../components/layout/Layout";
-import { addToCart } from "../redux/action/cart";
+import { connect } from 'react-redux'
+import { toast } from 'react-toastify'
+import Layout from '../components/layout/Layout'
+import { addToCart } from '../redux/action/cart'
 import {
   clearWishlist,
   deleteFromWishlist,
-} from "../redux/action/wishlistAction";
+} from '../redux/action/wishlistAction'
 
 const Wishlist = ({
   wishlist,
@@ -15,9 +15,9 @@ const Wishlist = ({
   addToCart,
 }) => {
   const handleCart = (product) => {
-    addToCart(product);
-    toast("Product added to Cart !");
-  };
+    addToCart(product)
+    toast('Product added to Cart !')
+  }
   return (
     <>
       <Layout parent="Home" sub="Shop" subChild="Wishlist">
@@ -63,7 +63,7 @@ const Wishlist = ({
                               </h6>
                               <div className="product-rate-cover">
                                 {[...Array(5)].map((star, index) => {
-                                  const currentRating = index + 1;
+                                  const currentRating = index + 1
 
                                   return (
                                     <span
@@ -72,18 +72,18 @@ const Wishlist = ({
                                         color:
                                           currentRating <=
                                           Math.round(product.averageRating)
-                                            ? "#ffc107"
-                                            : "#e4e5e9",
-                                        fontSize: "1rem",
-                                        margin: "1px",
+                                            ? '#ffc107'
+                                            : '#e4e5e9',
+                                        fontSize: '1rem',
+                                        margin: '1px',
                                       }}
                                     >
                                       &#9733;
                                     </span>
-                                  );
+                                  )
                                 })}
                                 <span className="font-small ml-5 text-muted">
-                                  {" "}
+                                  {' '}
                                   ({Math.round(product.averageRating * 10) / 10}
                                   )
                                 </span>
@@ -91,7 +91,7 @@ const Wishlist = ({
                             </td>
                             <td className="price" data-title="Price">
                               <h3 className="text-brand">
-                                ${product.price["$numberDecimal"]}
+                                ${product.price['$numberDecimal']}
                               </h3>
                             </td>
                             <td
@@ -116,7 +116,7 @@ const Wishlist = ({
                               ) : (
                                 <button
                                   className="btn btn-sm"
-                                  onClick={(e) => handleCart(product)}
+                                  onClick={() => handleCart(product)}
                                 >
                                   Add to cart
                                 </button>
@@ -124,7 +124,7 @@ const Wishlist = ({
                             </td>
                             <td className="action" data-title="Remove">
                               <a
-                                onClick={(e) =>
+                                onClick={() =>
                                   deleteFromWishlist(product.productId)
                                 }
                               >
@@ -150,17 +150,17 @@ const Wishlist = ({
         </section>
       </Layout>
     </>
-  );
-};
+  )
+}
 
 const mapStateToProps = (state) => ({
   wishlist: state.wishlist,
-});
+})
 
 const mapDispatchToProps = {
   deleteFromWishlist,
   clearWishlist,
   addToCart,
-};
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Wishlist);
+export default connect(mapStateToProps, mapDispatchToProps)(Wishlist)

@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
-import SwiperCore, { Navigation } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
-import SingleProduct from "./../ecommerce/SingleProduct";
+import SwiperCore, { Navigation } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import SingleProduct from './../ecommerce/SingleProduct'
 
-SwiperCore.use([Navigation]);
+SwiperCore.use([Navigation])
 
 const RelatedSlider = ({ products }) => {
   return (
@@ -12,8 +11,8 @@ const RelatedSlider = ({ products }) => {
         slidesPerView={4}
         spaceBetween={30}
         navigation={{
-          prevEl: ".custom_prev_n",
-          nextEl: ".custom_next_n",
+          prevEl: '.custom_prev_n',
+          nextEl: '.custom_next_n',
         }}
         className="custom-class"
       >
@@ -33,7 +32,7 @@ const RelatedSlider = ({ products }) => {
         </span>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default RelatedSlider;
+export default RelatedSlider

@@ -109,7 +109,7 @@ function Login() {
                                   email: e.target.value,
                                 });
                                 setValidError((curr) => {
-                                  const { email, ...rest } = curr;
+                                  const {  ...rest } = curr;
                                   return rest;
                                 });
                               }}
@@ -135,7 +135,7 @@ function Login() {
                                   password: e.target.value,
                                 });
                                 setValidError((curr) => {
-                                  const { password, ...rest } = curr;
+                                  const {  ...rest } = curr;
                                   return rest;
                                 });
                               }}
@@ -162,7 +162,7 @@ function Login() {
                                     securityCode: e.target.value,
                                   });
                                   setValidError((curr) => {
-                                    const { securityCode, ...rest } = curr;
+                                    const {  ...rest } = curr;
                                     return rest;
                                   });
                                 }}

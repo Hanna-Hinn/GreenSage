@@ -1,8 +1,8 @@
-import SwiperCore, { Navigation, Pagination } from "swiper";
-import "swiper/css/pagination";
-import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Navigation, Pagination } from 'swiper'
+import 'swiper/css/pagination'
+import { Swiper, SwiperSlide } from 'swiper/react'
 
-SwiperCore.use([Navigation, Pagination]);
+SwiperCore.use([Navigation, Pagination])
 
 const Intro1 = () => {
   return (
@@ -12,8 +12,8 @@ const Intro1 = () => {
         spaceBetween={0}
         pagination={true}
         navigation={{
-          prevEl: ".custom_prev_i1",
-          nextEl: ".custom_next_i1",
+          prevEl: '.custom_prev_i1',
+          nextEl: '.custom_next_i1',
         }}
         className="hero-slider-1 style-4 dot-style-1 dot-style-1-position-1"
       >
@@ -21,7 +21,7 @@ const Intro1 = () => {
           <div
             className="single-hero-slider single-animation-wrap"
             style={{
-              backgroundImage: "url(assets/imgs/slider/slider-1.png)",
+              backgroundImage: 'url(assets/imgs/slider/slider-1.png)',
             }}
           >
             <div className="slider-content">
@@ -38,7 +38,7 @@ const Intro1 = () => {
           <div
             className="single-hero-slider single-animation-wrap"
             style={{
-              backgroundImage: "url(assets/imgs/slider/slider-2.png)",
+              backgroundImage: 'url(assets/imgs/slider/slider-2.png)',
             }}
           >
             <div className="slider-content">
@@ -62,7 +62,7 @@ const Intro1 = () => {
         </span>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Intro1;
+export default Intro1

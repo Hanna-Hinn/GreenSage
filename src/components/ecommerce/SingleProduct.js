@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { connect } from "react-redux";
-import { toast } from "react-toastify";
-import { addToCart } from "../../redux/action/cart";
-import { addToWishlist } from "../../redux/action/wishlistAction";
+import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
+import { toast } from 'react-toastify'
+import { addToCart } from '../../redux/action/cart'
+import { addToWishlist } from '../../redux/action/wishlistAction'
 
 const SingleProduct = ({
   userInfo,
@@ -13,40 +13,40 @@ const SingleProduct = ({
   addToCart,
   addToWishlist,
 }) => {
-  const [averageRating, setAverageRating] = useState(0);
+  const [averageRating, setAverageRating] = useState(0)
 
   useEffect(() => {
-    if (typeof Number(product.averageRating) === "number") {
-      setAverageRating(product.averageRating);
+    if (typeof Number(product.averageRating) === 'number') {
+      setAverageRating(product.averageRating)
     } else {
-      setAverageRating(product.averageRating["$numberDecimal"]);
+      setAverageRating(product.averageRating['$numberDecimal'])
     }
-  }, [averageRating]);
+  }, [averageRating])
 
   const handleCart = (product) => {
     if (userInfo) {
-      addToCart({ ...product });
-      toast("Product added to Cart !");
+      addToCart({ ...product })
+      toast('Product added to Cart !')
     } else {
-      toast("Please Login to continue !");
+      toast('Please Login to continue !')
     }
-  };
+  }
 
   const handleWishlist = (product) => {
     if (userInfo) {
       if (wishList.length === 0) {
-        addToWishlist(product);
-        toast("Added to Wishlist !");
-      } else if (!wishList.find((item) => item.productId === product["_id"])) {
-        addToWishlist(product);
-        toast("Added to Wishlist !");
+        addToWishlist(product)
+        toast('Added to Wishlist !')
+      } else if (!wishList.find((item) => item.productId === product['_id'])) {
+        addToWishlist(product)
+        toast('Added to Wishlist !')
       } else {
-        toast("Already Added To WishList !");
+        toast('Already Added To WishList !')
       }
     } else {
-      toast("Please Login to continue !");
+      toast('Please Login to continue !')
     }
-  };
+  }
 
   return (
     <>
@@ -54,9 +54,9 @@ const SingleProduct = ({
         <div className="product-img-action-wrap">
           <div
             className="product-img product-img-zoom"
-            style={{ height: "250px" }}
+            style={{ height: '250px' }}
           >
-            <Link to={`/products/${product["_id"]}`}>
+            <Link to={`/products/${product['_id']}`}>
               <img
                 className="default-img"
                 src={product.imageUrl}
@@ -69,8 +69,8 @@ const SingleProduct = ({
             <a
               aria-label="Add To Wishlist"
               className="action-btn hover-up"
-              onClick={(e) => {
-                handleWishlist(product);
+              onClick={() => {
+                handleWishlist(product)
               }}
             >
               <i className="fi-rs-heart"></i>
@@ -82,14 +82,14 @@ const SingleProduct = ({
             <Link to="/products">{product.categoryName}</Link>
           </div>
           <h2>
-            <Link to={`/products/${product["_id"]}`}>
+            <Link to={`/products/${product['_id']}`}>
               {product.title ? product.title : product.name}
             </Link>
           </h2>
 
           <div className="product-rate-cover">
             {[...Array(5)].map((star, index) => {
-              const currentRating = index + 1;
+              const currentRating = index + 1
 
               return (
                 <span
@@ -98,26 +98,26 @@ const SingleProduct = ({
                     color:
                       currentRating <=
                       Math.round(
-                        typeof product.averageRating === "object"
-                          ? product.averageRating["$numberDecimal"]
+                        typeof product.averageRating === 'object'
+                          ? product.averageRating['$numberDecimal']
                           : product.averageRating
                       )
-                        ? "#ffc107"
-                        : "#e4e5e9",
-                    fontSize: "1rem",
-                    margin: "1px",
+                        ? '#ffc107'
+                        : '#e4e5e9',
+                    fontSize: '1rem',
+                    margin: '1px',
                   }}
                 >
                   &#9733;
                 </span>
-              );
+              )
             })}
             <span className="font-small ml-5 text-muted">
-              {" "}
+              {' '}
               (
               {Math.round(
-                (typeof product.averageRating === "object"
-                  ? product.averageRating["$numberDecimal"]
+                (typeof product.averageRating === 'object'
+                  ? product.averageRating['$numberDecimal']
                   : product.averageRating) * 10
               ) / 10}
               )
@@ -130,10 +130,10 @@ const SingleProduct = ({
 
           <div className="product-card-bottom">
             <div className="product-price">
-              <span>$ {product.price["$numberDecimal"]} </span>
+              <span>$ {product.price['$numberDecimal']} </span>
             </div>
             <div className="add-cart">
-              <a className="add" onClick={(e) => handleCart(product)}>
+              <a className="add" onClick={() => handleCart(product)}>
                 <i className="fi-rs-shopping-cart mr-5"></i> Add
               </a>
             </div>
@@ -141,17 +141,17 @@ const SingleProduct = ({
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
 const mapStateToProps = (state) => ({
   userInfo: state.auth.userInfo,
   wishList: state.wishlist,
-});
+})
 
 const mapDispatchToProps = {
   addToCart,
   addToWishlist,
-};
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);
+export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct)

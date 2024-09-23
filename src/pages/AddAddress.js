@@ -21,10 +21,10 @@ export default function AddAddress() {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post(
-        `${BACKEND_URL}/Addresses/${userInfo.id}`,
-        addresses
-      );
+      // const response = await axios.post(
+      //   `${BACKEND_URL}/Addresses/${userInfo.id}`,
+      //   addresses
+      // );
       setSuccess("Address Submitted Successfully");
       navigate("/page-account");
     } catch (e) {

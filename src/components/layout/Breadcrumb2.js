@@ -1,8 +1,8 @@
-import React from "react";
-import { Link, useParams } from "react-router-dom";
+import React from 'react'
+import { Link, useParams } from 'react-router-dom'
 
-const Breadcrumb2 = ({ parent, sub, subChild, noBreadcrumb }) => {
-  const { cat: titlex } = useParams();
+const Breadcrumb2 = () => {
+  const { cat: titlex } = useParams()
   return (
     <>
       <div className="page-header mt-30 mb-50">
@@ -11,7 +11,7 @@ const Breadcrumb2 = ({ parent, sub, subChild, noBreadcrumb }) => {
             <div className="row align-items-center">
               <div className="col-xl-3">
                 <h1 className="mb-15 text-capitalize">
-                  {titlex ? titlex : "Category"}
+                  {titlex ? titlex : 'Category'}
                 </h1>
                 <div className="breadcrumb">
                   <Link to="/">
@@ -25,7 +25,7 @@ const Breadcrumb2 = ({ parent, sub, subChild, noBreadcrumb }) => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Breadcrumb2;
+export default Breadcrumb2

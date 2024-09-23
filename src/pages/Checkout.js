@@ -1,83 +1,76 @@
-import { useState, useEffect } from "react";
-import { connect, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import Layout from "../components/layout/Layout";
+import { useState, useEffect } from 'react'
+import { connect, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import Layout from '../components/layout/Layout'
 import {
   clearCart,
   decreaseQuantity,
   deleteFromCart,
   increaseQuantity,
-} from "../redux/action/cart";
-import { PaymentElement } from "@stripe/react-stripe-js";
-import { BACKEND_URL } from "../config";
-import axios from "axios";
-import { useStripe, useElements } from "@stripe/react-stripe-js";
+} from '../redux/action/cart'
+import { PaymentElement } from '@stripe/react-stripe-js'
+import { BACKEND_URL } from '../config'
+import axios from 'axios'
+import { useStripe, useElements } from '@stripe/react-stripe-js'
 
-const Cart = ({
-  cartItems,
-  activeCart,
-  increaseQuantity,
-  decreaseQuantity,
-  deleteFromCart,
-  clearCart,
-}) => {
-  const navigate = useNavigate();
-  const userLogin = useSelector((state) => state.auth);
-  const { userInfo } = userLogin;
-  const shippingCost = 10;
-  const stripe = useStripe();
-  const elements = useElements();
+const Cart = ({ cartItems }) => {
+  const navigate = useNavigate()
+  const userLogin = useSelector((state) => state.auth)
+  const { userInfo } = userLogin
+  const shippingCost = 10
+  const stripe = useStripe()
+  const elements = useElements()
 
   useEffect(() => {
     if (!userInfo) {
-      navigate("/page-login");
+      navigate('/page-login')
     }
-  }, [userInfo]);
+  }, [userInfo])
 
   const price = () => {
-    let price = 0;
+    let price = 0
     cartItems.forEach(
-      (item) => (price += item.price["$numberDecimal"] * item.quantity)
-    );
+      (item) => (price += item.price['$numberDecimal'] * item.quantity)
+    )
 
-    return parseFloat((price + shippingCost).toFixed(2));
-  };
+    return parseFloat((price + shippingCost).toFixed(2))
+  }
 
-  const [message, setMessage] = useState(null);
-  const [isProcessing, setIsProcessing] = useState(false);
+  const [message, setMessage] = useState(null)
+  const [isProcessing, setIsProcessing] = useState(false)
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     if (!stripe || !elements) {
       // Stripe.js has not yet loaded.
       // Make sure to disable form submission until Stripe.js has loaded.
-      return;
+      return
     }
 
-    setIsProcessing(true);
+    setIsProcessing(true)
     const { data: orderData } = await axios.post(
       `${BACKEND_URL}/orders/${userInfo.id}`,
-      { shipmentStatus: "pending" }
-    );
+      { shipmentStatus: 'pending' }
+    )
 
-    const orderId = orderData.data["_id"];
+    const orderId = orderData.data['_id']
 
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
         return_url: `${window.location.origin}/orders/${orderId}`,
       },
-    });
+    })
 
-    if (error.type === "card_error" || error.type === "validation_error") {
-      setMessage(error.message);
+    if (error.type === 'card_error' || error.type === 'validation_error') {
+      setMessage(error.message)
     } else {
-      setMessage("An unexpected error occured.");
+      setMessage('An unexpected error occured.')
     }
 
-    setIsProcessing(false);
-  };
+    setIsProcessing(false)
+  }
 
   return (
     <>
@@ -106,7 +99,7 @@ const Cart = ({
                     className="btn btn-fill-out btn-block mt-30"
                   >
                     <span id="button-text">
-                      {isProcessing ? "Processing ... " : "Pay now"}
+                      {isProcessing ? 'Processing ... ' : 'Pay now'}
                     </span>
                   </button>
 
@@ -121,10 +114,10 @@ const Cart = ({
                   </div>
                   <div className="divider-2 mb-30"></div>
                   <div className="table-responsive order_table">
-                    {cartItems.length <= 0 && "No Products"}
+                    {cartItems.length <= 0 && 'No Products'}
                     <table
                       className={
-                        cartItems.length > 0 ? "table no-border" : "d-none"
+                        cartItems.length > 0 ? 'table no-border' : 'd-none'
                       }
                     >
                       <tbody>
@@ -143,7 +136,7 @@ const Cart = ({
                                 </a>
                                 <div className="product-rate-cover">
                                   {[...Array(5)].map((star, index) => {
-                                    const currentRating = index + 1;
+                                    const currentRating = index + 1
 
                                     return (
                                       <span
@@ -152,22 +145,22 @@ const Cart = ({
                                           color:
                                             currentRating <=
                                             Math.round(item.averageRating)
-                                              ? "#ffc107"
-                                              : "#e4e5e9",
-                                          fontSize: "1rem",
-                                          margin: "1px",
+                                              ? '#ffc107'
+                                              : '#e4e5e9',
+                                          fontSize: '1rem',
+                                          margin: '1px',
                                         }}
                                       >
                                         &#9733;
                                       </span>
-                                    );
+                                    )
                                   })}
                                   <span className="font-small ml-5 text-muted">
-                                    {" "}
+                                    {' '}
                                     ({Math.round(item.averageRating * 10) / 10})
                                   </span>
                                 </div>
-                              </h6>{" "}
+                              </h6>{' '}
                             </td>
                             <td>
                               <h6 className="text-muted pl-20 pr-20">
@@ -176,7 +169,7 @@ const Cart = ({
                             </td>
                             <td>
                               <h4 className="text-brand">
-                                ${item.quantity * item.price["$numberDecimal"]}
+                                ${item.quantity * item.price['$numberDecimal']}
                               </h4>
                             </td>
                           </tr>
@@ -193,7 +186,7 @@ const Cart = ({
                   <div className="payment_method">
                     <div
                       className="payment_option"
-                      style={{ marginBottom: "30px" }}
+                      style={{ marginBottom: '30px' }}
                     >
                       <div className="payment-logo d-flex">
                         <img
@@ -221,19 +214,19 @@ const Cart = ({
         </section>
       </Layout>
     </>
-  );
-};
+  )
+}
 
 const mapStateToProps = (state) => ({
   cartItems: state.cart,
   activeCart: state.counter,
-});
+})
 
 const mapDispatchToProps = {
   increaseQuantity,
   decreaseQuantity,
   deleteFromCart,
   clearCart,
-};
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default connect(mapStateToProps, mapDispatchToProps)(Cart)

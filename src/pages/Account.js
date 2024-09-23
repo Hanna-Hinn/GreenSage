@@ -742,7 +742,7 @@ function Account() {
                                         firstName: e.target.value,
                                       });
                                       setError((curr) => {
-                                        const { firstName, ...rest } = curr;
+                                        const {  ...rest } = curr;
                                         return rest;
                                       });
                                     }}
@@ -769,7 +769,7 @@ function Account() {
                                         lastName: e.target.value,
                                       });
                                       setError((curr) => {
-                                        const { lastName, ...rest } = curr;
+                                        const {  ...rest } = curr;
                                         return rest;
                                       });
                                     }}
@@ -798,7 +798,7 @@ function Account() {
                                       email: e.target.value,
                                     });
                                     setError((curr) => {
-                                      const { email, ...rest } = curr;
+                                      const {  ...rest } = curr;
                                       return rest;
                                     });
                                   }}
@@ -826,7 +826,7 @@ function Account() {
                                       mobile: e.target.value,
                                     });
                                     setError((curr) => {
-                                      const { mobile, ...rest } = curr;
+                                      const {  ...rest } = curr;
                                       return rest;
                                     });
                                   }}
@@ -854,7 +854,7 @@ function Account() {
                                       imageUrl: e.target.value,
                                     });
                                     setError((curr) => {
-                                      const { imageUrl, ...rest } = curr;
+                                      const {  ...rest } = curr;
                                       return rest;
                                     });
                                   }}
@@ -881,7 +881,7 @@ function Account() {
                                       password: e.target.value,
                                     });
                                     setError((curr) => {
-                                      const { password, ...rest } = curr;
+                                      const {  ...rest } = curr;
                                       return rest;
                                     });
                                   }}
@@ -908,7 +908,7 @@ function Account() {
                                       confirmPassword: e.target.value,
                                     });
                                     setError((curr) => {
-                                      const { confirmPassword, ...rest } = curr;
+                                      const {  ...rest } = curr;
                                       return rest;
                                     });
                                   }}

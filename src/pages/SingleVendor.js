@@ -1,53 +1,53 @@
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import Pagination from "../components/ecommerce/Pagination";
-import SingleProduct from "../components/ecommerce/SingleProduct";
-import Layout from "../components/layout/Layout";
-import { fetchProduct } from "../redux/action/product";
-import axios from "axios";
-import { BACKEND_URL } from "../config";
+import { useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { connect } from 'react-redux'
+import Pagination from '../components/ecommerce/Pagination'
+import SingleProduct from '../components/ecommerce/SingleProduct'
+import Layout from '../components/layout/Layout'
+import { fetchProduct } from '../redux/action/product'
+import axios from 'axios'
+import { BACKEND_URL } from '../config'
 
-const Products = ({ products, productFilters, fetchProduct }) => {
-  const [data, setData] = useState({ owner: {}, products: [] });
-  const [storeAddress, setStoreAddress] = useState("");
-  let [pages, setPages] = useState(1);
-  let [currentPage, setCurrentPage] = useState(1);
+const Products = () => {
+  const [data, setData] = useState({ owner: {}, products: [] })
+  const [storeAddress, setStoreAddress] = useState('')
+  let [pages, setPages] = useState(1)
+  let [currentPage, setCurrentPage] = useState(1)
 
-  const { id } = useParams();
+  const { id } = useParams()
 
   useEffect(() => {
     getData()
       .then((data) => {
-        setData(data);
-        const address = data.owner.addresses[0];
+        setData(data)
+        const address = data.owner.addresses[0]
 
         setStoreAddress(
           `${address.street}, ${address.city} ${address.postalCode}, ${address.state}  `
-        );
-        setPages(data.totalPages);
+        )
+        setPages(data.totalPages)
       })
-      .catch((error) => {});
-  }, [currentPage]);
+      .catch(() => {})
+  }, [currentPage])
 
   const getData = async () => {
     const response = await axios.get(
       `${BACKEND_URL}/owners/${id}/v1/query?pageNumber=${currentPage}`
-    );
-    return response.data.data;
-  };
+    )
+    return response.data.data
+  }
 
   const next = () => {
-    setCurrentPage((page) => page + 1);
-  };
+    setCurrentPage((page) => page + 1)
+  }
 
   const prev = () => {
-    setCurrentPage((page) => page - 1);
-  };
+    setCurrentPage((page) => page - 1)
+  }
 
   const handleActive = (item) => {
-    setCurrentPage(item);
-  };
+    setCurrentPage(item)
+  }
 
   return (
     <>
@@ -59,10 +59,10 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                 <div className="shop-product-fillter">
                   <div className="totall-product">
                     <p>
-                      We found{" "}
+                      We found{' '}
                       <strong className="text-brand">
                         {data ? data.totalProducts : 0}
-                      </strong>{" "}
+                      </strong>{' '}
                       items for you!
                     </p>
                   </div>
@@ -161,7 +161,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                                 src="/assets/imgs/theme/icons/icon-location.svg"
                                 alt="location"
                               />
-                              <strong>Address: </strong>{" "}
+                              <strong>Address: </strong>{' '}
                               <span>
                                 {data.owner.addresses && storeAddress}
                               </span>
@@ -200,18 +200,18 @@ const Products = ({ products, productFilters, fetchProduct }) => {
         </section>
       </Layout>
     </>
-  );
-};
+  )
+}
 
 const mapStateToProps = (state) => ({
   products: state.products,
   productFilters: state.productFilters,
-});
+})
 
 const mapDidpatchToProps = {
   // openCart,
   fetchProduct,
   // fetchMoreProduct,
-};
+}
 
-export default connect(mapStateToProps, mapDidpatchToProps)(Products);
+export default connect(mapStateToProps, mapDidpatchToProps)(Products)

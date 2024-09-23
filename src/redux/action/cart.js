@@ -18,7 +18,7 @@ export const addToCart =
         .post(url, {
           quantity,
         })
-        .then(async ({ data }) => {
+        .then(async () => {
           const { data: cartData } = await axios.get(
             `${BACKEND_URL}/carts/${user.id}`
           );
@@ -46,7 +46,7 @@ export const deleteFromCart = (productId) => (dispatch) => {
   if (user) {
     axios
       .delete(`${BACKEND_URL}/carts/${user.id}/products/${productId}`)
-      .then(async ({ data }) => {
+      .then(async () => {
         const { data: cartData } = await axios.get(
           `${BACKEND_URL}/carts/${user.id}`
         );
@@ -112,7 +112,7 @@ export const decreaseQuantity = (productId) => (dispatch) => {
   if (user) {
     axios
       .delete(`${BACKEND_URL}/carts/${user.id}/items/${productId}`)
-      .then(async ({ data }) => {
+      .then(async () => {
         const { data: cartData } = await axios.get(
           `${BACKEND_URL}/carts/${user.id}`
         );
@@ -144,7 +144,7 @@ export const clearCart = () => (dispatch) => {
   if (user) {
     axios
       .delete(`${BACKEND_URL}/carts/${user.id}`)
-      .then(async ({ data }) => {
+      .then(async () => {
         await axios.get(`${BACKEND_URL}/carts/${user.id}`);
         dispatch({
           type: Types.CLEAR_CART,

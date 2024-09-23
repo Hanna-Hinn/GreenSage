@@ -1,191 +1,191 @@
-import { Link, useNavigate } from "react-router-dom";
-import React, { useState, useEffect } from "react";
-import Layout from "../components/layout/Layout";
-import { BACKEND_URL } from "../config/index";
-import { useDispatch, useSelector } from "react-redux";
-import { registerSuccess } from "../redux/action/auth";
-import axios from "axios";
-import { toast } from "react-toastify";
+import { Link, useNavigate } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import Layout from '../components/layout/Layout'
+import { BACKEND_URL } from '../config/index'
+import { useDispatch, useSelector } from 'react-redux'
+import { registerSuccess } from '../redux/action/auth'
+import axios from 'axios'
+import { toast } from 'react-toastify'
 
 function Register() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [securityCode, setSecurityCode] = useState("");
-  const [isCustomer, setIsCustomer] = useState(true);
-  const [agree, setAgree] = useState(false);
-  const [error, setError] = useState({});
-  const [addresses, setAddresses] = useState();
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const [securityCode, setSecurityCode] = useState('')
+  const [isCustomer, setIsCustomer] = useState(true)
+  const [agree, setAgree] = useState(false)
+  const [error, setError] = useState({})
+  const [addresses, setAddresses] = useState()
   const mineralsArray = [
-    "vitaminD",
-    "iron",
-    "vitaminB12",
-    "calcium",
-    "omega3",
-    "iodine",
-    "vitaminC",
-    "folate",
-    "magnesium",
-    "zinc",
-    "others",
-  ];
-  const [formData, setFormData] = useState({});
-  const userLogin = useSelector((state) => state.auth);
-  const { userInfo } = userLogin;
+    'vitaminD',
+    'iron',
+    'vitaminB12',
+    'calcium',
+    'omega3',
+    'iodine',
+    'vitaminC',
+    'folate',
+    'magnesium',
+    'zinc',
+    'others',
+  ]
+  const [formData, setFormData] = useState({})
+  const userLogin = useSelector((state) => state.auth)
+  const { userInfo } = userLogin
 
   useEffect(() => {
     if (userInfo) {
-      navigate("/page-account");
+      navigate('/page-account')
     }
-  }, [userInfo]);
+  }, [userInfo])
 
   const handleMineralChange = (e) => {
-    const { value, checked } = e.target;
+    const { value, checked } = e.target
 
-    if (e.target.type === "text") {
+    if (e.target.type === 'text') {
       setFormData((prev) => {
         return {
           ...prev,
           healthStatus: { ...prev.healthStatus, others: value },
-        };
-      });
+        }
+      })
     } else {
       setFormData((prev) => {
         return {
           ...prev,
           healthStatus: { ...prev.healthStatus, [value]: checked },
-        };
-      });
+        }
+      })
     }
-  };
+  }
 
   const handleRadioChange = () => {
-    setIsCustomer(!isCustomer);
-  };
+    setIsCustomer(!isCustomer)
+  }
 
-  const handleCheckboxChange = (event) => {
-    setAgree(!agree);
+  const handleCheckboxChange = () => {
+    setAgree(!agree)
     setError((curr) => {
-      const { agree, ...rest } = curr;
-      return rest;
-    });
-  };
+      const { ...rest } = curr
+      return rest
+    })
+  }
 
   const handleSubmit = async () => {
-    const isValid = validateInputs();
+    const isValid = validateInputs()
     if (!isValid) {
-      return;
+      return
     }
 
     if (!isCustomer) {
-      setFormData(delete formData.healthStatus);
+      setFormData(delete formData.healthStatus)
     }
-    const user = formData;
+    const user = formData
 
-    let url = `${BACKEND_URL}/register`;
+    let url = `${BACKEND_URL}/register`
     if (!isCustomer) {
-      url = `${BACKEND_URL}/users`;
+      url = `${BACKEND_URL}/users`
     }
     try {
-      const response = await axios.post(url, user);
-      const data = response.data.data;
-      dispatch(registerSuccess(data));
-      toast("Please Login to proceed !");
-      navigate("/page-login");
+      const response = await axios.post(url, user)
+      const data = response.data.data
+      dispatch(registerSuccess(data))
+      toast('Please Login to proceed !')
+      navigate('/page-login')
     } catch (error) {
       setError({
         ...error,
         responseError: error.message
           ? error.message
-          : "Something Went Wrong!!!",
-      });
+          : 'Something Went Wrong!!!',
+      })
     }
-  };
+  }
 
   const validateInputs = () => {
-    const firstName = formData["firstName"];
-    const lastName = formData["lastName"];
-    const email = formData["email"];
-    const mobile = formData["mobile"];
-    const imageUrl = formData["imageUrl"];
-    const password = formData["password"];
-    const confirmPassword = formData["confirmPassword"];
-    const confirmCode = formData["securityCode"];
+    const firstName = formData['firstName']
+    const lastName = formData['lastName']
+    const email = formData['email']
+    const mobile = formData['mobile']
+    const imageUrl = formData['imageUrl']
+    const password = formData['password']
+    const confirmPassword = formData['confirmPassword']
+    const confirmCode = formData['securityCode']
 
-    if (!firstName || firstName.trim() === "") {
-      setError({ ...error, firstName: "First name is required!!!" });
-      return false;
+    if (!firstName || firstName.trim() === '') {
+      setError({ ...error, firstName: 'First name is required!!!' })
+      return false
     }
-    if (!lastName || lastName.trim() === "") {
-      setError({ ...error, lastName: "Last name is required!!!" });
-      return false;
+    if (!lastName || lastName.trim() === '') {
+      setError({ ...error, lastName: 'Last name is required!!!' })
+      return false
     }
-    if (!email || email.trim() === "" || !validateEmail(email)) {
-      setError({ ...error, email: "Entered Email not Valid!!!" });
-      return false;
+    if (!email || email.trim() === '' || !validateEmail(email)) {
+      setError({ ...error, email: 'Entered Email not Valid!!!' })
+      return false
     }
-    if (!mobile || mobile.trim() === "" || !validateMobile(mobile)) {
-      setError({ ...error, mobile: "Entered Mobile number not Valid!!!" });
-      return false;
+    if (!mobile || mobile.trim() === '' || !validateMobile(mobile)) {
+      setError({ ...error, mobile: 'Entered Mobile number not Valid!!!' })
+      return false
     }
-    if (!imageUrl || imageUrl.trim() === "" || !validateImageUrl(imageUrl)) {
-      setError({ ...error, imageUrl: "Entered Image URL not Valid!!!" });
-      return false;
+    if (!imageUrl || imageUrl.trim() === '' || !validateImageUrl(imageUrl)) {
+      setError({ ...error, imageUrl: 'Entered Image URL not Valid!!!' })
+      return false
     }
-    if (!password || password.trim() === "" || password.length < 8) {
+    if (!password || password.trim() === '' || password.length < 8) {
       setError({
         ...error,
-        password: "Password Length Must be more than 8 characters!!!",
-      });
-      return false;
+        password: 'Password Length Must be more than 8 characters!!!',
+      })
+      return false
     }
     if (confirmPassword !== password) {
       setError({
         ...error,
-        confirmPassword: "Confirm Password Does not Match!!!",
-      });
-      return false;
+        confirmPassword: 'Confirm Password Does not Match!!!',
+      })
+      return false
     }
 
     if (confirmCode !== securityCode) {
-      setError({ ...error, securityCode: "Security Code does not Match!!!" });
-      return false;
+      setError({ ...error, securityCode: 'Security Code does not Match!!!' })
+      return false
     }
     if (!agree) {
       setError({
         ...error,
-        agree: "Please Agree terms to Continue!!!",
-      });
-      return false;
+        agree: 'Please Agree terms to Continue!!!',
+      })
+      return false
     }
-    return true;
-  };
+    return true
+  }
 
   function validateEmail(email) {
     const emailRegex =
-      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    return emailRegex.test(String(email).toLowerCase());
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+    return emailRegex.test(String(email).toLowerCase())
   }
 
   function validateMobile(mobile) {
-    const mobileRegex = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]*$/;
-    return mobileRegex.test(mobile);
+    const mobileRegex = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]*$/
+    return mobileRegex.test(mobile)
   }
 
   function validateImageUrl(url) {
-    const imageUrlRegex = /^https?:\/\/.*\.(?:png|jpg|jpeg|gif|svg)$/i;
-    return imageUrlRegex.test(url);
+    const imageUrlRegex = /^https?:\/\/.*\.(?:png|jpg|jpeg|gif|svg)$/i
+    return imageUrlRegex.test(url)
   }
 
   useEffect(() => {
     const generateCode = () => {
       const randomDigits = Array(4)
         .fill()
-        .map(() => Math.floor(Math.random() * 10));
-      setSecurityCode(randomDigits.join(""));
-    };
+        .map(() => Math.floor(Math.random() * 10))
+      setSecurityCode(randomDigits.join(''))
+    }
 
-    generateCode();
-  }, []);
+    generateCode()
+  }, [])
 
   return (
     <>
@@ -201,12 +201,12 @@ function Register() {
                         <div className="heading_s1 mb-50">
                           <h1 className="mb-5">Create an Account</h1>
                           <p>
-                            Already have an account?{" "}
+                            Already have an account?{' '}
                             <Link to="/page-login">Log in instead!</Link>
                           </p>
                         </div>
                         <form onSubmit={(e) => e.preventDefault()}>
-                          <div style={{ display: "flex", gap: "10px" }}>
+                          <div style={{ display: 'flex', gap: '10px' }}>
                             <div className="form-group">
                               <input
                                 type="text"
@@ -217,18 +217,18 @@ function Register() {
                                   setFormData({
                                     ...formData,
                                     firstName: e.target.value,
-                                  });
+                                  })
                                   setError((curr) => {
-                                    const { firstName, ...rest } = curr;
-                                    return rest;
-                                  });
+                                    const { ...rest } = curr
+                                    return rest
+                                  })
                                 }}
                               />
                             </div>
                             {error.firstName && (
                               <>
                                 <br />
-                                <span style={{ color: "red" }}>
+                                <span style={{ color: 'red' }}>
                                   {error.firstName}
                                 </span>
                               </>
@@ -243,18 +243,18 @@ function Register() {
                                   setFormData({
                                     ...formData,
                                     lastName: e.target.value,
-                                  });
+                                  })
                                   setError((curr) => {
-                                    const { lastName, ...rest } = curr;
-                                    return rest;
-                                  });
+                                    const { ...rest } = curr
+                                    return rest
+                                  })
                                 }}
                               />
                             </div>
                             {error.lastName && (
                               <>
                                 <br />
-                                <span style={{ color: "red" }}>
+                                <span style={{ color: 'red' }}>
                                   {error.lastName}
                                 </span>
                               </>
@@ -271,17 +271,17 @@ function Register() {
                                 setFormData({
                                   ...formData,
                                   email: e.target.value,
-                                });
+                                })
                                 setError((curr) => {
-                                  const { email, ...rest } = curr;
-                                  return rest;
-                                });
+                                  const { ...rest } = curr
+                                  return rest
+                                })
                               }}
                             />
                             {error.email && (
                               <>
                                 <br />
-                                <span style={{ color: "red" }}>
+                                <span style={{ color: 'red' }}>
                                   {error.email}
                                 </span>
                               </>
@@ -298,17 +298,17 @@ function Register() {
                                 setFormData({
                                   ...formData,
                                   mobile: e.target.value,
-                                });
+                                })
                                 setError((curr) => {
-                                  const { mobile, ...rest } = curr;
-                                  return rest;
-                                });
+                                  const { ...rest } = curr
+                                  return rest
+                                })
                               }}
                             />
                             {error.mobile && (
                               <>
                                 <br />
-                                <span style={{ color: "red" }}>
+                                <span style={{ color: 'red' }}>
                                   {error.mobile}
                                 </span>
                               </>
@@ -325,17 +325,17 @@ function Register() {
                                 setFormData({
                                   ...formData,
                                   imageUrl: e.target.value,
-                                });
+                                })
                                 setError((curr) => {
-                                  const { imageUrl, ...rest } = curr;
-                                  return rest;
-                                });
+                                  const { ...rest } = curr
+                                  return rest
+                                })
                               }}
                             />
                             {error.imageUrl && (
                               <>
                                 <br />
-                                <span style={{ color: "red" }}>
+                                <span style={{ color: 'red' }}>
                                   {error.imageUrl}
                                 </span>
                               </>
@@ -352,17 +352,17 @@ function Register() {
                                 setFormData({
                                   ...formData,
                                   password: e.target.value,
-                                });
+                                })
                                 setError((curr) => {
-                                  const { password, ...rest } = curr;
-                                  return rest;
-                                });
+                                  const { ...rest } = curr
+                                  return rest
+                                })
                               }}
                             />
                             {error.password && (
                               <>
                                 <br />
-                                <span style={{ color: "red" }}>
+                                <span style={{ color: 'red' }}>
                                   {error.password}
                                 </span>
                               </>
@@ -379,17 +379,17 @@ function Register() {
                                 setFormData({
                                   ...formData,
                                   confirmPassword: e.target.value,
-                                });
+                                })
                                 setError((curr) => {
-                                  const { confirmPassword, ...rest } = curr;
-                                  return rest;
-                                });
+                                  const { ...rest } = curr
+                                  return rest
+                                })
                               }}
                             />
                             {error.confirmPassword && (
                               <>
                                 <br />
-                                <span style={{ color: "red" }}>
+                                <span style={{ color: 'red' }}>
                                   {error.confirmPassword}
                                 </span>
                               </>
@@ -406,7 +406,7 @@ function Register() {
                                   setFormData({
                                     ...formData,
                                     description: e.target.value,
-                                  });
+                                  })
                                 }}
                               />
                             </div>
@@ -417,9 +417,9 @@ function Register() {
                           </label>
                           <div
                             style={{
-                              display: "flex",
-                              gap: "5px",
-                              flexWrap: "wrap",
+                              display: 'flex',
+                              gap: '5px',
+                              flexWrap: 'wrap',
                             }}
                           >
                             <div className="form-group">
@@ -432,11 +432,11 @@ function Register() {
                                   setAddresses({
                                     ...addresses,
                                     street: e.target.value,
-                                  });
+                                  })
                                   setFormData({
                                     ...formData,
                                     addresses: [{ ...addresses }],
-                                  });
+                                  })
                                 }}
                               />
                             </div>
@@ -451,11 +451,11 @@ function Register() {
                                   setAddresses({
                                     ...addresses,
                                     postalCode: e.target.value,
-                                  });
+                                  })
                                   setFormData({
                                     ...formData,
                                     addresses: [{ ...addresses }],
-                                  });
+                                  })
                                 }}
                               />
                             </div>
@@ -470,11 +470,11 @@ function Register() {
                                   setAddresses({
                                     ...addresses,
                                     state: e.target.value,
-                                  });
+                                  })
                                   setFormData({
                                     ...formData,
                                     addresses: [{ ...addresses }],
-                                  });
+                                  })
                                 }}
                               />
                             </div>
@@ -489,11 +489,11 @@ function Register() {
                                   setAddresses({
                                     ...addresses,
                                     city: e.target.value,
-                                  });
+                                  })
                                   setFormData({
                                     ...formData,
                                     addresses: [{ ...addresses }],
-                                  });
+                                  })
                                 }}
                               />
                             </div>
@@ -517,17 +517,17 @@ function Register() {
                                       onChange={(e) => handleMineralChange(e)}
                                     />
                                     <label
-                                      style={{ paddingLeft: "5px" }}
+                                      style={{ paddingLeft: '5px' }}
                                       className="form-check-label"
                                       htmlFor={key}
                                     >
                                       {key}
                                     </label>
-                                    {key === "others" && (
+                                    {key === 'others' && (
                                       <>
                                         <br />
                                         <label
-                                          style={{ paddingLeft: "5px" }}
+                                          style={{ paddingLeft: '5px' }}
                                           className="form-check-label"
                                           htmlFor={key}
                                         >
@@ -545,7 +545,7 @@ function Register() {
                                       </>
                                     )}
                                   </div>
-                                );
+                                )
                               })}
                             </div>
                           )}
@@ -561,29 +561,29 @@ function Register() {
                                   setFormData({
                                     ...formData,
                                     securityCode: e.target.value,
-                                  });
+                                  })
                                   setError((curr) => {
-                                    const { securityCode, ...rest } = curr;
-                                    return rest;
-                                  });
+                                    const { ...rest } = curr
+                                    return rest
+                                  })
                                 }}
                               />
                             </div>
                             {error.securityCode && (
                               <>
                                 <br />
-                                <span style={{ color: "red" }}>
+                                <span style={{ color: 'red' }}>
                                   {error.securityCode}
                                 </span>
                               </>
                             )}
 
                             <span className="security-code">
-                              {securityCode.split("").map((digit, index) => (
+                              {securityCode.split('').map((digit, index) => (
                                 <b
                                   key={index}
                                   className={`text-${
-                                    ["new", "hot", "sale", "best"][index]
+                                    ['new', 'hot', 'sale', 'best'][index]
                                   }`}
                                 >
                                   {digit}
@@ -654,7 +654,7 @@ function Register() {
                                 {error.agree && (
                                   <>
                                     <br />
-                                    <span style={{ color: "red" }}>
+                                    <span style={{ color: 'red' }}>
                                       {error.agree}
                                     </span>
                                   </>
@@ -673,7 +673,7 @@ function Register() {
                           </div>
                         </form>
                         {!error.responseError && (
-                          <p style={{ color: "red" }}>{error.responseError}</p>
+                          <p style={{ color: 'red' }}>{error.responseError}</p>
                         )}
                       </div>
                     </div>
@@ -685,7 +685,7 @@ function Register() {
         </div>
       </Layout>
     </>
-  );
+  )
 }
 
-export default Register;
+export default Register

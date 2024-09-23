@@ -1,14 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { connect } from "react-redux";
-import Layout from "../components/layout/Layout";
+import { connect } from 'react-redux'
+import Layout from '../components/layout/Layout'
 
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom'
 import {
   clearCart,
   decreaseQuantity,
   deleteFromCart,
   increaseQuantity,
-} from "../redux/action/cart";
+} from '../redux/action/cart'
 
 const Cart = ({
   cartItems,
@@ -17,21 +17,21 @@ const Cart = ({
   deleteFromCart,
   clearCart,
 }) => {
-  const shippingCost = 10;
+  const shippingCost = 10
 
   const price = () => {
-    let price = 0;
+    let price = 0
     cartItems.forEach(
-      (item) => (price += item.price["$numberDecimal"] * item.quantity)
-    );
+      (item) => (price += item.price['$numberDecimal'] * item.quantity)
+    )
 
-    return price;
-  };
+    return price
+  }
 
   function calTotal() {
-    let total = price() + shippingCost;
+    let total = price() + shippingCost
 
-    return parseFloat(total.toFixed(2));
+    return parseFloat(total.toFixed(2))
   }
 
   return (
@@ -52,10 +52,10 @@ const Cart = ({
             <div className="row">
               <div className="col-lg-8">
                 <div className="table-responsive shopping-summery">
-                  {cartItems.length <= 0 && "No Products"}
+                  {cartItems.length <= 0 && 'No Products'}
                   <table
                     className={
-                      cartItems.length > 0 ? "table table-wishlist" : "d-none"
+                      cartItems.length > 0 ? 'table table-wishlist' : 'd-none'
                     }
                   >
                     <thead>
@@ -83,13 +83,13 @@ const Cart = ({
 
                           <td className="product-des product-name">
                             <h6 className="product-name">
-                              <Link to={`/products/${item["_id"]}`}>
+                              <Link to={`/products/${item['_id']}`}>
                                 {item.productName}
                               </Link>
                             </h6>
                             <div className="product-rate-cover">
                               {[...Array(5)].map((star, index) => {
-                                const currentRating = index + 1;
+                                const currentRating = index + 1
 
                                 return (
                                   <span
@@ -98,25 +98,25 @@ const Cart = ({
                                       color:
                                         currentRating <=
                                         Math.round(item.averageRating)
-                                          ? "#ffc107"
-                                          : "#e4e5e9",
-                                      fontSize: "1rem",
-                                      margin: "1px",
+                                          ? '#ffc107'
+                                          : '#e4e5e9',
+                                      fontSize: '1rem',
+                                      margin: '1px',
                                     }}
                                   >
                                     &#9733;
                                   </span>
-                                );
+                                )
                               })}
                               <span className="font-small ml-5 text-muted">
-                                {" "}
+                                {' '}
                                 ({Math.round(item.averageRating * 10) / 10})
                               </span>
                             </div>
                           </td>
                           <td className="price" data-title="Price">
                             <h4 className="text-brand">
-                              ${item.price["$numberDecimal"]}
+                              ${item.price['$numberDecimal']}
                             </h4>
                           </td>
                           <td
@@ -126,7 +126,7 @@ const Cart = ({
                             <div className="detail-extralink mr-15">
                               <div className="detail-qty border radius ">
                                 <a
-                                  onClick={(e) =>
+                                  onClick={() =>
                                     decreaseQuantity(item.productId)
                                   }
                                   className="qty-down"
@@ -135,11 +135,11 @@ const Cart = ({
                                 </a>
                                 <span className="qty-val">{item.quantity}</span>
                                 <a
-                                  onClick={(e) => {
+                                  onClick={() => {
                                     increaseQuantity(
                                       item.productId,
                                       item.quantity
-                                    );
+                                    )
                                   }}
                                   className="qty-up"
                                 >
@@ -150,12 +150,12 @@ const Cart = ({
                           </td>
                           <td className="text-right" data-title="Cart">
                             <h4 className="text-body">
-                              ${item.quantity * item.price["$numberDecimal"]}
+                              ${item.quantity * item.price['$numberDecimal']}
                             </h4>
                           </td>
                           <td className="action" data-title="Remove">
                             <a
-                              onClick={(e) => deleteFromCart(item.productId)}
+                              onClick={() => deleteFromCart(item.productId)}
                               className="text-muted"
                             >
                               <i className="fi-rs-trash"></i>
@@ -242,19 +242,19 @@ const Cart = ({
         </section>
       </Layout>
     </>
-  );
-};
+  )
+}
 
 const mapStateToProps = (state) => ({
   cartItems: state.cart,
   activeCart: state.counter,
-});
+})
 
 const mapDispatchToProps = {
   increaseQuantity,
   decreaseQuantity,
   deleteFromCart,
   clearCart,
-};
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default connect(mapStateToProps, mapDispatchToProps)(Cart)

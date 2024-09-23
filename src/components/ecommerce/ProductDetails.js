@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { useState } from "react";
-import { connect } from "react-redux";
-import { toast } from "react-toastify";
-import { addToCart } from "../../redux/action/cart";
-import { addToWishlist } from "../../redux/action/wishlistAction";
-import ProductTab from "../elements/ProductTab";
-import RelatedSlider from "../sliders/Related";
+import { useState } from 'react'
+import { connect } from 'react-redux'
+import { toast } from 'react-toastify'
+import { addToCart } from '../../redux/action/cart'
+import { addToWishlist } from '../../redux/action/wishlistAction'
+import ProductTab from '../elements/ProductTab'
+import RelatedSlider from '../sliders/Related'
 
 const ProductDetails = ({
   userInfo,
@@ -16,30 +16,30 @@ const ProductDetails = ({
   addToWishlist,
   relatedProducts,
 }) => {
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(1)
   const handleCart = (product) => {
     if (userInfo) {
-      addToCart(product, quantity);
-      toast("Product added to Cart !");
+      addToCart(product, quantity)
+      toast('Product added to Cart !')
     } else {
-      toast("Please Login to continue !");
+      toast('Please Login to continue !')
     }
-  };
+  }
 
   const handleWishlist = (product) => {
     if (userInfo) {
-      if (!wishList.find((item) => item.productId === product["_id"])) {
-        addToWishlist(product);
-        toast("Added to Wishlist !");
+      if (!wishList.find((item) => item.productId === product['_id'])) {
+        addToWishlist(product)
+        toast('Added to Wishlist !')
       } else {
-        toast("Already Added To WishList !");
+        toast('Already Added To WishList !')
       }
     } else {
-      toast("Please Login to continue !");
+      toast('Please Login to continue !')
     }
-  };
+  }
 
-  const inCart = cartItems.find((cartItem) => cartItem.id === product["_id"]);
+  const inCart = cartItems.find((cartItem) => cartItem.id === product['_id'])
 
   return (
     <>
@@ -66,7 +66,7 @@ const ProductDetails = ({
 
                       <div className="product-rate-cover">
                         {[...Array(5)].map((star, index) => {
-                          const currentRating = index + 1;
+                          const currentRating = index + 1
 
                           return (
                             <span
@@ -75,25 +75,25 @@ const ProductDetails = ({
                                 color:
                                   currentRating <=
                                   Math.round(product.averageRating)
-                                    ? "#ffc107"
-                                    : "#e4e5e9",
-                                fontSize: "1rem",
-                                margin: "1px",
+                                    ? '#ffc107'
+                                    : '#e4e5e9',
+                                fontSize: '1rem',
+                                margin: '1px',
                               }}
                             >
                               &#9733;
                             </span>
-                          );
+                          )
                         })}
                         <span className="font-small ml-5 text-muted">
-                          {" "}
+                          {' '}
                           ({Math.round(product.averageRating * 10) / 10})
                         </span>
                       </div>
                       <div className="clearfix product-price-cover">
                         <div className="product-price primary-color float-left">
                           <span className="current-price  text-brand">
-                            ${product.price["$numberDecimal"]}
+                            ${product.price['$numberDecimal']}
                           </span>
                         </div>
                       </div>
@@ -106,7 +106,7 @@ const ProductDetails = ({
                       <div className="detail-extralink">
                         <div className="detail-qty border radius">
                           <a
-                            onClick={(e) =>
+                            onClick={() =>
                               setQuantity(quantity > 1 ? quantity - 1 : 1)
                             }
                             className="qty-down"
@@ -125,7 +125,7 @@ const ProductDetails = ({
                         </div>
                         <div className="product-extra-link2">
                           <button
-                            onClick={(e) =>
+                            onClick={() =>
                               handleCart({
                                 ...product,
                                 quantity: quantity || 1,
@@ -138,7 +138,7 @@ const ProductDetails = ({
                           <a
                             aria-label="Add To Wishlist"
                             className="action-btn hover-up"
-                            onClick={(e) => handleWishlist(product)}
+                            onClick={() => handleWishlist(product)}
                           >
                             <i className="fi-rs-heart"></i>
                           </a>
@@ -158,7 +158,7 @@ const ProductDetails = ({
 
                 <>
                   <ProductTab
-                    productDetails={{ name: product.name, id: product["_id"] }}
+                    productDetails={{ name: product.name, id: product['_id'] }}
                     desc={product.description}
                     vendor={product.ownerDetails[0]}
                     ratingCount={product.ratingCount}
@@ -183,18 +183,18 @@ const ProductDetails = ({
         </div>
       </section>
     </>
-  );
-};
+  )
+}
 
 const mapStateToProps = (state) => ({
   userInfo: state.auth.userInfo,
   cartItems: state.cart,
   wishList: state.wishlist,
-});
+})
 
 const mapDispatchToProps = {
   addToWishlist,
   addToCart,
-};
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails)
