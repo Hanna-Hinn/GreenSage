@@ -1,62 +1,62 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Link, useLocation } from "react-router-dom";
-import React, { useEffect, useState } from "react";
-import { connect, useDispatch, useSelector } from "react-redux";
-import CategoryProduct2 from "../ecommerce/Filter/CategoryProduct2";
-import Search from "../ecommerce/Search";
-import { logout } from "../../redux/action/auth";
-import axios from "axios";
-import { BACKEND_URL } from "../../config";
+import { Link, useLocation } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { connect, useDispatch, useSelector } from 'react-redux'
+import CategoryProduct2 from '../ecommerce/Filter/CategoryProduct2'
+import Search from '../ecommerce/Search'
+import { logout } from '../../redux/action/auth'
+import axios from 'axios'
+import { BACKEND_URL } from '../../config'
 
 const Header = ({ user, totalCartItems, toggleClick, totalWishlistItems }) => {
-  const location = useLocation();
-  const dispatch = useDispatch();
-  const currentPathname = location.pathname;
-  const [isToggled, setToggled] = useState(false);
-  const [scroll, setScroll] = useState(0);
-  const [isOpen, setIsOpen] = useState(false);
-  const [notifications, setNotifications] = useState([]);
-  const userLogin = useSelector((state) => state.auth);
-  const { userInfo } = userLogin;
+  const location = useLocation()
+  const dispatch = useDispatch()
+  const currentPathname = location.pathname
+  const [isToggled, setToggled] = useState(false)
+  const [scroll, setScroll] = useState(0)
+  const [isOpen, setIsOpen] = useState(false)
+  const [notifications, setNotifications] = useState([])
+  const userLogin = useSelector((state) => state.auth)
+  const { userInfo } = userLogin
 
   useEffect(() => {
-    document.addEventListener("scroll", () => {
-      const scrollCheck = window.scrollY >= 100;
+    document.addEventListener('scroll', () => {
+      const scrollCheck = window.scrollY >= 100
       if (scrollCheck !== scroll) {
-        setScroll(scrollCheck);
+        setScroll(scrollCheck)
       }
-    });
+    })
     if (userInfo) {
-      fetchData();
+      fetchData()
     }
-  }, [userInfo]);
+  }, [userInfo])
 
   const fetchData = async () => {
     try {
       const { data } = await axios.get(
         `${BACKEND_URL}/products/${userInfo.id}/notifications`
-      );
+      )
       if (data.success) {
-        setNotifications(data.data);
+        setNotifications(data.data)
       } else {
-        setNotifications([]);
+        setNotifications([])
       }
     } catch (e) {
-      console.log(e);
+      console.log(e)
     }
-  };
+  }
 
   const handleToggle = () => {
-    setToggled(!isToggled);
-  };
+    setToggled(!isToggled)
+  }
 
   const logoutHandler = () => {
-    dispatch(logout());
-  };
+    dispatch(logout())
+  }
 
   const toggleNotifications = () => {
-    setIsOpen(!isOpen);
-  };
+    setIsOpen(!isOpen)
+  }
 
   return (
     <>
@@ -75,7 +75,7 @@ const Header = ({ user, totalCartItems, toggleClick, totalWishlistItems }) => {
                         <li>
                           <Link to="/page-account">My Account</Link>
                         </li>
-                        {user.userType !== "owner" && (
+                        {user.userType !== 'owner' && (
                           <>
                             <li>
                               <Link to="/shop-wishlist">Wishlist</Link>
@@ -97,7 +97,7 @@ const Header = ({ user, totalCartItems, toggleClick, totalWishlistItems }) => {
               <div className="col-xl-6 col-lg-4">
                 <div className="text-center">
                   <div id="news-flash" className="d-inline-block">
-                    Fresh Picks! Unbeatable Prices. Shop Now! 🌿🛒 #FreshDeals
+                    Fresh Picks! Unbeatable Prices. Shop Now! 🧅🛒 #FreshDeals
                     #GoGreen
                   </div>
                 </div>
@@ -105,7 +105,7 @@ const Header = ({ user, totalCartItems, toggleClick, totalWishlistItems }) => {
             </div>
           </div>
         </div>
-        <div className="header-middle header-middle-ptb-1 d-none d-lg-block">
+        <div className="header-middle d-none d-lg-block">
           <div className="container">
             <div className="header-wrap">
               <div className="logo logo-width-1">
@@ -119,7 +119,7 @@ const Header = ({ user, totalCartItems, toggleClick, totalWishlistItems }) => {
                 </div>
                 <div className="header-action-right">
                   <div className="header-action-2">
-                    {user && user.userType !== "owner" && (
+                    {user && user.userType !== 'owner' && (
                       <>
                         <div className="header-action-icon-2 notification-container">
                           <a
@@ -144,12 +144,12 @@ const Header = ({ user, totalCartItems, toggleClick, totalWishlistItems }) => {
                                 >
                                   <Link
                                     to={
-                                      notification.type === "Status updated"
+                                      notification.type === 'Status updated'
                                         ? `/orders/${notification.status.orderId}`
-                                        : `/products/${notification.productDetails["_id"]}`
+                                        : `/products/${notification.productDetails['_id']}`
                                     }
                                   >
-                                    {notification.msg}{" "}
+                                    {notification.msg}{' '}
                                   </Link>
                                 </li>
                               ))}
@@ -196,7 +196,7 @@ const Header = ({ user, totalCartItems, toggleClick, totalWishlistItems }) => {
                           src="/assets/imgs/theme/icons/icon-user.svg"
                         />
                       </Link>
-                      <Link to={!user ? "/page-login" : "/page-account"}>
+                      <Link to={!user ? '/page-login' : '/page-account'}>
                         <span className="lable ml-0">Account</span>
                       </Link>
                       <div className="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
@@ -242,8 +242,8 @@ const Header = ({ user, totalCartItems, toggleClick, totalWishlistItems }) => {
         <div
           className={
             scroll
-              ? "header-bottom header-bottom-bg-color sticky-bar stick"
-              : "header-bottom header-bottom-bg-color sticky-bar"
+              ? 'header-bottom header-bottom-bg-color sticky-bar stick'
+              : 'header-bottom header-bottom-bg-color sticky-bar'
           }
         >
           <div className="container">
@@ -267,8 +267,8 @@ const Header = ({ user, totalCartItems, toggleClick, totalWishlistItems }) => {
                   <div
                     className={
                       isToggled
-                        ? "categories-dropdown-wrap categories-dropdown-active-large font-heading open"
-                        : "categories-dropdown-wrap categories-dropdown-active-large font-heading"
+                        ? 'categories-dropdown-wrap categories-dropdown-active-large font-heading open'
+                        : 'categories-dropdown-wrap categories-dropdown-active-large font-heading'
                     }
                   >
                     <div className="d-flex categori-dropdown-inner">
@@ -282,7 +282,7 @@ const Header = ({ user, totalCartItems, toggleClick, totalWishlistItems }) => {
                       <li>
                         <Link
                           to="/"
-                          className={currentPathname === "/" ? "active" : ""}
+                          className={currentPathname === '/' ? 'active' : ''}
                         >
                           Home
                         </Link>
@@ -291,7 +291,7 @@ const Header = ({ user, totalCartItems, toggleClick, totalWishlistItems }) => {
                         <Link
                           to="/page-about"
                           className={
-                            currentPathname === "/page-about" ? "active" : ""
+                            currentPathname === '/page-about' ? 'active' : ''
                           }
                         >
                           About
@@ -302,7 +302,7 @@ const Header = ({ user, totalCartItems, toggleClick, totalWishlistItems }) => {
                         <Link
                           to="/vendors-list"
                           className={
-                            currentPathname === "/vendors-list" ? "active" : ""
+                            currentPathname === '/vendors-list' ? 'active' : ''
                           }
                         >
                           Vendors
@@ -313,7 +313,7 @@ const Header = ({ user, totalCartItems, toggleClick, totalWishlistItems }) => {
                         <Link
                           to="/page-contact"
                           className={
-                            currentPathname === "/page-contact" ? "active" : ""
+                            currentPathname === '/page-contact' ? 'active' : ''
                           }
                         >
                           Contact
@@ -336,7 +336,7 @@ const Header = ({ user, totalCartItems, toggleClick, totalWishlistItems }) => {
 
               <div className="header-action-right d-block d-lg-none">
                 <div className="header-action-2">
-                  {user && user.userType !== "owner" && (
+                  {user && user.userType !== 'owner' && (
                     <>
                       <div className="header-action-icon-2">
                         <Link to="/shop-wishlist">
@@ -369,13 +369,13 @@ const Header = ({ user, totalCartItems, toggleClick, totalWishlistItems }) => {
         </div>
       </header>
     </>
-  );
-};
+  )
+}
 
 const mapStateToProps = (state) => ({
   user: state.auth.userInfo,
   totalCartItems: state.cart.length,
   totalWishlistItems: state.wishlist.length,
-});
+})
 
-export default connect(mapStateToProps, null)(Header);
+export default connect(mapStateToProps, null)(Header)

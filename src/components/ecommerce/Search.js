@@ -1,21 +1,21 @@
-import { useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom'
+import React, { useState } from 'react'
 
 const Search = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState('')
+  const navigate = useNavigate()
 
   const handleSearch = () => {
-    navigate(`/products?search=${searchTerm}`);
-    setSearchTerm("");
-  };
+    navigate(`/products?search=${searchTerm}`)
+    setSearchTerm('')
+  }
 
   const handleInput = (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      handleSearch();
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      handleSearch()
     }
-  };
+  }
   return (
     <>
       <form>
@@ -24,11 +24,11 @@ const Search = () => {
           onKeyDown={handleInput}
           onChange={(e) => setSearchTerm(e.target.value)}
           type="text"
-          placeholder="Search"
+          placeholder="Search..."
         />
       </form>
     </>
-  );
-};
+  )
+}
 
-export default Search;
+export default Search
