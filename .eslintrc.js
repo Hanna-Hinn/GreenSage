@@ -1,32 +1,35 @@
 module.exports = {
   env: {
     browser: true,
-    es2021: true, // You can also use 'es6' or specify the exact ECMAScript version
+    es2021: true,
   },
   extends: [
-    "eslint:recommended", // Uses the recommended rules from ESLint
-    "plugin:react/recommended", // Uses the recommended rules from eslint-plugin-react
-    "plugin:react-hooks/recommended", // Enforces rules of Hooks
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "prettier", // Ensures Prettier rules override ESLint rules where necessary
   ],
   parserOptions: {
     ecmaFeatures: {
-      jsx: true, // Allows for the parsing of JSX
+      jsx: true,
     },
-    ecmaVersion: "latest", // Allows for the use of modern ECMAScript features
-    sourceType: "module", // Allows for the use of imports
+    ecmaVersion: "latest",
+    sourceType: "module",
   },
   plugins: [
-    "react", // Enables eslint-plugin-react
-    "react-hooks", // Enables eslint-plugin-react-hooks
+    "react",
+    "react-hooks",
+    "prettier", // Adds Prettier plugin for ESLint
   ],
   rules: {
     "react/jsx-uses-react": "warn",
     "react/react-in-jsx-scope": "warn",
-    "react/prop-types": "warn", 
+    "react/prop-types": "warn",
+    "prettier/prettier": ["error", { "endOfLine": "auto" }], // Ensures Prettier issues are treated as ESLint errors
   },
   settings: {
     react: {
-      version: "detect", // Automatically detect the React version
+      version: "detect",
     },
   },
 };
