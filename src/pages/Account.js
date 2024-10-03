@@ -60,28 +60,20 @@ function Account() {
   }, [userInfo, refresh]);
 
   const fetchData = async () => {
-    const { data: userData } = await axios.get(
-      `${BACKEND_URL}/users/${userInfo.id}`
-    );
+    const { data: userData } = await axios.get(`${BACKEND_URL}/users/${userInfo.id}`);
     const { data: orderData } = await axios.get(
-      userInfo.userType === "owner"
-        ? `${BACKEND_URL}/owners/${userInfo.id}`
-        : `${BACKEND_URL}/orders/${userInfo.id}`
+      userInfo.userType === "owner" ? `${BACKEND_URL}/owners/${userInfo.id}` : `${BACKEND_URL}/orders/${userInfo.id}`,
     );
 
     if (userInfo.userType === "owner") {
       const { data: products } = await axios.get(
-        `${BACKEND_URL}/products/v1/searchFilter/v1/query?ownerName=${userData.data.firstName} ${userData.data.lastName}&pageNumber=1`
+        `${BACKEND_URL}/products/v1/searchFilter/v1/query?ownerName=${userData.data.firstName} ${userData.data.lastName}&pageNumber=1`,
       );
       setOwnerProducts(products.data.products);
     }
 
     setUser(userData.data);
-    setUserOrders(
-      userInfo.userType === "owner"
-        ? orderData.data.matchingOrders
-        : orderData.data
-    );
+    setUserOrders(userInfo.userType === "owner" ? orderData.data.matchingOrders : orderData.data);
     setFormData(userData.data);
   };
 
@@ -107,12 +99,10 @@ function Account() {
             shipmentStatus: orderStatus,
             userId: userInfo.id,
           },
-          { headers: { Authorization: `Bearer ${token}` } }
+          { headers: { Authorization: `Bearer ${token}` } },
         );
 
-        const { data: orderData } = await axios.get(
-          `${BACKEND_URL}/owners/${userInfo.id}`
-        );
+        const { data: orderData } = await axios.get(`${BACKEND_URL}/owners/${userInfo.id}`);
         setUserOrders(orderData.data.matchingOrders);
 
         toast("Order Updated Successfully");
@@ -127,9 +117,7 @@ function Account() {
 
   const addressDeleteHandler = async (addressId) => {
     try {
-      const { data } = await axios.delete(
-        `${BACKEND_URL}/addresses/${user["_id"]}/address/${addressId}`
-      );
+      const { data } = await axios.delete(`${BACKEND_URL}/addresses/${user["_id"]}/address/${addressId}`);
       if (data.success) {
         toast("Address Deleted Successfully !");
         setRefresh(true);
@@ -172,12 +160,9 @@ function Account() {
   const handleOnDelete = async (productId) => {
     const config = { headers: { Authorization: `Bearer ${token}` } };
     try {
-      const { data } = await axios.delete(
-        `${BACKEND_URL}/products/${productId}`,
-        config
-      );
+      const { data } = await axios.delete(`${BACKEND_URL}/products/${productId}`, config);
       const { data: products } = await axios.get(
-        `${BACKEND_URL}/products/v1/searchFilter/v1/query?ownerName=${user.firstName} ${user.lastName}&pageNumber=1`
+        `${BACKEND_URL}/products/v1/searchFilter/v1/query?ownerName=${user.firstName} ${user.lastName}&pageNumber=1`,
       );
       setOwnerProducts(products.data.products);
       if (data.success) {
@@ -206,10 +191,7 @@ function Account() {
     }
 
     try {
-      const { data } = await axios.put(
-        `${BACKEND_URL}/users/${userInfo.id}`,
-        formData
-      );
+      const { data } = await axios.put(`${BACKEND_URL}/users/${userInfo.id}`, formData);
 
       if (data.success) {
         toast("User Updates Successfully");
@@ -274,8 +256,7 @@ function Account() {
   };
 
   function validateEmail(email) {
-    const emailRegex =
-      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     return emailRegex.test(String(email).toLowerCase());
   }
 
@@ -302,9 +283,7 @@ function Account() {
                       <ul className="nav flex-column" role="tablist">
                         <li className="nav-item">
                           <a
-                            className={
-                              activeIndex === 1 ? "nav-link active" : "nav-link"
-                            }
+                            className={activeIndex === 1 ? "nav-link active" : "nav-link"}
                             onClick={() => handleOnClick(1)}
                           >
                             <i className="fi-rs-settings-sliders mr-10"></i>
@@ -313,9 +292,7 @@ function Account() {
                         </li>
                         <li className="nav-item">
                           <a
-                            className={
-                              activeIndex === 2 ? "nav-link active" : "nav-link"
-                            }
+                            className={activeIndex === 2 ? "nav-link active" : "nav-link"}
                             onClick={() => handleOnClick(2)}
                           >
                             <i className="fi-rs-shopping-bag mr-10"></i>Orders
@@ -324,11 +301,7 @@ function Account() {
                         {userInfo && userInfo.userType === "owner" && (
                           <li className="nav-item">
                             <a
-                              className={
-                                activeIndex === 3
-                                  ? "nav-link active"
-                                  : "nav-link"
-                              }
+                              className={activeIndex === 3 ? "nav-link active" : "nav-link"}
                               onClick={() => handleOnClick(3)}
                             >
                               <i className="fi-rs-shopping-bag mr-10"></i>
@@ -338,9 +311,7 @@ function Account() {
                         )}
                         <li className="nav-item">
                           <a
-                            className={
-                              activeIndex === 4 ? "nav-link active" : "nav-link"
-                            }
+                            className={activeIndex === 4 ? "nav-link active" : "nav-link"}
                             onClick={() => handleOnClick(4)}
                           >
                             <i className="fi-rs-marker mr-10"></i>My Address
@@ -348,20 +319,14 @@ function Account() {
                         </li>
                         <li className="nav-item">
                           <a
-                            className={
-                              activeIndex === 5 ? "nav-link active" : "nav-link"
-                            }
+                            className={activeIndex === 5 ? "nav-link active" : "nav-link"}
                             onClick={() => handleOnClick(5)}
                           >
                             <i className="fi-rs-user mr-10"></i>Account details
                           </a>
                         </li>
                         <li className="nav-item">
-                          <Link
-                            to="/page-login"
-                            onClick={logoutHandler}
-                            className="nav-link"
-                          >
+                          <Link to="/page-login" onClick={logoutHandler} className="nav-link">
                             <i className="fi-rs-sign-out mr-10"></i>Logout
                           </Link>
                         </li>
@@ -370,38 +335,22 @@ function Account() {
                   </div>
                   <div className="col-md-9">
                     <div className="tab-content account dashboard-content pl-50">
-                      <div
-                        className={
-                          activeIndex === 1
-                            ? "tab-pane fade active show"
-                            : "tab-pane fade "
-                        }
-                      >
+                      <div className={activeIndex === 1 ? "tab-pane fade active show" : "tab-pane fade "}>
                         <div className="card">
                           <div className="card-header">
-                            <h3
-                              className="mb-0"
-                              style={{ textTransform: "capitalize" }}
-                            >
+                            <h3 className="mb-0" style={{ textTransform: "capitalize" }}>
                               Hello {user.firstName}!
                             </h3>
                           </div>
                           <div className="card-body">
                             <p>
-                              Hey there, {`${user.firstName} ${user.lastName}`}!
-                              Feeling empowered? Welcome back to your dashboard,
-                              your personal command center.
+                              Hey there, {`${user.firstName} ${user.lastName}`}! Feeling empowered? Welcome back to your
+                              dashboard, your personal command center.
                             </p>
                           </div>
                         </div>
                       </div>
-                      <div
-                        className={
-                          activeIndex === 2
-                            ? "tab-pane fade active show"
-                            : "tab-pane fade "
-                        }
-                      >
+                      <div className={activeIndex === 2 ? "tab-pane fade active show" : "tab-pane fade "}>
                         <div className="card">
                           <div className="card-header">
                             <h3 className="mb-0">Your Orders</h3>
@@ -410,9 +359,7 @@ function Account() {
                             <div className="table-responsive">
                               {userInfo && userInfo.userType !== "owner" ? (
                                 <>
-                                  {userOrders.length === 0 && (
-                                    <h6>Your Orders Will be Displayed Here</h6>
-                                  )}
+                                  {userOrders.length === 0 && <h6>Your Orders Will be Displayed Here</h6>}
                                   <table className="table">
                                     <thead>
                                       <tr>
@@ -436,19 +383,11 @@ function Account() {
                                         return (
                                           <tr key={index}>
                                             <td>
-                                              <Link
-                                                to={`/orders/${order["_id"]}`}
-                                              >
-                                                {index + 1}
-                                              </Link>
+                                              <Link to={`/orders/${order["_id"]}`}>{index + 1}</Link>
                                             </td>
                                             <td>{formattedDate}</td>
                                             <td>{order.shipmentStatus}</td>
-                                            <td>{`$${
-                                              Math.round(
-                                                order.totalPrice * 10
-                                              ) / 10
-                                            } for ${
+                                            <td>{`$${Math.round(order.totalPrice * 10) / 10} for ${
                                               order.cartItems.length
                                             } item`}</td>
                                             <td>{`${order.userAddress.street}, ${order.userAddress.city} ${order.userAddress.state} ${order.userAddress.postalCode}`}</td>
@@ -460,9 +399,7 @@ function Account() {
                                 </>
                               ) : (
                                 <>
-                                  {userOrders.length === 0 && (
-                                    <h6>Your Orders Will be Displayed Here</h6>
-                                  )}
+                                  {userOrders.length === 0 && <h6>Your Orders Will be Displayed Here</h6>}
                                   <table className="table table-hover">
                                     <thead>
                                       <tr>
@@ -496,22 +433,12 @@ function Account() {
                                                     name="status"
                                                     id="status"
                                                     defaultValue="pending"
-                                                    onChange={
-                                                      onStatusChangeHandler
-                                                    }
+                                                    onChange={onStatusChangeHandler}
                                                   >
-                                                    <option value="pending">
-                                                      Select Status
-                                                    </option>
-                                                    <option value="pending">
-                                                      Pending
-                                                    </option>
-                                                    <option value="delivered">
-                                                      Delivered
-                                                    </option>
-                                                    <option value="shipped">
-                                                      Shipped
-                                                    </option>
+                                                    <option value="pending">Select Status</option>
+                                                    <option value="pending">Pending</option>
+                                                    <option value="delivered">Delivered</option>
+                                                    <option value="shipped">Shipped</option>
                                                   </select>
                                                 </>
                                               ) : (
@@ -554,13 +481,7 @@ function Account() {
                       </div>
 
                       {userInfo && userInfo.userType === "owner" && (
-                        <div
-                          className={
-                            activeIndex === 3
-                              ? "tab-pane fade active show"
-                              : "tab-pane fade "
-                          }
-                        >
+                        <div className={activeIndex === 3 ? "tab-pane fade active show" : "tab-pane fade "}>
                           <div className="card">
                             <div className="card-header">
                               <h3 className="mb-0">Products List</h3>
@@ -575,9 +496,7 @@ function Account() {
 
                             <div className="card-body">
                               <div className="table-responsive">
-                                {ownerProducts.length === 0 && (
-                                  <h6>Your Products Will be Displayed Here</h6>
-                                )}
+                                {ownerProducts.length === 0 && <h6>Your Products Will be Displayed Here</h6>}
                                 <table className="table">
                                   <thead>
                                     <tr>
@@ -596,25 +515,13 @@ function Account() {
                                         <tr key={index}>
                                           <td>{index + 1}</td>
                                           <td>
-                                            <a
-                                              href={`/products/${product["_id"]}`}
-                                            >
-                                              {product.name}
-                                            </a>
+                                            <a href={`/products/${product["_id"]}`}>{product.name}</a>
                                           </td>
-                                          <td>
-                                            {product.price["$numberDecimal"]}
-                                          </td>
+                                          <td>{product.price["$numberDecimal"]}</td>
                                           <td>{product.availableInStock}</td>
                                           <td>
-                                            {product.averageRating[
-                                              "$numberDecimal"
-                                            ]
-                                              ? Math.round(
-                                                  product.averageRating[
-                                                    "$numberDecimal"
-                                                  ] * 10
-                                                ) / 10
+                                            {product.averageRating["$numberDecimal"]
+                                              ? Math.round(product.averageRating["$numberDecimal"] * 10) / 10
                                               : 0}
                                           </td>
                                           <td>{product.categoryName}</td>
@@ -653,27 +560,16 @@ function Account() {
                         </div>
                       )}
 
-                      <div
-                        className={
-                          activeIndex === 4
-                            ? "tab-pane fade active show"
-                            : "tab-pane fade "
-                        }
-                      >
+                      <div className={activeIndex === 4 ? "tab-pane fade active show" : "tab-pane fade "}>
                         <div className="row">
                           {user.addresses &&
                             user.addresses.map((address, index) => {
                               return (
                                 <React.Fragment key={index}>
-                                  <div
-                                    className="col-lg-6"
-                                    style={{ marginBottom: "10px" }}
-                                  >
+                                  <div className="col-lg-6" style={{ marginBottom: "10px" }}>
                                     <div className="card mb-3 mb-lg-0">
                                       <div className="card-header">
-                                        <h3 className="mb-0">{`Address ${
-                                          index + 1
-                                        }`}</h3>
+                                        <h3 className="mb-0">{`Address ${index + 1}`}</h3>
                                       </div>
                                       <div className="card-body">
                                         <address>
@@ -686,9 +582,7 @@ function Account() {
                                           style={{ color: "red" }}
                                           className="btn-small"
                                           onClick={() => {
-                                            addressDeleteHandler(
-                                              address["_id"]
-                                            );
+                                            addressDeleteHandler(address["_id"]);
                                           }}
                                         >
                                           Delete
@@ -702,26 +596,14 @@ function Account() {
                         </div>
 
                         <div className="row">
-                          <div
-                            className="col-lg-6"
-                            style={{ marginBottom: "5px" }}
-                          >
-                            <button
-                              className="btn btn-fill-out submit font-weight-bold"
-                              onClick={addAddressHandler}
-                            >
+                          <div className="col-lg-6" style={{ marginBottom: "5px" }}>
+                            <button className="btn btn-fill-out submit font-weight-bold" onClick={addAddressHandler}>
                               Add
                             </button>
                           </div>
                         </div>
                       </div>
-                      <div
-                        className={
-                          activeIndex === 5
-                            ? "tab-pane fade active show"
-                            : "tab-pane fade "
-                        }
-                      >
+                      <div className={activeIndex === 5 ? "tab-pane fade active show" : "tab-pane fade "}>
                         <div className="card">
                           <div className="card-header">
                             <h5>Account Details</h5>
@@ -742,7 +624,7 @@ function Account() {
                                         firstName: e.target.value,
                                       });
                                       setError((curr) => {
-                                        const {  ...rest } = curr;
+                                        const { ...rest } = curr;
                                         return rest;
                                       });
                                     }}
@@ -751,9 +633,7 @@ function Account() {
                                 {error.firstName && (
                                   <>
                                     <br />
-                                    <span style={{ color: "red" }}>
-                                      {error.firstName}
-                                    </span>
+                                    <span style={{ color: "red" }}>{error.firstName}</span>
                                   </>
                                 )}
                                 <div className="form-group">
@@ -769,7 +649,7 @@ function Account() {
                                         lastName: e.target.value,
                                       });
                                       setError((curr) => {
-                                        const {  ...rest } = curr;
+                                        const { ...rest } = curr;
                                         return rest;
                                       });
                                     }}
@@ -778,9 +658,7 @@ function Account() {
                                 {error.lastName && (
                                   <>
                                     <br />
-                                    <span style={{ color: "red" }}>
-                                      {error.lastName}
-                                    </span>
+                                    <span style={{ color: "red" }}>{error.lastName}</span>
                                   </>
                                 )}
                               </div>
@@ -798,7 +676,7 @@ function Account() {
                                       email: e.target.value,
                                     });
                                     setError((curr) => {
-                                      const {  ...rest } = curr;
+                                      const { ...rest } = curr;
                                       return rest;
                                     });
                                   }}
@@ -806,9 +684,7 @@ function Account() {
                                 {error.email && (
                                   <>
                                     <br />
-                                    <span style={{ color: "red" }}>
-                                      {error.email}
-                                    </span>
+                                    <span style={{ color: "red" }}>{error.email}</span>
                                   </>
                                 )}
                               </div>
@@ -826,7 +702,7 @@ function Account() {
                                       mobile: e.target.value,
                                     });
                                     setError((curr) => {
-                                      const {  ...rest } = curr;
+                                      const { ...rest } = curr;
                                       return rest;
                                     });
                                   }}
@@ -834,9 +710,7 @@ function Account() {
                                 {error.mobile && (
                                   <>
                                     <br />
-                                    <span style={{ color: "red" }}>
-                                      {error.mobile}
-                                    </span>
+                                    <span style={{ color: "red" }}>{error.mobile}</span>
                                   </>
                                 )}
                               </div>
@@ -854,7 +728,7 @@ function Account() {
                                       imageUrl: e.target.value,
                                     });
                                     setError((curr) => {
-                                      const {  ...rest } = curr;
+                                      const { ...rest } = curr;
                                       return rest;
                                     });
                                   }}
@@ -862,9 +736,7 @@ function Account() {
                                 {error.imageUrl && (
                                   <>
                                     <br />
-                                    <span style={{ color: "red" }}>
-                                      {error.imageUrl}
-                                    </span>
+                                    <span style={{ color: "red" }}>{error.imageUrl}</span>
                                   </>
                                 )}
                               </div>
@@ -881,7 +753,7 @@ function Account() {
                                       password: e.target.value,
                                     });
                                     setError((curr) => {
-                                      const {  ...rest } = curr;
+                                      const { ...rest } = curr;
                                       return rest;
                                     });
                                   }}
@@ -889,9 +761,7 @@ function Account() {
                                 {error.password && (
                                   <>
                                     <br />
-                                    <span style={{ color: "red" }}>
-                                      {error.password}
-                                    </span>
+                                    <span style={{ color: "red" }}>{error.password}</span>
                                   </>
                                 )}
                               </div>
@@ -908,7 +778,7 @@ function Account() {
                                       confirmPassword: e.target.value,
                                     });
                                     setError((curr) => {
-                                      const {  ...rest } = curr;
+                                      const { ...rest } = curr;
                                       return rest;
                                     });
                                   }}
@@ -916,9 +786,7 @@ function Account() {
                                 {error.confirmPassword && (
                                   <>
                                     <br />
-                                    <span style={{ color: "red" }}>
-                                      {error.confirmPassword}
-                                    </span>
+                                    <span style={{ color: "red" }}>{error.confirmPassword}</span>
                                   </>
                                 )}
                               </div>
@@ -942,9 +810,7 @@ function Account() {
 
                               {userInfo && userInfo.userType !== "owner" && (
                                 <div className="payment_option mb-50">
-                                  <label>
-                                    Please Check the Preferred Minerals:
-                                  </label>
+                                  <label>Please Check the Preferred Minerals:</label>
                                   <br />
                                   {mineralsArray.map((key) => {
                                     return (
@@ -956,15 +822,11 @@ function Account() {
                                           value={key}
                                           id={key}
                                           checked={
-                                            formData &&
-                                            formData.healthStatus &&
-                                            formData.healthStatus[key]
+                                            formData && formData.healthStatus && formData.healthStatus[key]
                                               ? formData.healthStatus[key]
                                               : false
                                           }
-                                          onChange={(e) =>
-                                            handleMineralChange(e)
-                                          }
+                                          onChange={(e) => handleMineralChange(e)}
                                         />
                                         <label
                                           style={{ paddingLeft: "5px" }}
@@ -981,23 +843,18 @@ function Account() {
                                               className="form-check-label"
                                               htmlFor={key}
                                             >
-                                              Please Make sure it's the same
-                                              structure in the example
+                                              Please Make sure it's the same structure in the example
                                             </label>
                                             <input
                                               type="text"
                                               name="others"
                                               placeholder="Ex: vitaminC,vitaminB12,...etc"
                                               defaultValue={
-                                                formData &&
-                                                formData.healthStatus &&
-                                                formData.healthStatus[key]
+                                                formData && formData.healthStatus && formData.healthStatus[key]
                                                   ? formData.healthStatus[key]
                                                   : ""
                                               }
-                                              onChange={(e) =>
-                                                handleMineralChange(e)
-                                              }
+                                              onChange={(e) => handleMineralChange(e)}
                                             />
                                           </>
                                         )}
@@ -1017,11 +874,7 @@ function Account() {
                                 </button>
                               </div>
                             </form>
-                            {!error.responseError && (
-                              <p style={{ color: "red" }}>
-                                {error.responseError}
-                              </p>
-                            )}
+                            {!error.responseError && <p style={{ color: "red" }}>{error.responseError}</p>}
                           </div>
                         </div>
                       </div>

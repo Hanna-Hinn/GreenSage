@@ -104,7 +104,7 @@
 }
 .bar::before,
 .bar::after {
-  content: '';
+  content: "";
   position: absolute;
   display: block;
   width: 10px;
@@ -161,8 +161,8 @@
     text-align: center;
     padding: 0 10px;
     &::before {
-      content: '\f111';
-      font-family: 'uicons-regular-straight' !important;
+      content: "\f111";
+      font-family: "uicons-regular-straight" !important;
       display: inline-block;
       font-size: 9px;
     }
@@ -391,10 +391,7 @@
   line-height: 48px;
   font-size: 18px;
 }
-.dark
-  .social-icons:not(.social-icons-colored):not(.social-icons-colored-hover)
-  li
-  a:hover {
+.dark .social-icons:not(.social-icons-colored):not(.social-icons-colored-hover) li a:hover {
   background-color: #1f1f1f;
 }
 .social-icons li:hover i {
@@ -451,7 +448,7 @@ table {
   }
   &::before,
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     width: 100%;
     top: 50%;

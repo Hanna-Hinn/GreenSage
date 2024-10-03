@@ -18,9 +18,7 @@ export default function Notification() {
 
   const fetchData = async () => {
     try {
-      const { data } = await axios.get(
-        `${BACKEND_URL}/products/${userInfo.id}/notifications`
-      );
+      const { data } = await axios.get(`${BACKEND_URL}/products/${userInfo.id}/notifications`);
       if (data.success) {
         setNotifications(data.data);
       } else {
@@ -38,17 +36,11 @@ export default function Notification() {
             <div className="row">
               <div className="col-xl-10 col-lg-12 m-auto">
                 {notifications.length > 0 ? (
-                  <div
-                    className="table-responsive shopping-summery"
-                    style={{ marginLeft: "5%" }}
-                  >
+                  <div className="table-responsive shopping-summery" style={{ marginLeft: "5%" }}>
                     <h2>Notifications: </h2>
                     <ul style={{ marginTop: "5%" }}>
                       {notifications.map((notification) => (
-                        <li
-                          key={notification.notificationId}
-                          className="notification"
-                        >
+                        <li key={notification.notificationId} className="notification">
                           <Link
                             to={
                               notification.type === "Status updated"

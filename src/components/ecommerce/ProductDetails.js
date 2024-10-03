@@ -1,45 +1,37 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { useState } from 'react'
-import { connect } from 'react-redux'
-import { toast } from 'react-toastify'
-import { addToCart } from '../../redux/action/cart'
-import { addToWishlist } from '../../redux/action/wishlistAction'
-import ProductTab from '../elements/ProductTab'
-import RelatedSlider from '../sliders/Related'
+import { useState } from "react";
+import { connect } from "react-redux";
+import { toast } from "react-toastify";
+import { addToCart } from "../../redux/action/cart";
+import { addToWishlist } from "../../redux/action/wishlistAction";
+import ProductTab from "../elements/ProductTab";
+import RelatedSlider from "../sliders/Related";
 
-const ProductDetails = ({
-  userInfo,
-  product,
-  wishList,
-  cartItems,
-  addToCart,
-  addToWishlist,
-  relatedProducts,
-}) => {
-  const [quantity, setQuantity] = useState(1)
+const ProductDetails = ({ userInfo, product, wishList, cartItems, addToCart, addToWishlist, relatedProducts }) => {
+  const [quantity, setQuantity] = useState(1);
   const handleCart = (product) => {
     if (userInfo) {
-      addToCart(product, quantity)
-      toast('Product added to Cart !')
+      addToCart(product, quantity);
+      toast("Product added to Cart !");
     } else {
-      toast('Please Login to continue !')
+      toast("Please Login to continue !");
     }
-  }
+  };
 
   const handleWishlist = (product) => {
     if (userInfo) {
-      if (!wishList.find((item) => item.productId === product['_id'])) {
-        addToWishlist(product)
-        toast('Added to Wishlist !')
+      if (!wishList.find((item) => item.productId === product["_id"])) {
+        addToWishlist(product);
+        toast("Added to Wishlist !");
       } else {
-        toast('Already Added To WishList !')
+        toast("Already Added To WishList !");
       }
     } else {
-      toast('Please Login to continue !')
+      toast("Please Login to continue !");
     }
-  }
+  };
 
-  const inCart = cartItems.find((cartItem) => cartItem.id === product['_id'])
+  const inCart = cartItems.find((cartItem) => cartItem.id === product["_id"]);
 
   return (
     <>
@@ -66,35 +58,29 @@ const ProductDetails = ({
 
                       <div className="product-rate-cover">
                         {[...Array(5)].map((star, index) => {
-                          const currentRating = index + 1
+                          const currentRating = index + 1;
 
                           return (
                             <span
                               key={index}
                               style={{
-                                color:
-                                  currentRating <=
-                                  Math.round(product.averageRating)
-                                    ? '#ffc107'
-                                    : '#e4e5e9',
-                                fontSize: '1rem',
-                                margin: '1px',
+                                color: currentRating <= Math.round(product.averageRating) ? "#ffc107" : "#e4e5e9",
+                                fontSize: "1rem",
+                                margin: "1px",
                               }}
                             >
                               &#9733;
                             </span>
-                          )
+                          );
                         })}
                         <span className="font-small ml-5 text-muted">
-                          {' '}
+                          {" "}
                           ({Math.round(product.averageRating * 10) / 10})
                         </span>
                       </div>
                       <div className="clearfix product-price-cover">
                         <div className="product-price primary-color float-left">
-                          <span className="current-price  text-brand">
-                            ${product.price['$numberDecimal']}
-                          </span>
+                          <span className="current-price  text-brand">${product.price["$numberDecimal"]}</span>
                         </div>
                       </div>
 
@@ -105,21 +91,11 @@ const ProductDetails = ({
                       <div className="bt-1 border-color-1 mt-30 mb-30"></div>
                       <div className="detail-extralink">
                         <div className="detail-qty border radius">
-                          <a
-                            onClick={() =>
-                              setQuantity(quantity > 1 ? quantity - 1 : 1)
-                            }
-                            className="qty-down"
-                          >
+                          <a onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)} className="qty-down">
                             <i className="fi-rs-angle-small-down"></i>
                           </a>
-                          <span className="qty-val">
-                            {inCart?.quantity || quantity}
-                          </span>
-                          <a
-                            onClick={() => setQuantity(quantity + 1)}
-                            className="qty-up"
-                          >
+                          <span className="qty-val">{inCart?.quantity || quantity}</span>
+                          <a onClick={() => setQuantity(quantity + 1)} className="qty-up">
                             <i className="fi-rs-angle-small-up"></i>
                           </a>
                         </div>
@@ -147,9 +123,7 @@ const ProductDetails = ({
                       <ul className="product-meta font-xs color-grey mt-50">
                         <li>
                           Availability:
-                          <span className="in-stock text-success ml-5">
-                            {product.availableInStock} Items In Stock
-                          </span>
+                          <span className="in-stock text-success ml-5">{product.availableInStock} Items In Stock</span>
                         </li>
                       </ul>
                     </div>
@@ -158,7 +132,7 @@ const ProductDetails = ({
 
                 <>
                   <ProductTab
-                    productDetails={{ name: product.name, id: product['_id'] }}
+                    productDetails={{ name: product.name, id: product["_id"] }}
                     desc={product.description}
                     vendor={product.ownerDetails[0]}
                     ratingCount={product.ratingCount}
@@ -166,9 +140,7 @@ const ProductDetails = ({
                   />
                   <div className="row mt-60">
                     <div className="col-12">
-                      <h3 className="section-title style-1 mb-30">
-                        Related products
-                      </h3>
+                      <h3 className="section-title style-1 mb-30">Related products</h3>
                     </div>
                     <div className="col-12">
                       <div className="row related-products position-relative">
@@ -183,18 +155,18 @@ const ProductDetails = ({
         </div>
       </section>
     </>
-  )
-}
+  );
+};
 
 const mapStateToProps = (state) => ({
   userInfo: state.auth.userInfo,
   cartItems: state.cart,
   wishList: state.wishlist,
-})
+});
 
 const mapDispatchToProps = {
   addToWishlist,
   addToCart,
-}
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails)
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails);

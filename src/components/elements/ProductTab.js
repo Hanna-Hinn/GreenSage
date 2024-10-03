@@ -80,51 +80,30 @@ const ProductTab = ({ productDetails, desc, vendor, ratingCount, reviews }) => {
           </li>
         </ul>
         <div className="tab-content shop_info_tab entry-main-content">
-          <div
-            className={
-              activeIndex === 1 ? "tab-pane fade show active" : "tab-pane fade"
-            }
-            id="Description"
-          >
+          <div className={activeIndex === 1 ? "tab-pane fade show active" : "tab-pane fade"} id="Description">
             <div>
               <p>{desc}</p>
             </div>
           </div>
-          <div
-            className={
-              activeIndex === 3 ? "tab-pane fade show active" : "tab-pane fade"
-            }
-            id="vendors"
-          >
+          <div className={activeIndex === 3 ? "tab-pane fade show active" : "tab-pane fade"} id="vendors">
             <div className="vendor-logo d-flex mb-30">
-              <img
-                src={vendor.imageUrl}
-                alt={`${vendor.firstName} ${vendor.lastName}`}
-              />
+              <img src={vendor.imageUrl} alt={`${vendor.firstName} ${vendor.lastName}`} />
               <div className="vendor-name ml-15">
                 <h6>
-                  <a
-                    href={`/vendors-list/vendor/${vendor["_id"]}`}
-                  >{`${vendor.firstName} ${vendor.lastName}`}</a>
+                  <a href={`/vendors-list/vendor/${vendor["_id"]}`}>{`${vendor.firstName} ${vendor.lastName}`}</a>
                 </h6>
               </div>
             </div>
             <ul className="contact-infor mb-50">
               <li>
-                <img
-                  src="/assets/imgs/theme/icons/icon-location.svg"
-                  alt="location"
-                />
+                <img src="/assets/imgs/theme/icons/icon-location.svg" alt="location" />
                 <strong>Address: </strong>{" "}
                 <span>
                   {`${vendor.addresses[0].street}, ${vendor.addresses[0].city} ${vendor.addresses[0].postalCode}, ${vendor.addresses[0].state}  `}
                 </span>
               </li>
               <li>
-                <img
-                  src="/assets/imgs/theme/icons/icon-contact.svg"
-                  alt="contact"
-                />
+                <img src="/assets/imgs/theme/icons/icon-contact.svg" alt="contact" />
                 <strong>Contact Seller:</strong>
                 <span>{vendor.mobile}</span>
               </li>
@@ -132,12 +111,7 @@ const ProductTab = ({ productDetails, desc, vendor, ratingCount, reviews }) => {
 
             <p>{vendor.description}</p>
           </div>
-          <div
-            className={
-              activeIndex === 4 ? "tab-pane fade show active" : "tab-pane fade"
-            }
-            id="Reviews"
-          >
+          <div className={activeIndex === 4 ? "tab-pane fade show active" : "tab-pane fade"} id="Reviews">
             <div className="comments-area">
               <div className="row">
                 <div className="col-lg-8">
@@ -145,19 +119,11 @@ const ProductTab = ({ productDetails, desc, vendor, ratingCount, reviews }) => {
                     {reviews.map((item, index) => {
                       const rating = item.rating;
                       return (
-                        <div
-                          className="single-comment justify-content-between d-flex"
-                          key={index}
-                        >
+                        <div className="single-comment justify-content-between d-flex" key={index}>
                           <div className="user justify-content-between d-flex">
                             <div className="thumb text-center">
-                              <img
-                                src={`${rating.userImage}`}
-                                alt={`${rating.userName}`}
-                              />
-                              <h6
-                                style={{ color: "#3bb77e" }}
-                              >{`${rating.userName}`}</h6>
+                              <img src={`${rating.userImage}`} alt={`${rating.userName}`} />
+                              <h6 style={{ color: "#3bb77e" }}>{`${rating.userName}`}</h6>
                             </div>
                             <div className="desc">
                               <div className="product-rate-cover d-inline-block">
@@ -169,10 +135,7 @@ const ProductTab = ({ productDetails, desc, vendor, ratingCount, reviews }) => {
                                       key={index}
                                       style={{
                                         color:
-                                          currentRating <=
-                                          Math.round(
-                                            rating.rating["$numberDecimal"]
-                                          )
+                                          currentRating <= Math.round(rating.rating["$numberDecimal"])
                                             ? "#ffc107"
                                             : "grey",
                                         fontSize: "1rem",
@@ -207,17 +170,12 @@ const ProductTab = ({ productDetails, desc, vendor, ratingCount, reviews }) => {
                       name="rating"
                       value={currentRating}
                       style={{ display: "none" }}
-                      onChange={() =>
-                        setFormData({ ...formData, rating: currentRating })
-                      }
+                      onChange={() => setFormData({ ...formData, rating: currentRating })}
                     />
                     <span
                       className="star"
                       style={{
-                        color:
-                          currentRating <= (hover || formData.rating)
-                            ? "#ffc107"
-                            : "#e4e5e9",
+                        color: currentRating <= (hover || formData.rating) ? "#ffc107" : "#e4e5e9",
                         cursor: "pointer",
                         fontSize: "2rem",
                         margin: "5px",
@@ -232,10 +190,7 @@ const ProductTab = ({ productDetails, desc, vendor, ratingCount, reviews }) => {
               })}
               <div className="row">
                 <div className="col-lg-8 col-md-12">
-                  <form
-                    className="form-contact comment_form"
-                    onSubmit={(e) => e.preventDefault()}
-                  >
+                  <form className="form-contact comment_form" onSubmit={(e) => e.preventDefault()}>
                     <div className="row">
                       <div className="col-12">
                         <div className="form-group">

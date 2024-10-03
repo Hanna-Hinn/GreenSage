@@ -19,9 +19,7 @@ export const addToCart =
           quantity,
         })
         .then(async () => {
-          const { data: cartData } = await axios.get(
-            `${BACKEND_URL}/carts/${user.id}`
-          );
+          const { data: cartData } = await axios.get(`${BACKEND_URL}/carts/${user.id}`);
           const cartItems = cartData.data.cartItems;
 
           dispatch({
@@ -47,9 +45,7 @@ export const deleteFromCart = (productId) => (dispatch) => {
     axios
       .delete(`${BACKEND_URL}/carts/${user.id}/products/${productId}`)
       .then(async () => {
-        const { data: cartData } = await axios.get(
-          `${BACKEND_URL}/carts/${user.id}`
-        );
+        const { data: cartData } = await axios.get(`${BACKEND_URL}/carts/${user.id}`);
         const cartItems = cartData.data.cartItems;
         dispatch({
           type: Types.DELETE_FROM_CART,
@@ -81,9 +77,7 @@ export const increaseQuantity = (productId) => (dispatch) => {
       })
       .then(async ({ data }) => {
         console.log(data);
-        const { data: cartData } = await axios.get(
-          `${BACKEND_URL}/carts/${user.id}`
-        );
+        const { data: cartData } = await axios.get(`${BACKEND_URL}/carts/${user.id}`);
         const cartItems = cartData.data.cartItems;
 
         dispatch({
@@ -113,9 +107,7 @@ export const decreaseQuantity = (productId) => (dispatch) => {
     axios
       .delete(`${BACKEND_URL}/carts/${user.id}/items/${productId}`)
       .then(async () => {
-        const { data: cartData } = await axios.get(
-          `${BACKEND_URL}/carts/${user.id}`
-        );
+        const { data: cartData } = await axios.get(`${BACKEND_URL}/carts/${user.id}`);
         const cartItems = cartData.data.cartItems;
 
         dispatch({

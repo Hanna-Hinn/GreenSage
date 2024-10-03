@@ -17,9 +17,7 @@
     var scroll = win.scrollTop();
     if (scroll < 200) {
       header.removeClass("stick");
-      $(".header-style-2 .categories-dropdown-active-large").removeClass(
-        "open"
-      );
+      $(".header-style-2 .categories-dropdown-active-large").removeClass("open");
       $(".header-style-2 .categories-button-active").removeClass("open");
     } else {
       header.addClass("stick");
@@ -53,12 +51,7 @@
         $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
       },
     });
-    $("#amount").val(
-      "$" +
-        $("#slider-range").slider("values", 0) +
-        " - $" +
-        $("#slider-range").slider("values", 1)
-    );
+    $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
   }
 
   /*------ Hero slider 1 ----*/
@@ -69,10 +62,8 @@
     loop: true,
     dots: true,
     arrows: true,
-    prevArrow:
-      '<span className="slider-btn slider-prev"><i className="fi-rs-angle-left"></i></span>',
-    nextArrow:
-      '<span className="slider-btn slider-next"><i className="fi-rs-angle-right"></i></span>',
+    prevArrow: '<span className="slider-btn slider-prev"><i className="fi-rs-angle-left"></i></span>',
+    nextArrow: '<span className="slider-btn slider-next"><i className="fi-rs-angle-right"></i></span>',
     appendArrows: ".hero-slider-1-arrow",
     autoplay: true,
   });
@@ -116,10 +107,8 @@
           },
         },
       ],
-      prevArrow:
-        '<span className="slider-btn slider-prev"><i className="fi-rs-arrow-small-left"></i></span>',
-      nextArrow:
-        '<span className="slider-btn slider-next"><i className="fi-rs-arrow-small-right"></i></span>',
+      prevArrow: '<span className="slider-btn slider-prev"><i className="fi-rs-arrow-small-left"></i></span>',
+      nextArrow: '<span className="slider-btn slider-next"><i className="fi-rs-arrow-small-right"></i></span>',
       appendArrows: appendArrowsClassName,
     });
   });
@@ -163,10 +152,8 @@
           },
         },
       ],
-      prevArrow:
-        '<span className="slider-btn slider-prev"><i className="fi-rs-arrow-small-left"></i></span>',
-      nextArrow:
-        '<span className="slider-btn slider-next"><i className="fi-rs-arrow-small-right"></i></span>',
+      prevArrow: '<span className="slider-btn slider-prev"><i className="fi-rs-arrow-small-left"></i></span>',
+      nextArrow: '<span className="slider-btn slider-next"><i className="fi-rs-arrow-small-right"></i></span>',
       appendArrows: appendArrowsClassName,
     });
   });
@@ -203,10 +190,8 @@
           },
         },
       ],
-      prevArrow:
-        '<span className="slider-btn slider-prev"><i className="fi-rs-arrow-small-left"></i></span>',
-      nextArrow:
-        '<span className="slider-btn slider-next"><i className="fi-rs-arrow-small-right"></i></span>',
+      prevArrow: '<span className="slider-btn slider-prev"><i className="fi-rs-arrow-small-left"></i></span>',
+      nextArrow: '<span className="slider-btn slider-next"><i className="fi-rs-arrow-small-right"></i></span>',
       appendArrows: appendArrowsClassName,
     });
   });
@@ -242,10 +227,8 @@
           },
         },
       ],
-      prevArrow:
-        '<span className="slider-btn slider-prev"><i className="fi-rs-arrow-small-left"></i></span>',
-      nextArrow:
-        '<span className="slider-btn slider-next"><i className="fi-rs-arrow-small-right"></i></span>',
+      prevArrow: '<span className="slider-btn slider-prev"><i className="fi-rs-arrow-small-left"></i></span>',
+      nextArrow: '<span className="slider-btn slider-next"><i className="fi-rs-arrow-small-right"></i></span>',
       appendArrows: appendArrowsClassName,
     });
   });
@@ -268,8 +251,8 @@
             '<span className="countdown-section"><span className="countdown-amount hover-up">%D</span><span className="countdown-period"> days </span></span>' +
             '<span className="countdown-section"><span className="countdown-amount hover-up">%H</span><span className="countdown-period"> hours </span></span>' +
             '<span className="countdown-section"><span className="countdown-amount hover-up">%M</span><span className="countdown-period"> mins </span></span>' +
-            '<span className="countdown-section"><span className="countdown-amount hover-up">%S</span><span className="countdown-period"> sec </span></span>'
-        )
+            '<span className="countdown-section"><span className="countdown-amount hover-up">%S</span><span className="countdown-period"> sec </span></span>',
+        ),
       );
     });
   });
@@ -283,10 +266,8 @@
     loop: true,
     dots: false,
     arrows: true,
-    prevArrow:
-      '<span className="pro-icon-1-prev"><i className="fi-rs-angle-small-left"></i></span>',
-    nextArrow:
-      '<span className="pro-icon-1-next"><i className="fi-rs-angle-small-right"></i></span>',
+    prevArrow: '<span className="pro-icon-1-prev"><i className="fi-rs-angle-small-left"></i></span>',
+    nextArrow: '<span className="pro-icon-1-next"><i className="fi-rs-angle-small-right"></i></span>',
     responsive: [
       {
         breakpoint: 1199,
@@ -323,10 +304,8 @@
     loop: true,
     dots: false,
     arrows: true,
-    prevArrow:
-      '<span className="pro-icon-1-prev"><i className="fi-rs-angle-small-left"></i></span>',
-    nextArrow:
-      '<span className="pro-icon-1-next"><i className="fi-rs-angle-small-right"></i></span>',
+    prevArrow: '<span className="pro-icon-1-prev"><i className="fi-rs-angle-small-left"></i></span>',
+    nextArrow: '<span className="pro-icon-1-next"><i className="fi-rs-angle-small-right"></i></span>',
     responsive: [
       {
         breakpoint: 1199,
@@ -457,12 +436,7 @@
         amountprice.val("$" + ui.values[0] + " - $" + ui.values[1]);
       },
     });
-    amountprice.val(
-      "$" +
-        sliderrange.slider("values", 0) +
-        " - $" +
-        sliderrange.slider("values", 1)
-    );
+    amountprice.val("$" + sliderrange.slider("values", 0) + " - $" + sliderrange.slider("values", 1));
   });
 
   /*-------------------------------
@@ -476,17 +450,9 @@
       e.preventDefault();
       var $this = $(this);
       if (!$this.parent().hasClass("show")) {
-        $this
-          .siblings(".sort-by-dropdown")
-          .addClass("show")
-          .parent()
-          .addClass("show");
+        $this.siblings(".sort-by-dropdown").addClass("show").parent().addClass("show");
       } else {
-        $this
-          .siblings(".sort-by-dropdown")
-          .removeClass("show")
-          .parent()
-          .removeClass("show");
+        $this.siblings(".sort-by-dropdown").removeClass("show").parent().removeClass("show");
       }
     });
     /*Close When Click Outside*/
@@ -685,9 +651,7 @@
   /*Add Toggle Button With Off Canvas Sub Menu*/
   $offCanvasNavSubMenu
     .parent()
-    .prepend(
-      '<span className="menu-expand"><i className="fi-rs-angle-small-down"></i></span>'
-    );
+    .prepend('<span className="menu-expand"><i className="fi-rs-angle-small-down"></i></span>');
 
   /*Close Off Canvas Sub Menu*/
   $offCanvasNavSubMenu.slideUp();
@@ -708,12 +672,7 @@
         $this.siblings("ul").slideUp();
       } else {
         $this.parent("li").addClass("active");
-        $this
-          .closest("li")
-          .siblings("li")
-          .removeClass("active")
-          .find("li")
-          .removeClass("active");
+        $this.closest("li").siblings("li").removeClass("active").find("li").removeClass("active");
         $this.closest("li").siblings("li").find("ul:visible").slideUp();
         $this.siblings("ul").slideDown();
       }
@@ -775,19 +734,13 @@
     (e(".menu-item.has-submenu .menu-link").on("click", function (s) {
       s.preventDefault(),
         e(this).next(".submenu").is(":hidden") &&
-          e(this)
-            .parent(".has-submenu")
-            .siblings()
-            .find(".submenu")
-            .slideUp(200),
+          e(this).parent(".has-submenu").siblings().find(".submenu").slideUp(200),
         e(this).next(".submenu").slideToggle(200);
     }),
     e("[data-trigger]").on("click", function (s) {
       s.preventDefault(), s.stopPropagation();
       var n = e(this).attr("data-trigger");
-      e(n).toggleClass("show"),
-        e("body").toggleClass("offcanvas-active"),
-        e(".screen-overlay").toggleClass("show");
+      e(n).toggleClass("show"), e("body").toggleClass("offcanvas-active"), e(".screen-overlay").toggleClass("show");
     }),
     e(".screen-overlay, .btn-close").click(function (s) {
       e(".screen-overlay").removeClass("show"),

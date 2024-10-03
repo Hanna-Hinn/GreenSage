@@ -30,9 +30,7 @@ export default function AddProduct() {
   const fetchData = async () => {
     try {
       if (productId) {
-        const { data: productData } = await axios.get(
-          `${BACKEND_URL}/products/${productId}`
-        );
+        const { data: productData } = await axios.get(`${BACKEND_URL}/products/${productId}`);
         setFormData({
           name: productData.data.product.name,
           description: productData.data.product.description,
@@ -43,9 +41,7 @@ export default function AddProduct() {
         });
       }
 
-      const { data: categoriesData } = await axios.get(
-        `${BACKEND_URL}/categories`
-      );
+      const { data: categoriesData } = await axios.get(`${BACKEND_URL}/categories`);
 
       setCategories(categoriesData.data);
     } catch (e) {
@@ -63,17 +59,9 @@ export default function AddProduct() {
     try {
       let response;
       if (!productId) {
-        response = await axios.post(
-          `${BACKEND_URL}/products`,
-          formData,
-          config
-        );
+        response = await axios.post(`${BACKEND_URL}/products`, formData, config);
       } else {
-        response = await axios.put(
-          `${BACKEND_URL}/products/${productId}`,
-          formData,
-          config
-        );
+        response = await axios.put(`${BACKEND_URL}/products/${productId}`, formData, config);
       }
 
       if (response.data.success) {
@@ -138,16 +126,12 @@ export default function AddProduct() {
                             {error.name && (
                               <>
                                 <br />
-                                <span style={{ color: "red" }}>
-                                  {error.name}
-                                </span>
+                                <span style={{ color: "red" }}>{error.name}</span>
                               </>
                             )}
                           </div>
                           <div className="form-group">
-                            <label htmlFor="description">
-                              Product Description:
-                            </label>
+                            <label htmlFor="description">Product Description:</label>
                             <textarea
                               type="text"
                               required
@@ -181,9 +165,7 @@ export default function AddProduct() {
                             />
                           </div>
                           <div className="form-group">
-                            <label htmlFor="availableInStock">
-                              Product Stock:
-                            </label>
+                            <label htmlFor="availableInStock">Product Stock:</label>
                             <input
                               type="number"
                               required
@@ -218,16 +200,12 @@ export default function AddProduct() {
                             {error.imageUrl && (
                               <>
                                 <br />
-                                <span style={{ color: "red" }}>
-                                  {error.imageUrl}
-                                </span>
+                                <span style={{ color: "red" }}>{error.imageUrl}</span>
                               </>
                             )}
                           </div>
                           <div className="form-group">
-                            <label htmlFor="category">
-                              Please Select Category:
-                            </label>
+                            <label htmlFor="category">Please Select Category:</label>
                             <select
                               id="category"
                               name="categoryId"
@@ -238,9 +216,7 @@ export default function AddProduct() {
                                 });
                               }}
                             >
-                              <option value="other">
-                                Select One of the below:
-                              </option>
+                              <option value="other">Select One of the below:</option>
                               {categories &&
                                 categories.map((cat) => {
                                   return (

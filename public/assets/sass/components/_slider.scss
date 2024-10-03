@@ -61,12 +61,8 @@
     }
   }
 }
-.single-animation-wrap.slick-active
-  .slider-animated-1
-  .slider-product-offer-wrap,
-.single-animation-wrap.slick-active
-  .slider-animated-1
-  .slider-product-offer-wrap-2 {
+.single-animation-wrap.slick-active .slider-animated-1 .slider-product-offer-wrap,
+.single-animation-wrap.slick-active .slider-animated-1 .slider-product-offer-wrap-2 {
   -webkit-animation-delay: 1s;
   animation-delay: 1s;
   -webkit-animation-name: fadeInUp;
@@ -114,8 +110,7 @@
         border: 0;
         border-radius: 50px 0 0 50px;
         padding-left: 58px;
-        background: url(../imgs/theme/icons/icon-plane.png) no-repeat 25px
-          center;
+        background: url(../imgs/theme/icons/icon-plane.png) no-repeat 25px center;
       }
       button {
         border: 0;

@@ -67,10 +67,7 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
               </Link>
             </div>
             <div className="mobile-menu-close close-style-wrap close-style-position-inherit">
-              <button
-                className="close-style search-close"
-                onClick={toggleClick}
-              >
+              <button className="close-style search-close" onClick={toggleClick}>
                 <i className="icon-top"></i>
                 <i className="icon-bottom"></i>
               </button>
@@ -79,11 +76,7 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
           <div className="mobile-header-content-area">
             <div className="mobile-search search-style-3 mobile-header-border">
               <form onSubmit={(e) => e.preventDefault()}>
-                <input
-                  type="text"
-                  placeholder="Search for items…"
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
+                <input type="text" placeholder="Search for items…" onChange={(e) => setSearchTerm(e.target.value)} />
                 <button type="submit" onClick={handleSearch}>
                   <i className="fi-rs-search"></i>
                 </button>
@@ -91,10 +84,7 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
             </div>
             <div className="mobile-menu-wrap mobile-header-border">
               <div className="main-categori-wrap mobile-header-border">
-                <Link
-                  className="categori-button-active-2"
-                  onClick={handleToggleMenu}
-                >
+                <Link className="categori-button-active-2" onClick={handleToggleMenu}>
                   <span className="fi-rs-apps"></span> Browse Categories
                 </Link>
                 {isMenuOpen && (
@@ -131,43 +121,16 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
 
               <nav>
                 <ul className="mobile-menu" ref={domNode}>
-                  <li
-                    className={
-                      isActive.key === 1
-                        ? "menu-item-has-children active"
-                        : "menu-item-has-children"
-                    }
-                  >
-                    <span
-                      className="menu-expand"
-                      onClick={() => handleToggle(1)}
-                    ></span>
+                  <li className={isActive.key === 1 ? "menu-item-has-children active" : "menu-item-has-children"}>
+                    <span className="menu-expand" onClick={() => handleToggle(1)}></span>
                     <Link to="/">Home</Link>
                   </li>
-                  <li
-                    className={
-                      isActive.key === 1
-                        ? "menu-item-has-children active"
-                        : "menu-item-has-children"
-                    }
-                  >
-                    <span
-                      className="menu-expand"
-                      onClick={() => handleToggle(1)}
-                    ></span>
+                  <li className={isActive.key === 1 ? "menu-item-has-children active" : "menu-item-has-children"}>
+                    <span className="menu-expand" onClick={() => handleToggle(1)}></span>
                     <Link to="/page-about">About Us</Link>
                   </li>
-                  <li
-                    className={
-                      isActive.key === 1
-                        ? "menu-item-has-children active"
-                        : "menu-item-has-children"
-                    }
-                  >
-                    <span
-                      className="menu-expand"
-                      onClick={() => handleToggle(1)}
-                    ></span>
+                  <li className={isActive.key === 1 ? "menu-item-has-children active" : "menu-item-has-children"}>
+                    <span className="menu-expand" onClick={() => handleToggle(1)}></span>
                     <Link to="/vendors-list">Vendors</Link>
                   </li>
                 </ul>
@@ -205,34 +168,19 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
             <div className="mobile-social-icon">
               <h5 className="mb-15 text-grey-4">Follow Us</h5>
               <Link to="www.facebook.com">
-                <img
-                  src="/assets/imgs/theme/icons/icon-facebook.svg"
-                  alt="Facebook"
-                />
+                <img src="/assets/imgs/theme/icons/icon-facebook.svg" alt="Facebook" />
               </Link>
               <Link to="www.twitter.com">
-                <img
-                  src="/assets/imgs/theme/icons/icon-twitter.svg"
-                  alt="Twitter"
-                />
+                <img src="/assets/imgs/theme/icons/icon-twitter.svg" alt="Twitter" />
               </Link>
               <Link to="www.instagram.com">
-                <img
-                  src="/assets/imgs/theme/icons/icon-instagram.svg"
-                  alt="Instagram"
-                />
+                <img src="/assets/imgs/theme/icons/icon-instagram.svg" alt="Instagram" />
               </Link>
               <Link to="www.pinterest.com">
-                <img
-                  src="/assets/imgs/theme/icons/icon-pinterest.svg"
-                  alt="Pinterest"
-                />
+                <img src="/assets/imgs/theme/icons/icon-pinterest.svg" alt="Pinterest" />
               </Link>
               <Link to="www.youtube.com">
-                <img
-                  src="/assets/imgs/theme/icons/icon-youtube.svg"
-                  alt="Youtube"
-                />
+                <img src="/assets/imgs/theme/icons/icon-youtube.svg" alt="Youtube" />
               </Link>
             </div>
           </div>

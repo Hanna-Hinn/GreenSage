@@ -1,23 +1,15 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { connect } from 'react-redux'
-import { toast } from 'react-toastify'
-import Layout from '../components/layout/Layout'
-import { addToCart } from '../redux/action/cart'
-import {
-  clearWishlist,
-  deleteFromWishlist,
-} from '../redux/action/wishlistAction'
+import { connect } from "react-redux";
+import { toast } from "react-toastify";
+import Layout from "../components/layout/Layout";
+import { addToCart } from "../redux/action/cart";
+import { clearWishlist, deleteFromWishlist } from "../redux/action/wishlistAction";
 
-const Wishlist = ({
-  wishlist,
-  clearWishlist,
-  deleteFromWishlist,
-  addToCart,
-}) => {
+const Wishlist = ({ wishlist, clearWishlist, deleteFromWishlist, addToCart }) => {
   const handleCart = (product) => {
-    addToCart(product)
-    toast('Product added to Cart !')
-  }
+    addToCart(product);
+    toast("Product added to Cart !");
+  };
   return (
     <>
       <Layout parent="Home" sub="Shop" subChild="Wishlist">
@@ -30,10 +22,7 @@ const Wishlist = ({
                     <table className="table table-wishlist">
                       <thead>
                         <tr className="main-heading">
-                          <th
-                            className="custome-checkbox start pl-30"
-                            colSpan="2"
-                          >
+                          <th className="custome-checkbox start pl-30" colSpan="2">
                             Product
                           </th>
                           <th scope="col">Price</th>
@@ -48,86 +37,58 @@ const Wishlist = ({
                         {wishlist.map((product, i) => (
                           <tr className="pt-30" key={i}>
                             <td className="image product-thumbnail pt-40">
-                              <img
-                                src={product.productImage}
-                                alt={product.productName}
-                                className="img-fluid"
-                              />
+                              <img src={product.productImage} alt={product.productName} className="img-fluid" />
                             </td>
 
                             <td className="product-des product-name">
                               <h6 className="product-name  mb-10">
-                                <a href={`/products/${product.productId}`}>
-                                  {product.productName}
-                                </a>
+                                <a href={`/products/${product.productId}`}>{product.productName}</a>
                               </h6>
                               <div className="product-rate-cover">
                                 {[...Array(5)].map((star, index) => {
-                                  const currentRating = index + 1
+                                  const currentRating = index + 1;
 
                                   return (
                                     <span
                                       key={index}
                                       style={{
                                         color:
-                                          currentRating <=
-                                          Math.round(product.averageRating)
-                                            ? '#ffc107'
-                                            : '#e4e5e9',
-                                        fontSize: '1rem',
-                                        margin: '1px',
+                                          currentRating <= Math.round(product.averageRating) ? "#ffc107" : "#e4e5e9",
+                                        fontSize: "1rem",
+                                        margin: "1px",
                                       }}
                                     >
                                       &#9733;
                                     </span>
-                                  )
+                                  );
                                 })}
                                 <span className="font-small ml-5 text-muted">
-                                  {' '}
-                                  ({Math.round(product.averageRating * 10) / 10}
-                                  )
+                                  {" "}
+                                  ({Math.round(product.averageRating * 10) / 10})
                                 </span>
                               </div>
                             </td>
                             <td className="price" data-title="Price">
-                              <h3 className="text-brand">
-                                ${product.price['$numberDecimal']}
-                              </h3>
+                              <h3 className="text-brand">${product.price["$numberDecimal"]}</h3>
                             </td>
-                            <td
-                              className="text-center detail-info"
-                              data-title="Stock"
-                            >
+                            <td className="text-center detail-info" data-title="Stock">
                               {product.availableInStock === 0 ? (
-                                <span className="stock-status out-stock mb-0">
-                                  Out of stock
-                                </span>
+                                <span className="stock-status out-stock mb-0">Out of stock</span>
                               ) : (
-                                <span className="stock-status in-stock mb-0">
-                                  In Stock
-                                </span>
+                                <span className="stock-status in-stock mb-0">In Stock</span>
                               )}
                             </td>
                             <td className="text-right" data-title="Cart">
                               {product.availableInStock === 0 ? (
-                                <button className="btn btn-sm btn-secondary">
-                                  Contact Us
-                                </button>
+                                <button className="btn btn-sm btn-secondary">Contact Us</button>
                               ) : (
-                                <button
-                                  className="btn btn-sm"
-                                  onClick={() => handleCart(product)}
-                                >
+                                <button className="btn btn-sm" onClick={() => handleCart(product)}>
                                   Add to cart
                                 </button>
                               )}
                             </td>
                             <td className="action" data-title="Remove">
-                              <a
-                                onClick={() =>
-                                  deleteFromWishlist(product.productId)
-                                }
-                              >
+                              <a onClick={() => deleteFromWishlist(product.productId)}>
                                 <i className="fi-rs-trash"></i>
                               </a>
                             </td>
@@ -150,17 +111,17 @@ const Wishlist = ({
         </section>
       </Layout>
     </>
-  )
-}
+  );
+};
 
 const mapStateToProps = (state) => ({
   wishlist: state.wishlist,
-})
+});
 
 const mapDispatchToProps = {
   deleteFromWishlist,
   clearWishlist,
   addToCart,
-}
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Wishlist)
+export default connect(mapStateToProps, mapDispatchToProps)(Wishlist);

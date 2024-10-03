@@ -45,9 +45,7 @@ const PriceRangeSlider = ({ updateProductFilters }) => {
         min={0}
         max={500}
         // onChange={(value) => console.log(value[0], value[1])}
-        onChange={(value) =>
-          setPrice({ value: { min: value[0], max: value[1] } })
-        }
+        onChange={(value) => setPrice({ value: { min: value[0], max: value[1] } })}
       />
 
       <div className="d-flex justify-content-between">

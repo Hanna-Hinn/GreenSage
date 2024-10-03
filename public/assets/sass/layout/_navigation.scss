@@ -628,8 +628,8 @@
       &.has-children {
         position: relative;
         > a::after {
-          content: '\f111';
-          font-family: 'uicons-regular-straight' !important;
+          content: "\f111";
+          font-family: "uicons-regular-straight" !important;
           position: absolute;
           right: 30px;
           top: 50%;
@@ -675,7 +675,7 @@
                 color: #272a2c !important;
 
                 &::before {
-                  content: '';
+                  content: "";
                   position: absolute;
                   left: 0;
                   right: 0;
@@ -717,7 +717,7 @@
       border-radius: 30px;
       margin-right: 5px;
       &::before {
-        content: '';
+        content: "";
         width: 12px;
         height: 2px;
         background-color: #fad532;
@@ -726,7 +726,7 @@
         top: 9px;
       }
       &::after {
-        content: '';
+        content: "";
         width: 2px;
         height: 12px;
         background-color: #fad532;

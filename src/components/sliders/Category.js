@@ -144,10 +144,7 @@ const CategorySlider = () => {
         ))}
       </Swiper>
 
-      <div
-        className="slider-arrow slider-arrow-2 flex-right carausel-10-columns-arrow"
-        id="carausel-10-columns-arrows"
-      >
+      <div className="slider-arrow slider-arrow-2 flex-right carausel-10-columns-arrow" id="carausel-10-columns-arrows">
         <span className="slider-btn slider-prev slick-arrow custom_prev_ct1">
           <i className="fi-rs-arrow-small-left"></i>
         </span>

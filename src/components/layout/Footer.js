@@ -16,14 +16,10 @@ const Footer = () => {
                       needs from our shop
                     </h2>
                     <p className="mb-45">
-                      Start You'r Daily Shopping with{" "}
-                      <span className="text-brand">GreenSage</span>
+                      Start You'r Daily Shopping with <span className="text-brand">GreenSage</span>
                     </p>
                   </div>
-                  <img
-                    src="/assets/imgs/banner/banner-9.png"
-                    alt="newsletter"
-                  />
+                  <img src="/assets/imgs/banner/banner-9.png" alt="newsletter" />
                 </div>
               </div>
             </div>
@@ -131,16 +127,11 @@ const Footer = () => {
                     <Link to="/" className="mb-15">
                       <img src="/assets/imgs/theme/logo.svg" alt="logo" />
                     </Link>
-                    <p className="font-lg text-heading">
-                      We Care about your health!
-                    </p>
+                    <p className="font-lg text-heading">We Care about your health!</p>
                   </div>
                 </div>
               </div>
-              <div
-                className="footer-link-widget col  wow animate__animated animate__fadeInUp"
-                data-wow-delay=".1s"
-              >
+              <div className="footer-link-widget col  wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
                 <h4 className="widget-title">Company</h4>
                 <ul className="footer-list  mb-sm-5 mb-md-0">
                   <li>
@@ -154,10 +145,7 @@ const Footer = () => {
                   </li>
                 </ul>
               </div>
-              <div
-                className="footer-link-widget col  wow animate__animated animate__fadeInUp"
-                data-wow-delay=".2s"
-              >
+              <div className="footer-link-widget col  wow animate__animated animate__fadeInUp" data-wow-delay=".2s">
                 <h4 className="widget-title ">Account</h4>
                 <ul className="footer-list  mb-sm-5 mb-md-0">
                   <li>
@@ -174,10 +162,7 @@ const Footer = () => {
                   </li>
                 </ul>
               </div>
-              <div
-                className="footer-link-widget col  wow animate__animated animate__fadeInUp"
-                data-wow-delay=".3s"
-              >
+              <div className="footer-link-widget col  wow animate__animated animate__fadeInUp" data-wow-delay=".3s">
                 <h4 className="widget-title ">Corporate</h4>
                 <ul className="footer-list  mb-sm-5 mb-md-0">
                   <li>
@@ -191,10 +176,7 @@ const Footer = () => {
             </div>
           </div>
         </section>
-        <div
-          className="container pb-30  wow animate__animated animate__fadeInUp"
-          data-wow-delay="0"
-        >
+        <div className="container pb-30  wow animate__animated animate__fadeInUp" data-wow-delay="0">
           <div className="row align-items-center">
             <div className="col-12 mb-30">
               <div className="footer-bottom"></div>
@@ -211,34 +193,19 @@ const Footer = () => {
               <div className="mobile-social-icon">
                 <h6>Follow Us</h6>
                 <a href="https://www.facebook.com">
-                  <img
-                    src="/assets/imgs/theme/icons/icon-facebook-white.svg"
-                    alt="facebook icon"
-                  />
+                  <img src="/assets/imgs/theme/icons/icon-facebook-white.svg" alt="facebook icon" />
                 </a>
                 <a href="https://www.twitter.com">
-                  <img
-                    src="/assets/imgs/theme/icons/icon-twitter-white.svg"
-                    alt="twitter icon"
-                  />
+                  <img src="/assets/imgs/theme/icons/icon-twitter-white.svg" alt="twitter icon" />
                 </a>
                 <a href="https://www.instagram.com">
-                  <img
-                    src="/assets/imgs/theme/icons/icon-instagram-white.svg"
-                    alt="instagram icon"
-                  />
+                  <img src="/assets/imgs/theme/icons/icon-instagram-white.svg" alt="instagram icon" />
                 </a>
                 <a href="https://www.pinterest.com/">
-                  <img
-                    src="/assets/imgs/theme/icons/icon-pinterest-white.svg"
-                    alt="pinterest icon"
-                  />
+                  <img src="/assets/imgs/theme/icons/icon-pinterest-white.svg" alt="pinterest icon" />
                 </a>
                 <a href="https://www.youtube.com/">
-                  <img
-                    src="/assets/imgs/theme/icons/icon-youtube-white.svg"
-                    alt="youtube icon"
-                  />
+                  <img src="/assets/imgs/theme/icons/icon-youtube-white.svg" alt="youtube icon" />
                 </a>
               </div>
             </div>
