@@ -55,10 +55,7 @@ function App() {
               <Route path="/orders/:id" element={<Invoice />} />
 
               <Route path="/vendors-list" element={<VendorList />} />
-              <Route
-                path="/vendors-list/vendor/:id"
-                element={<SingleVendor />}
-              />
+              <Route path="/vendors-list/vendor/:id" element={<SingleVendor />} />
 
               <Route path="*" element={<PageNotFound />} />
             </Routes>

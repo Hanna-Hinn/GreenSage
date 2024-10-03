@@ -9,13 +9,7 @@ import Layout from "./../components/layout/Layout";
 import { fetchProduct, searchProducts } from "./../redux/action/product";
 import { BACKEND_URL } from "./../config/index";
 
-const Products = ({
-  products,
-  totalPages,
-  totalProducts,
-  searchProducts,
-  fetchProduct,
-}) => {
+const Products = ({ products, totalPages, totalProducts, searchProducts }) => {
   const location = useLocation();
   const urlParams = new URLSearchParams(location.search);
   const searchTerm = urlParams.get("search");
@@ -56,11 +50,8 @@ const Products = ({
                 <div className="shop-product-fillter">
                   <div className="totall-product">
                     <p>
-                      We found{" "}
-                      <strong className="text-brand">
-                        {totalProducts ? totalProducts : 0}
-                      </strong>{" "}
-                      items for you!
+                      We found <strong className="text-brand">{totalProducts ? totalProducts : 0}</strong> items for
+                      you!
                     </p>
                   </div>
                 </div>
@@ -69,10 +60,7 @@ const Products = ({
 
                   {products &&
                     products.items.map((item, i) => (
-                      <div
-                        className="col-lg-1-5 col-md-4 col-12 col-sm-6"
-                        key={i}
-                      >
+                      <div className="col-lg-1-5 col-md-4 col-12 col-sm-6" key={i}>
                         <SingleProduct product={item} />
                       </div>
                     ))}

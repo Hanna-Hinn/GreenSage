@@ -8,10 +8,8 @@ export const addToWishlist = (product) => (dispatch) => {
   if (user) {
     axios
       .post(`${BACKEND_URL}/favorites/${user.id}/items/${product["_id"]}`)
-      .then(async ({ data }) => {
-        const { data: wishListData } = await axios.get(
-          `${BACKEND_URL}/favorites/${user.id}`
-        );
+      .then(async () => {
+        const { data: wishListData } = await axios.get(`${BACKEND_URL}/favorites/${user.id}`);
 
         const items = wishListData.data.items;
 
@@ -42,10 +40,8 @@ export const deleteFromWishlist = (productId) => (dispatch) => {
   if (user) {
     axios
       .delete(`${BACKEND_URL}/favorites/${user.id}/items/${productId}`)
-      .then(async ({ data }) => {
-        const { data: wishListData } = await axios.get(
-          `${BACKEND_URL}/favorites/${user.id}`
-        );
+      .then(async () => {
+        const { data: wishListData } = await axios.get(`${BACKEND_URL}/favorites/${user.id}`);
         const items = wishListData.data.items;
 
         dispatch({
@@ -70,7 +66,7 @@ export const clearWishlist = () => (dispatch) => {
   if (user) {
     axios
       .delete(`${BACKEND_URL}/favorites/${user.id}`)
-      .then(async ({ data }) => {
+      .then(async () => {
         await axios.get(`${BACKEND_URL}/favorites/${user.id}`);
         dispatch({
           type: Types.CLEAR_WISHLIST,

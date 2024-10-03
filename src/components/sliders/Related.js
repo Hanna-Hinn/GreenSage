@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import SwiperCore, { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SingleProduct from "./../ecommerce/SingleProduct";

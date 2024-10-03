@@ -8,7 +8,7 @@ import { fetchProduct } from "../redux/action/product";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
 
-const Products = ({ products, productFilters, fetchProduct }) => {
+const Products = () => {
   const [data, setData] = useState({ owner: {}, products: [] });
   const [storeAddress, setStoreAddress] = useState("");
   let [pages, setPages] = useState(1);
@@ -22,18 +22,14 @@ const Products = ({ products, productFilters, fetchProduct }) => {
         setData(data);
         const address = data.owner.addresses[0];
 
-        setStoreAddress(
-          `${address.street}, ${address.city} ${address.postalCode}, ${address.state}  `
-        );
+        setStoreAddress(`${address.street}, ${address.city} ${address.postalCode}, ${address.state}  `);
         setPages(data.totalPages);
       })
-      .catch((error) => {});
+      .catch(() => {});
   }, [currentPage]);
 
   const getData = async () => {
-    const response = await axios.get(
-      `${BACKEND_URL}/owners/${id}/v1/query?pageNumber=${currentPage}`
-    );
+    const response = await axios.get(`${BACKEND_URL}/owners/${id}/v1/query?pageNumber=${currentPage}`);
     return response.data.data;
   };
 
@@ -59,11 +55,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                 <div className="shop-product-fillter">
                   <div className="totall-product">
                     <p>
-                      We found{" "}
-                      <strong className="text-brand">
-                        {data ? data.totalProducts : 0}
-                      </strong>{" "}
-                      items for you!
+                      We found <strong className="text-brand">{data ? data.totalProducts : 0}</strong> items for you!
                     </p>
                   </div>
                 </div>
@@ -72,10 +64,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
 
                   {data &&
                     data.products.map((item, i) => (
-                      <div
-                        className="col-lg-1-5 col-md-4 col-15 col-sm-6"
-                        key={i}
-                      >
+                      <div className="col-lg-1-5 col-md-4 col-15 col-sm-6" key={i}>
                         <SingleProduct product={item} fixWidth={true} />
                       </div>
                     ))}
@@ -98,56 +87,37 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                   <>
                     <div className="sidebar-widget widget-store-info mb-30 bg-3 border-0">
                       <div className="vendor-logo mb-30">
-                        <img
-                          src={`${data.owner.imageUrl}`}
-                          alt={`${data.owner.firstName} ${data.owner.lastName}`}
-                        />
+                        <img src={`${data.owner.imageUrl}`} alt={`${data.owner.firstName} ${data.owner.lastName}`} />
                       </div>
                       <div className="vendor-info">
                         <h4 className="mb-5">
-                          <div className="text-heading">
-                            {`${data.owner.firstName} ${data.owner.lastName}`}
-                          </div>
+                          <div className="text-heading">{`${data.owner.firstName} ${data.owner.lastName}`}</div>
                         </h4>
 
                         <div className="vendor-des mb-30">
-                          <p className="ont-sm text-heading">
-                            {data.owner.description}
-                          </p>
+                          <p className="ont-sm text-heading">{data.owner.description}</p>
                         </div>
                         <div className="ollow-social mb-20">
                           <h6 className="mb-15">Follow Us</h6>
                           <ul className="social-network">
                             <li className="hover-up">
                               <a href="www.twitter.com">
-                                <img
-                                  src="/assets/imgs/theme/icons/social-tw.svg"
-                                  alt="twitter"
-                                />
+                                <img src="/assets/imgs/theme/icons/social-tw.svg" alt="twitter" />
                               </a>
                             </li>
                             <li className="hover-up">
                               <a href="www.facebook.com">
-                                <img
-                                  src="/assets/imgs/theme/icons/social-fb.svg"
-                                  alt="facebook"
-                                />
+                                <img src="/assets/imgs/theme/icons/social-fb.svg" alt="facebook" />
                               </a>
                             </li>
                             <li className="hover-up">
                               <a href="www.instagram.com">
-                                <img
-                                  src="/assets/imgs/theme/icons/social-insta.svg"
-                                  alt="instagram"
-                                />
+                                <img src="/assets/imgs/theme/icons/social-insta.svg" alt="instagram" />
                               </a>
                             </li>
                             <li className="hover-up">
                               <a href="www.pinterest.com">
-                                <img
-                                  src="/assets/imgs/theme/icons/social-pin.svg"
-                                  alt="pinterest"
-                                />
+                                <img src="/assets/imgs/theme/icons/social-pin.svg" alt="pinterest" />
                               </a>
                             </li>
                           </ul>
@@ -156,22 +126,11 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                         <div className="vendor-info">
                           <ul className="ont-sm mb-20">
                             <li>
-                              <img
-                                className="mr-5"
-                                src="/assets/imgs/theme/icons/icon-location.svg"
-                                alt="location"
-                              />
-                              <strong>Address: </strong>{" "}
-                              <span>
-                                {data.owner.addresses && storeAddress}
-                              </span>
+                              <img className="mr-5" src="/assets/imgs/theme/icons/icon-location.svg" alt="location" />
+                              <strong>Address: </strong> <span>{data.owner.addresses && storeAddress}</span>
                             </li>
                             <li>
-                              <img
-                                className="mr-5"
-                                src="/assets/imgs/theme/icons/icon-contact.svg"
-                                alt="contact"
-                              />
+                              <img className="mr-5" src="/assets/imgs/theme/icons/icon-contact.svg" alt="contact" />
                               <strong>Call Us:</strong>
                               <span>{` ${data.owner.mobile} `}</span>
                             </li>

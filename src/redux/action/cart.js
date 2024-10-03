@@ -18,10 +18,8 @@ export const addToCart =
         .post(url, {
           quantity,
         })
-        .then(async ({ data }) => {
-          const { data: cartData } = await axios.get(
-            `${BACKEND_URL}/carts/${user.id}`
-          );
+        .then(async () => {
+          const { data: cartData } = await axios.get(`${BACKEND_URL}/carts/${user.id}`);
           const cartItems = cartData.data.cartItems;
 
           dispatch({
@@ -46,10 +44,8 @@ export const deleteFromCart = (productId) => (dispatch) => {
   if (user) {
     axios
       .delete(`${BACKEND_URL}/carts/${user.id}/products/${productId}`)
-      .then(async ({ data }) => {
-        const { data: cartData } = await axios.get(
-          `${BACKEND_URL}/carts/${user.id}`
-        );
+      .then(async () => {
+        const { data: cartData } = await axios.get(`${BACKEND_URL}/carts/${user.id}`);
         const cartItems = cartData.data.cartItems;
         dispatch({
           type: Types.DELETE_FROM_CART,
@@ -81,9 +77,7 @@ export const increaseQuantity = (productId) => (dispatch) => {
       })
       .then(async ({ data }) => {
         console.log(data);
-        const { data: cartData } = await axios.get(
-          `${BACKEND_URL}/carts/${user.id}`
-        );
+        const { data: cartData } = await axios.get(`${BACKEND_URL}/carts/${user.id}`);
         const cartItems = cartData.data.cartItems;
 
         dispatch({
@@ -112,10 +106,8 @@ export const decreaseQuantity = (productId) => (dispatch) => {
   if (user) {
     axios
       .delete(`${BACKEND_URL}/carts/${user.id}/items/${productId}`)
-      .then(async ({ data }) => {
-        const { data: cartData } = await axios.get(
-          `${BACKEND_URL}/carts/${user.id}`
-        );
+      .then(async () => {
+        const { data: cartData } = await axios.get(`${BACKEND_URL}/carts/${user.id}`);
         const cartItems = cartData.data.cartItems;
 
         dispatch({
@@ -144,7 +136,7 @@ export const clearCart = () => (dispatch) => {
   if (user) {
     axios
       .delete(`${BACKEND_URL}/carts/${user.id}`)
-      .then(async ({ data }) => {
+      .then(async () => {
         await axios.get(`${BACKEND_URL}/carts/${user.id}`);
         dispatch({
           type: Types.CLEAR_CART,

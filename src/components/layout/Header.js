@@ -33,9 +33,7 @@ const Header = ({ user, totalCartItems, toggleClick, totalWishlistItems }) => {
 
   const fetchData = async () => {
     try {
-      const { data } = await axios.get(
-        `${BACKEND_URL}/products/${userInfo.id}/notifications`
-      );
+      const { data } = await axios.get(`${BACKEND_URL}/products/${userInfo.id}/notifications`);
       if (data.success) {
         setNotifications(data.data);
       } else {
@@ -97,15 +95,14 @@ const Header = ({ user, totalCartItems, toggleClick, totalWishlistItems }) => {
               <div className="col-xl-6 col-lg-4">
                 <div className="text-center">
                   <div id="news-flash" className="d-inline-block">
-                    Fresh Picks! Unbeatable Prices. Shop Now! 🌿🛒 #FreshDeals
-                    #GoGreen
+                    Fresh Picks! Unbeatable Prices. Shop Now! 🧅🛒 #FreshDeals #GoGreen
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="header-middle header-middle-ptb-1 d-none d-lg-block">
+        <div className="header-middle d-none d-lg-block">
           <div className="container">
             <div className="header-wrap">
               <div className="logo logo-width-1">
@@ -122,26 +119,15 @@ const Header = ({ user, totalCartItems, toggleClick, totalWishlistItems }) => {
                     {user && user.userType !== "owner" && (
                       <>
                         <div className="header-action-icon-2 notification-container">
-                          <a
-                            className="mini-cart-icon"
-                            onClick={toggleNotifications}
-                          >
-                            <img
-                              alt="notification"
-                              src="/assets/imgs/theme/icons/notification-icon.png"
-                            />
-                            {notifications.length > 0 && (
-                              <span className="pro-count blue"></span>
-                            )}
+                          <a className="mini-cart-icon" onClick={toggleNotifications}>
+                            <img alt="notification" src="/assets/imgs/theme/icons/notification-icon.png" />
+                            {notifications.length > 0 && <span className="pro-count blue"></span>}
                           </a>
                           <span className="lable">Notification</span>
                           {isOpen && (
                             <ul className="notifications-list">
                               {notifications.map((notification) => (
-                                <li
-                                  key={notification.notificationId}
-                                  className="notification"
-                                >
+                                <li key={notification.notificationId} className="notification">
                                   <Link
                                     to={
                                       notification.type === "Status updated"
@@ -158,14 +144,8 @@ const Header = ({ user, totalCartItems, toggleClick, totalWishlistItems }) => {
                         </div>
                         <div className="header-action-icon-2">
                           <Link to="/shop-wishlist">
-                            <img
-                              className="svgInject"
-                              alt="wishlist"
-                              src="/assets/imgs/theme/icons/icon-heart.svg"
-                            />
-                            <span className="pro-count blue">
-                              {totalWishlistItems}
-                            </span>
+                            <img className="svgInject" alt="wishlist" src="/assets/imgs/theme/icons/icon-heart.svg" />
+                            <span className="pro-count blue">{totalWishlistItems}</span>
                           </Link>
                           <Link to="/shop-wishlist">
                             <span className="lable">Wishlist</span>
@@ -173,13 +153,8 @@ const Header = ({ user, totalCartItems, toggleClick, totalWishlistItems }) => {
                         </div>
                         <div className="header-action-icon-2">
                           <Link to="/shop-cart" className="mini-cart-icon">
-                            <img
-                              alt="cart"
-                              src="/assets/imgs/theme/icons/icon-cart.svg"
-                            />
-                            <span className="pro-count blue">
-                              {totalCartItems}
-                            </span>
+                            <img alt="cart" src="/assets/imgs/theme/icons/icon-cart.svg" />
+                            <span className="pro-count blue">{totalCartItems}</span>
                           </Link>
                           <Link to="/shop-cart">
                             <span className="lable">Cart</span>
@@ -190,11 +165,7 @@ const Header = ({ user, totalCartItems, toggleClick, totalWishlistItems }) => {
 
                     <div className="header-action-icon-2">
                       <Link to="/page-account">
-                        <img
-                          className="svgInject"
-                          alt="user"
-                          src="/assets/imgs/theme/icons/icon-user.svg"
-                        />
+                        <img className="svgInject" alt="user" src="/assets/imgs/theme/icons/icon-user.svg" />
                       </Link>
                       <Link to={!user ? "/page-login" : "/page-account"}>
                         <span className="lable ml-0">Account</span>
@@ -255,10 +226,7 @@ const Header = ({ user, totalCartItems, toggleClick, totalWishlistItems }) => {
               </div>
               <div className="header-nav d-none d-lg-flex">
                 <div className="main-categori-wrap d-none d-lg-block">
-                  <a
-                    className="categories-button-active"
-                    onClick={handleToggle}
-                  >
+                  <a className="categories-button-active" onClick={handleToggle}>
                     <span className="fi-rs-apps"></span>
                     <span className="et">Browse</span> All Categories
                     <i className="fi-rs-angle-down"></i>
@@ -280,42 +248,24 @@ const Header = ({ user, totalCartItems, toggleClick, totalWishlistItems }) => {
                   <nav>
                     <ul>
                       <li>
-                        <Link
-                          to="/"
-                          className={currentPathname === "/" ? "active" : ""}
-                        >
+                        <Link to="/" className={currentPathname === "/" ? "active" : ""}>
                           Home
                         </Link>
                       </li>
                       <li>
-                        <Link
-                          to="/page-about"
-                          className={
-                            currentPathname === "/page-about" ? "active" : ""
-                          }
-                        >
+                        <Link to="/page-about" className={currentPathname === "/page-about" ? "active" : ""}>
                           About
                         </Link>
                       </li>
 
                       <li>
-                        <Link
-                          to="/vendors-list"
-                          className={
-                            currentPathname === "/vendors-list" ? "active" : ""
-                          }
-                        >
+                        <Link to="/vendors-list" className={currentPathname === "/vendors-list" ? "active" : ""}>
                           Vendors
                         </Link>
                       </li>
 
                       <li>
-                        <Link
-                          to="/page-contact"
-                          className={
-                            currentPathname === "/page-contact" ? "active" : ""
-                          }
-                        >
+                        <Link to="/page-contact" className={currentPathname === "/page-contact" ? "active" : ""}>
                           Contact
                         </Link>
                       </li>
@@ -324,10 +274,7 @@ const Header = ({ user, totalCartItems, toggleClick, totalWishlistItems }) => {
                 </div>
               </div>
               <div className="header-action-icon-2 d-block d-lg-none">
-                <div
-                  className="burger-icon burger-icon-white"
-                  onClick={toggleClick}
-                >
+                <div className="burger-icon burger-icon-white" onClick={toggleClick}>
                   <span className="burger-icon-top"></span>
                   <span className="burger-icon-mid"></span>
                   <span className="burger-icon-bottom"></span>
@@ -340,24 +287,14 @@ const Header = ({ user, totalCartItems, toggleClick, totalWishlistItems }) => {
                     <>
                       <div className="header-action-icon-2">
                         <Link to="/shop-wishlist">
-                          <img
-                            alt="wishlist"
-                            src="/assets/imgs/theme/icons/icon-heart.svg"
-                          />
-                          <span className="pro-count white">
-                            {totalWishlistItems}
-                          </span>
+                          <img alt="wishlist" src="/assets/imgs/theme/icons/icon-heart.svg" />
+                          <span className="pro-count white">{totalWishlistItems}</span>
                         </Link>
                       </div>
                       <div className="header-action-icon-2">
                         <Link to="/shop-cart" className="mini-cart-icon">
-                          <img
-                            alt="cart"
-                            src="/assets/imgs/theme/icons/icon-cart.svg"
-                          />
-                          <span className="pro-count white">
-                            {totalCartItems}
-                          </span>
+                          <img alt="cart" src="/assets/imgs/theme/icons/icon-cart.svg" />
+                          <span className="pro-count white">{totalCartItems}</span>
                         </Link>
                       </div>
                     </>

@@ -59,22 +59,15 @@ export default function Invoice() {
                         <div className="invoice-name">
                           <div className="logo">
                             <a href="/">
-                              <img
-                                src="/assets/imgs/theme/logo.svg"
-                                alt="logo"
-                              />
+                              <img src="/assets/imgs/theme/logo.svg" alt="logo" />
                             </a>
                           </div>
                         </div>
                       </div>
                       <div className="col-sm-6">
                         <div className="invoice-numb">
-                          <h6 className="text-end mb-10 mt-20">
-                            Date: {order && formatDate(order.date)}
-                          </h6>
-                          <h6 className="text-end invoice-header-1">
-                            Order No: #{order && order["_id"]}
-                          </h6>
+                          <h6 className="text-end mb-10 mt-20">Date: {order && formatDate(order.date)}</h6>
+                          <h6 className="text-end invoice-header-1">Order No: #{order && order["_id"]}</h6>
                         </div>
                       </div>
                     </div>
@@ -83,9 +76,7 @@ export default function Invoice() {
                     <div className="row">
                       <div className="col-lg-9 col-md-6">
                         <div className="invoice-number">
-                          <h4 className="invoice-title-1 mb-10">
-                            User Details
-                          </h4>
+                          <h4 className="invoice-title-1 mb-10">User Details</h4>
                           <p className="invoice-addr-1">
                             <strong>{order && order.userName}</strong> <br />
                             {/* {order && order.userEmail} <br />
@@ -109,14 +100,10 @@ export default function Invoice() {
                     <div className="row mt-2">
                       <div className="col-lg-9 col-md-6">
                         <h4 className="invoice-title-1 mb-10">Status:</h4>
-                        <p className="invoice-from-1">
-                          {order && order.shipmentStatus}
-                        </p>
+                        <p className="invoice-from-1">{order && order.shipmentStatus}</p>
                       </div>
                       <div className="col-lg-3 col-md-6">
-                        <h4 className="invoice-title-1 mb-10">
-                          Payment Method
-                        </h4>
+                        <h4 className="invoice-title-1 mb-10">Payment Method</h4>
                         <p className="invoice-from-1">Bank Card</p>
                       </div>
                     </div>
@@ -143,15 +130,9 @@ export default function Invoice() {
                                       <small>{item.ownerName}</small>
                                     </div>
                                   </td>
-                                  <td className="text-center">
-                                    ${item.price["$numberDecimal"]}
-                                  </td>
-                                  <td className="text-center">
-                                    {item.quantity}
-                                  </td>
-                                  <td className="text-right">
-                                    ${item.itemTotalPrice}
-                                  </td>
+                                  <td className="text-center">${item.price["$numberDecimal"]}</td>
+                                  <td className="text-center">{item.quantity}</td>
+                                  <td className="text-right">${item.itemTotalPrice}</td>
                                 </tr>
                               );
                             })}
@@ -160,25 +141,19 @@ export default function Invoice() {
                             <td colSpan="3" className="text-end f-w-600">
                               SubTotal
                             </td>
-                            <td className="text-right">
-                              ${order && order.totalPrice - order.deliveryFee}
-                            </td>
+                            <td className="text-right">${order && order.totalPrice - order.deliveryFee}</td>
                           </tr>
                           <tr>
                             <td colSpan="3" className="text-end f-w-600">
                               Delivery Fee
                             </td>
-                            <td className="text-right">
-                              ${order && order.deliveryFee}
-                            </td>
+                            <td className="text-right">${order && order.deliveryFee}</td>
                           </tr>
                           <tr>
                             <td colSpan="3" className="text-end f-w-600">
                               Grand Total
                             </td>
-                            <td className="text-right f-w-600">
-                              ${order && order.totalPrice}
-                            </td>
+                            <td className="text-right f-w-600">${order && order.totalPrice}</td>
                           </tr>
                         </tbody>
                       </table>
@@ -190,60 +165,35 @@ export default function Invoice() {
                         <div>
                           <h3 className="invoice-title-1">Important Note</h3>
                           <ul className="important-notes-list-1">
-                            <li>
-                              All amounts shown on this page are in US dollars
-                            </li>
-                            <li>
-                              finance charge of 1.5% will be made on unpaid
-                              balances after 30 days.
-                            </li>
+                            <li>All amounts shown on this page are in US dollars</li>
+                            <li>finance charge of 1.5% will be made on unpaid balances after 30 days.</li>
                             <li>Once order done, money can't refund</li>
-                            <li>
-                              Delivery might delay due to some external
-                              dependency
-                            </li>
+                            <li>Delivery might delay due to some external dependency</li>
                           </ul>
                         </div>
                       </div>
                       <div className="col-sm-6 col-offsite">
                         <div className="text-end">
-                          <p className="mb-0 text-13">
-                            Thank you for your business
-                          </p>
+                          <p className="mb-0 text-13">Thank you for your business</p>
                           <p>
                             <strong>GreenSage</strong>
                           </p>
                           <div className="mobile-social-icon mt-50 print-hide">
                             <h6>Follow Us</h6>
                             <a href="https://www.facebook.com">
-                              <img
-                                src="/assets/imgs/theme/icons/icon-facebook-white.svg"
-                                alt="facebook icon"
-                              />
+                              <img src="/assets/imgs/theme/icons/icon-facebook-white.svg" alt="facebook icon" />
                             </a>
                             <a href="https://www.twitter.com">
-                              <img
-                                src="/assets/imgs/theme/icons/icon-twitter-white.svg"
-                                alt="twitter icon"
-                              />
+                              <img src="/assets/imgs/theme/icons/icon-twitter-white.svg" alt="twitter icon" />
                             </a>
                             <a href="https://www.instagram.com">
-                              <img
-                                src="/assets/imgs/theme/icons/icon-instagram-white.svg"
-                                alt="instagram icon"
-                              />
+                              <img src="/assets/imgs/theme/icons/icon-instagram-white.svg" alt="instagram icon" />
                             </a>
                             <a href="https://www.pinterest.com/">
-                              <img
-                                src="/assets/imgs/theme/icons/icon-pinterest-white.svg"
-                                alt="pinterest icon"
-                              />
+                              <img src="/assets/imgs/theme/icons/icon-pinterest-white.svg" alt="pinterest icon" />
                             </a>
                             <a href="https://www.youtube.com/">
-                              <img
-                                src="/assets/imgs/theme/icons/icon-youtube-white.svg"
-                                alt="youtube icon"
-                              />
+                              <img src="/assets/imgs/theme/icons/icon-youtube-white.svg" alt="youtube icon" />
                             </a>
                           </div>
                         </div>
@@ -252,16 +202,9 @@ export default function Invoice() {
                   </div>
                 </div>
                 <div className="invoice-btn-section clearfix d-print-none">
-                  <a
-                    href="javascript:window.print()"
-                    className="btn btn-lg btn-custom btn-print hover-up"
-                  >
+                  <a href="javascript:window.print()" className="btn btn-lg btn-custom btn-print hover-up">
                     {" "}
-                    <img
-                      src="assets/imgs/theme/icons/icon-print.svg"
-                      alt=""
-                    />{" "}
-                    Print{" "}
+                    <img src="assets/imgs/theme/icons/icon-print.svg" alt="" /> Print{" "}
                   </a>
                 </div>
               </div>

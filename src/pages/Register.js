@@ -62,10 +62,10 @@ function Register() {
     setIsCustomer(!isCustomer);
   };
 
-  const handleCheckboxChange = (event) => {
+  const handleCheckboxChange = () => {
     setAgree(!agree);
     setError((curr) => {
-      const { agree, ...rest } = curr;
+      const { ...rest } = curr;
       return rest;
     });
   };
@@ -94,9 +94,7 @@ function Register() {
     } catch (error) {
       setError({
         ...error,
-        responseError: error.message
-          ? error.message
-          : "Something Went Wrong!!!",
+        responseError: error.message ? error.message : "Something Went Wrong!!!",
       });
     }
   };
@@ -161,8 +159,7 @@ function Register() {
   };
 
   function validateEmail(email) {
-    const emailRegex =
-      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     return emailRegex.test(String(email).toLowerCase());
   }
 
@@ -201,8 +198,7 @@ function Register() {
                         <div className="heading_s1 mb-50">
                           <h1 className="mb-5">Create an Account</h1>
                           <p>
-                            Already have an account?{" "}
-                            <Link to="/page-login">Log in instead!</Link>
+                            Already have an account? <Link to="/page-login">Log in instead!</Link>
                           </p>
                         </div>
                         <form onSubmit={(e) => e.preventDefault()}>
@@ -219,7 +215,7 @@ function Register() {
                                     firstName: e.target.value,
                                   });
                                   setError((curr) => {
-                                    const { firstName, ...rest } = curr;
+                                    const { ...rest } = curr;
                                     return rest;
                                   });
                                 }}
@@ -228,9 +224,7 @@ function Register() {
                             {error.firstName && (
                               <>
                                 <br />
-                                <span style={{ color: "red" }}>
-                                  {error.firstName}
-                                </span>
+                                <span style={{ color: "red" }}>{error.firstName}</span>
                               </>
                             )}
                             <div className="form-group">
@@ -245,7 +239,7 @@ function Register() {
                                     lastName: e.target.value,
                                   });
                                   setError((curr) => {
-                                    const { lastName, ...rest } = curr;
+                                    const { ...rest } = curr;
                                     return rest;
                                   });
                                 }}
@@ -254,9 +248,7 @@ function Register() {
                             {error.lastName && (
                               <>
                                 <br />
-                                <span style={{ color: "red" }}>
-                                  {error.lastName}
-                                </span>
+                                <span style={{ color: "red" }}>{error.lastName}</span>
                               </>
                             )}
                           </div>
@@ -273,7 +265,7 @@ function Register() {
                                   email: e.target.value,
                                 });
                                 setError((curr) => {
-                                  const { email, ...rest } = curr;
+                                  const { ...rest } = curr;
                                   return rest;
                                 });
                               }}
@@ -281,9 +273,7 @@ function Register() {
                             {error.email && (
                               <>
                                 <br />
-                                <span style={{ color: "red" }}>
-                                  {error.email}
-                                </span>
+                                <span style={{ color: "red" }}>{error.email}</span>
                               </>
                             )}
                           </div>
@@ -300,7 +290,7 @@ function Register() {
                                   mobile: e.target.value,
                                 });
                                 setError((curr) => {
-                                  const { mobile, ...rest } = curr;
+                                  const { ...rest } = curr;
                                   return rest;
                                 });
                               }}
@@ -308,9 +298,7 @@ function Register() {
                             {error.mobile && (
                               <>
                                 <br />
-                                <span style={{ color: "red" }}>
-                                  {error.mobile}
-                                </span>
+                                <span style={{ color: "red" }}>{error.mobile}</span>
                               </>
                             )}
                           </div>
@@ -327,7 +315,7 @@ function Register() {
                                   imageUrl: e.target.value,
                                 });
                                 setError((curr) => {
-                                  const { imageUrl, ...rest } = curr;
+                                  const { ...rest } = curr;
                                   return rest;
                                 });
                               }}
@@ -335,9 +323,7 @@ function Register() {
                             {error.imageUrl && (
                               <>
                                 <br />
-                                <span style={{ color: "red" }}>
-                                  {error.imageUrl}
-                                </span>
+                                <span style={{ color: "red" }}>{error.imageUrl}</span>
                               </>
                             )}
                           </div>
@@ -354,7 +340,7 @@ function Register() {
                                   password: e.target.value,
                                 });
                                 setError((curr) => {
-                                  const { password, ...rest } = curr;
+                                  const { ...rest } = curr;
                                   return rest;
                                 });
                               }}
@@ -362,9 +348,7 @@ function Register() {
                             {error.password && (
                               <>
                                 <br />
-                                <span style={{ color: "red" }}>
-                                  {error.password}
-                                </span>
+                                <span style={{ color: "red" }}>{error.password}</span>
                               </>
                             )}
                           </div>
@@ -381,7 +365,7 @@ function Register() {
                                   confirmPassword: e.target.value,
                                 });
                                 setError((curr) => {
-                                  const { confirmPassword, ...rest } = curr;
+                                  const { ...rest } = curr;
                                   return rest;
                                 });
                               }}
@@ -389,9 +373,7 @@ function Register() {
                             {error.confirmPassword && (
                               <>
                                 <br />
-                                <span style={{ color: "red" }}>
-                                  {error.confirmPassword}
-                                </span>
+                                <span style={{ color: "red" }}>{error.confirmPassword}</span>
                               </>
                             )}
                           </div>
@@ -412,9 +394,7 @@ function Register() {
                             </div>
                           )}
 
-                          <label style={{ marginBottom: 10 }}>
-                            Please Enter your address Info:
-                          </label>
+                          <label style={{ marginBottom: 10 }}>Please Enter your address Info:</label>
                           <div
                             style={{
                               display: "flex",
@@ -501,9 +481,7 @@ function Register() {
 
                           {isCustomer && (
                             <div className="payment_option mb-50">
-                              <label>
-                                Please Check the Preferred Minerals:
-                              </label>
+                              <label>Please Check the Preferred Minerals:</label>
                               <br />
                               {mineralsArray.map((key) => {
                                 return (
@@ -516,11 +494,7 @@ function Register() {
                                       id={key}
                                       onChange={(e) => handleMineralChange(e)}
                                     />
-                                    <label
-                                      style={{ paddingLeft: "5px" }}
-                                      className="form-check-label"
-                                      htmlFor={key}
-                                    >
+                                    <label style={{ paddingLeft: "5px" }} className="form-check-label" htmlFor={key}>
                                       {key}
                                     </label>
                                     {key === "others" && (
@@ -531,16 +505,13 @@ function Register() {
                                           className="form-check-label"
                                           htmlFor={key}
                                         >
-                                          Please Make sure it's the same
-                                          structure in the example
+                                          Please Make sure it's the same structure in the example
                                         </label>
                                         <input
                                           type="text"
                                           name="others"
                                           placeholder="Ex: vitaminC,vitaminB12,...etc"
-                                          onChange={(e) =>
-                                            handleMineralChange(e)
-                                          }
+                                          onChange={(e) => handleMineralChange(e)}
                                         />
                                       </>
                                     )}
@@ -563,7 +534,7 @@ function Register() {
                                     securityCode: e.target.value,
                                   });
                                   setError((curr) => {
-                                    const { securityCode, ...rest } = curr;
+                                    const { ...rest } = curr;
                                     return rest;
                                   });
                                 }}
@@ -572,20 +543,13 @@ function Register() {
                             {error.securityCode && (
                               <>
                                 <br />
-                                <span style={{ color: "red" }}>
-                                  {error.securityCode}
-                                </span>
+                                <span style={{ color: "red" }}>{error.securityCode}</span>
                               </>
                             )}
 
                             <span className="security-code">
                               {securityCode.split("").map((digit, index) => (
-                                <b
-                                  key={index}
-                                  className={`text-${
-                                    ["new", "hot", "sale", "best"][index]
-                                  }`}
-                                >
+                                <b key={index} className={`text-${["new", "hot", "sale", "best"][index]}`}>
                                   {digit}
                                 </b>
                               ))}
@@ -645,18 +609,13 @@ function Register() {
                                   checked={agree}
                                   onChange={handleCheckboxChange}
                                 />
-                                <label
-                                  className="form-check-label"
-                                  htmlFor="exampleCheckbox12"
-                                >
+                                <label className="form-check-label" htmlFor="exampleCheckbox12">
                                   <span>I agree to terms &amp; Policy.</span>
                                 </label>
                                 {error.agree && (
                                   <>
                                     <br />
-                                    <span style={{ color: "red" }}>
-                                      {error.agree}
-                                    </span>
+                                    <span style={{ color: "red" }}>{error.agree}</span>
                                   </>
                                 )}
                               </div>
@@ -672,9 +631,7 @@ function Register() {
                             </button>
                           </div>
                         </form>
-                        {!error.responseError && (
-                          <p style={{ color: "red" }}>{error.responseError}</p>
-                        )}
+                        {!error.responseError && <p style={{ color: "red" }}>{error.responseError}</p>}
                       </div>
                     </div>
                   </div>

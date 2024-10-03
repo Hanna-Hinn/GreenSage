@@ -3,27 +3,14 @@ import { connect } from "react-redux";
 import Layout from "../components/layout/Layout";
 
 import { Link } from "react-router-dom";
-import {
-  clearCart,
-  decreaseQuantity,
-  deleteFromCart,
-  increaseQuantity,
-} from "../redux/action/cart";
+import { clearCart, decreaseQuantity, deleteFromCart, increaseQuantity } from "../redux/action/cart";
 
-const Cart = ({
-  cartItems,
-  increaseQuantity,
-  decreaseQuantity,
-  deleteFromCart,
-  clearCart,
-}) => {
+const Cart = ({ cartItems, increaseQuantity, decreaseQuantity, deleteFromCart, clearCart }) => {
   const shippingCost = 10;
 
   const price = () => {
     let price = 0;
-    cartItems.forEach(
-      (item) => (price += item.price["$numberDecimal"] * item.quantity)
-    );
+    cartItems.forEach((item) => (price += item.price["$numberDecimal"] * item.quantity));
 
     return price;
   };
@@ -43,9 +30,7 @@ const Cart = ({
               <div className="col-lg-8 mb-40">
                 <h1 className="heading-2 mb-10">Your Cart</h1>
                 <div className="d-flex justify-content-between">
-                  <h6 className="text-body">
-                    Carefully check the information before checkout
-                  </h6>
+                  <h6 className="text-body">Carefully check the information before checkout</h6>
                 </div>
               </div>
             </div>
@@ -53,17 +38,10 @@ const Cart = ({
               <div className="col-lg-8">
                 <div className="table-responsive shopping-summery">
                   {cartItems.length <= 0 && "No Products"}
-                  <table
-                    className={
-                      cartItems.length > 0 ? "table table-wishlist" : "d-none"
-                    }
-                  >
+                  <table className={cartItems.length > 0 ? "table table-wishlist" : "d-none"}>
                     <thead>
                       <tr className="main-heading">
-                        <th
-                          className="custome-checkbox start pl-30"
-                          colSpan="2"
-                        >
+                        <th className="custome-checkbox start pl-30" colSpan="2">
                           Product
                         </th>
                         <th scope="col">Unit Price</th>
@@ -83,9 +61,7 @@ const Cart = ({
 
                           <td className="product-des product-name">
                             <h6 className="product-name">
-                              <Link to={`/products/${item["_id"]}`}>
-                                {item.productName}
-                              </Link>
+                              <Link to={`/products/${item["_id"]}`}>{item.productName}</Link>
                             </h6>
                             <div className="product-rate-cover">
                               {[...Array(5)].map((star, index) => {
@@ -95,11 +71,7 @@ const Cart = ({
                                   <span
                                     key={index}
                                     style={{
-                                      color:
-                                        currentRating <=
-                                        Math.round(item.averageRating)
-                                          ? "#ffc107"
-                                          : "#e4e5e9",
+                                      color: currentRating <= Math.round(item.averageRating) ? "#ffc107" : "#e4e5e9",
                                       fontSize: "1rem",
                                       margin: "1px",
                                     }}
@@ -115,31 +87,18 @@ const Cart = ({
                             </div>
                           </td>
                           <td className="price" data-title="Price">
-                            <h4 className="text-brand">
-                              ${item.price["$numberDecimal"]}
-                            </h4>
+                            <h4 className="text-brand">${item.price["$numberDecimal"]}</h4>
                           </td>
-                          <td
-                            className="text-center detail-info"
-                            data-title="Stock"
-                          >
+                          <td className="text-center detail-info" data-title="Stock">
                             <div className="detail-extralink mr-15">
                               <div className="detail-qty border radius ">
-                                <a
-                                  onClick={(e) =>
-                                    decreaseQuantity(item.productId)
-                                  }
-                                  className="qty-down"
-                                >
+                                <a onClick={() => decreaseQuantity(item.productId)} className="qty-down">
                                   <i className="fi-rs-angle-small-down"></i>
                                 </a>
                                 <span className="qty-val">{item.quantity}</span>
                                 <a
-                                  onClick={(e) => {
-                                    increaseQuantity(
-                                      item.productId,
-                                      item.quantity
-                                    );
+                                  onClick={() => {
+                                    increaseQuantity(item.productId, item.quantity);
                                   }}
                                   className="qty-up"
                                 >
@@ -149,15 +108,10 @@ const Cart = ({
                             </div>
                           </td>
                           <td className="text-right" data-title="Cart">
-                            <h4 className="text-body">
-                              ${item.quantity * item.price["$numberDecimal"]}
-                            </h4>
+                            <h4 className="text-body">${item.quantity * item.price["$numberDecimal"]}</h4>
                           </td>
                           <td className="action" data-title="Remove">
-                            <a
-                              onClick={(e) => deleteFromCart(item.productId)}
-                              className="text-muted"
-                            >
+                            <a onClick={() => deleteFromCart(item.productId)} className="text-muted">
                               <i className="fi-rs-trash"></i>
                             </a>
                           </td>
@@ -166,11 +120,7 @@ const Cart = ({
                       <tr>
                         <td colSpan="6" className="text-end">
                           {cartItems.length > 0 && (
-                            <a
-                              onClick={clearCart}
-                              className="text-muted"
-                              href="/shop-cart"
-                            >
+                            <a onClick={clearCart} className="text-muted" href="/shop-cart">
                               <i className="fi-rs-cross-small"></i>
                               Clear Cart
                             </a>
@@ -199,30 +149,22 @@ const Cart = ({
                         <table className="table">
                           <tbody>
                             <tr>
-                              <td className="cart_total_label">
-                                Cart Subtotal
-                              </td>
+                              <td className="cart_total_label">Cart Subtotal</td>
                               <td className="cart_total_amount">
-                                <span className="font-lg fw-900 text-brand">
-                                  $ {price()}
-                                </span>
+                                <span className="font-lg fw-900 text-brand">$ {price()}</span>
                               </td>
                             </tr>
                             <tr>
                               <td className="cart_total_label">Shipping</td>
                               <td className="cart_total_amount">
-                                <span className="font-lg fw-900 text-brand">
-                                  $10
-                                </span>
+                                <span className="font-lg fw-900 text-brand">$10</span>
                               </td>
                             </tr>
                             <tr>
                               <td className="cart_total_label">Total</td>
                               <td className="cart_total_amount">
                                 <strong>
-                                  <span className="font-xl fw-900 text-brand">
-                                    ${calTotal()}
-                                  </span>
+                                  <span className="font-xl fw-900 text-brand">${calTotal()}</span>
                                 </strong>
                               </td>
                             </tr>

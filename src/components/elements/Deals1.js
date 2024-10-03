@@ -11,10 +11,7 @@ const Deals1 = ({ product, addToCart }) => {
   };
   return (
     <>
-      <div
-        className="product-cart-wrap style-2 wow animate__animated animate__fadeInUp"
-        data-wow-delay="0"
-      >
+      <div className="product-cart-wrap style-2 wow animate__animated animate__fadeInUp" data-wow-delay="0">
         <div className="product-img-action-wrap">
           <div className="product-img">
             <Link to="/products">
@@ -43,9 +40,7 @@ const Deals1 = ({ product, addToCart }) => {
             <div className="product-card-bottom">
               <div className="product-price">
                 <span>${product.price}</span>
-                <span className="old-price">
-                  {product.oldPrice && `$ ${product.oldPrice}`}
-                </span>
+                <span className="old-price">{product.oldPrice && `$ ${product.oldPrice}`}</span>
               </div>
               <div className="add-cart">
                 <a className="add" onClick={(e) => handleCart(product)}>

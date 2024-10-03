@@ -21,10 +21,10 @@ export default function AddAddress() {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post(
-        `${BACKEND_URL}/Addresses/${userInfo.id}`,
-        addresses
-      );
+      // const response = await axios.post(
+      //   `${BACKEND_URL}/Addresses/${userInfo.id}`,
+      //   addresses
+      // );
       setSuccess("Address Submitted Successfully");
       navigate("/page-account");
     } catch (e) {
@@ -44,9 +44,7 @@ export default function AddAddress() {
                     <div className="login_wrap widget-taber-content background-white">
                       <div className="padding_eight_all bg-white">
                         <form onSubmit={(e) => e.preventDefault()}>
-                          <label style={{ marginBottom: 10 }}>
-                            Please Enter your address Info:
-                          </label>
+                          <label style={{ marginBottom: 10 }}>Please Enter your address Info:</label>
                           <div>
                             <div className="form-group">
                               <input
@@ -109,17 +107,12 @@ export default function AddAddress() {
                             </div>
                           </div>
                           <div className="form-group">
-                            <button
-                              className="btn submit"
-                              onClick={handleSubmit}
-                            >
+                            <button className="btn submit" onClick={handleSubmit}>
                               Add Address
                             </button>
                           </div>
                           {error && <p style={{ color: "red" }}>{error}</p>}
-                          {success && (
-                            <p style={{ color: "green" }}>{success}</p>
-                          )}
+                          {success && <p style={{ color: "green" }}>{success}</p>}
                         </form>
                       </div>
                     </div>

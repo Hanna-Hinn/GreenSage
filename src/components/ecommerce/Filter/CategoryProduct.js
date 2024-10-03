@@ -1,10 +1,10 @@
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { updateProductCategory } from "../../../redux/action/productFiltersAction";
 
 const CategoryProduct = ({ updateProductCategory }) => {
-  const location = useLocation();
-  const path = `${location.pathname}${location.search}`;
+  // const location = useLocation()
+  // const path = `${location.pathname}${location.search}`;
   const navigate = useNavigate();
 
   const selectCategory = (e, category) => {
@@ -36,10 +36,7 @@ const CategoryProduct = ({ updateProductCategory }) => {
         </li>
         <li onClick={(e) => selectCategory(e, "Vegetables")}>
           <a>
-            <img
-              src="/assets/imgs/theme/icons/category-9.svg"
-              alt="vegetables"
-            />
+            <img src="/assets/imgs/theme/icons/category-9.svg" alt="vegetables" />
             Vegetables
           </a>
         </li>

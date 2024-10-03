@@ -20,7 +20,7 @@ export const fetchProduct = (url) => async (dispatch) => {
   }
 };
 
-export const searchProducts = (url, filters) => async (dispatch) => {
+export const searchProducts = (url) => async (dispatch) => {
   try {
     const response = await axios.get(url);
     const totalProducts = response.data.data.totalProducts;
@@ -80,7 +80,7 @@ export const fetchByCategory = async (url, filters) => {
   }
 };
 
-export const fetchFeatured = async (url, filters) => {
+export const fetchFeatured = async (url) => {
   try {
     const sendRequest = await axios.get(url);
     const data = sendRequest.data.data.productsWithDetails;
@@ -91,7 +91,7 @@ export const fetchFeatured = async (url, filters) => {
   }
 };
 
-export const fetchPopular = async (url, filters) => {
+export const fetchPopular = async (url) => {
   try {
     const sendRequest = await axios.get(url);
     const data = sendRequest.data.data.productsWithDetails;
@@ -102,7 +102,7 @@ export const fetchPopular = async (url, filters) => {
   }
 };
 
-export const fetchTopSelling = async (url, filters) => {
+export const fetchTopSelling = async (url) => {
   try {
     const sendRequest = await axios.get(url);
     const data = sendRequest.data.data.productsWithDetails;
@@ -113,7 +113,7 @@ export const fetchTopSelling = async (url, filters) => {
   }
 };
 
-export const fetchTopRated = async (url, filters) => {
+export const fetchTopRated = async (url) => {
   try {
     const sendRequest = await axios.get(url);
     const data = sendRequest.data.data.productsWithDetails;
@@ -124,7 +124,7 @@ export const fetchTopRated = async (url, filters) => {
   }
 };
 
-export const fetchNewAdded = async (url, filters) => {
+export const fetchNewAdded = async (url) => {
   try {
     const sendRequest = await axios.get(url);
     const data = sendRequest.data.data.productsWithDetails;

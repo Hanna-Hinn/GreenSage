@@ -2,7 +2,6 @@
 import * as Types from "../constants/actionTypes";
 
 export default (state = [], action) => {
-
   switch (action.type) {
     case Types.INIT_LOCALSTORAGE:
       return [...action.payload.cart];

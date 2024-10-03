@@ -12,7 +12,7 @@ const BestSellerSlider = () => {
 
   const fetchProducts = async () => {
     const allProducts = await fetchTopSelling(
-      `${BACKEND_URL}/products/v1/filter/v1/query?topSelling=true&pageNumber=1`
+      `${BACKEND_URL}/products/v1/filter/v1/query?topSelling=true&pageNumber=1`,
     );
 
     setBestSeller(allProducts);
@@ -25,11 +25,7 @@ const BestSellerSlider = () => {
           <article className="row align-items-center hover-up" key={i}>
             <figure className="col-md-4 mb-0">
               <Link to={`/products/${product["_id"]}`}>
-                <img
-                  className="default-img"
-                  src={product.imageUrl}
-                  alt={`${product.name}`}
-                />
+                <img className="default-img" src={product.imageUrl} alt={`${product.name}`} />
               </Link>
             </figure>
             <div className="col-md-8 mb-0">
@@ -44,10 +40,7 @@ const BestSellerSlider = () => {
                     <span
                       key={index}
                       style={{
-                        color:
-                          currentRating <= Math.round(product.averageRating)
-                            ? "#ffc107"
-                            : "#e4e5e9",
+                        color: currentRating <= Math.round(product.averageRating) ? "#ffc107" : "#e4e5e9",
                         fontSize: "1rem",
                         margin: "1px",
                       }}
@@ -56,10 +49,7 @@ const BestSellerSlider = () => {
                     </span>
                   );
                 })}
-                <span className="font-small ml-5 text-muted">
-                  {" "}
-                  ({Math.round(product.averageRating * 10) / 10})
-                </span>
+                <span className="font-small ml-5 text-muted"> ({Math.round(product.averageRating * 10) / 10})</span>
               </div>
               <div className="product-price">
                 <span>$ {product.price["$numberDecimal"]} </span>

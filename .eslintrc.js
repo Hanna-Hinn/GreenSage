@@ -25,7 +25,7 @@ module.exports = {
     "react/jsx-uses-react": "warn",
     "react/react-in-jsx-scope": "warn",
     "react/prop-types": "warn",
-    "prettier/prettier": ["error", { "endOfLine": "auto" }], // Ensures Prettier issues are treated as ESLint errors
+    "prettier/prettier": ["error", { endOfLine: "auto" }], // Ensures Prettier issues are treated as ESLint errors
   },
   settings: {
     react: {

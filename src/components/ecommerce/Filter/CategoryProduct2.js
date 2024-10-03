@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
+// eslint-disable jsx-a11y/anchor-is-valid
 import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { updateProductCategory } from "../../../redux/action/productFiltersAction";
@@ -22,10 +22,7 @@ const CategoryProduct2 = ({ updateProductCategory }) => {
         </li>
         <li onClick={(e) => selectCategory(e, "Vegetables")}>
           <a>
-            <img
-              src="/assets/imgs/theme/icons/category-9.svg"
-              alt="vegetables"
-            />
+            <img src="/assets/imgs/theme/icons/category-9.svg" alt="vegetables" />
             Vegetables
           </a>
         </li>

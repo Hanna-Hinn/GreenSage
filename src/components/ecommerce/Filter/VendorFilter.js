@@ -28,13 +28,7 @@ const VendorFilter = ({ updateProductFilters }) => {
     updateProductFilters(filters);
   }, [sizes, searchTerm]);
 
-  const handleCheckBox = (
-    event,
-    filters,
-    updatefilters,
-    selectFilter,
-    text
-  ) => {
+  const handleCheckBox = (event, filters, updatefilters, selectFilter, text) => {
     const value = event.target.value;
     const updateSizes = filters;
 
@@ -62,13 +56,7 @@ const VendorFilter = ({ updateProductFilters }) => {
           heading="Select Size"
           filters={sizes}
           handleCheckBox={(e) => {
-            handleCheckBox(
-              e,
-              sizes,
-              setSizeCheckbox,
-              setVendor,
-              selectedVendor
-            );
+            handleCheckBox(e, sizes, setSizeCheckbox, setVendor, selectedVendor);
           }}
         />
       </div>

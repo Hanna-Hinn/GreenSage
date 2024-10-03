@@ -1,10 +1,4 @@
-import {
-  REGISTER_SUCCESS,
-  LOGIN_SUCCESS,
-  LOGIN_REQUEST,
-  LOGIN_FAIL,
-  LOGOUT,
-} from "../constants/actionTypes";
+import { REGISTER_SUCCESS, LOGIN_SUCCESS, LOGIN_REQUEST, LOGIN_FAIL, LOGOUT } from "../constants/actionTypes";
 import storage from "../../util/localStorage";
 
 const initialState = {

@@ -31,12 +31,8 @@ const StorageWrapper = (props) => {
           });
         }
         try {
-          const { data: cartData } = await axios.get(
-            `${BACKEND_URL}/carts/${userInfo.id}`
-          );
-          const { data: wishListData } = await axios.get(
-            `${BACKEND_URL}/favorites/${userInfo.id}`
-          );
+          const { data: cartData } = await axios.get(`${BACKEND_URL}/carts/${userInfo.id}`);
+          const { data: wishListData } = await axios.get(`${BACKEND_URL}/favorites/${userInfo.id}`);
 
           props.saveStoredItems({
             cart: cartData.data.cartItems,

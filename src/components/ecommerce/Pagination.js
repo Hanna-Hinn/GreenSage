@@ -20,9 +20,7 @@ function Pagination({ prev, currentPage, next, pages, handleActive }) {
             <li
               onClick={() => handleActive(index + 1)}
               key={index}
-              className={
-                currentPage === index + 1 ? "page-item active" : "page-item"
-              }
+              className={currentPage === index + 1 ? "page-item active" : "page-item"}
             >
               <a className="page-link">{index + 1}</a>
             </li>

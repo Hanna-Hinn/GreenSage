@@ -7,15 +7,7 @@ import { addToWishlist } from "../../redux/action/wishlistAction";
 import ProductTab from "../elements/ProductTab";
 import RelatedSlider from "../sliders/Related";
 
-const ProductDetails = ({
-  userInfo,
-  product,
-  wishList,
-  cartItems,
-  addToCart,
-  addToWishlist,
-  relatedProducts,
-}) => {
+const ProductDetails = ({ userInfo, product, wishList, cartItems, addToCart, addToWishlist, relatedProducts }) => {
   const [quantity, setQuantity] = useState(1);
   const handleCart = (product) => {
     if (userInfo) {
@@ -72,11 +64,7 @@ const ProductDetails = ({
                             <span
                               key={index}
                               style={{
-                                color:
-                                  currentRating <=
-                                  Math.round(product.averageRating)
-                                    ? "#ffc107"
-                                    : "#e4e5e9",
+                                color: currentRating <= Math.round(product.averageRating) ? "#ffc107" : "#e4e5e9",
                                 fontSize: "1rem",
                                 margin: "1px",
                               }}
@@ -92,9 +80,7 @@ const ProductDetails = ({
                       </div>
                       <div className="clearfix product-price-cover">
                         <div className="product-price primary-color float-left">
-                          <span className="current-price  text-brand">
-                            ${product.price["$numberDecimal"]}
-                          </span>
+                          <span className="current-price  text-brand">${product.price["$numberDecimal"]}</span>
                         </div>
                       </div>
 
@@ -105,27 +91,17 @@ const ProductDetails = ({
                       <div className="bt-1 border-color-1 mt-30 mb-30"></div>
                       <div className="detail-extralink">
                         <div className="detail-qty border radius">
-                          <a
-                            onClick={(e) =>
-                              setQuantity(quantity > 1 ? quantity - 1 : 1)
-                            }
-                            className="qty-down"
-                          >
+                          <a onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)} className="qty-down">
                             <i className="fi-rs-angle-small-down"></i>
                           </a>
-                          <span className="qty-val">
-                            {inCart?.quantity || quantity}
-                          </span>
-                          <a
-                            onClick={() => setQuantity(quantity + 1)}
-                            className="qty-up"
-                          >
+                          <span className="qty-val">{inCart?.quantity || quantity}</span>
+                          <a onClick={() => setQuantity(quantity + 1)} className="qty-up">
                             <i className="fi-rs-angle-small-up"></i>
                           </a>
                         </div>
                         <div className="product-extra-link2">
                           <button
-                            onClick={(e) =>
+                            onClick={() =>
                               handleCart({
                                 ...product,
                                 quantity: quantity || 1,
@@ -138,7 +114,7 @@ const ProductDetails = ({
                           <a
                             aria-label="Add To Wishlist"
                             className="action-btn hover-up"
-                            onClick={(e) => handleWishlist(product)}
+                            onClick={() => handleWishlist(product)}
                           >
                             <i className="fi-rs-heart"></i>
                           </a>
@@ -147,9 +123,7 @@ const ProductDetails = ({
                       <ul className="product-meta font-xs color-grey mt-50">
                         <li>
                           Availability:
-                          <span className="in-stock text-success ml-5">
-                            {product.availableInStock} Items In Stock
-                          </span>
+                          <span className="in-stock text-success ml-5">{product.availableInStock} Items In Stock</span>
                         </li>
                       </ul>
                     </div>
@@ -166,9 +140,7 @@ const ProductDetails = ({
                   />
                   <div className="row mt-60">
                     <div className="col-12">
-                      <h3 className="section-title style-1 mb-30">
-                        Related products
-                      </h3>
+                      <h3 className="section-title style-1 mb-30">Related products</h3>
                     </div>
                     <div className="col-12">
                       <div className="row related-products position-relative">

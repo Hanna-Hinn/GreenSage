@@ -45,26 +45,17 @@ function FeatchTab() {
         <h3>Popular Products</h3>
         <ul className="nav nav-tabs links" id="myTab" role="tablist">
           <li className="nav-item" role="presentation">
-            <button
-              className={active === "1" ? "nav-link active" : "nav-link"}
-              onClick={featuredProduct}
-            >
+            <button className={active === "1" ? "nav-link active" : "nav-link"} onClick={featuredProduct}>
               Featured
             </button>
           </li>
           <li className="nav-item" role="presentation">
-            <button
-              className={active === "2" ? "nav-link active" : "nav-link"}
-              onClick={trendingProduct}
-            >
+            <button className={active === "2" ? "nav-link active" : "nav-link"} onClick={trendingProduct}>
               Popular
             </button>
           </li>
           <li className="nav-item" role="presentation">
-            <button
-              className={active === "3" ? "nav-link active" : "nav-link"}
-              onClick={newArrivalProduct}
-            >
+            <button className={active === "3" ? "nav-link active" : "nav-link"} onClick={newArrivalProduct}>
               New added
             </button>
           </li>
@@ -72,30 +63,18 @@ function FeatchTab() {
       </div>
 
       <div className="tab-content wow fadeIn animated">
-        <div
-          className={
-            active === "1" ? "tab-pane fade show active" : "tab-pane fade"
-          }
-        >
+        <div className={active === "1" ? "tab-pane fade show active" : "tab-pane fade"}>
           <div className="product-grid-4 row">
             <FeaturedTab products={featured} />
           </div>
         </div>
 
-        <div
-          className={
-            active === "2" ? "tab-pane fade show active" : "tab-pane fade"
-          }
-        >
+        <div className={active === "2" ? "tab-pane fade show active" : "tab-pane fade"}>
           <div className="product-grid-4 row">
             <TrendingTab products={trending} />
           </div>
         </div>
-        <div
-          className={
-            active === "3" ? "tab-pane fade show active" : "tab-pane fade"
-          }
-        >
+        <div className={active === "3" ? "tab-pane fade show active" : "tab-pane fade"}>
           <div className="product-grid-4 row">
             <NewArrivalTab products={newArrival} />
           </div>

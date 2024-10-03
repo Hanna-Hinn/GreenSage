@@ -7,7 +7,7 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-  let index = null;
+  // let index = null;
 
   switch (action.type) {
     case Types.INIT_LOCALSTORAGE:

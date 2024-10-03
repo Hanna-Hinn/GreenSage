@@ -14,9 +14,7 @@ function FetchTabSlider() {
   const [newArrival, setNewArrival] = useState([]);
 
   const featuredProduct = async () => {
-    const request = await axios.get(
-      `${BACKEND_URL}/products/v1/filter/v1/query?featured=true&pageNumber=1`
-    );
+    const request = await axios.get(`${BACKEND_URL}/products/v1/filter/v1/query?featured=true&pageNumber=1`);
     const allProducts = await request.data.data.productsWithDetails;
 
     setFeatured(allProducts);
@@ -24,17 +22,13 @@ function FetchTabSlider() {
   };
 
   const trendingProduct = async () => {
-    const request = await axios.get(
-      `${BACKEND_URL}/products/v1/filter/v1/query?popular=true&pageNumber=1`
-    );
+    const request = await axios.get(`${BACKEND_URL}/products/v1/filter/v1/query?popular=true&pageNumber=1`);
     const products = await request.data.data.productsWithDetails;
     setTrending(products);
     setActive("2");
   };
   const newArrivalProduct = async () => {
-    const request = await axios.get(
-      `${BACKEND_URL}/products/v1/filter/v1/query?newAdded=true&pageNumber=1`
-    );
+    const request = await axios.get(`${BACKEND_URL}/products/v1/filter/v1/query?newAdded=true&pageNumber=1`);
     const products = await request.data.data.productsWithDetails;
 
     setNewArrival(products);
@@ -52,26 +46,17 @@ function FetchTabSlider() {
 
         <ul className="nav nav-tabs links" id="myTab-1" role="tablist">
           <li className="nav-item" role="presentation">
-            <button
-              className={active === "1" ? "nav-link active" : "nav-link"}
-              onClick={featuredProduct}
-            >
+            <button className={active === "1" ? "nav-link active" : "nav-link"} onClick={featuredProduct}>
               Featured
             </button>
           </li>
           <li className="nav-item" role="presentation">
-            <button
-              className={active === "2" ? "nav-link active" : "nav-link"}
-              onClick={trendingProduct}
-            >
+            <button className={active === "2" ? "nav-link active" : "nav-link"} onClick={trendingProduct}>
               Popular
             </button>
           </li>
           <li className="nav-item" role="presentation">
-            <button
-              className={active === "3" ? "nav-link active" : "nav-link"}
-              onClick={newArrivalProduct}
-            >
+            <button className={active === "3" ? "nav-link active" : "nav-link"} onClick={newArrivalProduct}>
               New added
             </button>
           </li>
@@ -92,30 +77,18 @@ function FetchTabSlider() {
         </div>
         <div className="col-lg-9 col-md-12">
           <div className="tab-content wow fadeIn animated" id="myTabContent">
-            <div
-              className={
-                active === "1" ? "tab-pane fade show active" : "tab-pane fade"
-              }
-            >
+            <div className={active === "1" ? "tab-pane fade show active" : "tab-pane fade"}>
               <div className="carausel-4-columns-cover card-product-small arrow-center position-relative">
                 <FeaturedSlider products={featured} />
               </div>
             </div>
 
-            <div
-              className={
-                active === "2" ? "tab-pane fade show active" : "tab-pane fade"
-              }
-            >
+            <div className={active === "2" ? "tab-pane fade show active" : "tab-pane fade"}>
               <div className="carausel-4-columns-cover card-product-small arrow-center position-relative">
                 <TrendingSlider products={trending} />
               </div>
             </div>
-            <div
-              className={
-                active === "3" ? "tab-pane fade show active" : "tab-pane fade"
-              }
-            >
+            <div className={active === "3" ? "tab-pane fade show active" : "tab-pane fade"}>
               <div className="carausel-4-columns-cover card-product-small arrow-center position-relative">
                 <NewArrivalTabSlider products={newArrival} />
               </div>

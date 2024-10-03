@@ -25,44 +25,25 @@ export default function ForgotPassword() {
                 <div class="login_wrap widget-taber-content background-white">
                   <div class="padding_eight_all bg-white">
                     <div class="heading_s1">
-                      <img
-                        class="border-radius-15"
-                        src="assets/imgs/page/forgot_password.svg"
-                        alt=""
-                      />
+                      <img class="border-radius-15" src="assets/imgs/page/forgot_password.svg" alt="" />
                       <h2 class="mb-15 mt-15">Forgot your password?</h2>
                       <p class="mb-30">
-                        Not to worry, we got you! Let’s get you a new password.
-                        Please enter your email address or your Username.
+                        Not to worry, we got you! Let’s get you a new password. Please enter your email address or your
+                        Username.
                       </p>
                     </div>
                     <form method="post">
                       <div class="form-group">
-                        <input
-                          type="text"
-                          required=""
-                          name="email"
-                          placeholder="Username or Email *"
-                        />
+                        <input type="text" required="" name="email" placeholder="Username or Email *" />
                       </div>
 
                       <div class="login_footer form-group">
                         <div class="chek-form">
-                          <input
-                            type="text"
-                            required=""
-                            name="email"
-                            placeholder="Security code *"
-                          />
+                          <input type="text" required="" name="email" placeholder="Security code *" />
                         </div>
                         <span className="security-code">
                           {securityCode.split("").map((digit, index) => (
-                            <b
-                              key={index}
-                              className={`text-${
-                                ["new", "hot", "sale", "best"][index]
-                              }`}
-                            >
+                            <b key={index} className={`text-${["new", "hot", "sale", "best"][index]}`}>
                               {digit}
                             </b>
                           ))}
@@ -78,21 +59,14 @@ export default function ForgotPassword() {
                               id="exampleCheckbox1"
                               value=""
                             />
-                            <label
-                              class="form-check-label"
-                              for="exampleCheckbox1"
-                            >
+                            <label class="form-check-label" for="exampleCheckbox1">
                               <span>I agree to terms & Policy.</span>
                             </label>
                           </div>
                         </div>
                       </div>
                       <div class="form-group">
-                        <button
-                          type="submit"
-                          class="btn btn-heading btn-block hover-up"
-                          name="login"
-                        >
+                        <button type="submit" class="btn btn-heading btn-block hover-up" name="login">
                           Send Request
                         </button>
                       </div>

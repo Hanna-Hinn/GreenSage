@@ -6,13 +6,7 @@ import { toast } from "react-toastify";
 import { addToCart } from "../../redux/action/cart";
 import { addToWishlist } from "../../redux/action/wishlistAction";
 
-const SingleProduct = ({
-  userInfo,
-  wishList,
-  product,
-  addToCart,
-  addToWishlist,
-}) => {
+const SingleProduct = ({ userInfo, wishList, product, addToCart, addToWishlist }) => {
   const [averageRating, setAverageRating] = useState(0);
 
   useEffect(() => {
@@ -52,24 +46,16 @@ const SingleProduct = ({
     <>
       <div className="product-cart-wrap mb-30">
         <div className="product-img-action-wrap">
-          <div
-            className="product-img product-img-zoom"
-            style={{ height: "250px" }}
-          >
+          <div className="product-img product-img-zoom" style={{ height: "250px" }}>
             <Link to={`/products/${product["_id"]}`}>
-              <img
-                className="default-img"
-                src={product.imageUrl}
-                height="250px"
-                alt={`${product.name}`}
-              />
+              <img className="default-img" src={product.imageUrl} height="250px" alt={`${product.name}`} />
             </Link>
           </div>
           <div className="product-action-1">
             <a
               aria-label="Add To Wishlist"
               className="action-btn hover-up"
-              onClick={(e) => {
+              onClick={() => {
                 handleWishlist(product);
               }}
             >
@@ -82,9 +68,7 @@ const SingleProduct = ({
             <Link to="/products">{product.categoryName}</Link>
           </div>
           <h2>
-            <Link to={`/products/${product["_id"]}`}>
-              {product.title ? product.title : product.name}
-            </Link>
+            <Link to={`/products/${product["_id"]}`}>{product.title ? product.title : product.name}</Link>
           </h2>
 
           <div className="product-rate-cover">
@@ -100,7 +84,7 @@ const SingleProduct = ({
                       Math.round(
                         typeof product.averageRating === "object"
                           ? product.averageRating["$numberDecimal"]
-                          : product.averageRating
+                          : product.averageRating,
                       )
                         ? "#ffc107"
                         : "#e4e5e9",
@@ -118,7 +102,7 @@ const SingleProduct = ({
               {Math.round(
                 (typeof product.averageRating === "object"
                   ? product.averageRating["$numberDecimal"]
-                  : product.averageRating) * 10
+                  : product.averageRating) * 10,
               ) / 10}
               )
             </span>
@@ -133,7 +117,7 @@ const SingleProduct = ({
               <span>$ {product.price["$numberDecimal"]} </span>
             </div>
             <div className="add-cart">
-              <a className="add" onClick={(e) => handleCart(product)}>
+              <a className="add" onClick={() => handleCart(product)}>
                 <i className="fi-rs-shopping-cart mr-5"></i> Add
               </a>
             </div>

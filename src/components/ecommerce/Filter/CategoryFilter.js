@@ -26,11 +26,7 @@ const CategoryFilter = ({ updateProductCategory }) => {
       <ul className="categor-list">
         {categories.map((item, i) => (
           <li onClick={() => selectCategory(i, item.title)}>
-            <a
-              className={
-                active === i ? "cat-item text-danger" : "cat-item text-muted"
-              }
-            >
+            <a className={active === i ? "cat-item text-danger" : "cat-item text-muted"}>
               {i === 0 ? "All" : `${item.title}`}
             </a>
           </li>

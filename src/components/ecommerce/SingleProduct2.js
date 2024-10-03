@@ -6,14 +6,7 @@ import { toast } from "react-toastify";
 import { addToCart } from "../../redux/action/cart";
 import { addToWishlist } from "../../redux/action/wishlistAction";
 
-const SingleProduct2 = ({
-  userInfo,
-  wishList,
-  product,
-  addToCart,
-  addToWishlist,
-  openQuickView,
-}) => {
+const SingleProduct2 = ({ userInfo, wishList, product, addToCart, addToWishlist }) => {
   // const soldItems = Math.floor(
   //   Math.random() * (product.availableInStock - 5 - 5) + 5
   // );
@@ -49,20 +42,11 @@ const SingleProduct2 = ({
         <div className="product-img-action-wrap">
           <div className="product-img product-img-zoom">
             <Link to={`/products/${product["_id"]}`}>
-              <img
-                className="default-img"
-                src={product.imageUrl}
-                height="250px"
-                alt={`${product.name}`}
-              />
+              <img className="default-img" src={product.imageUrl} height="250px" alt={`${product.name}`} />
             </Link>
           </div>
           <div className="product-action-1">
-            <a
-              aria-label="Add To Wishlist"
-              className="action-btn hover-up"
-              onClick={(e) => handleWishlist(product)}
-            >
+            <a aria-label="Add To Wishlist" className="action-btn hover-up" onClick={() => handleWishlist(product)}>
               <i className="fi-rs-heart"></i>
             </a>
           </div>
@@ -72,9 +56,7 @@ const SingleProduct2 = ({
             <Link to="/products">{product.categoryName}</Link>
           </div>
           <h2>
-            <Link to={`/products/${product["_id"]}`}>
-              {product.title ? product.title : product.name}
-            </Link>
+            <Link to={`/products/${product["_id"]}`}>{product.title ? product.title : product.name}</Link>
           </h2>
 
           <div className="product-rate-cover">
@@ -85,10 +67,7 @@ const SingleProduct2 = ({
                 <span
                   key={index}
                   style={{
-                    color:
-                      currentRating <= Math.round(product.averageRating)
-                        ? "#ffc107"
-                        : "#e4e5e9",
+                    color: currentRating <= Math.round(product.averageRating) ? "#ffc107" : "#e4e5e9",
                     fontSize: "1rem",
                     margin: "1px",
                   }}
@@ -97,10 +76,7 @@ const SingleProduct2 = ({
                 </span>
               );
             })}
-            <span className="font-small ml-5 text-muted">
-              {" "}
-              ({product.averageRating})
-            </span>
+            <span className="font-small ml-5 text-muted"> ({product.averageRating})</span>
           </div>
 
           <div className="product-price mt-10">
@@ -108,19 +84,12 @@ const SingleProduct2 = ({
           </div>
           <div className="sold mt-15 mb-15">
             <div className="progress mb-5">
-              <div
-                className="progress-bar"
-                role="progressbar"
-                style={{ width: "50%" }}
-              ></div>
+              <div className="progress-bar" role="progressbar" style={{ width: "50%" }}></div>
             </div>
             <span className="font-xs text-heading">{`Sold: ${soldItems}/${product.availableInStock}`}</span>
           </div>
 
-          <a
-            className="btn w-100 hover-up"
-            onClick={(e) => handleCart(product)}
-          >
+          <a className="btn w-100 hover-up" onClick={() => handleCart(product)}>
             <i className="fi-rs-shopping-cart mr-5"></i> Add To Cart
           </a>
         </div>

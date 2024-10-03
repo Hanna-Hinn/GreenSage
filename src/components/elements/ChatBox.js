@@ -40,10 +40,7 @@ export default function ChatBox() {
       });
     } else {
       socket.on("private message", (message) => {
-        if (
-          (active && active.firstName === message.from) ||
-          message.from === sender
-        ) {
+        if ((active && active.firstName === message.from) || message.from === sender) {
           setFormData({
             ...formData,
             messages: [...formData.messages, message],
@@ -107,16 +104,13 @@ export default function ChatBox() {
               return (
                 <li
                   key={index}
-                  className={`conv-element ${
-                    active && active.id === item.id ? "selected" : ""
-                  }`}
+                  className={`conv-element ${active && active.id === item.id ? "selected" : ""}`}
                   onClick={() => handleRoomSelect(item)}
                 >
                   <div className="status">
-                    {unReadMessages &&
-                      unReadMessages.from === item.firstName && (
-                        <i class="status__indicator--unread-message"></i>
-                      )}
+                    {unReadMessages && unReadMessages.from === item.firstName && (
+                      <i class="status__indicator--unread-message"></i>
+                    )}
                     <div className="meta">
                       <p>{`${item.name}`}</p>
                     </div>
@@ -141,20 +135,8 @@ export default function ChatBox() {
           {formData.messages.map((message, index) => {
             return (
               <React.Fragment key={index}>
-                <div
-                  className={
-                    sender && message.from === sender
-                      ? "message--send"
-                      : "message"
-                  }
-                >
-                  <div
-                    className={
-                      sender && message.from === sender
-                        ? "message__bubble--send"
-                        : "message__bubble"
-                    }
-                  >
+                <div className={sender && message.from === sender ? "message--send" : "message"}>
+                  <div className={sender && message.from === sender ? "message__bubble--send" : "message__bubble"}>
                     {message.message}
                   </div>
                   <span className="message__avatar">{message.from}</span>

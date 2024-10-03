@@ -56,8 +56,7 @@ function Login() {
   };
 
   function validateEmail(email) {
-    const emailRegex =
-      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     return emailRegex.test(String(email).toLowerCase());
   }
 
@@ -80,11 +79,7 @@ function Login() {
               <div className="col-xl-8 col-lg-10 col-md-12 m-auto">
                 <div className="row">
                   <div className="col-lg-6 pr-30 d-none d-lg-block">
-                    <img
-                      className="border-radius-15"
-                      src="assets/imgs/page/login-1.png"
-                      alt="login"
-                    />
+                    <img className="border-radius-15" src="assets/imgs/page/login-1.png" alt="login" />
                   </div>
                   <div className="col-lg-6 col-md-8">
                     <div className="login_wrap widget-taber-content background-white">
@@ -92,8 +87,7 @@ function Login() {
                         <div className="heading_s1">
                           <h1 className="mb-5">Login</h1>
                           <p className="mb-30">
-                            Don't have an account?{" "}
-                            <Link to="/page-register">Create here</Link>
+                            Don't have an account? <Link to="/page-register">Create here</Link>
                           </p>
                         </div>
                         <form onSubmit={(e) => e.preventDefault()}>
@@ -109,7 +103,7 @@ function Login() {
                                   email: e.target.value,
                                 });
                                 setValidError((curr) => {
-                                  const { email, ...rest } = curr;
+                                  const { ...rest } = curr;
                                   return rest;
                                 });
                               }}
@@ -117,9 +111,7 @@ function Login() {
                             {validError.email && (
                               <>
                                 <br />
-                                <span style={{ color: "red" }}>
-                                  {validError.email}
-                                </span>
+                                <span style={{ color: "red" }}>{validError.email}</span>
                               </>
                             )}
                           </div>
@@ -135,7 +127,7 @@ function Login() {
                                   password: e.target.value,
                                 });
                                 setValidError((curr) => {
-                                  const { password, ...rest } = curr;
+                                  const { ...rest } = curr;
                                   return rest;
                                 });
                               }}
@@ -144,9 +136,7 @@ function Login() {
                           {validError.password && (
                             <>
                               <br />
-                              <span style={{ color: "red" }}>
-                                {validError.password}
-                              </span>
+                              <span style={{ color: "red" }}>{validError.password}</span>
                             </>
                           )}
                           <div className="login_footer form-group">
@@ -162,7 +152,7 @@ function Login() {
                                     securityCode: e.target.value,
                                   });
                                   setValidError((curr) => {
-                                    const { securityCode, ...rest } = curr;
+                                    const { ...rest } = curr;
                                     return rest;
                                   });
                                 }}
@@ -171,19 +161,12 @@ function Login() {
                             {validError.securityCode && (
                               <>
                                 <br />
-                                <span style={{ color: "red" }}>
-                                  {validError.securityCode}
-                                </span>
+                                <span style={{ color: "red" }}>{validError.securityCode}</span>
                               </>
                             )}
                             <span className="security-code">
                               {securityCode.split("").map((digit, index) => (
-                                <b
-                                  key={index}
-                                  className={`text-${
-                                    ["new", "hot", "sale", "best"][index]
-                                  }`}
-                                >
+                                <b key={index} className={`text-${["new", "hot", "sale", "best"][index]}`}>
                                   {digit}
                                 </b>
                               ))}
